@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\PageBundle\SonataPageBundle(),
             new Application\Sonata\PageBundle\ApplicationSonataPageBundle(),
+            new Papyrillio\HgvBundle\PapyrillioHgvBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,0 +1,3 @@
+PapyrillioHgvBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: PapyrillioHgvBundle:Default:index }

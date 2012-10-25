@@ -1,0 +1,7 @@
+parameters:
+#    papyrillio_hgv.example.class: Papyrillio\HgvBundle\Example
+
+services:
+#    papyrillio_hgv.example:
+#        class: %papyrillio_hgv.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
