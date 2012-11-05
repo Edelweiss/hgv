@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+
+{% block body %}
+  <h3>LIST</h3>
+  <p> Datensätze {{ from }}-{{ to }} von {{ result.foundSetCount }} Suchtreffern (Gesamt: {{ result.tableRecordCount }} )</p>
+  <p style="font-size: 6pt; color: grey;">
+    {% for key, criterion in search['criteria'] %}
+      <b>{{ key }}</b> {{ operatorSymbolList[criterion['operator']] }} <i>{{ criterion['value'] }}</i>
+      {% if not loop.last %}
+        <b>{{ operatorSymbolList[search['operator']] }}</b>
+      {% endif %}
+    {% endfor %}
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        {% for key, field in fieldList %}
+          <th class="{{ key }}">{{ field }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for index, record in result.records %}
+        <tr>
+          <th title="{{ record.recordId }}"><a href="#">{{ from + index }}</a></th>
+          {% for key, field in fieldList %}
+            <td class="{{ key }}">{{ record.field(key) }}</td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script type="text/javascript">
+
+
+  </script>
+{% endblock %}

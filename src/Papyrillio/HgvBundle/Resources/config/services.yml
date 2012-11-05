@@ -1,7 +1,6 @@
 parameters:
-#    papyrillio_hgv.example.class: Papyrillio\HgvBundle\Example
+    papyrillio_hgv.file_maker_hgv.class: Papyrillio\HgvBundle\Service\FileMakerHgv
 
 services:
-#    papyrillio_hgv.example:
-#        class: %papyrillio_hgv.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    papyrillio_hgv.file_maker_hgv:
+        class: %papyrillio_hgv.file_maker_hgv.class% 

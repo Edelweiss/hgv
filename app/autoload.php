@@ -14,13 +14,6 @@ $loader->registerNamespaces(array(
     'Monolog'          => __DIR__.'/../vendor/monolog/src',
     'Assetic'          => __DIR__.'/../vendor/assetic/src',
     'Metadata'         => __DIR__.'/../vendor/metadata/src',
-    'Sonata'           => array(__DIR__.'/../vendor/bundles',  __DIR__.'/../vendor/sonata-doctrine-extensions/src'),
-    'PhpAmqpLib'       => __DIR__ . '/../vendor/php-amqplib',
-    'Knp\Bundle'       => __DIR__.'/../vendor/bundles',
-    'Knp\Menu'         => __DIR__.'/../vendor/KnpMenu/src',
-    'Exporter'         => __DIR__.'/../vendor/exporter/lib',
-    'SimpleThings'     => array(__DIR__.'/../vendor/bundles', __DIR__.'/../vendor/bundles/SimpleThings/EntityAudit/src'),
-    'Application'      => __DIR__ . '/../app/'
 ));
 
 $loader->registerPrefixes(array(

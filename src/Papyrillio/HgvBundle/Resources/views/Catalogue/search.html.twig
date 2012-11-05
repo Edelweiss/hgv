@@ -1,0 +1,62 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+
+{% block body %}
+  <form id="catalogueSearch" action="{{ path('PapyrillioHgvBundle_CatalogueList') }}" method="get" }} autocomplete="off">
+    <p>Datenbank: <b>hauptregister_</b></p>
+    <p>Wählen Sie den Suchtyp, geben Sie die Suchkriterien ein und klicken Sie dann auf <b>Suche starten.</b> <a href="DHelp.htm#Search Tips" target="FileMaker Pro Web Companion Help">Suchtips</a></p>
+
+    <input name="search[operator]" value="and" type="radio" checked="checked" />Entsprechung mit allen Wörtern auf der Seite (UND)
+
+    <input name="search[operator]" value="or" type="radio" />Entsprechung mit beliebigem Wort auf der Seite (ODER)
+    <p><b>Wichtig:</b> Verwenden Sie in Feld "Publikation" <b>nie</b> "P.Oxy." usw., sondern <b>nur</b> "Oxy" usw.<br>(es sei denn zur Unterscheidung von "P." und "O."). Weitere Hinweise finden Sie außerdem in<br> diesen <b>Suchhilfen</b>: <a href="http://www.rzuser.uni-heidelberg.de/~gv0/Suchhilfe.html" target="Hilfe">Deutsch</a> bzw. <a href="http://www.rzuser.uni-heidelberg.de/~gv0/Searchhelp.html" target="Hilfe">English</a>.</p>
+    <table class="search">
+      <thead>
+        <tr>
+          <th class="field">Feld</th>
+          <th class="type">Typ</th>
+          <th class="criteria">Kriterien</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key, field in fieldList%}
+        <tr class="{{ key }}">
+          <th>{{ field }}</th>
+          <td class="{{ key }}">
+            <select name="search[criteria][{{key}}][operator]">
+              <option value="cn">Enthält</option>
+              <option value="bw">Beginnt mit</option>
+              <option value="ew">Endet mit</option>
+              <option value="eq">Ist gleich</option>
+              <option value="neq">Ist ungleich</option>
+              <option value="lt">Kleiner als</option>
+              <option value="lte">Kleiner als oder gleich</option>
+              <option value="gt">Größer als</option>
+              <option value="gte">Größer als oder gleich</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" name="search[criteria][{{key}}][value]" />
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <input type="hidden" name="search[skip]" value="0" />
+    <input type="hidden" name="search[max]" value="100" />
+    <input type="submit" value="Suche starten" />
+    <input type="reset" value="Felder löschen" />
+  </form>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script type="text/javascript">
+
+
+  </script>
+{% endblock %}

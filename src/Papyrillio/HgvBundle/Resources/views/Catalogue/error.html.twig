@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+
+{% block body %}
+  <h3 style="color: red;">Error</h3>
+  <p style="color: red; width: 100%; text-align: center"><span style="font-size:3em;">☠</span> {{ message }}</p>
+
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script type="text/javascript">
+
+
+  </script>
+{% endblock %}
