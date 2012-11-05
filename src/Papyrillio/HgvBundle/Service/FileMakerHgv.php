@@ -80,8 +80,8 @@ var_dump($commandParams);
 }
 
 class FileMakerHgv extends FileMaker{
-  //const LAYOUT = 'Layout #4';
-  const LAYOUT = 'Suche';
+  const LAYOUT = 'Layout #4';
+
   public function __construct($database = NULL, $hostspec = NULL, $username = NULL, $password = NULL){
     parent::__construct('HGV_CWP', 'http://127.0.0.1', 'Fox', '2357Xof_');
     
