@@ -47,8 +47,9 @@ overflow: hidden;
 }
 
 #content {
+padding-left: 1em;
 float: left;
-
+width: 80%;
 }
 
 #sidebar {
@@ -274,4 +275,55 @@ table.search tr.ChronMaximum input,
 table.search tr.ChronGlobal input,
 table.search tr.Uebersetzungen input{
   width: 30em;
+}
+
+/* CATALOGUE SHOW */
+
+table.catalogueShow th,
+table.catalogueShow td {
+  padding: 0 0 0.4em 0;
+}
+
+table.catalogueShow th {
+  font-weight: bold;
+  padding-right: 1em;
+  text-align: right;
+}
+
+table.catalogueShow tr.daht,
+table.catalogueShow tr.ldab,
+table.catalogueShow tr.dfg{
+  font-size: 75%;
+  font-family: Verdana;
+}
+
+table.catalogueShow tr.daht a,
+table.catalogueShow tr.ldab a,
+table.catalogueShow tr.dfg a{
+  font-weight: bold;
+}
+
+table.catalogueShow tr.translation ul{
+  list-style-type: none;
+  margin: 0;
+}
+
+table.catalogueShow tr.translation ul li{
+  margin-left: 1em;
+}
+
+/* CATALOGUE LIST */
+
+table.catalogueList th,
+table.catalogueList td{
+  border: solid 1px #c0c0c0;
+}
+
+table.catalogueList th{
+  text-align: center;
+  font-weight: bold;
+}
+
+table.catalogueList th{
+  text-align: center;
 }

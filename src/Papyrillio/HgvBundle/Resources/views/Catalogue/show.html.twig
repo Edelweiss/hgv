@@ -1,19 +1,176 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}
+  {{ parent() }} - {{ result.firstRecord.field('OriginaltitelHTML')|decode|raw }}
+{% endblock %}
+
 {% block stylesheets %}
   {{ parent() }}
 {% endblock %}
 
 {% block body %}
-<h3>SHOW</h3>
+  <h3>Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens</h3>
+
+  <p>Datensatz {{ show ? show['skip'] + 1 : 1 }} von {{ result.foundSetCount }} Suchtreffern (Gesamt: {{ result.tableRecordCount }})</p>
+
+  {# Testfälle: 50307, 8886, 19648, 63705, 9088, 8981a #}  
+
+  <table class="catalogueShow">
+    <tbody>
+      {% if result.firstRecord.field('PublikationL') %}
+        <tr>
+          <th>Publikation</th>
+          <td>{{ result.firstRecord.field('PublikationL') }}</td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('Andere Publikation') %}
+        <tr>
+          <th>Andere Publikationen</th>
+          <td>{{ result.firstRecord.field('Andere Publikation') }}</td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('Datierung2') %}
+        <tr>
+          <th>Datierung</th>
+          <td>{{ result.firstRecord.field('Datierung2') }}</td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('Ort') %}
+        <tr>
+          <th>Ort</th>
+          <td>{{ result.firstRecord.field('Ort') }}</td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('OriginaltitelHTML') %}
+        <tr>
+          <th>Originaltitel</th>
+          <td>{{ result.firstRecord.field('OriginaltitelHTML')|decode|raw }}</td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('Material') %}
+        <tr>
+          <th>Material</th>
+          <td>{{ result.firstRecord.field('Material') }}</td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('Abbildung') or result.firstRecord.field('Link1FM') %}
+        <tr>
+          <th>Abbildung</th>
+          <td>
+            {% if result.firstRecord.field('Abbildung') %}
+              {{ result.firstRecord.field('Abbildung') }}
+            {% endif %}
+            {% if result.firstRecord.field('Abbildung') or result.firstRecord.field('Link1FM') %}
+              <br />
+            {% endif %}
+            {% if result.firstRecord.field('Link1FM') %}
+              <a target="Neu" href="{{ result.firstRecord.field('Link1FM') }}">Weitere Informationen / Abbildung im Internet</a>
+            {% endif %}
+          </td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('BL') %}
+        <tr>
+          <th>BL-Einträge nach BL-Konkordanz</th>
+          <td>{{ result.firstRecord.field('BL') }}</td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('ddbSer') %}
+        <tr>
+          <th>Text der DDBDP</th>
+          <td>
+            <a target="Text" href="http://papyri.info/ddbdp/{{ result.firstRecord.field('ddbSer') }};{{ result.firstRecord.field('ddbVol') }};{{ result.firstRecord.field('ddbDoc') }}">papyri.info</a>
+          </td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('LDAB') == 'ja' %}
+        <tr class="ldab">
+          <th></th>
+          <td>
+            Trismegistos ermöglicht den Link zu Metadaten für diesen (semi)literarischen Text bei <a href="http://www.trismegistos.org/ldab/text.php?tm={{ result.firstRecord.field('TM_Nr.') }}" target="DAHT">LDAB</a>
+          </td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('Bemerkungen') %}
+        <tr>
+          <th>Bemerkungen</th>
+          <td>{{ result.firstRecord.field('Bemerkungen') }}</td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('DAHT') == 'ja' %}
+        <tr class="daht">
+          <th></th>
+          <td>
+            Trismegistos ermöglicht den Link zu Metadaten für diesen bilinguen Text bei <a href="http://www.trismegistos.org/DAHT/daht_text_detail.php?tm={{ result.firstRecord.field('TM_Nr.') }}" target="DAHT">DAHT</a>
+          </td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('Uebersetzungen') %}
+        <tr class="translation">
+          <th>Übersetzungen</th>
+          <td>
+            {% if translations %}
+              {% for language, translation in translations %}
+                <b>{{ language }}:</b>
+                <br />
+                <ul>
+                {% for bibliography in translation %}
+                  <li>{{ bibliography }}</li>
+                {% endfor %}
+                </ul>
+              {% endfor %}
+            {% else %}
+              {{ result.firstRecord.field('Uebersetzungen') }}
+            {% endif %}
+          </td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('DFG') %}
+        <tr class="dfg">
+          <th></th>
+          <td>
+            <br />
+            <a href="http://www.papy.uni-hd.de/trans/DFG/de/{{ result.firstRecord.field('TM_Nr.') }}{{ result.firstRecord.field('texLett') }}de.html" target="BGU">Deutsche Übersetzung (HGV-Erweiterungsprojekt, finanziert von der DFG)</a>
+            <br />
+            <a href="http://www.papy.uni-hd.de/trans/DFG/eng/{{ result.firstRecord.field('TM_Nr.') }}{{ result.firstRecord.field('texLett') }}eng.html" target="BGU">English translation (HGV Enhancement Project funded by the DFG)</a>
+            <br />
+            <br />
+          </td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('InhaltHTML') %}
+        <tr>
+          <th>Inhalt</th>
+          <td>{{ result.firstRecord.field('InhaltHTML')|decode|raw }}</td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('Erwähnte Daten') %}
+        <tr>
+          <th>Erwähnte Daten</th>
+          <td>{{ result.firstRecord.field('Erwähnte Daten') }}</td>
+        </tr>
+      {% endif %}
+      {% if result.firstRecord.field('TM_Nr.') %}
+        <tr>
+          <th>TM Nr.</th>
+          <td><a href="http://www.trismegistos.org/tm/detail.php?quick={{ result.firstRecord.field('TM_Nr.') }}" target="DAHT">{{ result.firstRecord.field('TM_Nr.') }}</a></td>
+        </tr>
+      {% endif %}            
+    </tbody>
+  </table>
+
+  {% if showPrev %}
+    <a href="{{ path('PapyrillioHgvBundle_CatalogueShow', {'search': search, 'sort': sort, 'show': showPrev}) }}">zurück</a>
+  {% endif %}
+
+  {% if showNext %}
+    <a href="{{ path('PapyrillioHgvBundle_CatalogueShow', {'search': search, 'sort': sort, 'show': showNext}) }}">weiter</a>
+  {% endif %}
 
 {% endblock %}
 
 {% block javascripts %}
   {{ parent() }}
-
   <script type="text/javascript">
-
-
   </script>
 {% endblock %}

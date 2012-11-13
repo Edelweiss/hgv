@@ -1,13 +1,16 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}
+  {{ parent() }} - Suche
+{% endblock %}
+
 {% block stylesheets %}
   {{ parent() }}
 {% endblock %}
 
 {% block body %}
   <form id="catalogueSearch" action="{{ path('PapyrillioHgvBundle_CatalogueList') }}" method="get" }} autocomplete="off">
-    <p>Datenbank: <b>hauptregister_</b></p>
-    <p>Wählen Sie den Suchtyp, geben Sie die Suchkriterien ein und klicken Sie dann auf <b>Suche starten.</b> <a href="DHelp.htm#Search Tips" target="FileMaker Pro Web Companion Help">Suchtips</a></p>
+    <p>Wählen Sie den Suchtyp, geben Sie die Suchkriterien ein, fügen Sie optional eine Sortierreihenfolge hinzu, legen Sie Anzahl der Suchtreffer pro Seite fest und klicken Sie dann auf <b>Suche starten.</b> <a href="http://147.142.225.241/Hauptregister/DHelp.htm#Search%20Tips" target="FileMaker Pro Web Companion Help">Suchtipps</a></p>
 
     <input name="search[operator]" value="and" type="radio" checked="checked" />Entsprechung mit allen Wörtern auf der Seite (UND)
 
@@ -22,9 +25,9 @@
         </tr>
       </thead>
       <tbody>
-        {% for key, field in fieldList%}
+        {% for key, caption in fieldList%}
         <tr class="{{ key }}">
-          <th>{{ field }}</th>
+          <th><label for="search_criteria_{{key}}_operator_value">{{ caption }}</label></th>
           <td class="{{ key }}">
             <select name="search[criteria][{{key}}][operator]">
               <option value="cn">Enthält</option>
@@ -39,14 +42,49 @@
             </select>
           </td>
           <td>
-            <input type="text" name="search[criteria][{{key}}][value]" />
+            <input type="text" name="search[criteria][{{key}}][value]" id="search_criteria_{{key}}_operator_value" />
           </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
+    
+    <h3>Sortieren</h3>
+    <p><b>Hinweis:</b> Wenn keine Sortierreihenfolge angegeben wurde, werden die Datensätze automatisch nach Datum (Jahr, Monat, Tag und Chron-Global) sortiert.</p>
+    
+    {% for i in 1..5 %}
+      <label for="sort_{{ i }}_key">{{ loop.index}}. Suchfeld</label>
+      <select name="sort[{{ i }}][key]" id="sort_{{ i }}_key">
+        <option value=""></option>
+        {% for key, caption in fieldList%}
+          <option value="{{ key }}">{{ caption }}</option>
+        {% endfor %}
+      </select>
+      <label for="sort_{{ i }}_direction">Suchrichtung</label>
+      <select name="sort[{{ i }}][direction]" id="sort_{{ i }}_direction">
+        <option value="ascend">aufsteigend</option>
+        <option value="descend">absteigend</option>
+      </select>
+      {% if not loop.last %}
+        <br />
+      {% endif %}
+    {% endfor %}
+
+    <h3>Blättern</h3>
+    <label>Anzahl Suchtreffer pro Seite</label>
+    
+    <select name="search[max]" value="100">
+      <option>10</option>
+      <option>20</option>
+      <option>50</option>
+      <option selected="selected">100</option>
+      <option>200</option>
+      <option>500</option>
+    </select>
+
+    <br />
+
     <input type="hidden" name="search[skip]" value="0" />
-    <input type="hidden" name="search[max]" value="100" />
     <input type="submit" value="Suche starten" />
     <input type="reset" value="Felder löschen" />
   </form>

@@ -1,21 +1,17 @@
 {% extends '::base.html.twig' %}
 
+{% block title %}
+  {{ parent() }} - Tabelle
+{% endblock %}
+
 {% block stylesheets %}
   {{ parent() }}
 {% endblock %}
 
 {% block body %}
-  <h3>LIST</h3>
-  <p> Datensätze {{ from }}-{{ to }} von {{ result.foundSetCount }} Suchtreffern (Gesamt: {{ result.tableRecordCount }} )</p>
-  <p style="font-size: 6pt; color: grey;">
-    {% for key, criterion in search['criteria'] %}
-      <b>{{ key }}</b> {{ operatorSymbolList[criterion['operator']] }} <i>{{ criterion['value'] }}</i>
-      {% if not loop.last %}
-        <b>{{ operatorSymbolList[search['operator']] }}</b>
-      {% endif %}
-    {% endfor %}
-  </p>
-  <table>
+  <p> Datensätze {{ from }}-{{ to }} von {{ result.foundSetCount }} Suchtreffern (Gesamt: {{ result.tableRecordCount }})</p>
+  
+  <table class="catalogueList">
     <thead>
       <tr>
         <th></th>
@@ -27,15 +23,22 @@
     <tbody>
       {% for index, record in result.records %}
         <tr>
-          <th title="{{ record.recordId }}"><a href="#">{{ from + index }}</a></th>
+          <th title="{{ record.recordId }}"><a href="{{ path('PapyrillioHgvBundle_CatalogueShow', {'search': search, 'sort': sort, 'show': {'skip': search['skip'] + index, 'max': 1}}) }}">{{ from + index }}</a></th>
           {% for key, field in fieldList %}
-            <td class="{{ key }}">{{ record.field(key) }}</td>
+            <td class="{{ key }}">
+            {% if key == 'OriginaltitelHTML' %}
+              {{ record.field(key)|decode|raw }}
+            {% else %}
+              {{ record.field(key) }}
+            {% endif %}
+            </td>
           {% endfor %}
         </tr>
       {% endfor %}
     </tbody>
   </table>
-
+  
+  {% include 'PapyrillioHgvBundle:Catalogue:snippetSearch.html.twig' with {'search': search, 'sort': sort, 'operatorSymbolList': operatorSymbolList} %}
 
 {% endblock %}
 

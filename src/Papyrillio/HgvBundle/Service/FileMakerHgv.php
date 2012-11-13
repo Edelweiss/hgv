@@ -58,7 +58,7 @@ class FindImplementationHgv extends FileMaker_Command_Find_Implementation{
       $commandParams[$key.'.op'] = $criterion['operator'];
     }
 
-var_dump($commandParams);
+    // var_dump($commandParams);
 
     // get result
 
@@ -80,7 +80,8 @@ var_dump($commandParams);
 }
 
 class FileMakerHgv extends FileMaker{
-  const LAYOUT = 'Layout #4';
+  //const LAYOUT = 'Layout #4';
+  const LAYOUT = 'Web';
 
   public function __construct($database = NULL, $hostspec = NULL, $username = NULL, $password = NULL){
     parent::__construct('HGV_CWP', 'http://127.0.0.1', 'Fox', '2357Xof_');
@@ -111,9 +112,15 @@ class FileMakerHgv extends FileMaker{
     }
 
     foreach($sortList as $index => $sort){
-      //$compoundFind->addSortRule($sort['field'], $index, $sort['direction']);
+      $findCommand->addSortRule($sort['key'], $index, $sort['direction']);
     }
 
+    return $findCommand->execute();
+  }
+  
+  public function pick(){
+    $findCommand = $this->newFindAllCommand(self::LAYOUT);
+    $findCommand->setRange(0, 1);
     return $findCommand->execute();
   }
   

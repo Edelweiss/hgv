@@ -1,0 +1,18 @@
+<p style="font-size: 6pt; color: grey;">
+  <b>FILTER</b>
+  {% for key, criterion in search['criteria'] %}
+    <b>{{ key }}</b> {{ operatorSymbolList[criterion['operator']] }} <i>{{ criterion['value'] }}</i>
+    {% if not loop.last %}
+      <b>{{ operatorSymbolList[search['operator']] }}</b>
+    {% endif %}
+  {% endfor %}
+  <b>SORTIERUNG</b>
+  {% for index, field in sort %}
+    <b>{{ field['key'] }}</b> <i>{{ field['direction'] }}</i>
+    {% if not loop.last %}
+      <b>,</b>
+    {% endif %}
+  {% endfor %}
+  <b>PAGINA</b>
+  {{ search['skip'] }},{{ search['max'] }}
+</p>

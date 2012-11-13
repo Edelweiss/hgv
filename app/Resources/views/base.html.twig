@@ -14,7 +14,6 @@
     </head>
     <body>
     <div id="wrapper"><!-- #wrapper -->
-    
       <header><!-- header -->
         <h1><a href="#">HGV</a></h1>
         <h2>Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens</h2>
@@ -23,11 +22,11 @@
       <nav><!-- top nav -->
         <div class="menu">
           <ul>
-            <li><a href="#" title="Liste der Datensätze">Tabelle</a></li>
-            <li><a href="#" title="Einzelansicht">Formular</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_CatalogueList') }}" title="Liste der Datensätze">Tabelle</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_CatalogueShow') }}" title="Einzelansicht">Formular</a></li>
             <li><a href="{{ path('PapyrillioHgvBundle_CatalogueSearch') }}" title="Filterfunktion">Suche</a></li>
-            <li><a href="#" title="Hilfe">?</a></li>
-            <li><a href="#" title="Startseite">⌂</a></li>
+            <li><a href="http://147.142.225.241/Hauptregister/DHelp.htm" title="Hilfe">?</a></li>
+            <li><a href="http://147.142.225.241" title="Startseite">⌂</a></li>
           </ul>
         </div>
       </nav><!-- end of top nav -->

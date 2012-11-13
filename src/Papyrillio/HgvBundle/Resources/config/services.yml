@@ -4,3 +4,7 @@ parameters:
 services:
     papyrillio_hgv.file_maker_hgv:
         class: %papyrillio_hgv.file_maker_hgv.class% 
+    papyrillio.twig.papyrillio_extension:
+        class: Papyrillio\HgvBundle\Twig\PapyrillioExtension
+        tags:
+            - { name: twig.extension }
