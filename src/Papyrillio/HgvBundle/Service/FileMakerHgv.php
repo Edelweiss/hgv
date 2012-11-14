@@ -80,16 +80,10 @@ class FindImplementationHgv extends FileMaker_Command_Find_Implementation{
 }
 
 class FileMakerHgv extends FileMaker{
-  //const LAYOUT = 'Layout #4';
   const LAYOUT = 'Web';
 
   public function __construct($database = NULL, $hostspec = NULL, $username = NULL, $password = NULL){
-    parent::__construct('HGV_CWP', 'http://127.0.0.1', 'Fox', '2357Xof_');
-    
-    #$this->setProperty('database', 'HGV_CWP');
-    #$this->setProperty('hostspec', 'http://127.0.0.1');
-    #$this->setProperty('username', 'Fox');
-    #$this->setProperty('password', '2357Xof_');
+    parent::__construct($database, $hostspec, $username, $password);
   }
 
   public function search($filterList = array(), $sortList = array()){

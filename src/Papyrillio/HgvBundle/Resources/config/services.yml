@@ -3,7 +3,8 @@ parameters:
 
 services:
     papyrillio_hgv.file_maker_hgv:
-        class: %papyrillio_hgv.file_maker_hgv.class% 
+        class: %papyrillio_hgv.file_maker_hgv.class%
+        arguments: [%filemaker_database%, %filemaker_hostspec%, %filemaker_username%, %filemaker_password%] 
     papyrillio.twig.papyrillio_extension:
         class: Papyrillio\HgvBundle\Twig\PapyrillioExtension
         tags:
