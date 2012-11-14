@@ -28,18 +28,31 @@ class CatalogueController extends HgvController
       if($search = $this->getParameter('search')){ // try to retrieve vom post or get
 
         // get rid of empty filter items
-        foreach($search['criteria'] as $key => $criterion){
-          $value = trim($criterion['value']);
-          if(!empty($value)){
-            $search['criteria'][$key]['value'] = $value;
-          } else {
-            unset($search['criteria'][$key]);
+        if(isset($search['criteria'])){
+          foreach($search['criteria'] as $key => $criterion){
+            $value = trim($criterion['value']);
+            if(!empty($value)){
+              $search['criteria'][$key]['value'] = $value;
+            } else {
+              unset($search['criteria'][$key]);
+            }
           }
+        } else {
+          $search['criteria'] = array();
         }
-        
-        // set default operator if none is present
+
+        // default operator
         if(!isset($search['operator']) or !in_array($search['operator'], array(FILEMAKER_FIND_AND, FILEMAKER_FIND_OR))){
           $search['operator'] = FILEMAKER_FIND_AND;
+        }
+
+        // default paginator
+        if(!isset($search['skip']) or !is_int($search['skip'] + 0)){
+          $search['skip'] = 0;
+        }
+
+        if(!isset($search['max']) or !is_int($search['max'] + 0)){
+          $search['max'] = 100;
         }
 
         return $search;
@@ -79,17 +92,47 @@ class CatalogueController extends HgvController
       $sortList = $this->getParameterSort();
 
       $result = $fm->search($filterList, $sortList);
-      
+
       if($fm->isError($result)){
         return $this->render('PapyrillioHgvBundle:Catalogue:error.html.twig', array('message' => 'FileMaker Error #' . $result->code . ': ' . $result->getMessage()));
       } else {
         $this->setSessionParameter('search', $filterList); // only a successfull search will save search and sort parameters to session
-        $this->setSessionParameter('sort', $sortList); 
+        $this->setSessionParameter('sort', $sortList);
+        
+        $sortLinkParameters = array();
+        
+        foreach(self::getFieldList() as $key => $caption){
+          if($key == 'Datierung2'){
+            $direction = FILEMAKER_SORT_ASCEND;
+            foreach($sortList as $sort){
+              if($sort['key'] == 'ChronGlobal' && $sort['direction'] == $direction){
+                $direction = FILEMAKER_SORT_DESCEND;
+              }
+            }
+            $sortLinkParameters[$key] = array(
+              1 => array('key' => 'J', 'direction' => $direction),
+              2 => array('key' => 'M', 'direction' => $direction),
+              3 => array('key' => 'T', 'direction' => $direction),
+              4 => array('key' => 'ChronGlobal', 'direction' => $direction)
+            );
+          } else {
+            $direction = FILEMAKER_SORT_ASCEND;
+            foreach($sortList as $sort){
+              if($sort['key'] == $key && $sort['direction'] == $direction){
+                $direction = FILEMAKER_SORT_DESCEND;
+              }
+            }
+  
+            $sortLinkParameters[$key] = array(1 => array('key' => $key, 'direction' => $direction));
+          }
+        }
+        
         return $this->render('PapyrillioHgvBundle:Catalogue:list.html.twig', array(
           'search'             => $filterList,
           'searchPrev'         => ($filterList['skip'] > 0 ? array_merge($filterList, array('skip' => max(0, $filterList['skip'] - $filterList['max']))) : null),
           'searchNext'         => ($filterList['skip'] + $filterList['max'] < $result->getFoundSetCount() ? array_merge($filterList, array('skip' => min($result->getFoundSetCount() / $filterList['max'] * $filterList['max'], $filterList['skip'] + $filterList['max']))) : null),
           'sort'               => $sortList,
+          'sortLinkParameters' => $sortLinkParameters,
           'fieldList'          => self::getFieldList(),
           'operatorSymbolList' => self::getOperatorSymbolList(),
           'operatorList'       => self::getOperatorList(),

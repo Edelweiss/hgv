@@ -23,7 +23,7 @@ class ShortcutController extends HgvController
 
   public function tmAction($id)
   {
-    return $this->forward('PapyrillioHgvBundle:Catalogue:show', array(
+    return $this->forward('PapyrillioHgvBundle:Catalogue:show', array(), array(
       'search'  => array('criteria' => array('TM_Nr.' => array('value' => $id, 'operator' => 'eq')))
     ));
   }
@@ -32,7 +32,7 @@ class ShortcutController extends HgvController
   {
     $ddb = explode(';', $id); // routing requirement makes sure that there are two »;«
 
-    return $this->forward('PapyrillioHgvBundle:Catalogue:show', array(
+    return $this->forward('PapyrillioHgvBundle:Catalogue:show', array(), array(
       'search'  => array('criteria' => array(
         'ddbSer' => array('value' => $ddb[0], 'operator' => 'eq'), 
         'ddbVol' => array('value' => $ddb[1], 'operator' => 'eq'), 

@@ -16,7 +16,9 @@
       <tr>
         <th></th>
         {% for key, field in fieldList %}
-          <th class="{{ key }}"><a href="{{ path('PapyrillioHgvBundle_CatalogueList', {'search': search, 'sort': sort}) }}">{{ field }}</a></th>
+          <th class="{{ key }}">
+            <a href="{{ path('PapyrillioHgvBundle_CatalogueList', {'search': search, 'sort': sortLinkParameters[key]}) }}">{{ field }}</a>
+          </th>
         {% endfor %}
       </tr>
     </thead>
