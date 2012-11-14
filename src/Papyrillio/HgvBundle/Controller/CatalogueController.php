@@ -14,7 +14,7 @@ class CatalogueController extends HgvController
     {
         return $this->render('PapyrillioHgvBundle:Catalogue:index.html.twig');
     }
-    
+
     protected function getParameterShow(){
       if($show = $this->getParameter('show')){ // try to retrieve vom post or get
         return $show;
@@ -66,7 +66,7 @@ class CatalogueController extends HgvController
     public function listAction()
     {
       $fm = $this->get('papyrillio_hgv.file_maker_hgv');
-      
+
       $filterList = $this->getParameterSearch();
       $sortList = $this->getParameterSort();
 
@@ -79,6 +79,8 @@ class CatalogueController extends HgvController
         $this->setSessionParameter('sort', $sortList); 
         return $this->render('PapyrillioHgvBundle:Catalogue:list.html.twig', array(
           'search'             => $filterList,
+          'searchPrev'         => ($filterList['skip'] > 0 ? array_merge($filterList, array('skip' => max(0, $filterList['skip'] - $filterList['max']))) : null),
+          'searchNext'         => ($filterList['skip'] + $filterList['max'] < $result->getFoundSetCount() ? array_merge($filterList, array('skip' => min($result->getFoundSetCount() / $filterList['max'] * $filterList['max'], $filterList['skip'] + $filterList['max']))) : null),
           'sort'               => $sortList,
           'fieldList'          => self::getFieldList(),
           'operatorSymbolList' => self::getOperatorSymbolList(),

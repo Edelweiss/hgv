@@ -37,6 +37,14 @@
       {% endfor %}
     </tbody>
   </table>
+
+  {% if searchPrev %}
+    <a href="{{ path('PapyrillioHgvBundle_CatalogueList', {'search': searchPrev, 'sort': sort}) }}">zurück</a>
+  {% endif %}
+
+  {% if searchNext %}
+    <a href="{{ path('PapyrillioHgvBundle_CatalogueList', {'search': searchNext, 'sort': sort}) }}">weiter</a>
+  {% endif %}
   
   {% include 'PapyrillioHgvBundle:Catalogue:snippetSearch.html.twig' with {'search': search, 'sort': sort, 'operatorSymbolList': operatorSymbolList} %}
 
