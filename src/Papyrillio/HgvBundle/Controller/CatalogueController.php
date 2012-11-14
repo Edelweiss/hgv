@@ -26,6 +26,8 @@ class CatalogueController extends HgvController
 
     protected function getParameterSearch(){
       if($search = $this->getParameter('search')){ // try to retrieve vom post or get
+
+        // get rid of empty filter items
         foreach($search['criteria'] as $key => $criterion){
           $value = trim($criterion['value']);
           if(!empty($value)){
@@ -34,6 +36,12 @@ class CatalogueController extends HgvController
             unset($search['criteria'][$key]);
           }
         }
+        
+        // set default operator if none is present
+        if(!isset($search['operator']) or !in_array($search['operator'], array(FILEMAKER_FIND_AND, FILEMAKER_FIND_OR))){
+          $search['operator'] = FILEMAKER_FIND_AND;
+        }
+
         return $search;
       }
       return $this->getSessionParameter('search'); // try to retrieve from session
@@ -50,7 +58,7 @@ class CatalogueController extends HgvController
           return $sortList;
         }
       }
-      
+
       if($sortList = $this->getSessionParameter('sort')){
         return $sortList;
       }
@@ -84,9 +92,9 @@ class CatalogueController extends HgvController
           'sort'               => $sortList,
           'fieldList'          => self::getFieldList(),
           'operatorSymbolList' => self::getOperatorSymbolList(),
-          'operatorList'       => self::getOperatorList(), 
-          'from'               => $filterList['skip'] + 1, 
-          'to'                 => min($result->getFetchCount(), $filterList['max']), 
+          'operatorList'       => self::getOperatorList(),
+          'from'               => $filterList['skip'] + 1,
+          'to'                 => min($result->getFetchCount(), $filterList['max']),
           'result'             => $result));
       }
     }
@@ -96,27 +104,28 @@ class CatalogueController extends HgvController
       $fm = $this->get('papyrillio_hgv.file_maker_hgv');
 
       if($search = $this->getParameterSearch()){ // SEARCH
+
         $sort = $this->getParameterSort();
         $show = $this->getParameterShow();
         $result = $fm->search(array_merge($search, $show), $sort);
 
-        $translations = array();
-        $uebersetzungen = $result->getFirstRecord()->getField('Uebersetzungen');
-
-        if(preg_match_all('/(([^: ]+): )([^:]+([ \.$\d]|$))/', $uebersetzungen, $matches)){
-          if(count($matches[0])){
-            foreach ($matches[2] as $index => $language) {
-              $translations[$language] = array();
-              foreach(explode(';', $matches[3][$index]) as $translation){
-                $translations[$language][] = $translation;
-              }
-            }
-          }
-        }
-
         if($fm->isError($result)){
           return $this->render('PapyrillioHgvBundle:Catalogue:error.html.twig', array('message' => 'FileMaker Error #' . $result->code . ': ' . $result->getMessage()));
         } else {
+
+          $translations = array();
+          $uebersetzungen = $result->getFirstRecord()->getField('Uebersetzungen');
+  
+          if(preg_match_all('/(([^: ]+): )([^:]+([ \.$\d]|$))/', $uebersetzungen, $matches)){
+            if(count($matches[0])){
+              foreach ($matches[2] as $index => $language) {
+                $translations[$language] = array();
+                foreach(explode(';', $matches[3][$index]) as $translation){
+                  $translations[$language][] = $translation;
+                }
+              }
+            }
+          }
 
           return $this->render('PapyrillioHgvBundle:Catalogue:show.html.twig', array(
             'search'             => $search,

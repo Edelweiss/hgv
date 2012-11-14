@@ -2,6 +2,8 @@ PapyrillioHgvBundle_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: PapyrillioHgvBundle:Default:index }
 
+# C A T A L O G U E #
+
 PapyrillioHgvBundle_Catalogue:
     pattern:  /
     defaults: { _controller: PapyrillioHgvBundle:Catalogue:index }
@@ -17,3 +19,23 @@ PapyrillioHgvBundle_CatalogueShow:
 PapyrillioHgvBundle_CatalogueSearch:
     pattern:  /search
     defaults: { _controller: PapyrillioHgvBundle:Catalogue:search }
+
+# S H O R T C U T #
+
+PapyrillioHgvBundle_ShortcutHgv:
+    pattern:  /hgv/{id}
+    defaults: { _controller: PapyrillioHgvBundle:Shortcut:hgv }
+    requirements:
+        id:  \d+[a-z]*
+
+PapyrillioHgvBundle_ShortcutTm:
+    pattern:  /tm/{id}
+    defaults: { _controller: PapyrillioHgvBundle:Shortcut:tm }
+    requirements:
+        id:  \d+
+
+PapyrillioHgvBundle_ShortcutDdb:
+    pattern:  /ddb/{id}
+    defaults: { _controller: PapyrillioHgvBundle:Shortcut:ddb }
+    requirements:
+        id:  "[^;]+;[^;]*;[^;]+"

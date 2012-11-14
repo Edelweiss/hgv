@@ -153,7 +153,12 @@
       {% if result.firstRecord.field('TM_Nr.') %}
         <tr>
           <th>TM Nr.</th>
-          <td><a href="http://www.trismegistos.org/tm/detail.php?quick={{ result.firstRecord.field('TM_Nr.') }}" target="DAHT">{{ result.firstRecord.field('TM_Nr.') }}</a></td>
+          <td>
+            <a  href="http://www.trismegistos.org/tm/detail.php?quick={{ result.firstRecord.field('TM_Nr.') }}" target="DAHT">{{ result.firstRecord.field('TM_Nr.') }}</a>
+            {% if result.firstRecord.field('TexIDLang') != result.firstRecord.field('TM_Nr.') %}
+              <span class="mini">(HGV Nr. {{ result.firstRecord.field('TexIDLang') }})</span>
+            {% endif %}
+          </td>
         </tr>
       {% endif %}            
     </tbody>
