@@ -77,10 +77,9 @@ class CatalogueController extends HgvController
       }
 
       return array(
-        1 => array('key' => 'J', 'direction' => FILEMAKER_SORT_ASCEND),
+        1 => array('key' => 'ChronGlobal', 'direction' => FILEMAKER_SORT_ASCEND),
         2 => array('key' => 'M', 'direction' => FILEMAKER_SORT_ASCEND),
-        3 => array('key' => 'T', 'direction' => FILEMAKER_SORT_ASCEND),
-        4 => array('key' => 'ChronGlobal', 'direction' => FILEMAKER_SORT_ASCEND)
+        3 => array('key' => 'T', 'direction' => FILEMAKER_SORT_ASCEND)
       );
     }
 
@@ -110,10 +109,9 @@ class CatalogueController extends HgvController
               }
             }
             $sortLinkParameters[$key] = array(
-              1 => array('key' => 'J', 'direction' => $direction),
+              1 => array('key' => 'ChronGlobal', 'direction' => $direction),
               2 => array('key' => 'M', 'direction' => $direction),
-              3 => array('key' => 'T', 'direction' => $direction),
-              4 => array('key' => 'ChronGlobal', 'direction' => $direction)
+              3 => array('key' => 'T', 'direction' => $direction)
             );
           } else {
             $direction = FILEMAKER_SORT_ASCEND;
