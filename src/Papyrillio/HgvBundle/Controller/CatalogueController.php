@@ -77,7 +77,7 @@ class CatalogueController extends HgvController
       }
 
       return array(
-        1 => array('key' => 'ChronGlobal', 'direction' => FILEMAKER_SORT_ASCEND),
+        1 => array('key' => 'ChronGlobal_Static', 'direction' => FILEMAKER_SORT_ASCEND),
         2 => array('key' => 'M', 'direction' => FILEMAKER_SORT_ASCEND),
         3 => array('key' => 'T', 'direction' => FILEMAKER_SORT_ASCEND)
       );
@@ -104,12 +104,12 @@ class CatalogueController extends HgvController
           if($key == 'Datierung2'){
             $direction = FILEMAKER_SORT_ASCEND;
             foreach($sortList as $sort){
-              if($sort['key'] == 'ChronGlobal' && $sort['direction'] == $direction){
+              if($sort['key'] == 'ChronGlobal_Static' && $sort['direction'] == $direction){
                 $direction = FILEMAKER_SORT_DESCEND;
               }
             }
             $sortLinkParameters[$key] = array(
-              1 => array('key' => 'ChronGlobal', 'direction' => $direction),
+              1 => array('key' => 'ChronGlobal_Static', 'direction' => $direction),
               2 => array('key' => 'M', 'direction' => $direction),
               3 => array('key' => 'T', 'direction' => $direction)
             );
@@ -218,7 +218,7 @@ class CatalogueController extends HgvController
           'Link1FM'            => 'Link',
           'ChronMinimum'       => 'Chron-Minimum',
           'ChronMaximum'       => 'Chron-Maximum',
-          'ChronGlobal'        => 'Chron-Global',
+          'ChronGlobal_Static'        => 'Chron-Global',
           'Uebersetzungen'     => 'Übersetzungen'
         );
     }
