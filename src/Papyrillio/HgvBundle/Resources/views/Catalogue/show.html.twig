@@ -12,32 +12,31 @@
 
   <p>Datensatz {{ show ? show['skip'] + 1 : 1 }} von {{ result.foundSetCount }} Suchtreffern (Gesamt: {{ result.tableRecordCount }})</p>
 
-  {# Testfälle: 50307, 8886, 19648, 63705, 9088, 8981a #}  
-
+  {# Testfälle: 50307, 8886, 19648, 63705, 9088, 8981a #}
   <table class="catalogueShow">
     <tbody>
       {% if result.firstRecord.field('PublikationL') %}
         <tr>
           <th>Publikation</th>
-          <td>{{ result.firstRecord.field('PublikationL') }}</td>
+          <td>{{ result.firstRecord.field('PublikationL')|raw }}</td>
         </tr>
       {% endif %}
       {% if result.firstRecord.field('Andere Publikation') %}
         <tr>
           <th>Andere Publikationen</th>
-          <td>{{ result.firstRecord.field('Andere Publikation') }}</td>
+          <td>{{ result.firstRecord.field('Andere Publikation')|raw }}</td>
         </tr>
       {% endif %}
       {% if result.firstRecord.field('Datierung2') %}
         <tr>
           <th>Datierung</th>
-          <td>{{ result.firstRecord.field('Datierung2') }}</td>
+          <td>{{ result.firstRecord.field('Datierung2')|raw }}</td>
         </tr>
       {% endif %}
       {% if result.firstRecord.field('Ort') %}
         <tr>
           <th>Ort</th>
-          <td>{{ result.firstRecord.field('Ort') }}</td>
+          <td>{{ result.firstRecord.field('Ort')|raw }}</td>
         </tr>
       {% endif %}
       {% if result.firstRecord.field('OriginaltitelHTML') %}
@@ -49,7 +48,7 @@
       {% if result.firstRecord.field('Material') %}
         <tr>
           <th>Material</th>
-          <td>{{ result.firstRecord.field('Material') }}</td>
+          <td>{{ result.firstRecord.field('Material')|raw }}</td>
         </tr>
       {% endif %}
       {% if result.firstRecord.field('Abbildung') or result.firstRecord.field('Link1FM') %}
@@ -57,13 +56,13 @@
           <th>Abbildung</th>
           <td>
             {% if result.firstRecord.field('Abbildung') %}
-              {{ result.firstRecord.field('Abbildung') }}
+              {{ result.firstRecord.field('Abbildung')|raw }}
             {% endif %}
             {% if result.firstRecord.field('Abbildung') or result.firstRecord.field('Link1FM') %}
               <br />
             {% endif %}
             {% if result.firstRecord.field('Link1FM') %}
-              <a target="Neu" href="{{ result.firstRecord.field('Link1FM') }}">Weitere Informationen / Abbildung im Internet</a>
+              <a target="Neu" href="{{ result.firstRecord.field('Link1FM')|raw }}">Weitere Informationen / Abbildung im Internet</a>
             {% endif %}
           </td>
         </tr>
@@ -71,7 +70,7 @@
       {% if result.firstRecord.field('BL') %}
         <tr>
           <th>BL-Einträge nach BL-Konkordanz</th>
-          <td>{{ result.firstRecord.field('BL') }}</td>
+          <td>{{ result.firstRecord.field('BL')|raw }}</td>
         </tr>
       {% endif %}
       {% if result.firstRecord.field('ddbSer') %}
@@ -93,7 +92,7 @@
       {% if result.firstRecord.field('Bemerkungen') %}
         <tr>
           <th>Bemerkungen</th>
-          <td>{{ result.firstRecord.field('Bemerkungen') }}</td>
+          <td>{{ result.firstRecord.field('Bemerkungen')|raw }}</td>
         </tr>
       {% endif %}
       {% if result.firstRecord.field('DAHT') == 'ja' %}
@@ -114,12 +113,12 @@
                 <br />
                 <ul>
                 {% for bibliography in translation %}
-                  <li>{{ bibliography }}</li>
+                  <li>{{ bibliography|raw }}</li>
                 {% endfor %}
                 </ul>
               {% endfor %}
             {% else %}
-              {{ result.firstRecord.field('Uebersetzungen') }}
+              {{ result.firstRecord.field('Uebersetzungen')|raw }}
             {% endif %}
           </td>
         </tr>
@@ -146,7 +145,7 @@
       {% if result.firstRecord.field('Erwähnte Daten') %}
         <tr>
           <th>Erwähnte Daten</th>
-          <td>{{ result.firstRecord.field('Erwähnte Daten') }}</td>
+          <td>{{ result.firstRecord.field('Erwähnte Daten')|raw }}</td>
         </tr>
       {% endif %}
       {% if result.firstRecord.field('TM_Nr.') %}

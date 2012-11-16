@@ -155,14 +155,18 @@ class CatalogueController extends HgvController
         } else {
 
           $translations = array();
-          $uebersetzungen = $result->getFirstRecord()->getField('Uebersetzungen');
-  
+          $original = array('in: ', '&amp;', '&quot;', '&lt;', '&gt;');
+          $mask = array('#INCOLONSPACE#', '#QUOTATIONMARK#', '#LESSTHAN#', '#GREATERTHAN#');
+          $canonical = array('in: ', ' & ', '"', '<', '>');
+          $uebersetzungen = str_replace($original, $mask, $result->getFirstRecord()->getField('Uebersetzungen'));
+
           if(preg_match_all('/(([^: ]+): )([^:]+([ \.$\d]|$))/', $uebersetzungen, $matches)){
             if(count($matches[0])){
               foreach ($matches[2] as $index => $language) {
                 $translations[$language] = array();
                 foreach(explode(';', $matches[3][$index]) as $translation){
-                  $translations[$language][] = $translation;
+
+                  $translations[$language][] = str_replace($mask, $canonical, $translation);
                 }
               }
             }
