@@ -332,3 +332,15 @@ table.catalogueList th{
 table.catalogueList th{
   text-align: center;
 }
+
+table.catalogueList th.asc,
+table.catalogueList th.desc{
+  background-image: url(../images/asc.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  padding-right: 14px;
+}
+
+table.catalogueList th.desc{
+  background-image: url(../images/desc.png);
+}

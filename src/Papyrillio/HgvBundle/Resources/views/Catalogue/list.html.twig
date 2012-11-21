@@ -10,13 +10,13 @@
 
 {% block body %}
   <p> Datensätze {{ from }}-{{ to }} von {{ result.foundSetCount }} Suchtreffern (Gesamt: {{ result.tableRecordCount }})</p>
-  
+
   <table class="catalogueList">
     <thead>
       <tr>
         <th></th>
         {% for key, field in fieldList %}
-          <th class="{{ key }}">
+          <th class="{{ key }} {{ sortDirections[key] }}" title="{{ sortDirections[key] == 'asc' ? 'aufwärts' : 'abwärts' }} sortieren nach Feld »{{ field }}«">
             <a href="{{ path('PapyrillioHgvBundle_CatalogueList', {'search': search, 'sort': sortLinkParameters[key]}) }}">{{ field }}</a>
           </th>
         {% endfor %}

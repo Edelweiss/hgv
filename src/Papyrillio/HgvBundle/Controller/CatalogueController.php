@@ -61,21 +61,37 @@ class CatalogueController extends HgvController
     }
 
     protected function getParameterSort(){
+      // URL PARAMETER
       if($sortList = $this->getParameter('sort')){
-        foreach($sortList as $index => $sort){
-          if(empty($sort['key'])){
-            unset($sortList[$index]);
+        $finalSortingOrder = array();
+        $finalSortingIndex = 1;
+        foreach($sortList as $sort){
+          if($sort['key'] == 'Datierung2'){
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'ChronGlobal_Static', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'M', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'T', 'direction' => $sort['direction']);
+          } elseif ($sort['key'] == 'PublikationL') {
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'Publikation', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'Band', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'Zus.Band', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'Nummer', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'Seite', 'direction' => $sort['direction']);
+          } elseif(!empty($sort['key'])){
+            $finalSortingOrder[$finalSortingIndex++] = $sort;
           }
         }
-        if(count($sortList)){
-          return $sortList;
+
+        if(count($finalSortingOrder)){
+          return $finalSortingOrder;
         }
       }
 
+      // SESSION
       if($sortList = $this->getSessionParameter('sort')){
         return $sortList;
       }
 
+      // DEFAULT
       return array(
         1 => array('key' => 'ChronGlobal_Static', 'direction' => FILEMAKER_SORT_ASCEND),
         2 => array('key' => 'M', 'direction' => FILEMAKER_SORT_ASCEND),
@@ -99,30 +115,24 @@ class CatalogueController extends HgvController
         $this->setSessionParameter('sort', $sortList);
         
         $sortLinkParameters = array();
-        
+        $sortDirections = array();
         foreach(self::getFieldList() as $key => $caption){
+          $tmpKey = $key;
           if($key == 'Datierung2'){
-            $direction = FILEMAKER_SORT_ASCEND;
-            foreach($sortList as $sort){
-              if($sort['key'] == 'ChronGlobal_Static' && $sort['direction'] == $direction){
-                $direction = FILEMAKER_SORT_DESCEND;
-              }
+            $tmpKey = 'ChronGlobal_Static';
+          } else if($key == 'PublikationL'){
+            $tmpKey = 'Publikation';
+          } 
+
+          $direction = FILEMAKER_SORT_ASCEND;
+          foreach($sortList as $sort){
+            if($sort['key'] == $tmpKey && $sort['direction'] == $direction){
+              $direction = FILEMAKER_SORT_DESCEND;
             }
-            $sortLinkParameters[$key] = array(
-              1 => array('key' => 'ChronGlobal_Static', 'direction' => $direction),
-              2 => array('key' => 'M', 'direction' => $direction),
-              3 => array('key' => 'T', 'direction' => $direction)
-            );
-          } else {
-            $direction = FILEMAKER_SORT_ASCEND;
-            foreach($sortList as $sort){
-              if($sort['key'] == $key && $sort['direction'] == $direction){
-                $direction = FILEMAKER_SORT_DESCEND;
-              }
-            }
-  
-            $sortLinkParameters[$key] = array(1 => array('key' => $key, 'direction' => $direction));
           }
+
+          $sortLinkParameters[$key] = array(1 => array('key' => $key, 'direction' => $direction));
+          $sortDirections[$key] = $direction == FILEMAKER_SORT_ASCEND ? 'desc' : 'asc';
         }
         
         return $this->render('PapyrillioHgvBundle:Catalogue:list.html.twig', array(
@@ -131,6 +141,7 @@ class CatalogueController extends HgvController
           'searchNext'         => ($filterList['skip'] + $filterList['max'] < $result->getFoundSetCount() ? array_merge($filterList, array('skip' => min($result->getFoundSetCount() / $filterList['max'] * $filterList['max'], $filterList['skip'] + $filterList['max']))) : null),
           'sort'               => $sortList,
           'sortLinkParameters' => $sortLinkParameters,
+          'sortDirections'     => $sortDirections,
           'fieldList'          => self::getFieldList(),
           'operatorSymbolList' => self::getOperatorSymbolList(),
           'operatorList'       => self::getOperatorList(),
