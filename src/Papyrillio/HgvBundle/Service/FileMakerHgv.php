@@ -92,22 +92,28 @@ class FileMakerHgv extends FileMaker{
     $criteria = $filterList['criteria'];
     $operator = $filterList['operator'];
 
-    $findCommand = $this->newFindCommand(self::LAYOUT);
-    $findCommand->setRange($skip, $max);
-
-    if(in_array($operator, array(FILEMAKER_FIND_AND, FILEMAKER_FIND_OR))){
-      $findCommand->setLogicalOperator($operator);
-    }
-
-    foreach($criteria as $key => $filter){
-      if(!empty($filter['value'])){
-        $findCommand->addFindCriterion($key, $filter['value'], $filter['operator']);
+    $findCommand = null;
+    if(count($criteria)){
+      $findCommand = $this->newFindCommand(self::LAYOUT);
+    
+      if(in_array($operator, array(FILEMAKER_FIND_AND, FILEMAKER_FIND_OR))){
+        $findCommand->setLogicalOperator($operator);
       }
+  
+      foreach($criteria as $key => $filter){
+        if(!empty($filter['value'])){
+          $findCommand->addFindCriterion($key, $filter['value'], $filter['operator']);
+        }
+      }
+    } else {
+      $findCommand = $this->newFindAllCommand(self::LAYOUT);
     }
 
     foreach($sortList as $index => $sort){
       $findCommand->addSortRule($sort['key'], $index, $sort['direction']);
     }
+    
+    $findCommand->setRange($skip, $max);
 
     return $findCommand->execute();
   }
