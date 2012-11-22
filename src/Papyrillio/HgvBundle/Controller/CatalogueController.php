@@ -117,6 +117,8 @@ class CatalogueController extends HgvController
         $sortLinkParameters = array();
         $sortDirections = array();
         foreach(self::getFieldList() as $key => $caption){
+          $sortDirections[$key] = null;
+
           $tmpKey = $key;
           if($key == 'Datierung2'){
             $tmpKey = 'ChronGlobal_Static';
@@ -126,13 +128,14 @@ class CatalogueController extends HgvController
 
           $direction = FILEMAKER_SORT_ASCEND;
           foreach($sortList as $sort){
-            if($sort['key'] == $tmpKey && $sort['direction'] == $direction){
-              $direction = FILEMAKER_SORT_DESCEND;
+            if($sort['key'] == $tmpKey){
+              if($sort['direction'] == $direction){
+                $direction = FILEMAKER_SORT_DESCEND;
+              }
+              $sortDirections[$key] = $direction == FILEMAKER_SORT_ASCEND ? FILEMAKER_SORT_DESCEND : FILEMAKER_SORT_ASCEND;
             }
           }
-
           $sortLinkParameters[$key] = array(1 => array('key' => $key, 'direction' => $direction));
-          $sortDirections[$key] = $direction == FILEMAKER_SORT_ASCEND ? 'desc' : 'asc';
         }
         
         return $this->render('PapyrillioHgvBundle:Catalogue:list.html.twig', array(

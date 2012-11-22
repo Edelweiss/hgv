@@ -331,16 +331,32 @@ table.catalogueList th{
 
 table.catalogueList th{
   text-align: center;
-}
-
-table.catalogueList th.asc,
-table.catalogueList th.desc{
-  background-image: url(../images/asc.png);
-  background-repeat: no-repeat;
-  background-position: right;
   padding-right: 14px;
 }
 
-table.catalogueList th.desc{
+table.catalogueList th.PublikationL{
+  width: 13em;
+}
+
+table.catalogueList th.Datierung2{
+  width: 15em;
+}
+
+table.catalogueList th.Ort{
+  width: 16em;
+}
+
+table.catalogueList th.Originaltitel{
+  width: 50em;
+}
+
+table.catalogueList th.ascend,
+table.catalogueList th.descend{
+  background-image: url(../images/asc.png);
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+table.catalogueList th.descend{
   background-image: url(../images/desc.png);
 }
