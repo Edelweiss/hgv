@@ -2,11 +2,21 @@ PapyrillioHgvBundle_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: PapyrillioHgvBundle:Default:index }
 
-# C A T A L O G U E #
+# B R O W S E #
 
-PapyrillioHgvBundle_Catalogue:
+PapyrillioHgvBundle_BrowseMultiple:
     pattern:  /
-    defaults: { _controller: PapyrillioHgvBundle:Catalogue:index }
+    defaults: { _controller: PapyrillioHgvBundle:Browse:multiple }
+
+PapyrillioHgvBundle_BrowseSingle:
+    pattern:  /show
+    defaults: { _controller: PapyrillioHgvBundle:Browse:single }
+
+PapyrillioHgvBundle_BrowseSearch:
+    pattern:  /search
+    defaults: { _controller: PapyrillioHgvBundle:Browse:search }
+
+# C A T A L O G U E #
 
 PapyrillioHgvBundle_CatalogueList:
     pattern:  /list

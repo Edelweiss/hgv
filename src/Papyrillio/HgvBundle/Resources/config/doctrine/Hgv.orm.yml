@@ -1,0 +1,196 @@
+Papyrillio\HgvBundle\Entity\Hgv:
+    type: entity
+    table: hgv
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        hgvId:
+            name: hgv_id
+            type: text
+            nullable: true
+        publikation:
+            type: text
+            nullable: true
+        band:
+            type: integer
+            nullable: true
+        zusBand:
+            name: zus_band
+            type: text
+            nullable: true
+        nummer:
+            type: integer
+            nullable: true
+        seite:
+            type: text
+            nullable: true
+        zusaetzlich:
+            type: text
+            nullable: true
+        publikationLang:
+            name: publication_lang
+            type: text
+            nullable: true
+        material:
+            type: text
+            nullable: true
+        tmNr:
+            name: tm_nr
+            type: integer
+            nullable: true
+        texLett:
+            name: tex_lett
+            type: text
+            nullable: true
+        mehrfachKennung:
+            name: mehrfach_kennung
+            type: text
+            nullable: true
+        texIdLang:
+            name: tex_id_lang
+            type: text
+            nullable: true
+        zusaetzlichSort:
+            name: zusaetzlich_sort
+            type: text
+            nullable: true
+        invNr:
+            name: inv_nr
+            type: text
+            nullable: true
+        jahr:
+            type: integer
+            nullable: true
+        monat:
+            type: integer
+            nullable: true
+        tag:
+            type: integer
+            nullable: true
+        jh:
+            type: integer
+            nullable: true
+        erg:
+            type: text
+            nullable: true
+        jahrIi:
+            name: jahr_ii
+            type: integer
+            nullable: true
+        monatIi:
+            name: monat_ii
+            type: integer
+            nullable: true
+        tagIi:
+            name: tag_ii
+            type: integer
+            nullable: true
+        jhIi:
+            name: jh_ii
+            type: integer
+            nullable: true
+        ergIi:
+            name: erg_ii
+            type: text
+            nullable: true
+        chronMinimum:
+            name: chron_minimum
+            type: integer
+            nullable: true
+        chronMaximum:
+            name: chron_maximum
+            type: integer
+            nullable: true
+        chronGlobal:
+            name: chron_global
+            type: integer
+            nullable: true
+        erwaehnteDaten:
+            name: erwaehnte_daten
+            type: text
+            nullable: true
+        unsicher:
+            type: text
+            nullable: true
+        datierung:
+            type: text
+            nullable: true
+        datierungIi:
+            name: datierung_ii
+            type: text
+            nullable: true
+        anderePublikation:
+            name: andere_publikation
+            type: text
+            nullable: true
+        bl:
+            type: text
+            nullable: true
+        uebersetzungen:
+            type: text
+            nullable: true
+        abbildung:
+            type: text
+            nullable: true
+        linkFm:
+            name: link_fm
+            type: text
+            nullable: true
+        ort:
+            type: text
+            nullable: true
+        originaltitel:
+            type: text
+            nullable: true
+        originaltitelHtml:
+            name: originaltitel_html
+            type: text
+            nullable: true
+        inhalt:
+            type: text
+            nullable: true
+        inhaltHtml:
+            name: inhalt_html
+            type: text
+            nullable: true
+        bemerkungen:
+            type: text
+            nullable: true
+        daht:
+            type: text
+            nullable: true
+        ldab:
+            type: text
+            nullable: true
+        dfg:
+            type: text
+            nullable: true
+        ddbSer:
+            name: ddb_ser
+            type: text
+            nullable: true
+        ddbVol:
+            name: ddb_vol
+            type: text
+            nullable: true
+        ddbDoc:
+            name: ddb_doc
+            type: text
+            nullable: true
+        eingegebenAm:
+            name: eingegeben_am
+            type: date
+            nullable: true
+        zulGeaendertAm:
+            name: zul_geaendert_am
+            type: date
+            nullable: true
+        DatensatzNr:
+            name: datensatz_nr
+            type: integer
+            nullable: true
+
+    # don't forget to init the collection in entity __construct() method
