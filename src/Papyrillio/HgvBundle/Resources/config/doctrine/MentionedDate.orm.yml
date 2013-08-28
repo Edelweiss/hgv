@@ -1,0 +1,93 @@
+Papyrillio\HgvBundle\Entity\MentionedDate:
+    type: entity
+    table: mentionedDate
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        jahr:
+            type: integer
+            nullable: true
+        monat:
+            type: integer
+            nullable: true
+        tag:
+            type: integer
+            nullable: true
+        jh:
+            type: integer
+            nullable: true
+        erg:
+            type: text
+            nullable: true
+        jahrIi:
+            name: jahr_ii
+            type: integer
+            nullable: true
+        monatIi:
+            name: monat_ii
+            type: integer
+            nullable: true
+        tagIi:
+            name: tag_ii
+            type: integer
+            nullable: true
+        jhIi:
+            name: jh_ii
+            type: integer
+            nullable: true
+        ergIi:
+            name: erg_ii
+            type: text
+            nullable: true
+        chronMinimum:
+            name: chron_minimum
+            type: integer
+            nullable: true
+        chronMaximum:
+            name: chron_maximum
+            type: integer
+            nullable: true
+        chronGlobal:
+            name: chron_global
+            type: integer
+            nullable: true
+        erwaehnteDaten:
+            name: erwaehnte_daten
+            type: text
+            nullable: true
+        unsicher:
+            type: text
+            nullable: true
+        datierung:
+            type: text
+            nullable: true
+        datierungIi:
+            name: datierung_ii
+            type: text
+            nullable: true
+        eingegebenAm:
+            name: eingegeben_am
+            type: date
+            nullable: true
+        zulGeaendertAm:
+            name: zul_geaendert_am
+            type: date
+            nullable: true
+        DatensatzNr:
+            name: datensatz_nr
+            type: integer
+            nullable: true
+    manyToOne:
+        metadata:
+            targetEntity: Hgv
+            joinColumn:
+                name: hgvId
+                referencedColumnName: hgvId
+                type: string
+                length: 64
+                nullable: true
+
+    # don't forget to init the collection in entity __construct() method
