@@ -41,11 +41,6 @@ class Hgv
     private $zusaetzlich;
 
     /**
-     * @var text $publicationLang
-     */
-    private $publicationLang;
-
-    /**
      * @var text $material
      */
     private $material;
@@ -404,26 +399,6 @@ class Hgv
     public function getZusaetzlich()
     {
         return $this->zusaetzlich;
-    }
-
-    /**
-     * Set publicationLang
-     *
-     * @param text $publicationLang
-     */
-    public function setPublicationLang($publicationLang)
-    {
-        $this->publicationLang = $publicationLang;
-    }
-
-    /**
-     * Get publicationLang
-     *
-     * @return text 
-     */
-    public function getPublicationLang()
-    {
-        return $this->publicationLang;
     }
 
     /**

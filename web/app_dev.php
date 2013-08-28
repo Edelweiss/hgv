@@ -5,7 +5,7 @@
 
 // this check prevents access to debug front controllers that are deployed by accident to production servers.
 // feel free to remove this, extend it, or make something more sophisticated.
-if (isset($_SERVER['HTTP_CLIENT_IP'])
+/*if (isset($_SERVER['HTTP_CLIENT_IP'])
     || isset($_SERVER['HTTP_X_FORWARDED_FOR'])
     || !in_array(substr(@$_SERVER['REMOTE_ADDR'], 0, 12), array(
         '147.142.225.',
@@ -13,7 +13,7 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
 )) {
     header('HTTP/1.0 403 Forbidden');
     exit('You are not allowed to access this file. Check '.basename(__FILE__).' for more information.');
-}
+}*/
 
 require_once __DIR__.'/../app/bootstrap.php.cache';
 require_once __DIR__.'/../app/AppKernel.php';

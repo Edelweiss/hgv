@@ -76,11 +76,103 @@ class BrowseController extends HgvController
         'gte' => '>='
       );
 
-    public function multipleAction(){
-      $search = $this->getParameterSearch();  var_dump($search);
+    public function singleAction(){
+      $search = $this->getParameterSearch(); // var_dump($search);
       $sort   = $this->getParameterSort();   // var_dump($sort);
       $show   = $this->getParameterShow();   // var_dump($show);
 
+      $result = $this->getResult(array_merge($search, $show), $sort);
+
+      try{
+
+        $result = $this->getResult(array_merge($search, $show), $sort);
+        $record = $result['data'][0];
+        $translations = array();
+        $original = array('in: ', '&amp;', '&quot;', '&lt;', '&gt;');
+        $mask = array('#INCOLONSPACE#', '#QUOTATIONMARK#', '#LESSTHAN#', '#GREATERTHAN#');
+        $canonical = array('in: ', ' & ', '"', '<', '>');
+        $uebersetzungen = str_replace($original, $mask, $record->getUebersetzungen());
+
+        if(preg_match_all('/(([^: ]+): )([^:]+([ \.$\d]|$))/', $uebersetzungen, $matches)){
+          if(count($matches[0])){
+            foreach ($matches[2] as $index => $language) {
+              $translations[$language] = array();
+              foreach(explode(';', $matches[3][$index]) as $translation){
+
+                $translations[$language][] = str_replace($mask, $canonical, $translation);
+              }
+            }
+          }
+        }
+
+        return $this->render('PapyrillioHgvBundle:Browse:single.html.twig', array(
+          'search'             => $search,
+          'sort'               => $sort,
+          'show'               => $show,
+          'showPrev'           => ($show['skip'] > 0 ? array_merge($show, array('skip' => $show['skip'] - 1)) : null),
+          'showNext'           => ($show['skip'] < ($result['countSearch'] - 1) ? array_merge($show, array('skip' => $show['skip'] + 1)) : null),
+          'fieldList'          => self::$FIELD_LIST_SINGLE,
+          'translations'       => $translations,
+          'countTotal'         => $result['countTotal'],
+          'countSearch'        => $result['countSearch'],
+          'record'             => $record));
+      } catch(Exception $e){
+        return $this->render('PapyrillioHgvBundle:Catalogue:error.html.twig', array('message' => 'FileMaker Error #' . $e->getMessage()));
+      }
+    }
+
+    public function multipleAction(){
+      $search = $this->getParameterSearch();  //var_dump($search);
+      $sort   = $this->getParameterSort();    var_dump($sort);
+      $show   = $this->getParameterShow();   // var_dump($show);
+      try{
+        $result = $this->getResult($search, $sort);
+        $this->setSessionParameter('search', $search); // only a successfull search will save search and sort parameters to session
+        $this->setSessionParameter('sort', $sort);
+
+        $sortLinkParameters = array();
+        $sortDirections = array();
+        foreach(self::$FIELD_LIST_MULTIPLE as $key => $caption){
+          $sortDirections[$key] = null;
+
+          $tmpKey = $key;
+          /*if($key == 'DatierungIi'){
+            $tmpKey = 'ChronGlobal';
+          } else if($key == 'PublikationLang'){
+            $tmpKey = 'Publikation';
+          } */
+          $direction = 'ascend';
+          foreach($sort as $sortItem){
+            if($sortItem['key'] == $tmpKey){
+              if($sortItem['direction'] == $direction){
+                $direction = 'descend';
+              }
+              $sortDirections[$key] = $direction == 'ascend' ? 'descend' : 'ascend';
+            }
+          }
+          $sortLinkParameters[$key] = array(1 => array('key' => $key, 'direction' => $direction));
+        }
+        return $this->render('PapyrillioHgvBundle:Browse:multi.html.twig', array(
+          'result' => $result['data'],
+          'search' => $search,
+          'sort' => $sort,
+          'sortDirections' => $sortDirections,
+          'sortLinkParameters' => $sortLinkParameters,
+          'show' => $show,
+          'from' => $search['skip'] + 1,
+          'to' => $search['skip'] + count($result['data']),
+          'countTotal' => $result['countTotal'],
+          'countSearch' => $result['countSearch'],
+          'searchPrev' => ($search['skip'] > 0 ? array_merge($search, array('skip' => max(0, $search['skip'] - $search['max']))) : null),
+          'searchNext' => ($search['skip'] + $search['max'] < $result['countSearch'] ? array_merge($search, array('skip' => min($result['countSearch'] / $search['max'] * $search['max'], $search['skip'] + $search['max']))) : null),
+          'fieldList' => self::$FIELD_LIST_MULTIPLE
+        ));
+      } catch(Exception $e){
+        return $this->render('PapyrillioHgvBundle:Catalogue:error.html.twig', array('message' => 'Error: ' . $e->getMessage()));
+      }
+    }
+
+    protected function getResult($search, $sort){
       $where = '';
       $orderBy = '';
       $parameters = array();
@@ -132,59 +224,15 @@ class BrowseController extends HgvController
         $orderBy = rtrim($orderBy, ', ');
       }
       echo $where . $orderBy;
-      
+
       $entityManager = $this->getDoctrine()->getEntityManager();
       $repository = $entityManager->getRepository('PapyrillioHgvBundle:Hgv');
 
-      try{
-        $countTotal  = $entityManager->createQuery('SELECT COUNT(h.id) FROM PapyrillioHgvBundle:Hgv h')->getSingleScalarResult();
-        $countSearch = $entityManager->createQuery('SELECT COUNT(h.id) FROM PapyrillioHgvBundle:Hgv h' . $where)->setParameters($parameters)->getSingleScalarResult();
-        $result      = $entityManager->createQuery('SELECT h FROM PapyrillioHgvBundle:Hgv h ' . $where . $orderBy)->setParameters($parameters)->setMaxResults($search['max'])->setFirstResult($search['skip'])->getResult();
-        $this->setSessionParameter('search', $search); // only a successfull search will save search and sort parameters to session
-        $this->setSessionParameter('sort', $sort);
+      $countTotal  = $entityManager->createQuery('SELECT COUNT(h.id) FROM PapyrillioHgvBundle:Hgv h')->getSingleScalarResult();
+      $countSearch = $entityManager->createQuery('SELECT COUNT(h.id) FROM PapyrillioHgvBundle:Hgv h' . $where)->setParameters($parameters)->getSingleScalarResult();
+      $result      = $entityManager->createQuery('SELECT h FROM PapyrillioHgvBundle:Hgv h ' . $where . $orderBy)->setParameters($parameters)->setMaxResults($search['max'])->setFirstResult($search['skip'])->getResult();
 
-        $sortLinkParameters = array();
-        $sortDirections = array();
-        foreach(self::$FIELD_LIST_MULTIPLE as $key => $caption){
-          $sortDirections[$key] = null;
-
-          $tmpKey = $key;
-          if($key == 'DatierungIi'){
-            $tmpKey = 'ChronGlobal';
-          } else if($key == 'PublikationLang'){
-            $tmpKey = 'Publikation';
-          } 
-
-          $direction = 'ascend';
-          foreach($sort as $sortItem){
-            if($sortItem['key'] == $tmpKey){
-              if($sortItem['direction'] == $direction){
-                $direction = 'descend';
-              }
-              $sortDirections[$key] = $direction == 'ascend' ? 'descend' : 'ascend';
-            }
-          }
-          $sortLinkParameters[$key] = array(1 => array('key' => $key, 'direction' => $direction));
-        }
-
-        return $this->render('PapyrillioHgvBundle:Browse:multi.html.twig', array(
-          'result' => $result,
-          'search' => $search,
-          'sort' => $sort,
-          'sortDirections' => $sortDirections,
-          'sortLinkParameters' => $sortLinkParameters,
-          'show' => $show,
-          'from' => $search['skip'] + 1,
-          'to' => $search['skip'] + count($result),
-          'countTotal' => $countTotal,
-          'countSearch' => $countSearch,
-          'searchPrev' => ($search['skip'] > 0 ? array_merge($search, array('skip' => max(0, $search['skip'] - $search['max']))) : null),
-          'searchNext' => ($search['skip'] + $search['max'] < $countSearch ? array_merge($search, array('skip' => min($countSearch / $search['max'] * $search['max'], $search['skip'] + $search['max']))) : null),
-          'fieldList' => self::$FIELD_LIST_MULTIPLE
-        ));
-      } catch(Exception $e){
-        return $this->render('PapyrillioHgvBundle:Catalogue:error.html.twig', array('message' => 'Error: ' . $e->getMessage()));
-      }
+      return array('data' => $result, 'countTotal' => $countTotal, 'countSearch' => $countSearch);
     }
 
     public function searchAction()
@@ -233,8 +281,10 @@ class BrowseController extends HgvController
         }
 
         return $search;
+      } else if($search = $this->getSessionParameter('search')){ // try to retrieve from session
+        return $search;
       }
-      return $this->getSessionParameter('search'); // try to retrieve from session
+      return array('criteria' => array(), 'operator' => 'and', 'skip' => 0, 'max' => 100); // return default search parameters
     }
 
     protected function getParameterSort(){
@@ -244,15 +294,15 @@ class BrowseController extends HgvController
         $finalSortingIndex = 1;
         foreach($sortList as $sort){
           if($sort['key'] == 'Datierung2'){
-            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'ChronGlobal', 'direction' => $sort['direction']);
-            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'M', 'direction' => $sort['direction']);
-            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'T', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'chronGlobal', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'monat', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'tag', 'direction' => $sort['direction']);
           } elseif ($sort['key'] == 'PublikationL') {
-            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'Publikation', 'direction' => $sort['direction']);
-            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'Band', 'direction' => $sort['direction']);
-            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'Zus.Band', 'direction' => $sort['direction']);
-            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'Nummer', 'direction' => $sort['direction']);
-            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'Seite', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'publikation', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'band', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'zusBand', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'nummer', 'direction' => $sort['direction']);
+            $finalSortingOrder[$finalSortingIndex++] = array('key' => 'seite', 'direction' => $sort['direction']);
           } elseif(!empty($sort['key'])){
             $finalSortingOrder[$finalSortingIndex++] = $sort;
           }
@@ -270,9 +320,9 @@ class BrowseController extends HgvController
 
       // DEFAULT
       return array(
-        1 => array('key' => 'ChronGlobal', 'direction' => 'ascend'),
-        2 => array('key' => 'M', 'direction' => 'descend'),
-        3 => array('key' => 'T', 'direction' => 'descend')
+        1 => array('key' => 'chronGlobal', 'direction' => 'ascend'),
+        2 => array('key' => 'monat', 'direction' => 'descend'),
+        3 => array('key' => 'tag', 'direction' => 'descend')
       );
     }
 

@@ -1,0 +1,149 @@
+{# Testfälle: 50307, 8886, 19648, 63705, 9088, 8981a #}
+<table class="catalogueShow">
+  <tbody>
+    {% if record.publikationLang %}
+      <tr>
+        <th>Publikation</th>
+        <td>{{ record.publikationLang|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.anderePublikation %}
+      <tr>
+        <th>Andere Publikationen</th>
+        <td>{{ record.anderePublikation|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.datierungIi %}
+      <tr>
+        <th>Datierung</th>
+        <td>{{ record.datierungIi|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.Ort %}
+      <tr>
+        <th>Ort</th>
+        <td>{{ record.ort|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.originaltitelHtml %}
+      <tr>
+        <th>Originaltitel</th>
+        <td>{{ record.originaltitelHtml|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.material %}
+      <tr>
+        <th>Material</th>
+        <td>{{ record.material|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.abbildung or record.linkFm %}
+      <tr>
+        <th>Abbildung</th>
+        <td>
+          {% if record.abbildung %}
+            {{ record.abbildung|raw }}
+          {% endif %}
+          {% if record.abbildung or record.linkFm %}
+            <br />
+          {% endif %}
+          {% if record.linkFm %}
+            <a target="Neu" href="{{ record.linkFm|raw }}">Weitere Informationen / Abbildung im Internet</a>
+          {% endif %}
+        </td>
+      </tr>
+    {% endif %}
+    {% if record.bl %}
+      <tr>
+        <th>BL-Einträge nach BL-Konkordanz</th>
+        <td>{{ record.bl|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.ddbSer %}
+      <tr>
+        <th>Text der DDBDP</th>
+        <td>
+          <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
+        </td>
+      </tr>
+    {% endif %}
+    {% if record.ldab == 'ja' %}
+      <tr class="ldab">
+        <th></th>
+        <td>
+          Trismegistos ermöglicht den Link zu Metadaten für diesen (semi)literarischen Text bei <a href="http://www.trismegistos.org/ldab/text.php?tm={{ record.tmNr }}" target="DAHT">LDAB</a>
+        </td>
+      </tr>
+    {% endif %}
+    {% if record.bemerkungen %}
+      <tr>
+        <th>Bemerkungen</th>
+        <td>{{ record.bemerkungen|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.daht == 'ja' %}
+      <tr class="daht">
+        <th></th>
+        <td>
+          Trismegistos ermöglicht den Link zu Metadaten für diesen bilinguen Text bei <a href="http://www.trismegistos.org/DAHT/daht_text_detail.php?tm={{ record.tmNr }}" target="DAHT">DAHT</a>
+        </td>
+      </tr>
+    {% endif %}
+    {% if record.uebersetzungen %}
+      <tr class="translation">
+        <th>Übersetzungen</th>
+        <td>
+          {% if translations %}
+            {% for language, translation in translations %}
+              <b>{{ language }}:</b>
+              <br />
+              <ul>
+              {% for bibliography in translation %}
+                <li>{{ bibliography|raw }}</li>
+              {% endfor %}
+              </ul>
+            {% endfor %}
+          {% else %}
+            {{ record.uebersetzungen|raw }}
+          {% endif %}
+        </td>
+      </tr>
+    {% endif %}
+    {% if record.dfg %}
+      <tr class="dfg">
+        <th></th>
+        <td>
+          <br />
+          <a href="http://www.papy.uni-hd.de/trans/DFG/de/{{ record.tmNr }}{{ record.texLett }}de.html" target="BGU">Deutsche Übersetzung (HGV-Erweiterungsprojekt, finanziert von der DFG)</a>
+          <br />
+          <a href="http://www.papy.uni-hd.de/trans/DFG/eng/{{ record.tmNr }}{{ record.texLett }}eng.html" target="BGU">English translation (HGV Enhancement Project funded by the DFG)</a>
+          <br />
+          <br />
+        </td>
+      </tr>
+    {% endif %}
+    {% if record.inhaltHtml %}
+      <tr>
+        <th>Inhalt</th>
+        <td>{{ record.InhaltHtml|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.erwaehnteDaten %}
+      <tr>
+        <th>Erwähnte Daten</th>
+        <td>{{ record.erwaehnteDaten|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.TmNr %}
+      <tr>
+        <th>TM Nr.</th>
+        <td>
+          <a  href="http://www.trismegistos.org/tm/detail.php?quick={{ record.TmNr }}" target="DAHT">{{ record.tmNr }}</a>
+          {% if record.texIdLang != record.tmNr %}
+            <span class="mini">(HGV Nr. {{ record.texIdLang }})</span>
+          {% endif %}
+        </td>
+      </tr>
+    {% endif %}
+  </tbody>
+</table>

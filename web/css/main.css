@@ -47,7 +47,7 @@ margin: 0 auto;
 
 margin: 0 auto;
 padding-top: 30px;
-background: #FFF url(images/colbg.png) repeat-y;
+background: #FFF;
 overflow: hidden;
 }
 
@@ -359,4 +359,28 @@ table.catalogueList th.descend{
 
 table.catalogueList th.descend{
   background-image: url(../images/desc.png);
+}
+
+/* P U B L I C A T I O N */
+
+div#publication ul{
+  float: left;
+  height: 30em;
+  width: 16em;
+  overflow: scroll;
+  cursor: pointer;
+  cursor: hand;
+  list-style: none;
+}
+
+div#publication ul#result{;
+  width: 40em;
+  height: auto;
+  overflow: visible;
+  cursor: auto;
+}
+
+div#publication ul li.active{
+  color: white;
+  background-color: #085E9B;
 }

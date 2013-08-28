@@ -1,0 +1,38 @@
+Papyrillio\HgvBundle\Entity\Publication:
+    type: entity
+    table: publication
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        collection:
+            type: text
+            nullable: true
+        volume:
+            type: integer
+            nullable: true
+        particle:
+            name: zus_band
+            type: text
+            nullable: true
+        number:
+            type: integer
+            nullable: true
+        side:
+            type: text
+            nullable: true
+        extra:
+            type: text
+            nullable: true
+    oneToMany:
+        children:
+            targetEntity: Publication
+            mappedBy: parent
+    manyToOne:
+        parent:
+            targetEntity: Publication
+            inversedBy: children
+
+    # don't forget to init the collection in entity __construct() method

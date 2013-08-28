@@ -2,6 +2,24 @@ PapyrillioHgvBundle_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: PapyrillioHgvBundle:Default:index }
 
+# P U B L I C A T I O N #
+
+PapyrillioHgvBundle_PublicationLoadNumbers:
+    pattern:  /publication/load/numbers/{collection}/{volume}/{particle}
+    defaults: { _controller: PapyrillioHgvBundle:Publication:loadNumbers, collection: null, volume: null, particle: null }
+
+PapyrillioHgvBundle_PublicationLoadResults:
+    pattern:  /publication/load/results/{collection}/{volume}/{particle}/{number}/{side}/{extra}
+    defaults: { _controller: PapyrillioHgvBundle:Publication:loadResults, collection: null, volume: null, particle: null, number: null, side: null, extra: null }
+    requirements:
+      particle: "[^/]*"
+      number: "[^/]*"
+      side: "[^/]*"
+
+PapyrillioHgvBundle_PublicationIndex:
+    pattern:  /publication
+    defaults: { _controller: PapyrillioHgvBundle:Publication:index }
+
 # B R O W S E #
 
 PapyrillioHgvBundle_BrowseMultiple:
