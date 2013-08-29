@@ -42,22 +42,6 @@ Papyrillio\HgvBundle\Entity\MentionedDate:
             name: erg_ii
             type: text
             nullable: true
-        chronMinimum:
-            name: chron_minimum
-            type: integer
-            nullable: true
-        chronMaximum:
-            name: chron_maximum
-            type: integer
-            nullable: true
-        chronGlobal:
-            name: chron_global
-            type: integer
-            nullable: true
-        erwaehnteDaten:
-            name: erwaehnte_daten
-            type: text
-            nullable: true
         unsicher:
             type: text
             nullable: true
@@ -68,24 +52,16 @@ Papyrillio\HgvBundle\Entity\MentionedDate:
             name: datierung_ii
             type: text
             nullable: true
-        eingegebenAm:
-            name: eingegeben_am
-            type: date
-            nullable: true
-        zulGeaendertAm:
-            name: zul_geaendert_am
-            type: date
-            nullable: true
-        DatensatzNr:
-            name: datensatz_nr
-            type: integer
+        erwaehnteDaten:
+            name: erwaehnte_daten
+            type: text
             nullable: true
     manyToOne:
         metadata:
             targetEntity: Hgv
             joinColumn:
-                name: hgvId
-                referencedColumnName: hgvId
+                name: texIdLang
+                referencedColumnName: texIdLang
                 type: string
                 length: 64
                 nullable: true

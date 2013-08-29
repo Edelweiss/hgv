@@ -282,7 +282,7 @@ table.search tr.Uebersetzungen input{
   width: 30em;
 }
 
-/* CATALOGUE SHOW */
+/* BROWSE SINGLE / CATALOGUE SHOW */
 
 table.catalogueShow th,
 table.catalogueShow td {
@@ -308,12 +308,14 @@ table.catalogueShow tr.dfg a{
   font-weight: bold;
 }
 
-table.catalogueShow tr.translation ul{
+table.catalogueShow tr.translation ul,
+table.catalogueShow tr.mentionedDates ul{
   list-style-type: none;
   margin: 0;
 }
 
-table.catalogueShow tr.translation ul li{
+table.catalogueShow tr.translation ul li,
+table.catalogueShow tr.mentionedDates ul li{
   margin-left: 1em;
 }
 

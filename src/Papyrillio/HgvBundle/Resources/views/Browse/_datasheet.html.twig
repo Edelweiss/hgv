@@ -129,9 +129,21 @@
       </tr>
     {% endif %}
     {% if record.erwaehnteDaten %}
-      <tr>
+      <tr class="mentionedDates">
         <th>Erwähnte Daten</th>
-        <td>{{ record.erwaehnteDaten|raw }}</td>
+        <td>
+          {% if record.mentionedDates %}
+            <ul>
+              {% for mentionedDate in record.mentionedDates %}
+                <li>
+                  {{ mentionedDate.datierung }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            {{ record.erwaehnteDaten|raw }}
+          {% endif %}
+        </td>
       </tr>
     {% endif %}
     {% if record.TmNr %}
@@ -147,3 +159,6 @@
     {% endif %}
   </tbody>
 </table>
+
+
+

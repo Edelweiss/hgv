@@ -1330,4 +1330,33 @@ class Hgv
     {
         return $this->publikationLang;
     }
+    /**
+     * @var Papyrillio\HgvBundle\Entity\MentionedDate
+     */
+    private $mentionedDates;
+
+    public function __construct()
+    {
+        $this->mentionedDates = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add mentionedDates
+     *
+     * @param Papyrillio\HgvBundle\Entity\MentionedDate $mentionedDates
+     */
+    public function addMentionedDate(\Papyrillio\HgvBundle\Entity\MentionedDate $mentionedDates)
+    {
+        $this->mentionedDates[] = $mentionedDates;
+    }
+
+    /**
+     * Get mentionedDates
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getMentionedDates()
+    {
+        return $this->mentionedDates;
+    }
 }
