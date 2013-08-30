@@ -76,6 +76,11 @@ class BrowseController extends HgvController
         'gte' => '>='
       );
 
+    public function searchAction()
+    {
+      return $this->render('PapyrillioHgvBundle:Browse:search.html.twig', array('fieldList' => self::$FIELD_LIST_SEARCH));
+    }
+
     public function singleAction(){
       $search = $this->getParameterSearch(); // var_dump($search);
       $sort   = $this->getParameterSort();   // var_dump($sort);
@@ -122,9 +127,10 @@ class BrowseController extends HgvController
     }
 
     public function multipleAction(){
-      $search = $this->getParameterSearch();  //var_dump($search);
-      $sort   = $this->getParameterSort();    var_dump($sort);
-      $show   = $this->getParameterShow();   // var_dump($show);
+      $search = $this->getParameterSearch();  var_dump($search);
+      $sort   = $this->getParameterSort();    //var_dump($sort);
+      $show   = $this->getParameterShow();    // var_dump($show);
+
       try{
         $result = $this->getResult($search, $sort);
         $this->setSessionParameter('search', $search); // only a successfull search will save search and sort parameters to session
@@ -176,16 +182,22 @@ class BrowseController extends HgvController
       $where = '';
       $orderBy = '';
       $parameters = array();
-      
+
       if(count($search['criteria'])){
         $where = ' WHERE ';
         $operator = ' ' . $search['operator'] . ' ';
         foreach($search['criteria'] as $field => $criterion){
 
           if($field == 'jahr' and preg_match('/^(\d+)\.+(\d+)$/', $criterion['value'], $matches)){ // YEAR...YEAR2
-            $where .= '(h.jahr >= :jahrVon AND h.jahr <= :jahrBis)' . $operator;
-            $parameters['jahrVon'] = $matches[1];
-            $parameters['jahrBis'] = $matches[2];
+            if($search['mentionedDates']){ // CL: HIER WEITERMACHEN!!!
+              $where .= '((h.jahr >= :jahrVon AND h.jahr <= :jahrBis) OR (m.jahr >= :jahrVon AND m.jahr <= :jahrBis))' . $operator;
+              $parameters['jahrVon'] = $matches[1];
+              $parameters['jahrBis'] = $matches[2];
+            } else {
+              $where .= '(h.jahr >= :jahrVon AND h.jahr <= :jahrBis)' . $operator;
+              $parameters['jahrVon'] = $matches[1];
+              $parameters['jahrBis'] = $matches[2];
+            }
           } else {
             $where .= 'h.' . $field . ' ' . self::$SQL_OPERATOR_MAP[$criterion['operator']] . ' :' . $field . $operator;
             
@@ -228,16 +240,11 @@ class BrowseController extends HgvController
       $entityManager = $this->getDoctrine()->getEntityManager();
       $repository = $entityManager->getRepository('PapyrillioHgvBundle:Hgv');
 
-      $countTotal  = $entityManager->createQuery('SELECT COUNT(h.id) FROM PapyrillioHgvBundle:Hgv h')->getSingleScalarResult();
-      $countSearch = $entityManager->createQuery('SELECT COUNT(h.id) FROM PapyrillioHgvBundle:Hgv h' . $where)->setParameters($parameters)->getSingleScalarResult();
-      $result      = $entityManager->createQuery('SELECT h FROM PapyrillioHgvBundle:Hgv h ' . $where . $orderBy)->setParameters($parameters)->setMaxResults($search['max'])->setFirstResult($search['skip'])->getResult();
+      $countTotal  = $entityManager->createQuery('SELECT COUNT(DISTINCT h.id) FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m')->getSingleScalarResult();
+      $countSearch = $entityManager->createQuery('SELECT COUNT(DISTINCT h.id) FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m' . $where)->setParameters($parameters)->getSingleScalarResult();
+      $result      = $entityManager->createQuery('SELECT DISTINCT h FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m ' . $where . $orderBy)->setParameters($parameters)->setMaxResults($search['max'])->setFirstResult($search['skip'])->getResult();
 
       return array('data' => $result, 'countTotal' => $countTotal, 'countSearch' => $countSearch);
-    }
-
-    public function searchAction()
-    {
-      return $this->render('PapyrillioHgvBundle:Browse:search.html.twig', array('fieldList' => self::$FIELD_LIST_SEARCH));
     }
 
     protected function getParameterShow(){
@@ -269,6 +276,13 @@ class BrowseController extends HgvController
         // default operator
         if(!isset($search['operator']) or !in_array($search['operator'], array('and', 'or'))){
           $search['operator'] = 'and';
+        }
+
+        // default options        
+        if(isset($search['mentionedDates']) && in_array($search['mentionedDates'], array(true, 'on', 'yes'))){
+          $search['mentionedDates'] = true;
+        } else {
+          $search['mentionedDates'] = false;
         }
 
         // default paginator

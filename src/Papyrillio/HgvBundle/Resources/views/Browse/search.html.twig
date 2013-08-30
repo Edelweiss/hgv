@@ -49,9 +49,12 @@
       </tbody>
     </table>
     
+    <h3>Optionen</h3>
+    <p><input type="checkbox" name="search[mentionedDates]" name="search_mentionedDates"/>Suche auf <b>erwähnten Daten</b> ausweiten</p>
+
     <h3>Sortieren</h3>
     <p><b>Hinweis:</b> Wenn keine Sortierreihenfolge angegeben wurde, werden die Datensätze automatisch nach Datum (Jahr, Monat, Tag und Chron-Global) oder nach der zuletzt ausgewählten Reihenfolge sortiert.</p>
-    
+
     {% for i in 1..5 %}
       <label for="sort_{{ i }}_key">{{ loop.index}}. Suchfeld</label>
       <select name="sort[{{ i }}][key]" id="sort_{{ i }}_key">
