@@ -76,11 +76,17 @@ class BrowseController extends HgvController
         'gte' => '>='
       );
 
+    /**
+     * Show search form
+     * **/
     public function searchAction()
     {
       return $this->render('PapyrillioHgvBundle:Browse:search.html.twig', array('fieldList' => self::$FIELD_LIST_SEARCH));
     }
 
+    /***
+     * Show single data record
+     * */
     public function singleAction(){
       $search = $this->getParameterSearch(); // var_dump($search);
       $sort   = $this->getParameterSort();   // var_dump($sort);
@@ -126,10 +132,13 @@ class BrowseController extends HgvController
       }
     }
 
+    /**
+     * Show result table for current (latest) search
+     * **/
     public function multipleAction(){
-      $search = $this->getParameterSearch();  var_dump($search);
-      $sort   = $this->getParameterSort();    //var_dump($sort);
-      $show   = $this->getParameterShow();    // var_dump($show);
+      $search = $this->getParameterSearch();
+      $sort   = $this->getParameterSort();
+      $show   = $this->getParameterShow();
 
       try{
         $result = $this->getResult($search, $sort);
@@ -171,7 +180,8 @@ class BrowseController extends HgvController
           'countSearch' => $result['countSearch'],
           'searchPrev' => ($search['skip'] > 0 ? array_merge($search, array('skip' => max(0, $search['skip'] - $search['max']))) : null),
           'searchNext' => ($search['skip'] + $search['max'] < $result['countSearch'] ? array_merge($search, array('skip' => min($result['countSearch'] / $search['max'] * $search['max'], $search['skip'] + $search['max']))) : null),
-          'fieldList' => self::$FIELD_LIST_MULTIPLE
+          'fieldList' => self::$FIELD_LIST_MULTIPLE,
+          'query' => $result['query']
         ));
       } catch(Exception $e){
         return $this->render('PapyrillioHgvBundle:Catalogue:error.html.twig', array('message' => 'Error: ' . $e->getMessage()));
@@ -235,16 +245,21 @@ class BrowseController extends HgvController
         }
         $orderBy = rtrim($orderBy, ', ');
       }
-      echo $where . $orderBy;
 
       $entityManager = $this->getDoctrine()->getEntityManager();
       $repository = $entityManager->getRepository('PapyrillioHgvBundle:Hgv');
 
+      $select = 'SELECT DISTINCT h FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m ';
       $countTotal  = $entityManager->createQuery('SELECT COUNT(DISTINCT h.id) FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m')->getSingleScalarResult();
       $countSearch = $entityManager->createQuery('SELECT COUNT(DISTINCT h.id) FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m' . $where)->setParameters($parameters)->getSingleScalarResult();
-      $result      = $entityManager->createQuery('SELECT DISTINCT h FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m ' . $where . $orderBy)->setParameters($parameters)->setMaxResults($search['max'])->setFirstResult($search['skip'])->getResult();
+      $result      = $entityManager->createQuery($select . $where . $orderBy)->setParameters($parameters)->setMaxResults($search['max'])->setFirstResult($search['skip'])->getResult();
+      
+      $query = $select . $where . $orderBy;
+      foreach($parameters as $key => $value){
+        $query = str_replace(':' . $key, $value, $query);
+      }
 
-      return array('data' => $result, 'countTotal' => $countTotal, 'countSearch' => $countSearch);
+      return array('data' => $result, 'countTotal' => $countTotal, 'countSearch' => $countSearch, 'query' => $query);
     }
 
     protected function getParameterShow(){

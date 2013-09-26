@@ -5,31 +5,61 @@
 {% endblock %}
 
 {% block body %}
-  <p> Datensätze {{ from }}-{{ to }} von {{ countSearch }} Suchtreffern (Gesamt: {{ countTotal }})</p>
+  <p> Datensätze {{ from }}-{{ to }} von {{ countSearch }} Suchtreffern (Gesamt: {{ countTotal }})<span id="showSearchParameters" title="Suchparameter anzeigen">?</span></p>
+  <p id="searchParameters" style="display: none;">
+    <b>Suchoptionen</b><br />
+    <i>Operator: </i>{{ search.operator == 'and' ? '&&' : '||' }}<br />
+    <i>Auslassung: </i>{{ search.skip }}<br />
+    <i>Maximale Seitengröße: </i>{{ search.max }}<br />
+    <i>Einbeziehung erwähnter Daten: </i>{{ search.mentionedDates ? 'ja' : 'nein' }}<br />
+    
+    {% if search.criteria %}
+      <b>Suchfilter</b><br />
+      {% for key, criterion  in search.criteria %}
+        <i>{{ key }}</i> {{ criterion.operator }} {{ criterion.value }}
+      {% endfor %}
+      <br />
+    {% endif %}
+
+    {% if sort %}
+      <b>Sortierung</b><br />
+      {% for sortItem in sort %}
+        <i>{{ sortItem.key }}:</i> {{ sortItem.direction }}
+      {% endfor %}
+      <br />
+    {% endif %}
+
+    {% if query %}
+      <b>Abfrage in Pseudo-SQL</b><br />
+      {{ query }}<br />
+    {% endif %}
+
+  </p>
+
   <table class="catalogueList">
     <thead>
       <tr>
-          <th></th>
-          {% for key, field in fieldList %}
-            <th class="{{ key }} {{ sortDirections[key] }}" title="{{ sortDirections[key] == 'asc' ? 'aufwärts' : 'abwärts' }} sortieren nach Feld »{{ field }}«">
-              <a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': search, 'sort': sortLinkParameters[key]}) }}">{{ field }}</a>
-            </th>
-          {% endfor %}
-        </tr>
+        <th></th>
+        {% for key, field in fieldList %}
+          <th class="{{ key }} {{ sortDirections[key] }}" title="{{ sortDirections[key] == 'asc' ? 'aufwärts' : 'abwärts' }} sortieren nach Feld »{{ field }}«">
+            <a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': search, 'sort': sortLinkParameters[key]}) }}">{{ field }}</a>
+          </th>
+        {% endfor %}
+      </tr>
     </thead>
     <tbody>
       {% for index, record in result %}
         <tr>
-        　<th title="{{ record.hgvId }}"><a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': {'skip': search['skip'] + index, 'max': 1}}) }}">{{ from + index }}</a></th>
-          <td class="publikationLang">{{ record.publikationLang }}</td>　
-          <td class="datierungIi">{{ record.datierungIi }}</td>　
-          <td class="ort">{{ record.ort }}</td>　
+        　<th title="HGV ID {{ record.hgvId }}"><a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': {'skip': search['skip'] + index, 'max': 1}}) }}">{{ from + index }}</a></th>
+          <td class="publikationLang">{{ record.publikationLang }}</td>
+          <td class="datierungIi">{{ record.datierungIi }}</td>
+          <td class="ort">{{ record.ort }}</td>
           <td class="originaltitelHtml">{{ record.originaltitelHtml|raw }}</td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
-  
+
   {% if searchPrev %}
     <a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': searchPrev, 'sort': sort}) }}">zurück</a>
   {% endif %}
@@ -37,4 +67,9 @@
   {% if searchNext %}
     <a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': searchNext, 'sort': sort}) }}">weiter</a>
   {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('js/browseMulti.js') }}" type="text/javascript"></script>
 {% endblock %}

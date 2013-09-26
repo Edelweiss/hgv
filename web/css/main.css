@@ -319,7 +319,30 @@ table.catalogueShow tr.mentionedDates ul li{
   margin-left: 1em;
 }
 
-/* CATALOGUE LIST */
+/* CATALOGUE LIST / BROWSE MULTI */
+
+span#showSearchParameters{
+  background-color: #085E9B;
+  display: block;
+  width: 1.4em;
+  float: right;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  cursor: hand;
+  cursor: pointer;
+  border: solid 1px #142952;
+}
+
+p#searchParameters{
+  background-color: #c0c0c0;
+  border: solid 1px #142952;
+  padding: 1em;
+}
+
+p#searchParameters b{
+  line-height: 2;
+}
 
 table.catalogueList th,
 table.catalogueList td{
