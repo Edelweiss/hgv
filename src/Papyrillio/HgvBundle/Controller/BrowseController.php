@@ -313,7 +313,7 @@ class BrowseController extends HgvController
       } else if($search = $this->getSessionParameter('search')){ // try to retrieve from session
         return $search;
       }
-      return array('criteria' => array(), 'operator' => 'and', 'skip' => 0, 'max' => 100); // return default search parameters
+      return array('criteria' => array(), 'operator' => 'and', 'skip' => 0, 'max' => 100, 'mentionedDates' => false); // return default search parameters
     }
 
     protected function getParameterSort(){
