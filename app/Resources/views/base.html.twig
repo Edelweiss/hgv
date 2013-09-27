@@ -18,8 +18,8 @@
     {% endif %}
     <div id="wrapper"><!-- #wrapper -->
       <header><!-- header -->
-        <h1><a href="#">HGV</a></h1>
-        <h2>Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens</h2>
+        <h1><a href="#">Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens</a></h1>
+        <h2><a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="logo" src="{{ asset('images/Siegel.jpg') }}" alt="Siegel" title="Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens" /></a></h2>
       </header><!-- end of header -->
 
       <nav><!-- top nav -->
@@ -28,8 +28,8 @@
             <li><a href="{{ path('PapyrillioHgvBundle_BrowseMultiple') }}" title="Liste der Datensätze">Tabelle</a></li>
             <li><a href="{{ path('PapyrillioHgvBundle_BrowseSingle') }}" title="Einzelansicht">Formular</a></li>
             <li><a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}" title="Filterfunktion">Suche</a></li>
-            <li><a href="http://147.142.225.241/Hauptregister/DHelp.htm" title="Hilfe">?</a></li>
-            <li><a href="http://147.142.225.241" title="Startseite">⌂</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp') }}" title="Hilfe">?</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}">⌂</a></li>
           </ul>
         </div>
       </nav><!-- end of top nav -->
@@ -45,15 +45,14 @@
           </ul>
           <h3>Suchhilfen</h3>
           <ul>
-            <li><a href="http://147.142.225.241/Hauptregister/DHelp.htm#Search%20Tips">Suchtipps</a></li>
-            <li><a href="http://www.rzuser.uni-heidelberg.de/~gv0/Suchhilfe.html">Deutsch</a></li>
-            <li><a href="http://www.rzuser.uni-heidelberg.de/~gv0/Searchhelp.html">English</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="Suchhilfe">Deutsch</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="Search help">English</a></li>
           </ul>
           <h3>Zusätzlich</h3>
           <ul>
-            <li><a href="http://www.rzuser.uni-heidelberg.de/~gv0/Abkuerzungen.html">Abkürzungen zitierter Bücher</a></li>
-            <li><a href="http://147.142.225.252/fmi/iwp/res/iwp_auth.html">Instant WebPublishing</a></li>
-            <li><a href="http://147.142.225.252/fmi/iwp/res/eng/help.html#Navigating_records">Hilfe</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_DefaultIntroduction') }}" title="Einführung">Einführung</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_DefaultPublication') }}" title="Liste der aufgenommenen Publikationen">Liste der aufgenommenen Publikationen</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_DefaultAbbreviation') }}" title="Abkürzungen im HGV zitierter Bücher">Abkürzungen zitierter Bücher</a></li>
           </ul>
         </aside><!-- end of sidebar -->
         
@@ -85,6 +84,15 @@
                       <li><a href="http://www.papyri.info/">Papyri.info</a></li>
                       <li><a href="http://www.trismegistos.org/">Trismegistos</a></li>
                       <li><a href="http://www.ulb.ac.be/philo/cpeg/bp.htm">Bibliographie Papyrologique</a></li>
+                      <li><a href="http://www.rzuser.uni-heidelberg.de/~gv0/Abkuerzungen.html" title="Abkürzungen im HGV zitierter Bücher">Abkürzungen zitierter Bücher</a></li>
+                      <li><a href="http://147.142.225.252/fmi/iwp/res/iwp_auth.html">Instant WebPublishing</a></li>
+                      <li><a href="http://www.rzuser.uni-heidelberg.de/~gv0/Suchhilfe.html">Suchhilfe Deutsch</a></li>
+                      <li><a href="http://www.rzuser.uni-heidelberg.de/~gv0/Searchhelp.html">Search Help English</a></li>
+                      <li><a href="http://147.142.225.241/Hauptregister/DHelp.htm#Search%20Tips">Suchtipps [TBD???]</a></li>
+                      <li><a href="http://147.142.225.252/fmi/iwp/res/eng/help.html#Navigating_records">Hilfe [TBD???]</a></li>
+                      <li><a href="http://147.142.225.241/Hauptregister/DHelp.htm" title="Hilfe">? [TBD???]</a></li>
+                      <li><a href="http://147.142.225.241/Hauptregister/Help.htm" title="Hilfe">? (Help - English) [TBD???]</a></li>
+                      <li><a href="http://147.142.225.241/Hauptregister/FHelp.htm" title="Hilfe">? (Aide - Français) [TBD???]</a></li>
                     </ul>
               </aside><!-- end of #second footer segment -->
 
@@ -101,7 +109,7 @@
   
               <aside class="footer-segment">
                   <h4>Institut für Papyrologie</h4>
-                    <p>&copy; 2012 <a href="http://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy/index.html">HGV</a><br />Marstallstr. 6<br />Tel.: +049-06221-542396<br />Fax.: +49-06221-543679</p>
+                    <p>&copy; 2012 <a href="http://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy/index.html">HGV</a><br />Marstallstr. 6<br />D-69117 Heidelberg<br />Tel.: +049-06221-542396<br />Fax.: +49-06221-543679</p>
               </aside><!-- end of #fourth footer segment -->
   
           </section><!-- end of footer-outer-block -->

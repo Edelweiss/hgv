@@ -1,1 +1,37 @@
-Hello {{ name }}!
+{% extends '::base.html.twig' %}
+
+{% block title %}Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens{% endblock %}
+
+{% block body %}
+
+ <div class="page index"> 
+ 
+  <h5 style="text-align: center; font-size: 2em;"><font style="color: #ff0000; font-size: 1.4em;">H</font>EIDELBERGER <font style="color: #ff0000; font-size: 1.4em;">G</font>ESAMTVERZEICHNIS<br /> DER GRIECHISCHEN <font style="color: #ff0000; font-size: 1.4em;">P</font>APYRUSURKUNDEN <font style="color: #ff0000; font-size: 1.4em;">Ä</font>GYPTENS</h5>
+  <p style="text-align: center; font-size: 1em; font-weight: bold;">einschließlich der Ostraka usw., der lateinischen Texte, sowie der entsprechenden Urkunden aus benachbarten Regionen </p>
+  <p style="text-align: center;"><img src="{{ asset('images/Siegel.png') }}" /></p>
+
+  <hr /> 
+  
+  <p>
+  <font size="+1"><b>Willkommen beim HGV! Neue Gäste mögen bitte die <a href="{{ path('PapyrillioHgvBundle_DefaultIntroduction') }}">Einführung</a> und die Hinweise (s. unten) lesen.</b></font></p>
+  
+  <p><font size="+1"><b>Sie haben die Möglichkeit der Direktsuche in den Datenbanken "<a href="{{ path('PapyrillioHgvBundle_BrowseMultiple') }}">Hauptregister</a>" 
+  (aktueller Stand) und "<a href="http://aquila.papy.uni-heidelberg.de/Hauptregister/FMPro?-DB=Erwaehnte%20Daten_&amp;-Lay=Liste&amp;-Format=DTableVwED.htm&amp;-Error=DErr.htm&amp;-Findall">Erwähnte Daten</a>" (Stand: Februar 2013). 
+  Informationen zu einem bestimmten Text finden Sie auch über diesen Einstieg: <a href="{{ path('PapyrillioHgvBundle_PublicationIndex') }}">Texte im HGV</a>.</b></font></p>
+  
+  <p>Hinweise zur Benutzung unserer Datenbanken, insbesondere Suchhilfen:</p>
+  <ul>
+    <li style="margin-left: 2em;"><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="Suchhilfe">Deutsch</a></li>
+    <li style="margin-left: 2em;"><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="Search help">English</a></li>
+  </ul>
+    
+  <p><b>Links zu:</b></p>
+  <ul>
+    <li style="margin-left: 2em;">"<a href="http://www.rzuser.uni-heidelberg.de/%7Egv0/Papyri/P.Heid._Uebersicht.html">GriechischePapyri der Heidelberger Papyrussammlung</a>" <b>(digitalisierte Abbildungen Heidelberger Papyri)</b></li>
+    <li style="margin-left: 2em;">"<a href="http://aquila.papy.uni-heidelberg.de/Kat.html">Kataloge</a>" <b>(digitalisierte Kataloge Heidelberger Papyri)</b></li>
+    <li style="margin-left: 2em;">"<a href="http://www.papy.uni-hd.de/WL/WL.html">WörterListen</a>" <b>(Kompilation der in den Registern neuerer Publikationen enthaltenen griechischen und lateinischen Wörter und Namen)</b></li>
+  </ul>
+ 
+ </div>
+
+{% endblock %}

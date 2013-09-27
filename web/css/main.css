@@ -10,22 +10,28 @@ display: block;
 }
 
 body {
-line-height: 1;
-font-family: Verdana, Arial, Helvetica, sans-serif;
-font-size: 14px;
-line-height: 18px;
+  line-height: 1;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 18px;
 }
 
 .mini{
   font-size: 6pt;
   color: #c0c0c0;
 }
+
+h5 a{
+  font-size: small;
+  float: right;
+  text-decoration: none;
+  font-weight: normal;
+}
   
 /* layout */
 
 #wrapper {
 margin: 0 auto;
-margin-top: 5px;
 margin-bottom: 5px;
 -webkit-box-shadow: 3px 3px 7px #777;
 -moz-box-shadow: 3px 3px 7px #777;
@@ -44,10 +50,9 @@ margin: 0 auto;
 }
 
 #main {
-
 margin: 0 auto;
 padding-top: 30px;
-background: #FFF;
+background-image: url('../images/Papyrus.jpg');
 overflow: hidden;
 }
 
@@ -141,20 +146,40 @@ text-decoration: underline;
 /** HEADER */
 
 header h1, header h2 {
-
+  padding: 0;
+  margin: 0;
+  color: #4e75a0;
 }
 
-header h1 {   
-float: left;
-font-weight: normal;
+header h1{
+  position: absolute;
+  top: 91px;
+  left: 287px;
+  text-align: center;
 }
 
-header h1 a:link, header h1 a:visited {
-text-decoration: none;
+header h2{
+  /*height: 245px;*/
+  background-color: #4e75a0;
+  padding-left: 0.4em;
 }
 
-header h2 {
-font-weight: normal;
+header h2 img{
+  /*height: 245px;*/
+ height: 128px;
+  background-color: #4e75a0;
+}
+
+header h1 a, header h1 a:active, header h1 a:hover, header h1 a:focus, header h1 a:link, header h1 a:visited {
+  font-size: small;
+  overflow: hidden;
+  color: #085E9B;
+  cursor: default;
+  visibility: hidden;
+  text-decoration: none;
+  line-height: 1em;
+  padding: 0;
+  margin: 0;
 }
 
 /** ARTICLES **/

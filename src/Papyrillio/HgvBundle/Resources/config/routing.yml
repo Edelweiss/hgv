@@ -1,6 +1,23 @@
-PapyrillioHgvBundle_homepage:
-    pattern:  /hello/{name}
+PapyrillioHgvBundle_DefaultIndex:
+    pattern:  /start
     defaults: { _controller: PapyrillioHgvBundle:Default:index }
+
+PapyrillioHgvBundle_DefaultAbbreviation:
+    pattern:  /abbreviations
+    defaults: { _controller: PapyrillioHgvBundle:Default:abbreviation }
+
+PapyrillioHgvBundle_DefaultHelp:
+    pattern:  /help/{topic}/{language}
+    defaults: { _controller: PapyrillioHgvBundle:Default:help, topic: null, language: null }
+
+PapyrillioHgvBundle_DefaultIntroduction:
+    pattern:  /introduction
+    defaults: { _controller: PapyrillioHgvBundle:Default:introduction }
+
+
+PapyrillioHgvBundle_DefaultPublication:
+    pattern:  /publicationList
+    defaults: { _controller: PapyrillioHgvBundle:Default:publication }
 
 # P U B L I C A T I O N #
 
@@ -33,20 +50,6 @@ PapyrillioHgvBundle_BrowseSingle:
 PapyrillioHgvBundle_BrowseSearch:
     pattern:  /search
     defaults: { _controller: PapyrillioHgvBundle:Browse:search }
-
-# C A T A L O G U E #
-
-PapyrillioHgvBundle_CatalogueList:
-    pattern:  /list
-    defaults: { _controller: PapyrillioHgvBundle:Catalogue:list }
-
-PapyrillioHgvBundle_CatalogueShow:
-    pattern:  /show
-    defaults: { _controller: PapyrillioHgvBundle:Catalogue:show }
-
-PapyrillioHgvBundle_CatalogueSearch:
-    pattern:  /search
-    defaults: { _controller: PapyrillioHgvBundle:Catalogue:search }
 
 # S H O R T C U T #
 

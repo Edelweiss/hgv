@@ -1,0 +1,899 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Liste der für das "Heidelberger Gesamtverzeichnis" bisher aufgenommenen Publikationen{% endblock %}
+
+{% block body %}
+
+  <div class="page help">
+
+    <h5>Liste der für das "Heidelberger Gesamtverzeichnis" bisher aufgenommenen Publikationen<a href="http://www.rzuser.uni-heidelberg.de/~gv0/Liste_der_Publikationen.html" onfocus="this.blur()" title="Link zur Originaldatei" target="_blank"> → Quelle</a></h5>
+    <h6 align="CENTER">(Stand: März 2008)</h6>
+
+    <p>Die Abkürzungen entsprechen im wesentlichen der "<a href="http://scriptorium.lib.duke.edu/papyrus/texts/clist.html">Checklist of Editions of Greek and Latin Papyri, Ostraka and Tablets</a>"
+     von J.F. Oates u.a. (letzte Druckfassung: Fifth Edition, BASP Suppl. 9,
+     2001). Gelegentliche Abweichungen sind aus sich selbst heraus 
+    verständlich:</p>
+    <p>Man vergleiche auch die Übersicht "<a href="{{ path('PapyrillioHgvBundle_PublicationIndex') }}">Texte im HGV</a>", die das Auffinden individueller Texte ermöglicht.
+
+    </p><p><table border="0" cellpadding="0" cellspacing="2" width="100%">
+
+    <tbody><tr>
+    <td>BGU I</td>
+    <td>BGU II</td>
+    <td>BGU III</td>
+    <td>BGU IV</td>
+    </tr>
+    <tr>
+    <td>BGU V</td>
+    <td>BGU VI</td>
+    <td>BGU VII</td>
+    <td>BGU VIII</td>
+    </tr>
+    <tr>
+    <td>BGU IX</td>
+    <td>BGU X</td>
+    <td>BGU XI</td>
+    <td>BGU XII</td>
+    </tr>
+    <tr>
+    <td>BGU XIII</td>
+    <td>BGU XIV</td>
+    <td>BGU XV</td>
+    <td>BGU XVI</td>
+    </tr>
+    <tr>
+    <td>BGU XVII</td>
+    <td>BGU XVIII.1</td>
+    <td>BGU XIX</td>
+    <td>C.Étiq. Mom.</td>
+    </tr>
+    <tr>
+    <td>C.Ord. Ptol.</td>
+    <td>CEL I</td>
+    <td>ChLA I</td>
+    <td>ChLA III</td>
+    </tr>
+    <tr>
+    <td>ChLA IV</td>
+    <td>ChLA V</td>
+    <td>ChLA VI</td>
+    <td>ChLA VII</td>
+    </tr>
+    <tr>
+    <td>ChLA IX</td>
+    <td>ChLA X</td>
+    <td>ChLA XI</td>
+    <td>ChLA XII</td>
+    </tr>
+    <tr>
+    <td>ChLA XVII</td>
+    <td>ChLA XVIII</td>
+    <td>ChLA XIX</td>
+    <td>ChLA XXV</td>
+    </tr>
+    <tr>
+    <td>ChLA XXVIII</td>
+    <td>ChLA XLI</td>
+    <td>ChLA XLII</td>
+    <td>ChLA XLIII</td>
+    </tr>
+    <tr>
+    <td>ChLA XLIV</td>
+    <td>ChLA XLV</td>
+    <td>ChLA XLVI</td>
+    <td>ChLA XLVII</td>
+    </tr>
+    <tr>
+    <td>CPGr I</td>
+    <td>CPGr II</td>
+    <td>CPJ I</td>
+    <td>CPJ III</td>
+    </tr>
+    <tr>
+    <td>CPL</td>
+    <td>CPR I</td>
+    <td>CPR V</td>
+    <td>CPR VI</td>
+    </tr>
+    <tr>
+    <td>CPR VII</td>
+    <td>CPR VIII</td>
+    <td>CPR IX</td>
+    <td>CPR X</td>
+    </tr>
+    <tr>
+    <td>CPR XIII</td>
+    <td>CPR XIV</td>
+    <td>CPR XV</td>
+    <td>CPR XVIIA</td>
+    </tr>
+    <tr>
+    <td>CPR XVIIB</td>
+    <td>CPR XVIII</td>
+    <td>CPR XIX</td>
+    <td>CPR XXII</td>
+    </tr>
+    <tr>
+    <td>CPR XXIII</td>
+    <td>CPR XXIV</td>
+    <td>CPR XXV</td>
+    <td>Jur. Pap.</td>
+    </tr>
+    <tr>
+    <td>M.Chr.</td>
+    <td>O.Amst.</td>
+    <td>O.Ashm.</td>
+    <td>O.Ashm. Shelt.</td>
+    </tr>
+    <tr>
+    <td>O.BawitIFAO</td>
+    <td>O.Ber. I</td>
+    <td>O.Ber. II</td>
+    <td>O.Berl.</td>
+    </tr>
+    <tr>
+    <td>O.Bodl. I</td>
+    <td>O.Bodl. II</td>
+    <td>O.Bodl. III</td>
+    <td>O.Brux.</td>
+    </tr>
+    <tr>
+    <td>O.Bu Njem</td>
+    <td>O.Buch.</td>
+    <td>O.Cair. Cat.</td>
+    <td>O.Cair. GPW</td>
+    </tr>
+    <tr>
+    <td>O.Camb.</td>
+    <td>O.Claud. I</td>
+    <td>O.Claud. II</td>
+    <td>O.Claud. III</td>
+    </tr>
+    <tr>
+    <td>O.Deiss.</td>
+    <td>O.dem. Joach.</td>
+    <td>O.Douch I</td>
+    <td>O.Douch II</td>
+    </tr>
+    <tr>
+    <td>O.Douch III</td>
+    <td>O.Douch IV</td>
+    <td>O.Douch V</td>
+    <td>O.Edfou I</td>
+    </tr>
+    <tr>
+    <td>O.Edfou II</td>
+    <td>O.Edfou III</td>
+    <td>O.Eleph. DAIK</td>
+    <td>O.Elkab</td>
+    </tr>
+    <tr>
+    <td>O.Fay.</td>
+    <td>O.Florida</td>
+    <td>O.Heid.</td>
+    <td>O.Heid. IX</td>
+    </tr>
+    <tr>
+    <td>O.Kellis</td>
+    <td>O.Krok. I</td>
+    <td>O.Leid.</td>
+    <td>O.Lund.</td>
+    </tr>
+    <tr>
+    <td>O.Masada</td>
+    <td>O.Medin. Madi</td>
+    <td>O.Mich. I</td>
+    <td>O.Mich. II</td>
+    </tr>
+    <tr>
+    <td>O.Minor</td>
+    <td>O.Narm. I</td>
+    <td>O.Ont. Mus. I</td>
+    <td>O.Ont. Mus. II</td>
+    </tr>
+    <tr>
+    <td>O.Oslo</td>
+    <td>O.Par.</td>
+    <td>O.Petr.</td>
+    <td>O.Strasb.</td>
+    </tr>
+    <tr>
+    <td>O.Tebt.</td>
+    <td>O.Tebt. Pad.</td>
+    <td>O.Theb.</td>
+    <td>O.Varia</td>
+    </tr>
+    <tr>
+    <td>O.Waqfa</td>
+    <td>O.Wilb.</td>
+    <td>O.Wilck.</td>
+    <td>P.Aberd.</td>
+    </tr>
+    <tr>
+    <td>P.Aberd.  (Ostraka)</td>
+    <td>P.Abinn.</td>
+    <td>P.Achm.</td>
+    <td>P.Adler</td>
+    </tr>
+    <tr>
+    <td>P.Alex.</td>
+    <td>P.Alex. Giss.</td>
+    <td>P.Amh. II</td>
+    <td>P.Ammon I</td>
+    </tr>
+    <tr>
+    <td>P.Ammon II</td>
+    <td>P.Amst. I</td>
+    <td>P.Ant. I</td>
+    <td>P.Ant. II</td>
+    </tr>
+    <tr>
+    <td>P.Ant. III</td>
+    <td>P.Apoll.</td>
+    <td>P.Athen.</td>
+    <td>P.Bal.</td>
+    </tr>
+    <tr>
+    <td>P.Bas.</td>
+    <td>P.Ben. Mus.</td>
+    <td>P.Berl. Bibl.</td>
+    <td>P.Berl. Bork.</td>
+    </tr>
+    <tr>
+    <td>P.Berl. Cohen</td>
+    <td>P.Berl. Frisk</td>
+    <td>P.Berl. Leihg. I</td>
+    <td>P.Berl. Leihg. II</td>
+    </tr>
+    <tr>
+    <td>P.Berl. Möller</td>
+    <td>P.Berl. Salm.</td>
+    <td>P.Berl. Sarisch.</td>
+    <td>P.Berl. Zill.</td>
+    </tr>
+    <tr>
+    <td>P.Bingen</td>
+    <td>P.Bodl. I</td>
+    <td>P.Bon.</td>
+    <td>P.Bour.</td>
+    </tr>
+    <tr>
+    <td>P.Brem.</td>
+    <td>P.Brook.</td>
+    <td>P.Brux. I</td>
+    <td>P.Brux. Bawit</td>
+    </tr>
+    <tr>
+    <td>P.Bub. I</td>
+    <td>P.Bub. II</td>
+    <td>P.Cair. Goodspeed</td>
+    <td>P.Cair. Isid.</td>
+    </tr>
+    <tr>
+    <td>P.Cair. Masp. I</td>
+    <td>P.Cair. Masp. II</td>
+    <td>P.Cair. Masp. III</td>
+    <td>P.Cair. Mich.</td>
+    </tr>
+    <tr>
+    <td>P.Cair. Preis.</td>
+    <td>P.Cair. Zen. I</td>
+    <td>P.Cair. Zen. II</td>
+    <td>P.Cair. Zen. III</td>
+    </tr>
+    <tr>
+    <td>P.Cair. Zen. IV</td>
+    <td>P.Cair. Zen. V</td>
+    <td>P.Charite</td>
+    <td>P.Col. I</td>
+    </tr>
+    <tr>
+    <td>P.Col. II</td>
+    <td>P.Col. III</td>
+    <td>P.Col. IV</td>
+    <td>P.Col. V</td>
+    </tr>
+    <tr>
+    <td>P.Col. VII</td>
+    <td>P.Col. VIII</td>
+    <td>P.Col. IX</td>
+    <td>P.Col. X</td>
+    </tr>
+    <tr>
+    <td>P.Col. XI</td>
+    <td>P.Coll. Youtie I</td>
+    <td>P.Coll. Youtie II</td>
+    <td>P.Corn.</td>
+    </tr>
+    <tr>
+    <td>P.Count</td>
+    <td>P.Customs</td>
+    <td>P.David</td>
+    <td>P.dem. Chic. Haw.</td>
+    </tr>
+    <tr>
+    <td>P.Diog.</td>
+    <td>P.Dion.</td>
+    <td>P.Dion. Herm.</td>
+    <td>P.Dryton</td>
+    </tr>
+    <tr>
+    <td>P.Dub.</td>
+    <td>P.Dura</td>
+    <td>P.Edfou</td>
+    <td>P.Eirene II</td>
+    </tr>
+    <tr>
+    <td>P.Eleph.</td>
+    <td>P.Eleph. DAIK</td>
+    <td>P.Enteux.</td>
+    <td>P.Erasm. I</td>
+    </tr>
+    <tr>
+    <td>P.Erasm. II</td>
+    <td>P.Erl.</td>
+    <td>P.Erl. Diosp.</td>
+    <td>P.Euphr.</td>
+    </tr>
+    <tr>
+    <td>P.Fam. Tebt.</td>
+    <td>P.Fay.</td>
+    <td>P.Flor. I</td>
+    <td>P.Flor. II</td>
+    </tr>
+    <tr>
+    <td>P.Flor. III</td>
+    <td>P.Fouad I</td>
+    <td>P.Frankf.</td>
+    <td>P.Freer</td>
+    </tr>
+    <tr>
+    <td>P.Freib. I</td>
+    <td>P.Freib. II</td>
+    <td>P.Freib. III</td>
+    <td>P.Freib. IV</td>
+    </tr>
+    <tr>
+    <td>P.Fuad I Univ.</td>
+    <td>P.Gen. I (2. Aufl.)</td>
+    <td>P.Gen. II</td>
+    <td>P.Gen. III</td>
+    </tr>
+    <tr>
+    <td>P.Giss. I</td>
+    <td>P.Giss. Bibl. I</td>
+    <td>P.Giss. Bibl. III</td>
+    <td>P.Giss. Bibl. VI</td>
+    </tr>
+    <tr>
+    <td>P.Got.</td>
+    <td>P.Grad.</td>
+    <td>P.Graux II</td>
+    <td>P.Graux III</td>
+    </tr>
+    <tr>
+    <td>P.Graux IV</td>
+    <td>P.Grenf. I</td>
+    <td>P.Grenf. II</td>
+    <td>P.Gron.</td>
+    </tr>
+    <tr>
+    <td>P.Gron. Amst.</td>
+    <td>P.Gurob.</td>
+    <td>P.Hal.</td>
+    <td>P.Hamb. I</td>
+    </tr>
+    <tr>
+    <td>P.Hamb. II</td>
+    <td>P.Hamb. III</td>
+    <td>P.Hamb. IV</td>
+    <td>P.Harr. I</td>
+    </tr>
+    <tr>
+    <td>P.Harr. II</td>
+    <td>P.Harrauer</td>
+    <td>P.Haun. I</td>
+    <td>P.Haun. II</td>
+    </tr>
+    <tr>
+    <td>P.Haun. III</td>
+    <td>P.Haw.</td>
+    <td>P.Heid. III</td>
+    <td>P.Heid. IV</td>
+    </tr>
+    <tr>
+    <td>P.Heid. V</td>
+    <td>P.Heid. VI</td>
+    <td>P.Heid. VII</td>
+    <td>P.Heid. VIII</td>
+    </tr>
+    <tr>
+    <td>P.Hels. I</td>
+    <td>P.Herm.</td>
+    <td>P.Herm. Landl.</td>
+    <td>P.Hever</td>
+    </tr>
+    <tr>
+    <td>P.Hib. I</td>
+    <td>P.Hib. II</td>
+    <td>P.Hombert I</td>
+    <td>P.Hombert II</td>
+    </tr>
+    <tr>
+    <td>P.Horak</td>
+    <td>P.Iand. II</td>
+    <td>P.Iand. III</td>
+    <td>P.Iand. IV</td>
+    </tr>
+    <tr>
+    <td>P.Iand. V</td>
+    <td>P.Iand. VI</td>
+    <td>P.Iand. VII</td>
+    <td>P.Iand. VIII</td>
+    </tr>
+    <tr>
+    <td>P.Iand. Zen.</td>
+    <td>P.IFAO I</td>
+    <td>P.IFAO II</td>
+    <td>P.IFAO III</td>
+    </tr>
+    <tr>
+    <td>P.Kar. Goodsp.</td>
+    <td>P.Kell. I</td>
+    <td>P.Kell. IV</td>
+    <td>P.Köln I</td>
+    </tr>
+    <tr>
+    <td>P.Köln II</td>
+    <td>P.Köln III</td>
+    <td>P.Köln IV</td>
+    <td>P.Köln V</td>
+    </tr>
+    <tr>
+    <td>P.Köln VI</td>
+    <td>P.Köln VII</td>
+    <td>P.Köln VIII</td>
+    <td>P.Köln IX</td>
+    </tr>
+    <tr>
+    <td>P.Köln X</td>
+    <td>P.Köln XI</td>
+    <td>P.Kron.</td>
+    <td>P.Laur. I</td>
+    </tr>
+    <tr>
+    <td>P.Laur. II</td>
+    <td>P.Laur. III</td>
+    <td>P.Laur. IV</td>
+    <td>P.Leeds Museum</td>
+    </tr>
+    <tr>
+    <td>P.Leipz.</td>
+    <td>P.Leit.</td>
+    <td>P.Lille I</td>
+    <td>P.Lips. I</td>
+    </tr>
+    <tr>
+    <td>P.Lips. II</td>
+    <td>P.Lond. I</td>
+    <td>P.Lond. II</td>
+    <td>P.Lond. III</td>
+    </tr>
+    <tr>
+    <td>P.Lond. IV</td>
+    <td>P.Lond. V</td>
+    <td>P.Lond. VI</td>
+    <td>P.Lond. VII</td>
+    </tr>
+    <tr>
+    <td>P.Louvre I</td>
+    <td>P.Louvre II</td>
+    <td>P.Lugd. Bat. XIX</td>
+    <td>P.Lugd. Bat. XXV</td>
+    </tr>
+    <tr>
+    <td>P.Lugd. Bat. XXIX</td>
+    <td>P.Lund. II</td>
+    <td>P.Lund. III</td>
+    <td>P.Lund. IV</td>
+    </tr>
+    <tr>
+    <td>P.Lund. VI</td>
+    <td>P.Marm.</td>
+    <td>P.Masada</td>
+    <td>P.Matr.</td>
+    </tr>
+    <tr>
+    <td>P.Med. I</td>
+    <td>P.Medin. Madi</td>
+    <td>P.Merton I</td>
+    <td>P.Merton II</td>
+    </tr>
+    <tr>
+    <td>P.Merton III</td>
+    <td>P.Meyer</td>
+    <td>P.Mich. I</td>
+    <td>P.Mich. II</td>
+    </tr>
+    <tr>
+    <td>P.Mich. III</td>
+    <td>P.Mich. IV</td>
+    <td>P.Mich. V</td>
+    <td>P.Mich. VI</td>
+    </tr>
+    <tr>
+    <td>P.Mich. VII</td>
+    <td>P.Mich. VIII</td>
+    <td>P.Mich. IX</td>
+    <td>P.Mich. X</td>
+    </tr>
+    <tr>
+    <td>P.Mich. XI</td>
+    <td>P.Mich. XII</td>
+    <td>P.Mich. XIII</td>
+    <td>P.Mich. XIV</td>
+    </tr>
+    <tr>
+    <td>P.Mich. XV</td>
+    <td>P.Mich. XVIII</td>
+    <td>P.Mich. Aphrod.</td>
+    <td>P.Michael.</td>
+    </tr>
+    <tr>
+    <td>P.Mil.Vogl. I</td>
+    <td>P.Mil. Vogl. II</td>
+    <td>P.Mil. Vogl. III</td>
+    <td>P.Mil. Vogl. IV</td>
+    </tr>
+    <tr>
+    <td>P.Mil. Vogl. VI</td>
+    <td>P.Mil. Vogl. VII</td>
+    <td>P.Mon. Apollo I</td>
+    <td>P.Münch. I</td>
+    </tr>
+    <tr>
+    <td>P.Münch. III</td>
+    <td>P.Mur. II</td>
+    <td>P.Nag Hamm.</td>
+    <td>P.Naqlun</td>
+    </tr>
+    <tr>
+    <td>P.Nepheros</td>
+    <td>P.Nessana</td>
+    <td>P.NYU I</td>
+    <td>P.Oslo I</td>
+    </tr>
+    <tr>
+    <td>P.Oslo II</td>
+    <td>P.Oslo III</td>
+    <td>P.Oxf.</td>
+    <td>P.Oxy. I</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. II</td>
+    <td>P.Oxy. III</td>
+    <td>P.Oxy. IV</td>
+    <td>P.Oxy. VI</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. VII</td>
+    <td>P.Oxy. VIII</td>
+    <td>P.Oxy. IX</td>
+    <td>P.Oxy. X</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. XI</td>
+    <td>P.Oxy. XII</td>
+    <td>P.Oxy. XIV</td>
+    <td>P.Oxy. XVI</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. XVII</td>
+    <td>P.Oxy. XVIII</td>
+    <td>P.Oxy. XIX</td>
+    <td>P.Oxy. XX</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. XXII</td>
+    <td>P.Oxy. XXIV</td>
+    <td>P.Oxy. XXVII</td>
+    <td>P.Oxy. XXXI</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. XXXIII</td>
+    <td>P.Oxy. XXXIV</td>
+    <td>P.Oxy. XXXVI</td>
+    <td>P.Oxy. XXXVIII</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. XL</td>
+    <td>P.Oxy. XLI</td>
+    <td>P.Oxy. XLII</td>
+    <td>P.Oxy. XLIII</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. XLIV</td>
+    <td>P.Oxy. XLV</td>
+    <td>P.Oxy. XLVI</td>
+    <td>P.Oxy. XLVII</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. XLVIII</td>
+    <td>P.Oxy. XLIX</td>
+    <td>P.Oxy. L</td>
+    <td>P.Oxy. LI</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. LII</td>
+    <td>P.Oxy. LIV</td>
+    <td>P.Oxy. LV</td>
+    <td>P.Oxy. LVI</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. LVII</td>
+    <td>P.Oxy. LVIII</td>
+    <td>P.Oxy. LIX</td>
+    <td>P.Oxy. LX</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. LXI</td>
+    <td>P.Oxy. LXII</td>
+    <td>P.Oxy. LXIII</td>
+    <td>P.Oxy. LXIV</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. LXV</td>
+    <td>P.Oxy. LXVI</td>
+    <td>P.Oxy. LXVII</td>
+    <td>P.Oxy. LXVIII</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. LXIX</td>
+    <td>P.Oxy. LXX</td>
+    <td>P.Oxy. LXXI</td>
+    <td>P.Oxy. Census</td>
+    </tr>
+    <tr>
+    <td>P.Oxy. Hels.</td>
+    <td>P.Palau Rib.</td>
+    <td>P.Panop.</td>
+    <td>P.Panop. Beatty</td>
+    </tr>
+    <tr>
+    <td>P.Par.</td>
+    <td>P.Paramone</td>
+    <td>P.Petaus</td>
+    <td>P.Petr. I</td>
+    </tr>
+    <tr>
+    <td>P.Petr. II</td>
+    <td>P.Petr. III</td>
+    <td>P.Petr.(2) I</td>
+    <td>P.Petra I</td>
+    </tr>
+    <tr>
+    <td>P.Petra III</td>
+    <td>P.Pher.</td>
+    <td>P.Phil.</td>
+    <td>P.Phrur. Diosk.</td>
+    </tr>
+    <tr>
+    <td>P.Polit. Iud.</td>
+    <td>P.Pommers.</td>
+    <td>P.Prag. I</td>
+    <td>P.Prag. II</td>
+    </tr>
+    <tr>
+    <td>P.Princ. I</td>
+    <td>P.Princ. II</td>
+    <td>P.Princ. III</td>
+    <td>P.Rain. Unterricht</td>
+    </tr>
+    <tr>
+    <td>P.Rainer Cent.</td>
+    <td>P.Rein. I</td>
+    <td>P.Rein. II</td>
+    <td>P.Rev. Laws</td>
+    </tr>
+    <tr>
+    <td>P.Ross. Georg. II</td>
+    <td>P.Ross. Georg. III</td>
+    <td>P.Ross. Georg. IV</td>
+    <td>P.Ross. Georg. V</td>
+    </tr>
+    <tr>
+    <td>P.Ryl. I</td>
+    <td>P.Ryl. II</td>
+    <td>P.Ryl. III</td>
+    <td>P.Ryl. IV</td>
+    </tr>
+    <tr>
+    <td>P.Sakaon</td>
+    <td>P.Sarap.</td>
+    <td>P.Sel. Warga</td>
+    <td>P.Select</td>
+    </tr>
+    <tr>
+    <td>P.Sijp</td>
+    <td>P.Sorb. I</td>
+    <td>P.Sorb. II</td>
+    <td>P.Soterichos</td>
+    </tr>
+    <tr>
+    <td>P.Sta. Xyla I</td>
+    <td>P.Strasb. I</td>
+    <td>P.Strasb. II</td>
+    <td>P.Strasb. III</td>
+    </tr>
+    <tr>
+    <td>P.Strasb. IV</td>
+    <td>P.Strasb. V</td>
+    <td>P.Strasb. VI</td>
+    <td>P.Strasb. VII</td>
+    </tr>
+    <tr>
+    <td>P.Strasb. VIII</td>
+    <td>P.Strasb. IX</td>
+    <td>P.Tebt. I</td>
+    <td>P.Tebt. II</td>
+    </tr>
+    <tr>
+    <td>P.Tebt. III.1</td>
+    <td>P.Tebt. III.2</td>
+    <td>P.Tebt. IV</td>
+    <td>P.Tebt. V</td>
+    </tr>
+    <tr>
+    <td>P.Tebt. Tait</td>
+    <td>P.Tebt. Wall</td>
+    <td>P.Theon.</td>
+    <td>P.Thmouis</td>
+    </tr>
+    <tr>
+    <td>P.Thomas</td>
+    <td>P.Tor.</td>
+    <td>P.Tor. Amenothes</td>
+    <td>P.Tor. Choach.</td>
+    </tr>
+    <tr>
+    <td>P.Turner</td>
+    <td>P.Ups.</td>
+    <td>P.Ups. Frid</td>
+    <td>P.Vars.</td>
+    </tr>
+    <tr>
+    <td>P.Vatic. Aphrod.</td>
+    <td>P.Vindob. Bosw.</td>
+    <td>P.Vindob. Sal.</td>
+    <td>P.Vindob. Sijp.</td>
+    </tr>
+    <tr>
+    <td>P.Vindob. Tandem</td>
+    <td>P.Vindob. Worp</td>
+    <td>P.Warr.</td>
+    <td>P.Wash. Univ. I</td>
+    </tr>
+    <tr>
+    <td>P.Wash. Univ. II</td>
+    <td>P.Wisc. I</td>
+    <td>P.Wisc. II</td>
+    <td>P.Würzb.</td>
+    </tr>
+    <tr>
+    <td>P.XV. Congr.</td>
+    <td>P.Yadin</td>
+    <td>P.Yale I</td>
+    <td>P.Yale III</td>
+    </tr>
+    <tr>
+    <td>P.Zaki Aly</td>
+    <td>P.Zen. Pestm.</td>
+    <td>Pap. Choix</td>
+    <td>PSI I</td>
+    </tr>
+    <tr>
+    <td>PSI III</td>
+    <td>PSI III (Ostraka)</td>
+    <td>PSI IV</td>
+    <td>PSI V</td>
+    </tr>
+    <tr>
+    <td>PSI VI</td>
+    <td>PSI VII</td>
+    <td>PSI VIII</td>
+    <td>PSI VIII (Ostraka)</td>
+    </tr>
+    <tr>
+    <td>PSI IX</td>
+    <td>PSI X</td>
+    <td>PSI XII</td>
+    <td>PSI XIII</td>
+    </tr>
+    <tr>
+    <td>PSI XIV</td>
+    <td>PSI XV</td>
+    <td>PSI Com.</td>
+    <td>PSI Congr. XVII</td>
+    </tr>
+    <tr>
+    <td>PSI Congr. XX</td>
+    <td>PSI Congr.  XXI</td>
+    <td>PSI Omaggio</td>
+    <td>PUG I</td>
+    </tr>
+    <tr>
+    <td>PUG II</td>
+    <td>PUG III</td>
+    <td>Recueil I+II</td>
+    <td>Rom.Mil.Rec.</td>
+    </tr>
+    <tr>
+    <td>SB I</td>
+    <td>SB III</td>
+    <td>SB IV</td>
+    <td>SB V</td>
+    </tr>
+    <tr>
+    <td>SB VI</td>
+    <td>SB VIII</td>
+    <td>SB X</td>
+    <td>SB XII</td>
+    </tr>
+    <tr>
+    <td>SB XIV</td>
+    <td>SB XVI</td>
+    <td>SB XVIII</td>
+    <td>SB XX</td>
+    </tr>
+    <tr>
+    <td>SB XXII</td>
+    <td>SB XXIV</td>
+    <td>SB XXVI</td>
+    <td>SPP I</td>
+    </tr>
+    <tr>
+    <td>SPP II</td>
+    <td>SPP III</td>
+    <td>SPP III<sup>2</sup>.1</td>
+    <td>SPP III<sup>2</sup>.2</td>
+    </tr>
+    <tr>
+    <td>SPP III<sup>2</sup>.5</td>
+    <td>SPP IV</td>
+    <td>SPP V</td>
+    <td>SPP VIII</td>
+    </tr>
+    <tr>
+    <td>SPP X</td>
+    <td>SPP XIII</td>
+    <td>SPP XVII</td>
+    <td>SPP XX</td>
+    </tr>
+    <tr>
+    <td>SPP XXII</td>
+    <td>T.Mom. Louvre</td>
+    <td>T.Varie</td>
+    <td>UPZ I</td>
+    </tr>
+    <tr>
+    <td>UPZ II</td>
+    <td>VBP II</td>
+    <td>VBP IV</td>
+    <td>VBP VI</td>
+    </tr>
+    <tr>
+    <td>W.Chr.</td>
+    <td><br /></td>
+    <td><br /></td>
+    <td><br /></td>
+    </tr>
+    
+    
+    
+    </tbody></table>
+    </p>
+
+
+  </div>
+
+{% endblock %}
