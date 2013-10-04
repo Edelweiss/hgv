@@ -59,11 +59,13 @@ Papyrillio\HgvBundle\Entity\MentionedDate:
     manyToOne:
         metadata:
             targetEntity: Hgv
+            inversedBy: mentionedDates
             joinColumn:
                 name: texIdLang
                 referencedColumnName: texIdLang
                 type: string
                 length: 64
                 nullable: true
+                onDelete: CASCADE
 
     # don't forget to init the collection in entity __construct() method

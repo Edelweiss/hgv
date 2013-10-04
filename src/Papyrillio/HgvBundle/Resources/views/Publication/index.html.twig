@@ -5,7 +5,7 @@
 {% block body %}
   <h5>Texte im HGV <a href="http://www.rzuser.uni-heidelberg.de/%7Egv0/Texte/HGV-Texte.html" title="Link zur Originaldatei" onfocus="this.blur()" target="_blank"> → Quelle</a></h5>
   <div id="publication">
-    <ul id="volume">
+    <ul id="volume" class="publication">
       {% for publication in publications %}
         <li data-url="{{ path('PapyrillioHgvBundle_PublicationLoadNumbers', {'collection': publication.collection, 'volume': publication.volume, 'particle': publication.particle}) }}">
           {% if publication.totalReprint %}
@@ -18,8 +18,8 @@
         </li>
       {% endfor %}
     </ul>
-    <ul id="number"></ul>
-    <ul id="result"></ul>
+    <ul id="number" class="publication"></ul>
+    <ul id="result" class="publication"></ul>
   </div>
 
 {% endblock %}

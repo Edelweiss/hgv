@@ -34,5 +34,6 @@ Papyrillio\HgvBundle\Entity\Publication:
         parent:
             targetEntity: Publication
             inversedBy: children
+            onDelete: CASCADE
 
     # don't forget to init the collection in entity __construct() method

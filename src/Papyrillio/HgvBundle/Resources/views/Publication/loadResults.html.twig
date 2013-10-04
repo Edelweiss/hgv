@@ -3,13 +3,3 @@
     {% include 'PapyrillioHgvBundle:Browse:_datasheet.html.twig' with { 'record': hgv, 'translations': null } %}
   </li>
 {% endfor %}
-
-<!--script type="text/javascript">
-  $('ul#result li').click(function(event){
-    console.log($(this).attr('data-url'));
-    $('ul#data').html('');
-    $('ul#data').load($(this).attr('data-url'));
-    $('ul#result li').removeClass('active');
-    $(this).addClass('active');
-  });
-</script-->

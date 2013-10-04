@@ -413,20 +413,20 @@ table.catalogueList th.descend{
 
 /* P U B L I C A T I O N */
 
-div#publication ul{
+div#publication ul.publication{
   float: left;
   height: 30em;
-  width: 16em;
-  overflow: scroll;
+  width: 15%;
+  overflow: auto;
   cursor: pointer;
   cursor: hand;
   list-style: none;
 }
 
 div#publication ul#result{;
-  width: 40em;
+  width: 70%;
   height: auto;
-  overflow: visible;
+  overflow: auto;
   cursor: auto;
 }
 
