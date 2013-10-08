@@ -16,8 +16,10 @@ class LoadHgvData extends AbstractFixture implements OrderedFixtureInterface
     /**
      * 'hgvId' => 'hgvId', // tmNr + texLett
      * php app/console doctrine:fixtures:load --purge-with-truncate
+     * php app/console doctrine:fixtures:load --append
+     * 
      * **/
-      
+
     const NAMESPACE_FILEMAKER = 'http://www.filemaker.com/fmpxmlresult';
     const NAMESPACE_TEI       = 'http://www.tei-c.org/ns/1.0';
 
