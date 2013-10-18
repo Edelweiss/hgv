@@ -1,9 +1,10 @@
-/web/bundles/
 /app/bootstrap*
 /app/cache/*
 /app/logs/*
-/vendor/
 /app/config/parameters.ini
+/src/Papyrillio/HgvBundle/Data
+/vendor/
+/web/bundles/
+/web/images/dev.png
 /.project
 /.settings
-/web/images/dev.png

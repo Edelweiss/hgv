@@ -4,12 +4,6 @@ namespace Papyrillio\HgvBundle\Entity;
 
 class Hgv
 {
-
-    /**
-     * @var string $id
-     */
-    private $id;
-
     /**
      * @var text $publikation
      */
@@ -51,6 +45,11 @@ class Hgv
     private $tmNr;
 
     /**
+     * @var text $hgvId
+     */
+    private $hgvId;
+
+    /**
      * @var text $texLett
      */
     private $texLett;
@@ -59,11 +58,6 @@ class Hgv
      * @var text $mehrfachKennung
      */
     private $mehrfachKennung;
-
-    /**
-     * @var text $texIdLang
-     */
-    private $texIdLang;
 
     /**
      * @var text $zusaetzlichSort
@@ -259,27 +253,6 @@ class Hgv
      * @var integer $DatensatzNr
      */
     private $DatensatzNr;
-
-
-    /**
-     * Set id
-     *
-     * @param string $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * Get id
-     *
-     * @return string 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set publikation
@@ -479,26 +452,6 @@ class Hgv
     public function getMehrfachKennung()
     {
         return $this->mehrfachKennung;
-    }
-
-    /**
-     * Set texIdLang
-     *
-     * @param text $texIdLang
-     */
-    public function setTexIdLang($texIdLang)
-    {
-        $this->texIdLang = $texIdLang;
-    }
-
-    /**
-     * Get texIdLang
-     *
-     * @return text 
-     */
-    public function getTexIdLang()
-    {
-        return $this->texIdLang;
     }
 
     /**
@@ -1280,11 +1233,6 @@ class Hgv
     {
         return $this->DatensatzNr;
     }
-    /**
-     * @var text $hgvId
-     */
-    private $hgvId;
-
 
     /**
      * Set hgvId
@@ -1335,8 +1283,11 @@ class Hgv
      */
     private $mentionedDates;
 
-    public function __construct()
+    public function __construct($id = null)
     {
+        if($id !== null){
+          $this->setId($id);
+        }
         $this->mentionedDates = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -1347,6 +1298,7 @@ class Hgv
      */
     public function addMentionedDate(\Papyrillio\HgvBundle\Entity\MentionedDate $mentionedDates)
     {
+        $mentionedDates->setMetadata($this);
         $this->mentionedDates[] = $mentionedDates;
     }
 
@@ -1358,5 +1310,30 @@ class Hgv
     public function getMentionedDates()
     {
         return $this->mentionedDates;
+    }
+    /**
+     * @var string $id
+     */
+    private $id;
+
+
+    /**
+     * Set id
+     *
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Get id
+     *
+     * @return string 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

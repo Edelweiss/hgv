@@ -6,9 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class BrowseController extends HgvController
 {
-    const TYPE_SINGLE = 'table';
+    const TYPE_SINGLE   = 'table';
     const TYPE_MULTIPLE = 'formular';
-    const TYPE_SEARCH = 'search';
+    const TYPE_SEARCH   = 'search';
     
     static $FIELD_LIST_SEARCH = array(
       'publikation'        => 'Publikation',
@@ -197,10 +197,13 @@ class BrowseController extends HgvController
         $where = ' WHERE ';
         $operator = ' ' . $search['operator'] . ' ';
         foreach($search['criteria'] as $field => $criterion){
-
           if($field == 'jahr' and preg_match('/^(\d+)\.+(\d+)$/', $criterion['value'], $matches)){ // YEAR...YEAR2
-            if($search['mentionedDates']){ // CL: HIER WEITERMACHEN!!!
+            if($search['mentionedDates'] === 'with'){
               $where .= '((h.jahr >= :jahrVon AND h.jahr <= :jahrBis) OR (m.jahr >= :jahrVon AND m.jahr <= :jahrBis))' . $operator;
+              $parameters['jahrVon'] = $matches[1];
+              $parameters['jahrBis'] = $matches[2];
+            } else if($search['mentionedDates'] === 'only') {
+              $where .= '(m.jahr >= :jahrVon AND m.jahr <= :jahrBis)' . $operator;
               $parameters['jahrVon'] = $matches[1];
               $parameters['jahrBis'] = $matches[2];
             } else {
@@ -209,7 +212,18 @@ class BrowseController extends HgvController
               $parameters['jahrBis'] = $matches[2];
             }
           } else {
-            $where .= 'h.' . $field . ' ' . self::$SQL_OPERATOR_MAP[$criterion['operator']] . ' :' . $field . $operator;
+
+            if(in_array($field, array('jahr', 'monat', 'tag', 'jh', 'erg', 'jahrIi', 'monatIi', 'tagIi', 'jhIi', 'ergIi', 'chronMinimum', 'chronMaximum', 'chronGlobal', 'datierung', 'datierungIi', 'unsicher'))){
+              if($search['mentionedDates'] == 'with'){
+                $where .= '((h.' . $field . ' ' . self::$SQL_OPERATOR_MAP[$criterion['operator']] . ' :' . $field . ') OR (m.' . $field . ' ' . self::$SQL_OPERATOR_MAP[$criterion['operator']] . ' :' . $field . '))' . $operator;
+              } else if($search['mentionedDates'] == 'only') {
+                $where .= 'm.' . $field . ' ' . self::$SQL_OPERATOR_MAP[$criterion['operator']] . ' :' . $field . $operator;
+              } else {
+                $where .= 'h.' . $field . ' ' . self::$SQL_OPERATOR_MAP[$criterion['operator']] . ' :' . $field . $operator;
+              }
+            } else {
+              $where .= 'h.' . $field . ' ' . self::$SQL_OPERATOR_MAP[$criterion['operator']] . ' :' . $field . $operator;
+            }
             
             switch ($criterion['operator']) {
               case 'cn':
@@ -294,10 +308,8 @@ class BrowseController extends HgvController
         }
 
         // default options        
-        if(isset($search['mentionedDates']) && in_array($search['mentionedDates'], array(true, 'on', 'yes'))){
-          $search['mentionedDates'] = true;
-        } else {
-          $search['mentionedDates'] = false;
+        if(!isset($search['mentionedDates']) || !in_array($search['mentionedDates'], array('with', 'without', 'only'))){
+          $search['mentionedDates'] = 'without';
         }
 
         // default paginator

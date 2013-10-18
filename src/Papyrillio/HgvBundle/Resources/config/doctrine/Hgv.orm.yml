@@ -2,10 +2,11 @@ Papyrillio\HgvBundle\Entity\Hgv:
     type: entity
     table: hgv
     id:
-        id:
-            type: integer
-            generator:
-                strategy: AUTO
+        id: # texIdLang (TmNr + texLett + mehrfachKennung)
+            type: string
+            length: 64
+            #unique: true
+            #index: true
     fields:
         tmNr:
             name: tm_nr
@@ -19,16 +20,10 @@ Papyrillio\HgvBundle\Entity\Hgv:
             name: mehrfach_kennung
             type: text
             nullable: true
-        hgvId: # tmNr + texLett
+        hgvId: # wie in PI tmNr + texLett
             name: hgv_id
             type: text
             nullable: true
-        texIdLang: # TmNr + texLett + mehrfachKennung
-            name: tex_id_lang
-            type: string
-            length: 64
-            nullable: true
-            index: true
         publikation:
             type: text
             nullable: true
@@ -196,7 +191,7 @@ Papyrillio\HgvBundle\Entity\Hgv:
             nullable: true
     oneToMany:
         mentionedDates:
-            orderBy: { 'jahr': 'ASC', 'monat': 'ASC', 'tag': 'ASC', 'jh': 'ASC' }
             targetEntity: MentionedDate
             mappedBy: metadata
+            orderBy: { 'jahr': 'ASC', 'monat': 'ASC', 'tag': 'ASC', 'jh': 'ASC' }
     # don't forget to init the collection in entity __construct() method

@@ -78,11 +78,11 @@ class LoadHgvData extends AbstractFixture implements OrderedFixtureInterface
       'zulGeaendertAm' => 'zul. geändert am',
       'DatensatzNr' => 'DatensatzNr.'
     ); 
-    
+
     function __construct(){
       // xpath
       $doc = new DOMDocument();
-      $doc->load(__DIR__ . '/../../Data/ohneVT_hgv.xml');
+      $doc->load(__DIR__ . '/../../Data/hgv.xml');
       $xpath = new DOMXPath($doc);
       $xpath->registerNamespace('fm', self::NAMESPACE_FILEMAKER);
       $this->xpath = $xpath;
@@ -97,6 +97,11 @@ class LoadHgvData extends AbstractFixture implements OrderedFixtureInterface
       }
     }
 
+    function _load(ObjectManager $manager)
+    {
+      
+    }
+
     function load(ObjectManager $manager)
     {
       //var_dump(self::$POSITIONS);
@@ -105,11 +110,10 @@ class LoadHgvData extends AbstractFixture implements OrderedFixtureInterface
 
       foreach($this->xpath->evaluate('/fm:FMPXMLRESULT/fm:RESULTSET[1]/fm:ROW') as $row){
         $cols = $this->xpath->evaluate('fm:COL/fm:DATA[1]', $row);
-        $hgv = new Hgv();
+        $hgv = new Hgv($cols->item(self::$POSITIONS['texIdLang'])->nodeValue);
         $hgv->settmNr($cols->item(self::$POSITIONS['tmNr'])->nodeValue);
         $hgv->settexLett($cols->item(self::$POSITIONS['texLett'])->nodeValue);
         $hgv->setmehrfachKennung($cols->item(self::$POSITIONS['mehrfachKennung'])->nodeValue);
-        $hgv->settexIdLang($cols->item(self::$POSITIONS['texIdLang'])->nodeValue);
         $hgv->setpublikation($cols->item(self::$POSITIONS['publikation'])->nodeValue);
         $hgv->setband($cols->item(self::$POSITIONS['band'])->nodeValue);
         $hgv->setzusBand($cols->item(self::$POSITIONS['zusBand'])->nodeValue);
@@ -163,7 +167,7 @@ class LoadHgvData extends AbstractFixture implements OrderedFixtureInterface
 
         $manager->persist($hgv);
 
-        echo $flushCounter . ': ' . $hgv->getPublikationLang() . ' (#' . $hgv->getTexIdLang() . ")\n";
+        echo $flushCounter . ': ' . $hgv->getPublikationLang() . ' (#' . $hgv->getId() . ")\n";
 
         if(($flushCounter++ % 400) === 0){
           $manager->flush();

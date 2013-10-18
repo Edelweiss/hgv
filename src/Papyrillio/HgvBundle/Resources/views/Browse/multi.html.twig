@@ -11,7 +11,7 @@
     <i>Operator: </i>{{ search.operator == 'and' ? '&&' : '||' }}<br />
     <i>Auslassung: </i>{{ search.skip }}<br />
     <i>Maximale Seitengröße: </i>{{ search.max }}<br />
-    <i>Einbeziehung erwähnter Daten: </i>{{ search.mentionedDates ? 'ja' : 'nein' }}<br />
+    <i>Erwähnte Daten: </i>{{ search.mentionedDates == 'with' ? 'einbeziehen' : (search.mentionedDates == 'only' ? 'nur in Erwähnten Daten suchen' : 'nicht miteinbeziehen') }}<br />
     
     {% if search.criteria %}
       <b>Suchfilter</b><br />

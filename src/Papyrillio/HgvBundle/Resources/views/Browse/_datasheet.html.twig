@@ -151,8 +151,8 @@
         <th>TM Nr.</th>
         <td>
           <a  href="http://www.trismegistos.org/tm/detail.php?quick={{ record.TmNr }}" target="DAHT">{{ record.tmNr }}</a>
-          {% if record.texIdLang != record.tmNr %}
-            <span class="mini">(HGV Nr. {{ record.texIdLang }})</span>
+          {% if record.id != record.tmNr %}
+            <span class="mini">(HGV Nr. {{ record.id }})</span>
           {% endif %}
         </td>
       </tr>
