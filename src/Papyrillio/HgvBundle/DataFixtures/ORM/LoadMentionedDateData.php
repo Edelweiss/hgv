@@ -19,6 +19,7 @@ class LoadMentionedDateData extends AbstractFixture implements OrderedFixtureInt
     protected static $POSITIONS = array();
 
     protected static $FIELDS = array(
+      'zeile'          => 'Zeile',
       'jahr'           => 'J',
       'monat'          => 'M',
       'tag'            => 'T',
@@ -32,7 +33,6 @@ class LoadMentionedDateData extends AbstractFixture implements OrderedFixtureInt
       'unsicher'       => 'unsicher:',
       'datierung'      => 'Datierung',
       'datierungIi'    => 'Datierung2',
-      'erwaehnteDaten' => 'Erwähnte Daten',
       'texIdLang'      => 'TexIDlang', // TmNr + texLett + mehrfachKennung
     ); 
     
@@ -63,20 +63,20 @@ class LoadMentionedDateData extends AbstractFixture implements OrderedFixtureInt
         $cols = $this->xpath->evaluate('fm:COL/fm:DATA[1]', $row);
         $mentionedDate = new MentionedDate();
         
-        $mentionedDate->setjahr($cols->item(self::$POSITIONS['jahr'])->nodeValue);
-        $mentionedDate->setmonat($cols->item(self::$POSITIONS['monat'])->nodeValue);
-        $mentionedDate->settag($cols->item(self::$POSITIONS['tag'])->nodeValue);
-        $mentionedDate->setjh($cols->item(self::$POSITIONS['jh'])->nodeValue);
-        $mentionedDate->seterg($cols->item(self::$POSITIONS['erg'])->nodeValue);
-        $mentionedDate->setjahrIi($cols->item(self::$POSITIONS['jahrIi'])->nodeValue);
-        $mentionedDate->setmonatIi($cols->item(self::$POSITIONS['monatIi'])->nodeValue);
-        $mentionedDate->settagIi($cols->item(self::$POSITIONS['tagIi'])->nodeValue);
-        $mentionedDate->setjhIi($cols->item(self::$POSITIONS['jhIi'])->nodeValue);
-        $mentionedDate->setergIi($cols->item(self::$POSITIONS['ergIi'])->nodeValue);
-        $mentionedDate->seterwaehnteDaten($cols->item(self::$POSITIONS['erwaehnteDaten'])->nodeValue);
-        $mentionedDate->setunsicher($cols->item(self::$POSITIONS['unsicher'])->nodeValue);
-        $mentionedDate->setdatierung($cols->item(self::$POSITIONS['datierung'])->nodeValue);
-        $mentionedDate->setdatierungIi($cols->item(self::$POSITIONS['datierungIi'])->nodeValue);
+        $mentionedDate->setZeile($cols->item(self::$POSITIONS['zeile'])->nodeValue);
+        $mentionedDate->setJahr($cols->item(self::$POSITIONS['jahr'])->nodeValue);
+        $mentionedDate->setMonat($cols->item(self::$POSITIONS['monat'])->nodeValue);
+        $mentionedDate->setTag($cols->item(self::$POSITIONS['tag'])->nodeValue);
+        $mentionedDate->setJh($cols->item(self::$POSITIONS['jh'])->nodeValue);
+        $mentionedDate->setErg($cols->item(self::$POSITIONS['erg'])->nodeValue);
+        $mentionedDate->setJahrIi($cols->item(self::$POSITIONS['jahrIi'])->nodeValue);
+        $mentionedDate->setMonatIi($cols->item(self::$POSITIONS['monatIi'])->nodeValue);
+        $mentionedDate->setTagIi($cols->item(self::$POSITIONS['tagIi'])->nodeValue);
+        $mentionedDate->setJhIi($cols->item(self::$POSITIONS['jhIi'])->nodeValue);
+        $mentionedDate->setErgIi($cols->item(self::$POSITIONS['ergIi'])->nodeValue);
+        $mentionedDate->setUnsicher($cols->item(self::$POSITIONS['unsicher'])->nodeValue);
+        $mentionedDate->setDatierung($cols->item(self::$POSITIONS['datierung'])->nodeValue);
+        $mentionedDate->setDatierungIi($cols->item(self::$POSITIONS['datierungIi'])->nodeValue);
 
         try{
           $hgv = $manager->getRepository('PapyrillioHgvBundle:Hgv')->findOneBy(array('id' => $cols->item(self::$POSITIONS['texIdLang'])->nodeValue));

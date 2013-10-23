@@ -55,10 +55,6 @@ Papyrillio\HgvBundle\Entity\MentionedDate:
             name: datierung_ii
             type: text
             nullable: true
-        erwaehnteDaten:
-            name: erwaehnte_daten
-            type: text
-            nullable: true
     manyToOne:
         metadata:
             targetEntity: Hgv

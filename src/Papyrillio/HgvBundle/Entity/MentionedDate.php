@@ -15,6 +15,11 @@ class MentionedDate
     private $id;
 
     /**
+     * @var text $zeile
+     */
+    private $zeile;
+
+    /**
      * @var integer $jahr
      */
     private $jahr;
@@ -78,12 +83,6 @@ class MentionedDate
      * @var text $datierungIi
      */
     private $datierungIi;
-
-    /**
-     * @var text $erwaehnteDaten
-     */
-    private $erwaehnteDaten;
-
     /**
      * @var Papyrillio\HgvBundle\Entity\Hgv
      */
@@ -98,6 +97,27 @@ class MentionedDate
     public function getId()
     {
         return $this->id;
+    }
+
+
+    /**
+     * Set zeile
+     *
+     * @param text $zeile
+     */
+    public function setZeile($zeile)
+    {
+        $this->zeile = $zeile;
+    }
+
+    /**
+     * Get zeile
+     *
+     * @return text 
+     */
+    public function getZeile()
+    {
+        return $this->zeile;
     }
 
     /**
@@ -361,26 +381,6 @@ class MentionedDate
     }
 
     /**
-     * Set erwaehnteDaten
-     *
-     * @param text $erwaehnteDaten
-     */
-    public function setErwaehnteDaten($erwaehnteDaten)
-    {
-        $this->erwaehnteDaten = $erwaehnteDaten;
-    }
-
-    /**
-     * Get erwaehnteDaten
-     *
-     * @return text 
-     */
-    public function getErwaehnteDaten()
-    {
-        return $this->erwaehnteDaten;
-    }
-
-    /**
      * Set metadata
      *
      * @param Papyrillio\HgvBundle\Entity\Hgv $metadata
@@ -398,30 +398,5 @@ class MentionedDate
     public function getMetadata()
     {
         return $this->metadata;
-    }
-    /**
-     * @var text $zeile
-     */
-    private $zeile;
-
-
-    /**
-     * Set zeile
-     *
-     * @param text $zeile
-     */
-    public function setZeile($zeile)
-    {
-        $this->zeile = $zeile;
-    }
-
-    /**
-     * Get zeile
-     *
-     * @return text 
-     */
-    public function getZeile()
-    {
-        return $this->zeile;
     }
 }
