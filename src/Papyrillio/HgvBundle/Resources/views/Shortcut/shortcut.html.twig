@@ -1,0 +1,7 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+  {% for hgv in data %}
+      {% include 'PapyrillioHgvBundle:Browse:_datasheet.html.twig' with { 'record': hgv, 'translations': null } %}
+  {% endfor %}
+{% endblock %}

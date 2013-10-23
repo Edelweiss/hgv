@@ -10,34 +10,30 @@ class ShortcutController extends HgvController
   {
     $tm = preg_replace('/[^\d]+/', '', $id);
     $texLett = preg_replace('/\d+/', '', $id);
-    if(empty($texLett)){
-      $texLett = '=';
-    }
+    
+    $entityManager = $this->getDoctrine()->getEntityManager();
+    $repository = $entityManager->getRepository('PapyrillioHgvBundle:Hgv');
+    $data = $repository->findBy(array('tmNr' => $tm, 'texLett' => $texLett), array('mehrfachKennung' => 'ASC'));
 
-    return $this->forward('PapyrillioHgvBundle:Catalogue:show', array(), array(
-      'search'  => array('criteria' => array(
-        'TM_Nr.' => array('value' => $tm, 'operator' => 'eq'), 
-        'texLett' => array('value' => $texLett, 'operator' => 'eq')))
-    ));
+    return $this->render('PapyrillioHgvBundle:Shortcut:shortcut.html.twig', array('data' => $data));
   }
 
   public function tmAction($id)
   {
-    return $this->forward('PapyrillioHgvBundle:Catalogue:show', array(), array(
-      'search'  => array('criteria' => array('TM_Nr.' => array('value' => $id, 'operator' => 'eq')))
-    ));
+    $entityManager = $this->getDoctrine()->getEntityManager();
+    $repository = $entityManager->getRepository('PapyrillioHgvBundle:Hgv');
+    $data = $repository->findBy(array('tmNr' => $id), array('texLett' => 'ASC', 'mehrfachKennung' => 'ASC'));
+
+    return $this->render('PapyrillioHgvBundle:Shortcut:shortcut.html.twig', array('data' => $data));
   }
 
   public function ddbAction($id)
   {
     $ddb = explode(';', $id); // routing requirement makes sure that there are two »;«
+    $entityManager = $this->getDoctrine()->getEntityManager();
+    $repository = $entityManager->getRepository('PapyrillioHgvBundle:Hgv');
+    $data = $repository->findBy(array('ddbSer' => $ddb[0], 'ddbVol' => $ddb[1], 'ddbDoc' => $ddb[2]), array('texLett' => 'ASC', 'mehrfachKennung' => 'ASC'));
 
-    return $this->forward('PapyrillioHgvBundle:Catalogue:show', array(), array(
-      'search'  => array('criteria' => array(
-        'ddbSer' => array('value' => $ddb[0], 'operator' => 'eq'), 
-        'ddbVol' => array('value' => $ddb[1], 'operator' => 'eq'), 
-        'ddbDoc' => array('value' => $ddb[2], 'operator' => 'eq')))
-    ));
-
+    return $this->render('PapyrillioHgvBundle:Shortcut:shortcut.html.twig', array('data' => $data));
   }
 }
