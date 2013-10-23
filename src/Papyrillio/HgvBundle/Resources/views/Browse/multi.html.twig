@@ -45,6 +45,9 @@
             <a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': search, 'sort': sortLinkParameters[key]}) }}">{{ field }}</a>
           </th>
         {% endfor %}
+        {% if search.mentionedDates != 'without' %}
+          <th class="mentionedDates">Erwähnte Daten</td>
+        {% endif %}
       </tr>
     </thead>
     <tbody>
@@ -55,6 +58,9 @@
           <td class="datierungIi">{{ record.datierungIi }}</td>
           <td class="ort">{{ record.ort }}</td>
           <td class="originaltitelHtml">{{ record.originaltitelHtml|raw }}</td>
+          {% if search.mentionedDates != 'without' %}
+            <td class="mentionedDates">{{ record.erwaehnteDaten }}</td>
+          {% endif %}
         </tr>
       {% endfor %}
     </tbody>

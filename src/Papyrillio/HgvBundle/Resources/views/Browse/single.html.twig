@@ -10,7 +10,19 @@
 
 {% block body %}
 
-  <p>Datensatz {{ show ? show['skip'] + 1 : 1 }} von {{ countSearch }} Suchtreffern (Gesamt: {{ countTotal }})</p>
+  <p>Datensatz {{ show ? show['skip'] + 1 : 1 }} von {{ countSearch }} Suchtreffern (Gesamt: {{ countTotal }})
+
+    {% if showPrev %}
+      <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showPrev}) }}">zurück</a>
+    {% endif %}
+  
+    {% if showNext %}
+      <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showNext}) }}">weiter</a>
+    {% endif %}
+
+  </p>
+
+
 
   {# Testfälle: 50307, 8886, 19648, 63705, 9088, 8981a #}
   
@@ -24,10 +36,4 @@
     <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showNext}) }}">weiter</a>
   {% endif %}
 
-{% endblock %}
-
-{% block javascripts %}
-  {{ parent() }}
-  <script type="text/javascript">
-  </script>
 {% endblock %}
