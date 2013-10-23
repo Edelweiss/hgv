@@ -399,4 +399,29 @@ class MentionedDate
     {
         return $this->metadata;
     }
+    /**
+     * @var text $zeile
+     */
+    private $zeile;
+
+
+    /**
+     * Set zeile
+     *
+     * @param text $zeile
+     */
+    public function setZeile($zeile)
+    {
+        $this->zeile = $zeile;
+    }
+
+    /**
+     * Get zeile
+     *
+     * @return text 
+     */
+    public function getZeile()
+    {
+        return $this->zeile;
+    }
 }

@@ -1283,8 +1283,11 @@ class Hgv
      */
     private $mentionedDates;
 
-    public function __construct()
+    public function __construct($id = null)
     {
+        if($id !== null){
+          $this->setId($id);
+        }
         $this->mentionedDates = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -1307,5 +1310,30 @@ class Hgv
     public function getMentionedDates()
     {
         return $this->mentionedDates;
+    }
+    /**
+     * @var string $id
+     */
+    private $id;
+
+
+    /**
+     * Set id
+     *
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Get id
+     *
+     * @return string 
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }

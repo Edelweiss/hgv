@@ -7,6 +7,9 @@ Papyrillio\HgvBundle\Entity\MentionedDate:
             generator:
                 strategy: AUTO
     fields:
+        zeile:
+            type: text
+            nullable: true
         jahr:
             type: integer
             nullable: true
