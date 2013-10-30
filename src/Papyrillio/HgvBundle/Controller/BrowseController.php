@@ -58,13 +58,14 @@ class BrowseController extends HgvController
       'ew'  => 'Endet mit',
       'eq'  => 'Ist gleich',
       'neq' => 'Ist ungleich',
-      'lt'  => 'Kleiner als',
-      'lte' => 'Kleiner als oder gleich',
-      'gt'  => 'Größer als',
-      'gte' => 'Größer als oder gleich'
+      'lt'  => 'Kleiner',
+      'lte' => 'Kleiner oder gleich',
+      'gt'  => 'Größer',
+      'gte' => 'Größer oder gleich'
     );
     
     static $SQL_OPERATOR_MAP =  array(
+        'sp'  => 'SPLITTERSUCHE',
         'cn'  => 'LIKE',
         'bw'  => 'LIKE',
         'ew'  => 'LIKE',
@@ -197,22 +198,28 @@ class BrowseController extends HgvController
         $where = ' WHERE ';
         $operator = ' ' . $search['operator'] . ' ';
         foreach($search['criteria'] as $field => $criterion){
-          if($field == 'jahr' and preg_match('/^(\d+)\.+(\d+)$/', $criterion['value'], $matches)){ // YEAR...YEAR2
+          if(self::$SQL_OPERATOR_MAP[$criterion['operator']] === 'SPLITTERSUCHE'){
+            $where .= '(';
+            foreach(explode(' ', $criterion['value']) as $splinterIndex => $splinterValue){
+              $where .= 'h.' . $field . ' LIKE :' . $field . $splinterIndex . ' AND ';
+              $parameters[$field . $splinterIndex] = '%' . $splinterValue . '%';
+            }
+            $where = rtrim($where, ' AND ') . ')' . $operator;
+          } else if(in_array($field, array('jahr', 'monat', 'tag', 'jh', 'jahrIi', 'monatIi', 'tagIi', 'jhI2', 'chronMinimum', 'chronMaximum', 'chronGlobal')) and preg_match('/^(\d+)\.+(\d+)$/', $criterion['value'], $matches)){ // VALUE1...VALUE2
             if($search['mentionedDates'] === 'with'){
-              $where .= '((h.jahr >= :jahrVon AND h.jahr <= :jahrBis) OR (m.jahr >= :jahrVon AND m.jahr <= :jahrBis))' . $operator;
-              $parameters['jahrVon'] = $matches[1];
-              $parameters['jahrBis'] = $matches[2];
+              $where .= '((h.' . $field . ' >= :von AND h.' . $field . ' <= :bis) OR (m.' . $field . ' >= :von AND m.' . $field . ' <= :bis))' . $operator;
+              $parameters['von'] = $matches[1];
+              $parameters['bis'] = $matches[2];
             } else if($search['mentionedDates'] === 'only') {
-              $where .= '(m.jahr >= :jahrVon AND m.jahr <= :jahrBis)' . $operator;
-              $parameters['jahrVon'] = $matches[1];
-              $parameters['jahrBis'] = $matches[2];
+              $where .= '(m.' . $field . ' >= :von AND m.' . $field . ' <= :bis)' . $operator;
+              $parameters['von'] = $matches[1];
+              $parameters['bis'] = $matches[2];
             } else {
-              $where .= '(h.jahr >= :jahrVon AND h.jahr <= :jahrBis)' . $operator;
-              $parameters['jahrVon'] = $matches[1];
-              $parameters['jahrBis'] = $matches[2];
+              $where .= '(h.' . $field . ' >= :von AND h.' . $field . ' <= :bis)' . $operator;
+              $parameters['von'] = $matches[1];
+              $parameters['bis'] = $matches[2];
             }
           } else {
-
             if(in_array($field, array('jahr', 'monat', 'tag', 'jh', 'erg', 'jahrIi', 'monatIi', 'tagIi', 'jhIi', 'ergIi', 'chronMinimum', 'chronMaximum', 'chronGlobal', 'datierung', 'datierungIi', 'unsicher'))){
               if($search['mentionedDates'] == 'with'){
                 $where .= '((h.' . $field . ' ' . self::$SQL_OPERATOR_MAP[$criterion['operator']] . ' :' . $field . ') OR (m.' . $field . ' ' . self::$SQL_OPERATOR_MAP[$criterion['operator']] . ' :' . $field . '))' . $operator;
@@ -224,7 +231,6 @@ class BrowseController extends HgvController
             } else {
               $where .= 'h.' . $field . ' ' . self::$SQL_OPERATOR_MAP[$criterion['operator']] . ' :' . $field . $operator;
             }
-            
             switch ($criterion['operator']) {
               case 'cn':
                 $parameters[$field] = '%' . $criterion['value'] . '%';

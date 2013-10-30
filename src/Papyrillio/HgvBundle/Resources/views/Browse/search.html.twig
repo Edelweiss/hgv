@@ -33,15 +33,27 @@
           <th><label for="search_criteria_{{key}}_operator_value">{{ caption }}</label></th>
           <td class="{{ key }}">
             <select name="search[criteria][{{key}}][operator]">
-              <option value="cn">Enthält</option>
-              <option value="bw">Beginnt mit</option>
-              <option value="ew">Endet mit</option>
-              <option value="eq">Ist gleich</option>
-              <option value="neq">Ist ungleich</option>
-              <option value="lt">Kleiner als</option>
-              <option value="lte">Kleiner als oder gleich</option>
-              <option value="gt">Größer als</option>
-              <option value="gte">Größer als oder gleich</option>
+              {% if key in ['inhalt', 'bemerkungen', 'originaltitel', 'abbildung', 'anderePublikation', 'ort'] %}
+                <option value="sp">Splittersuche</option>
+                <option value="cn">Enthält</option>
+                <option value="bw">Beginnt mit</option>
+                <option value="ew">Endet mit</option>
+                <option value="eq">Ist gleich</option>
+                <option value="neq">Ist ungleich</option>
+              {% elseif key in ['publikation', 'material', 'linkFm', 'uebersetzungen'] %}
+                <option value="cn">Enthält</option>
+                <option value="bw">Beginnt mit</option>
+                <option value="ew">Endet mit</option>
+                <option value="eq">Ist gleich</option>
+                <option value="neq">Ist ungleich</option>
+              {% else %}
+                <option value="eq">Ist gleich</option>
+                <option value="neq">Ist ungleich</option>
+                <option value="lt">Kleiner</option>
+                <option value="lte">Kleiner oder gleich</option>
+                <option value="gt">Größer</option>
+                <option value="gte">Größer oder gleich</option>
+              {% endif %}
             </select>
           </td>
           <td>
