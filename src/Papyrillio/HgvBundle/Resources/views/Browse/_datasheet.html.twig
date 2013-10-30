@@ -136,7 +136,10 @@
             <ul>
               {% for mentionedDate in record.mentionedDates %}
                 <li>
-                  {{ mentionedDate.zeile }}: {{ mentionedDate.datierung }}
+                  {% if mentionedDate.zeile %}
+                    <b>{{ mentionedDate.zeile }}:</b>
+                  {% endif %}
+                  {{ mentionedDate.datierung }}
                 </li>
               {% endfor %}
             </ul>
