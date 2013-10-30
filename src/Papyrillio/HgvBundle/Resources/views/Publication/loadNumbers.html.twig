@@ -3,14 +3,14 @@
   {% if publication.parent %}
     <li data-url="{{ path('PapyrillioHgvBundle_PublicationLoadResults', {'collection': publication.parent.collection, 'volume': publication.parent.volume, 'particle': publication.parent.particle, 'number': publication.parent.number, 'side': publication.parent.side, 'extra': publication.parent.extra}) }}">
       <i>
-        {{ publication.collection }} {{ publication.volume }}{{ publication.particle }} {{ publication.number }} {{ publication.side }} {{ publication.extra }}
+        {{ publication.collection }} {{ publication.volume ? publication.volume|roman : '' }}{{ publication.particle }} {{ publication.number }} {{ publication.side }} {{ publication.extra }}
         =
-        {{ publication.parent.collection }} {{ publication.parent.volume }}{{ publication.parent.particle }} {{ publication.parent.number }} {{ publication.parent.side }} {{ publication.parent.extra }}
+        {{ publication.parent.collection }} {{ publication.volume ? publication.volume|roman : '' }}{{ publication.parent.particle }} {{ publication.parent.number }} {{ publication.parent.side }} {{ publication.parent.extra }}
       </i>
     </li>
   {% else %}
     <li data-url="{{ path('PapyrillioHgvBundle_PublicationLoadResults', {'collection': publication.collection, 'volume': publication.volume, 'particle': publication.particle, 'number': publication.number, 'side': publication.side, 'extra': publication.extra}) }}">
-    {{ publication.collection }} {{ publication.volume }}{{ publication.particle }} {{ publication.number }} {{ publication.side }} {{ publication.extra }}
+    {{ publication.collection }} {{ publication.volume ? publication.volume|roman : '' }}{{ publication.particle }} {{ publication.number }} {{ publication.side }} {{ publication.extra }}
     </li>
   {% endif %}
 

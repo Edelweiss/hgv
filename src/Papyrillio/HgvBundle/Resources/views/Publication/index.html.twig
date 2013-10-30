@@ -11,7 +11,7 @@
           {% if publication.totalReprint %}
             <i>
           {% endif %}
-          {{ publication.collection }} {{ publication.volume }}{{ publication.particle }}
+          {{ publication.collection }} {{ publication.volume ? publication.volume|roman : '' }}{{ publication.particle }}
           {% if publication.totalReprint %}
             </i>
           {% endif %}
