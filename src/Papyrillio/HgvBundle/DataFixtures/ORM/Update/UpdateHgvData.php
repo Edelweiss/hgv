@@ -11,12 +11,6 @@ use DateTime;
 use DOMDocument;
 use DOMXPath;
 
-/**
- * 
- * php app/console doctrine:fixtures:load --append --fixtures=src/Papyrillio/HgvBundle/DataFixtures/ORM/Update
- * 
- * **/
-
 class LoadHgvData extends XmlData
 {
 

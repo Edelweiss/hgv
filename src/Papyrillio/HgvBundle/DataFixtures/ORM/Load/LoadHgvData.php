@@ -1,6 +1,7 @@
 <?php
-namespace Papyrillio\HgvBundle\DataFixtures\ORM;
+namespace Papyrillio\HgvBundle\DataFixtures\ORM\Load;
 
+use Papyrillio\HgvBundle\DataFixtures\ORM\XmlData;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -11,23 +12,8 @@ use DOMXPath;
 
 ini_set('memory_limit', -1);
 
-abstract class XmlData extends AbstractFixture implements OrderedFixtureInterface
+class LoadHgvData extends XmlData
 {
-    /**
-     * php app/console doctrine:fixtures:load --purge-with-truncate
-     * php app/console doctrine:fixtures:load --append --fixtures=src/Papyrillio/HgvBundle/DataFixtures/ORM/Load
-     * php app/console doctrine:fixtures:load --append --fixtures=src/Papyrillio/HgvBundle/DataFixtures/ORM/Update
-     * 
-     * **/
-
-    const NAMESPACE_FILEMAKER = 'http://www.filemaker.com/fmpxmlresult';
-    const NAMESPACE_TEI       = 'http://www.tei-c.org/ns/1.0';
-    
-    protected $flushCounter = 0;
-    protected $xpath = null;
-
-    protected $positions = array();
-
     protected $fields = array(
       'tmNr' => 'TM_Nr.',
       'texLett' => 'texLett',
@@ -80,73 +66,44 @@ abstract class XmlData extends AbstractFixture implements OrderedFixtureInterfac
       'eingegebenAm' => 'eingegeben am',
       'zulGeaendertAm' => 'zul. geändert am',
       'DatensatzNr' => 'DatensatzNr.'
-    ); 
+    );
 
-    function __construct($importFile = 'hgv.xml'){
-      // xpath
-      $doc = new DOMDocument();
-      $doc->load(__DIR__ . '/../../Data/' . $importFile);
-      $xpath = new DOMXPath($doc);
-      $xpath->registerNamespace('fm', self::NAMESPACE_FILEMAKER);
-      $this->xpath = $xpath;
-      
-      // column positions
-      foreach($this->fields as $key => $filemakerName){
-        $position = $this->xpath->evaluate("/fm:FMPXMLRESULT/fm:METADATA[1]/fm:FIELD[@NAME='" . $filemakerName . "']");
-        if($position->length > 0){
-          $position = preg_replace('/^.+\[(\d+)\]$/', '$1', $position->item(0)->getNodePath());
-          $this->positions[$key] = $position - 1;
-        }
-      }
-    }
-
-    function load(ObjectManager $manager){
+    function _load(ObjectManager $manager)
+    {
       
     }
 
-    protected static function makeInteger($fmInt){
-      return str_replace(' ', '', $fmInt);
-    }
-
-    protected static function makeDate($fmDate){
-      if(preg_match('/\d\d.\d\d.\d\d\d\d/', $fmDate)){
-        return new DateTime(substr($fmDate, 6, 4) . '-' . substr($fmDate, 3, 2) . '-' . substr($fmDate, 0, 2));
-      }
-      return new DateTime();
-    }
-    
-    protected function generateObjectFromXml($cols, $hgv = null){
-
-        if($hgv === null){
-          $hgv = new Hgv($cols->item($this->positions['texIdLang'])->nodeValue);
-        }
-
-        $hgv->settmNr($cols->item($this->positions['tmNr'])->nodeValue);
+    function load(ObjectManager $manager)
+    {
+      foreach($this->xpath->evaluate('/fm:FMPXMLRESULT/fm:RESULTSET[1]/fm:ROW') as $row){
+        $cols = $this->xpath->evaluate('fm:COL/fm:DATA[1]', $row);
+        $hgv = new Hgv($cols->item($this->positions['texIdLang'])->nodeValue);
+        $hgv->settmNr(self::makeInteger($cols->item($this->positions['tmNr'])->nodeValue));
         $hgv->settexLett($cols->item($this->positions['texLett'])->nodeValue);
         $hgv->setmehrfachKennung($cols->item($this->positions['mehrfachKennung'])->nodeValue);
         $hgv->setpublikation($cols->item($this->positions['publikation'])->nodeValue);
-        $hgv->setband($cols->item($this->positions['band'])->nodeValue);
+        $hgv->setband(self::makeInteger($cols->item($this->positions['band'])->nodeValue));
         $hgv->setzusBand($cols->item($this->positions['zusBand'])->nodeValue);
-        $hgv->setnummer($cols->item($this->positions['nummer'])->nodeValue);
+        $hgv->setnummer(self::makeInteger($cols->item($this->positions['nummer'])->nodeValue));
         $hgv->setseite($cols->item($this->positions['seite'])->nodeValue);
         $hgv->setzusaetzlich($cols->item($this->positions['zusaetzlich'])->nodeValue);
         $hgv->setpublikationLang($cols->item($this->positions['publikationLang'])->nodeValue);
         $hgv->setmaterial($cols->item($this->positions['material'])->nodeValue);
         $hgv->setzusaetzlichSort($cols->item($this->positions['zusaetzlichSort'])->nodeValue);
         $hgv->setinvNr($cols->item($this->positions['invNr'])->nodeValue);
-        $hgv->setjahr($cols->item($this->positions['jahr'])->nodeValue);
-        $hgv->setmonat($cols->item($this->positions['monat'])->nodeValue);
-        $hgv->settag($cols->item($this->positions['tag'])->nodeValue);
-        $hgv->setjh($cols->item($this->positions['jh'])->nodeValue);
+        $hgv->setjahr(self::makeInteger($cols->item($this->positions['jahr'])->nodeValue));
+        $hgv->setmonat(self::makeInteger($cols->item($this->positions['monat'])->nodeValue));
+        $hgv->settag(self::makeInteger($cols->item($this->positions['tag'])->nodeValue));
+        $hgv->setjh(self::makeInteger($cols->item($this->positions['jh'])->nodeValue));
         $hgv->seterg($cols->item($this->positions['erg'])->nodeValue);
-        $hgv->setjahrIi($cols->item($this->positions['jahrIi'])->nodeValue);
-        $hgv->setmonatIi($cols->item($this->positions['monatIi'])->nodeValue);
-        $hgv->settagIi($cols->item($this->positions['tagIi'])->nodeValue);
-        $hgv->setjhIi($cols->item($this->positions['jhIi'])->nodeValue);
+        $hgv->setjahrIi(self::makeInteger($cols->item($this->positions['jahrIi'])->nodeValue));
+        $hgv->setmonatIi(self::makeInteger($cols->item($this->positions['monatIi'])->nodeValue));
+        $hgv->settagIi(self::makeInteger($cols->item($this->positions['tagIi'])->nodeValue));
+        $hgv->setjhIi(self::makeInteger($cols->item($this->positions['jhIi'])->nodeValue));
         $hgv->setergIi($cols->item($this->positions['ergIi'])->nodeValue);
-        $hgv->setchronMinimum($cols->item($this->positions['chronMinimum'])->nodeValue);
-        $hgv->setchronMaximum($cols->item($this->positions['chronMaximum'])->nodeValue);
-        $hgv->setchronGlobal($cols->item($this->positions['chronGlobal'])->nodeValue);
+        $hgv->setchronMinimum(self::makeInteger($cols->item($this->positions['chronMinimum'])->nodeValue));
+        $hgv->setchronMaximum(self::makeInteger($cols->item($this->positions['chronMaximum'])->nodeValue));
+        $hgv->setchronGlobal(self::makeInteger($cols->item($this->positions['chronGlobal'])->nodeValue));
         $hgv->seterwaehnteDaten($cols->item($this->positions['erwaehnteDaten'])->nodeValue);
         $hgv->setunsicher($cols->item($this->positions['unsicher'])->nodeValue);
         $hgv->setdatierung($cols->item($this->positions['datierung'])->nodeValue);
@@ -168,14 +125,27 @@ abstract class XmlData extends AbstractFixture implements OrderedFixtureInterfac
         $hgv->setddbSer($cols->item($this->positions['ddbSer'])->nodeValue);
         $hgv->setddbVol($cols->item($this->positions['ddbVol'])->nodeValue);
         $hgv->setddbDoc($cols->item($this->positions['ddbDoc'])->nodeValue);
-        $hgv->setDatensatzNr($cols->item($this->positions['DatensatzNr'])->nodeValue);
+        $hgv->setDatensatzNr(self::makeInteger($cols->item($this->positions['DatensatzNr'])->nodeValue));
 
         $hgv->seteingegebenAm(self::makeDate($cols->item($this->positions['eingegebenAm'])->nodeValue));
         $hgv->setzulGeaendertAm(self::makeDate($cols->item($this->positions['zulGeaendertAm'])->nodeValue));
 
         $hgv->setHgvId($hgv->getTmNr() . $hgv->getTexLett());
-        
-        return $hgv;
+
+        $manager->persist($hgv);
+
+        echo $this->flushCounter . ': ' . $hgv->getPublikationLang() . ' (#' . $hgv->getId() . ")\n";
+
+        if(($this->flushCounter++ % 400) === 0){
+          $manager->flush();
+          $manager->clear();
+        }
+      }
+      $manager->flush();
+      $manager->clear();
+    }
+
+    public function getOrder(){
+      return 1;
     }
 }
-?>
