@@ -205,19 +205,19 @@ class BrowseController extends HgvController
               $parameters[$field . $splinterIndex] = '%' . $splinterValue . '%';
             }
             $where = rtrim($where, ' AND ') . ')' . $operator;
-          } else if(in_array($field, array('jahr', 'monat', 'tag', 'jh', 'jahrIi', 'monatIi', 'tagIi', 'jhI2', 'chronMinimum', 'chronMaximum', 'chronGlobal')) and preg_match('/^(\d+)\.+(\d+)$/', $criterion['value'], $matches)){ // VALUE1...VALUE2
+          } else if(in_array($field, array('jahr', 'monat', 'tag', 'jh', 'jahrIi', 'monatIi', 'tagIi', 'jhI2', 'chronMinimum', 'chronMaximum', 'chronGlobal')) and preg_match('/^(-?\d+)\.+(-?\d+)$/', $criterion['value'], $matches)){ // VALUE1...VALUE2
             if($search['mentionedDates'] === 'with'){
-              $where .= '((h.' . $field . ' >= :von AND h.' . $field . ' <= :bis) OR (m.' . $field . ' >= :von AND m.' . $field . ' <= :bis))' . $operator;
-              $parameters['von'] = $matches[1];
-              $parameters['bis'] = $matches[2];
+              $where .= '((h.' . $field . ' >= :' . $field . 'Von AND h.' . $field . ' <= :' . $field . 'Bis) OR (m.' . $field . ' >= :' . $field . 'Von AND m.' . $field . ' <= :' . $field . 'Bis))' . $operator;
+              $parameters[$field . 'Von'] = $matches[1];
+              $parameters[$field . 'Bis'] = $matches[2];
             } else if($search['mentionedDates'] === 'only') {
-              $where .= '(m.' . $field . ' >= :von AND m.' . $field . ' <= :bis)' . $operator;
-              $parameters['von'] = $matches[1];
-              $parameters['bis'] = $matches[2];
+              $where .= '(m.' . $field . ' >= :' . $field . 'Von AND m.' . $field . ' <= :' . $field . 'Bis)' . $operator;
+              $parameters[$field . 'Von'] = $matches[1];
+              $parameters[$field . 'Bis'] = $matches[2];
             } else {
-              $where .= '(h.' . $field . ' >= :von AND h.' . $field . ' <= :bis)' . $operator;
-              $parameters['von'] = $matches[1];
-              $parameters['bis'] = $matches[2];
+              $where .= '(h.' . $field . ' >= :' . $field . 'Von AND h.' . $field . ' <= :' . $field . 'Bis)' . $operator;
+              $parameters[$field . 'Von'] = $matches[1];
+              $parameters[$field . 'Bis'] = $matches[2];
             }
           } else {
             if(in_array($field, array('jahr', 'monat', 'tag', 'jh', 'erg', 'jahrIi', 'monatIi', 'tagIi', 'jhIi', 'ergIi', 'chronMinimum', 'chronMaximum', 'chronGlobal', 'datierung', 'datierungIi', 'unsicher'))){
@@ -246,7 +246,6 @@ class BrowseController extends HgvController
                 break;
             }
           }
-
         }
         $where = preg_replace('/' . $operator . '$/', '', $where);
       }
