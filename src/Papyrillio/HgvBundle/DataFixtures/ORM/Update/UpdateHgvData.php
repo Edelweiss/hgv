@@ -11,6 +11,12 @@ use DateTime;
 use DOMDocument;
 use DOMXPath;
 
+/*
+ * 1.) Export data records from FileMaker to src/Papyrillio/HgvBundle/Data/hgvUpdate.xml
+ * 2.) Run Update-Skript
+ * php app/console doctrine:fixtures:load --fixtures=src/Papyrillio/HgvBundle/DataFixtures/ORM/Update --append
+ * */
+
 class LoadHgvData extends XmlData
 {
 
@@ -22,7 +28,7 @@ class LoadHgvData extends XmlData
     {
       foreach($this->xpath->evaluate('/fm:FMPXMLRESULT/fm:RESULTSET[1]/fm:ROW') as $row){
         $cols = $this->xpath->evaluate('fm:COL/fm:DATA[1]', $row);
-        $hgv = $manager->getRepository('PapyrillioHgvBundle:Hgv')->findOneBy(array('id' => $cols->item(self::$POSITIONS['texIdLang'])->nodeValue));
+        $hgv = $manager->getRepository('PapyrillioHgvBundle:Hgv')->findOneBy(array('id' => $cols->item($this->positions['texIdLang'])->nodeValue));
         $hgv = $this->generateObjectFromXml($cols, $hgv);
 
         if($manager->getUnitOfWork()->getEntityState($hgv) === UnitOfWork::STATE_NEW){
