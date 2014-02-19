@@ -334,13 +334,15 @@ table.catalogueShow tr.dfg a{
 }
 
 table.catalogueShow tr.translation ul,
-table.catalogueShow tr.mentionedDates ul{
+table.catalogueShow tr.mentionedDates ul,
+table.catalogueShow tr.pictureLinks ul{
   list-style-type: none;
   margin: 0;
 }
 
 table.catalogueShow tr.translation ul li,
-table.catalogueShow tr.mentionedDates ul li{
+table.catalogueShow tr.mentionedDates ul li,
+table.catalogueShow tr.pictureLinks ul li{
   margin-left: 1em;
 }
 
