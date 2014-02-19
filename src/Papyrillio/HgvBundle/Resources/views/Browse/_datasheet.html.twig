@@ -37,18 +37,25 @@
         <td>{{ record.material|raw }}</td>
       </tr>
     {% endif %}
-    {% if record.abbildung or record.linkFm %}
-      <tr>
+    {% if record.abbildung or record.pictureLinks %}
+      <tr class="pictureLinks">
         <th>Abbildung</th>
         <td>
           {% if record.abbildung %}
             {{ record.abbildung|raw }}
           {% endif %}
-          {% if record.abbildung or record.linkFm %}
+          {% if record.abbildung and record.pictureLinks %}
             <br />
           {% endif %}
-          {% if record.linkFm %}
-            <a target="Neu" href="{{ record.linkFm|raw }}">Weitere Informationen / Abbildung im Internet</a>
+          {% if record.pictureLinks %}
+            <b>Weitere Informationen / Abbildung im Internet:</b>
+            <ul>
+              {% for pictureLink in record.pictureLinks %}
+                <li>
+                  <a target="Neu" href="{{ pictureLink.url|raw }}" title="{{ pictureLink.url }}">{{ pictureLink.institution }}</a>
+                </li>
+              {% endfor %}
+            </ul>
           {% endif %}
         </td>
       </tr>

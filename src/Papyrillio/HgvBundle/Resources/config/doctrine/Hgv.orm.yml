@@ -132,10 +132,6 @@ Papyrillio\HgvBundle\Entity\Hgv:
         abbildung:
             type: text
             nullable: true
-        linkFm:
-            name: link_fm
-            type: text
-            nullable: true
         ort:
             type: text
             nullable: true
@@ -190,8 +186,15 @@ Papyrillio\HgvBundle\Entity\Hgv:
             type: integer
             nullable: true
     oneToMany:
+        pictureLinks:
+            targetEntity: PictureLink
+            mappedBy: metadata
+            orderBy: { 'institution': 'ASC', 'name': 'ASC' }
+            orphanRemoval: true
+            cascade: ['persist', 'remove']
         mentionedDates:
             targetEntity: MentionedDate
             mappedBy: metadata
             orderBy: { 'jahr': 'ASC', 'monat': 'ASC', 'tag': 'ASC', 'jh': 'ASC' }
+
     # don't forget to init the collection in entity __construct() method

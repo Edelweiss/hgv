@@ -272,7 +272,7 @@ class BrowseController extends HgvController
       $countTotal  = $entityManager->createQuery('SELECT COUNT(DISTINCT h.id) FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m')->getSingleScalarResult();
       $countSearch = $entityManager->createQuery('SELECT COUNT(DISTINCT h.id) FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m' . $where)->setParameters($parameters)->getSingleScalarResult();
       $result      = $entityManager->createQuery($select . $where . $orderBy)->setParameters($parameters)->setMaxResults($search['max'])->setFirstResult($search['skip'])->getResult();
-      
+
       $query = $select . $where . $orderBy;
       foreach($parameters as $key => $value){
         $query = str_replace(':' . $key, $value, $query);

@@ -19,7 +19,6 @@ use DOMXPath;
 
 class LoadHgvData extends XmlData
 {
-
     function __construct(){
       parent::__construct('hgvUpdate.xml');
     }
@@ -27,13 +26,25 @@ class LoadHgvData extends XmlData
     function load(ObjectManager $manager)
     {
       foreach($this->xpath->evaluate('/fm:FMPXMLRESULT/fm:RESULTSET[1]/fm:ROW') as $row){
-        $cols = $this->xpath->evaluate('fm:COL/fm:DATA[1]', $row);
-        $hgv = $manager->getRepository('PapyrillioHgvBundle:Hgv')->findOneBy(array('id' => $cols->item($this->positions['texIdLang'])->nodeValue));
-        $hgv = $this->generateObjectFromXml($cols, $hgv);
+
+        $hgv = $manager->getRepository('PapyrillioHgvBundle:Hgv')->findOneBy(array('id' => $this->xpath->evaluate('fm:COL/fm:DATA[1]', $row)->item($this->positions['texIdLang'])->nodeValue));
+
+        //if($hgv && $hgv->getPictureLinks()){
+        //  foreach($hgv->getPictureLinks() as $pictureLink){
+         //   $manager->remove($pictureLink);
+         // }
+         // $hgv->resetPictureLinks();
+       // }
+
+        $hgv = $this->generateObjectFromXml($row, $hgv);
 
         if($manager->getUnitOfWork()->getEntityState($hgv) === UnitOfWork::STATE_NEW){
           $manager->persist($hgv);
         }
+
+        //foreach($hgv->getPictureLinks() as $pictureLink){
+       //   $manager->persist($pictureLink);
+       // }
 
         echo $this->flushCounter . ': ' . $hgv->getPublikationLang() . ' (#' . $hgv->getId() . ")\n";
 

@@ -1,0 +1,28 @@
+Papyrillio\HgvBundle\Entity\PictureLink:
+    type: entity
+    table: pictureLink
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        institution:
+            type: text
+            nullable: true
+        name:
+            type: text
+            nullable: true
+        url:
+            type: text
+            nullable: false
+    manyToOne:
+        metadata:
+            targetEntity: Hgv
+            inversedBy: pictureLinks
+            joinColumn:
+                name: hgv_id
+                referencedColumnName: id
+                onDelete: CASCADE
+
+    # don't forget to init the collection in entity __construct() method

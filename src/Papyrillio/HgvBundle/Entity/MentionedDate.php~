@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Papyrillio\HgvBundle\Entity\MentionedDate
  */
+
 class MentionedDate
 {
     /**
@@ -98,7 +99,6 @@ class MentionedDate
     {
         return $this->id;
     }
-
 
     /**
      * Set zeile
@@ -399,4 +399,5 @@ class MentionedDate
     {
         return $this->metadata;
     }
+
 }

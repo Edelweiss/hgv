@@ -5,6 +5,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Papyrillio\HgvBundle\Entity\Hgv;
+use Papyrillio\HgvBundle\Entity\PictureLink;
 use DateTime;
 use DOMDocument;
 use DOMXPath;
@@ -115,7 +116,8 @@ abstract class XmlData extends AbstractFixture implements OrderedFixtureInterfac
       return new DateTime();
     }
     
-    protected function generateObjectFromXml($cols, $hgv = null){
+    protected function generateObjectFromXml($row, $hgv = null){
+        $cols = $this->xpath->evaluate('fm:COL/fm:DATA[1]', $row);
 
         if($hgv === null){
           $hgv = new Hgv($cols->item($this->positions['texIdLang'])->nodeValue);
@@ -155,7 +157,6 @@ abstract class XmlData extends AbstractFixture implements OrderedFixtureInterfac
         $hgv->setbl($cols->item($this->positions['bl'])->nodeValue);
         $hgv->setuebersetzungen($cols->item($this->positions['uebersetzungen'])->nodeValue);
         $hgv->setabbildung($cols->item($this->positions['abbildung'])->nodeValue);
-        $hgv->setlinkFm($cols->item($this->positions['linkFm'])->nodeValue);
         $hgv->setort($cols->item($this->positions['ort'])->nodeValue);
         $hgv->setoriginaltitel($cols->item($this->positions['originaltitel'])->nodeValue);
         $hgv->setoriginaltitelHtml($cols->item($this->positions['originaltitelHtml'])->nodeValue);
@@ -174,7 +175,17 @@ abstract class XmlData extends AbstractFixture implements OrderedFixtureInterfac
         $hgv->setzulGeaendertAm(self::makeDate($cols->item($this->positions['zulGeaendertAm'])->nodeValue));
 
         $hgv->setHgvId($hgv->getTmNr() . $hgv->getTexLett());
-        
+
+        if($hgv->getPictureLinks()){
+          $hgv->getPictureLinks()->clear();
+        } // due to definition »orphanRemoval: true« in »Hgv.orm.yml« old picture links will be deleted (i.e. removed) automatically
+
+        foreach($this->xpath->evaluate('fm:COL[' . ($this->positions['linkFm'] + 1) . ']/fm:DATA', $row) as $linkFm){
+          if($linkFm->nodeValue){
+            $pictureLink = new PictureLink($linkFm->nodeValue);
+            $hgv->addPictureLink($pictureLink);
+          }
+        } // due to definition »cascade: ['persist', 'remove']« in »Hgv.orm.yml« these picture links will become persistent as soon as the owning HGV record will become persistent
         return $hgv;
     }
 }

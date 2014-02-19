@@ -5,6 +5,11 @@ namespace Papyrillio\HgvBundle\Entity;
 class Hgv
 {
     /**
+     * @var string $id
+     */
+    private $id;
+
+    /**
      * @var text $publikation
      */
     private $publikation;
@@ -175,11 +180,6 @@ class Hgv
     private $abbildung;
 
     /**
-     * @var text $linkFm
-     */
-    private $linkFm;
-
-    /**
      * @var text $ort
      */
     private $ort;
@@ -253,6 +253,45 @@ class Hgv
      * @var integer $DatensatzNr
      */
     private $DatensatzNr;
+
+    /**
+     * @var Papyrillio\HgvBundle\Entity\MentionedDate
+     */
+    private $mentionedDates;
+
+    /**
+     * @var Papyrillio\HgvBundle\Entity\PictureLink
+     */
+    private $pictureLinks;
+
+    /**
+     * Set id
+     *
+     * @param string $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * Get id
+     *
+     * @return string 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function __construct($id = null)
+    {
+      if($id !== null){
+        $this->setId($id);
+      }
+      $this->mentionedDates = new \Doctrine\Common\Collections\ArrayCollection();
+	    $this->pictureLinks   = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set publikation
@@ -915,26 +954,6 @@ class Hgv
     }
 
     /**
-     * Set linkFm
-     *
-     * @param text $linkFm
-     */
-    public function setLinkFm($linkFm)
-    {
-        $this->linkFm = $linkFm;
-    }
-
-    /**
-     * Get linkFm
-     *
-     * @return text 
-     */
-    public function getLinkFm()
-    {
-        return $this->linkFm;
-    }
-
-    /**
      * Set ort
      *
      * @param text $ort
@@ -1278,28 +1297,16 @@ class Hgv
     {
         return $this->publikationLang;
     }
-    /**
-     * @var Papyrillio\HgvBundle\Entity\MentionedDate
-     */
-    private $mentionedDates;
-
-    public function __construct($id = null)
-    {
-        if($id !== null){
-          $this->setId($id);
-        }
-        $this->mentionedDates = new \Doctrine\Common\Collections\ArrayCollection();
-    }
     
     /**
-     * Add mentionedDates
+     * Add mentionedDate
      *
-     * @param Papyrillio\HgvBundle\Entity\MentionedDate $mentionedDates
+     * @param Papyrillio\HgvBundle\Entity\MentionedDate $mentionedDate
      */
-    public function addMentionedDate(\Papyrillio\HgvBundle\Entity\MentionedDate $mentionedDates)
+    public function addMentionedDate(\Papyrillio\HgvBundle\Entity\MentionedDate $mentionedDate)
     {
-        $mentionedDates->setMetadata($this);
-        $this->mentionedDates[] = $mentionedDates;
+        $mentionedDate->setMetadata($this);
+        $this->mentionedDates[] = $mentionedDate;
     }
 
     /**
@@ -1311,29 +1318,33 @@ class Hgv
     {
         return $this->mentionedDates;
     }
-    /**
-     * @var string $id
-     */
-    private $id;
-
 
     /**
-     * Set id
+     * Add pictureLink
      *
-     * @param string $id
+     * @param Papyrillio\HgvBundle\Entity\PictureLink $pictureLink
      */
-    public function setId($id)
+    public function addPictureLink(\Papyrillio\HgvBundle\Entity\PictureLink $pictureLink)
     {
-        $this->id = $id;
+        $pictureLink->setMetadata($this);
+        $this->pictureLinks[] = $pictureLink;
     }
 
     /**
-     * Get id
+     * Get pictureLinks
      *
-     * @return string 
+     * @return Doctrine\Common\Collections\Collection 
      */
-    public function getId()
+    public function getPictureLinks()
     {
-        return $this->id;
+        return $this->pictureLinks;
+    }
+
+    /**
+     * Get rid of all pictureLinks 
+     */
+    public function resetPictureLinks()
+    {
+      $this->pictureLinks->clear();
     }
 }
