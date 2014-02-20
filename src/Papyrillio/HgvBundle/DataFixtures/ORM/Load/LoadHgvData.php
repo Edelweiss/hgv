@@ -10,7 +10,13 @@ use DateTime;
 use DOMDocument;
 use DOMXPath;
 
-ini_set('memory_limit', -1);
+/*
+ * THIS SCRIPT IS NOT UP-TO-DATE WITH THE CURRENT DATABASE MODEL !!!
+ * Perhaps this script is no longer needed because the update script can do a better job.
+ * However, the update script does not deal with Mentioned Dates by itself.
+ * Perhaps this needs a new implementation as well because Mentioned Dates now live within the HGV database and are linked by relation.
+ * 
+ * */
 
 class LoadHgvData extends XmlData
 {

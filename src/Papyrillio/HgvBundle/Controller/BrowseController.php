@@ -9,6 +9,8 @@ class BrowseController extends HgvController
     const TYPE_SINGLE   = 'table';
     const TYPE_MULTIPLE = 'formular';
     const TYPE_SEARCH   = 'search';
+    const COUNT_TRUE    = true;
+    const COUNT_FALSE   = false;
     
     static $FIELD_LIST_SEARCH = array(
       'publikation'        => 'Publikation',
@@ -28,11 +30,36 @@ class BrowseController extends HgvController
       'anderePublikation'  => 'Andere Publikation',
       'bemerkungen'        => 'Bemerkungen',
       'inhalt'             => 'Inhalt',
-      'linkFm'             => 'Link',
+      'url'                => 'Link',
       'chronMinimum'       => 'Chron-Minimum',
       'chronMaximum'       => 'Chron-Maximum',
       'chronGlobal'        => 'Chron-Global',
       'uebersetzungen'     => 'Übersetzungen'
+    );
+
+    static $TABLE_MAP = array(
+      'publikation'        => 'h',
+      'band'               => 'h',
+      'nummer'             => 'h',
+      'tmNr'               => 'h',
+      'jahr'               => 'h',
+      'monat'              => 'h',
+      'tag'                => 'h',
+      'jahrIi'             => 'h',
+      'jh'                 => 'h',
+      'jhIi'               => 'h',
+      'ort'                => 'h',
+      'originaltitel'      => 'h',
+      'material'           => 'h',
+      'abbildung'          => 'h',
+      'anderePublikation'  => 'h',
+      'bemerkungen'        => 'h',
+      'inhalt'             => 'h',
+      'url'                => 'p',
+      'chronMinimum'       => 'h',
+      'chronMaximum'       => 'h',
+      'chronGlobal'        => 'h',
+      'uebersetzungen'     => 'h'
     );
 
     static $FIELD_LIST_SINGLE = array(
@@ -190,10 +217,67 @@ class BrowseController extends HgvController
     }
 
     protected function getResult($search, $sort){
-      $where = '';
-      $orderBy = '';
-      $parameters = array();
+      $orderBy = $this->orderBy($sort);
+      list($where, $parameters) = $this->where($search);
 
+      $entityManager = $this->getDoctrine()->getEntityManager();
+      $repository = $entityManager->getRepository('PapyrillioHgvBundle:Hgv');
+
+      $select = $this->select($search, $sort);
+      $selectCount = $this->select($search, $sort, self::COUNT_TRUE);
+
+      $countTotal  = $entityManager->createQuery($selectCount)->getSingleScalarResult();
+      $countSearch = $entityManager->createQuery($selectCount . $where)->setParameters($parameters)->getSingleScalarResult();
+      $result      = $entityManager->createQuery($select . $where . $orderBy)->setParameters($parameters)->setMaxResults($search['max'])->setFirstResult($search['skip'])->getResult();
+
+      $query = $select . $where . $orderBy;
+      foreach($parameters as $key => $value){
+        $query = str_replace(':' . $key, $value, $query);
+      }
+
+      return array('data' => $result, 'countTotal' => $countTotal, 'countSearch' => $countSearch, 'query' => $query);
+    }
+
+    /*
+     * Generate SELECT and FROM clauses for doctrine query
+     * 
+     * */
+    protected function select($search, $sort, $count = self::COUNT_FALSE){
+      // select fields
+      $select = $count ? 'SELECT COUNT(DISTINCT h.id) ' : 'SELECT DISTINCT h ';
+      
+      // choose tables
+      $select .= 'FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m ';
+
+      $pictureLinks = false;
+      foreach($sort as $sortItem){
+        if(self::$TABLE_MAP[$sortItem['key']] === 'p'){
+          $pictureLinks = true;
+          break;
+        }
+      }
+      
+      foreach($search['criteria'] as $field => $criterion){
+        if(self::$TABLE_MAP[$field] === 'p'){
+          $pictureLinks = true;
+          break;
+        }
+      }
+      
+      if($pictureLinks){
+        $select .= 'LEFT JOIN h.pictureLinks p ';
+      }
+
+      return $select;
+    }
+
+    /*
+     * Generate WHERE clause for doctrine query
+     * 
+     * */
+    protected function where($search){
+      $where = '';
+      $parameters = array();
       if(count($search['criteria'])){
         $where = ' WHERE ';
         $operator = ' ' . $search['operator'] . ' ';
@@ -229,7 +313,7 @@ class BrowseController extends HgvController
                 $where .= 'h.' . $field . ' ' . self::$SQL_OPERATOR_MAP[$criterion['operator']] . ' :' . $field . $operator;
               }
             } else {
-              $where .= 'h.' . $field . ' ' . self::$SQL_OPERATOR_MAP[$criterion['operator']] . ' :' . $field . $operator;
+              $where .= self::$TABLE_MAP[$field] . '.' . $field . ' ' . self::$SQL_OPERATOR_MAP[$criterion['operator']] . ' :' . $field . $operator;
             }
             switch ($criterion['operator']) {
               case 'cn':
@@ -249,36 +333,29 @@ class BrowseController extends HgvController
         }
         $where = preg_replace('/' . $operator . '$/', '', $where);
       }
+      return array($where, $parameters);
+   }
 
+    /* 
+     * Generate ORDER BY clause for doctrine query
+     * 
+     * */
+    protected function orderBy($sort){
       if(count($sort)){
         $orderBy = ' ORDER BY ';
         foreach ($sort as $sortItem) {
           $direction = substr($sortItem['direction'], 0, strpos($sortItem['direction'], 'c') + 1);
           if($sortItem['key'] == 'datierungIi'){
-            $orderBy .= 'h.chronGlobal ' . $direction . ', h.monat ' . $direction . ', h.tag ' . $direction . ', ';
+            $orderBy .=  'h.chronGlobal ' . $direction . ', h.monat ' . $direction . ', h.tag ' . $direction . ', ';
           } else if($sortItem['key'] == 'publikationLang') {
             $orderBy .= 'h.publikation ' . $direction . ', h.band ' . $direction . ', h.zusBand ' . $direction . ', h.nummer ' . $direction;
           } else {
-            $orderBy .= 'h.' . $sortItem['key'] . ' ' . $direction . ', ';
+            $orderBy .= self::$TABLE_MAP[$sortItem['key']] . '.' . $sortItem['key'] . ' ' . $direction . ', ';
           }
         }
-        $orderBy = rtrim($orderBy, ', ');
+        return rtrim($orderBy, ', ');
       }
-
-      $entityManager = $this->getDoctrine()->getEntityManager();
-      $repository = $entityManager->getRepository('PapyrillioHgvBundle:Hgv');
-
-      $select = 'SELECT DISTINCT h FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m ';
-      $countTotal  = $entityManager->createQuery('SELECT COUNT(DISTINCT h.id) FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m')->getSingleScalarResult();
-      $countSearch = $entityManager->createQuery('SELECT COUNT(DISTINCT h.id) FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m' . $where)->setParameters($parameters)->getSingleScalarResult();
-      $result      = $entityManager->createQuery($select . $where . $orderBy)->setParameters($parameters)->setMaxResults($search['max'])->setFirstResult($search['skip'])->getResult();
-
-      $query = $select . $where . $orderBy;
-      foreach($parameters as $key => $value){
-        $query = str_replace(':' . $key, $value, $query);
-      }
-
-      return array('data' => $result, 'countTotal' => $countTotal, 'countSearch' => $countSearch, 'query' => $query);
+      return '';
     }
 
     protected function getParameterShow(){
