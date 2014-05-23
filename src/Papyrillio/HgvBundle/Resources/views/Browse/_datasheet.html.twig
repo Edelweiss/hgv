@@ -2,7 +2,7 @@
 
 <h3 class="catalogueShow">
   {% if record.publikationLang %}
-    <a  href="#{{ record.id }}" onclick="top.location.href = '{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': record.id}) }}'">{{ record.publikationLang|raw }}</a>
+    <a  href="#{{ record.id }}" onclick="top.location.href = '{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': record.hgvId}) }}'">{{ record.publikationLang|raw }}</a>
   {% else %}
      …
   {% endif %}
