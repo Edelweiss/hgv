@@ -37,12 +37,65 @@ margin-bottom: 5px;
 -moz-box-shadow: 3px 3px 7px #777;
 }
 
+/* nav */
+
 nav {
 
 height: 2em;
 margin: 0 auto;
 background: #142952; /* darkblue */
 color: #fff;
+}
+
+nav div.menu {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+nav div.menu ul {
+  margin: 0;
+  padding: 0.4em 0 0 0.4em;
+  list-style: none;
+  line-height: normal;
+}
+
+nav div.menu > ul li {
+  display: block;
+  position: relative;
+  float: left;
+}
+
+nav div.menu > ul > li.inactive ul.sub,
+nav div.menu > ul > li.active ul.sub {
+  z-index: 100;
+  position: absolute;
+  top: 18px;
+  left: 0;
+  background-color: #142952;
+  padding: 0.2em 0 0.4em 0;
+  margin: 0;
+  font-weight: normal;
+  font-size: 10pt;
+  display: none;
+}
+
+nav div.menu > ul > li.active ul.sub {
+  display: block;
+}
+
+/* nav */
+
+nav .menu a {
+  display: block;
+  float: left;
+  margin-right: 5px;
+  padding: 0px 15px;
+  text-decoration: none;
+  color: #fff;
+}
+
+nav .menu a:hover {
+  text-decoration: underline;
 }
 
 header {
@@ -95,6 +148,10 @@ clear: both;
 color: #333;
 }
 
+h6 a {
+  font-size: 0.8em;
+}
+
 a:link, a:visited {
 color:#085E9B;
 }
@@ -109,38 +166,6 @@ margin-bottom: 18px;
 
 li {
 padding-left: 0.1em;
-}
-
-/* nav */
-
-nav .menu {
-font-size: 1em;
-font-weight: bold;
-}
-
-nav .menu ul {
-margin: 0;
-padding: 0.4em 0 0 0.4em;
-list-style: none;
-line-height: normal;
-}
-
-nav .menu li {
-display: block;
-float: left;
-}
-
-nav .menu a {
-display: block;
-float: left;
-margin-right: 5px;
-padding: 0px 15px;
-text-decoration: none;
-color: #fff;
-}
-
-nav .menu a:hover {
-text-decoration: underline;
 }
 
 /** HEADER */
@@ -309,6 +334,37 @@ table.search tr.Uebersetzungen input{
 
 /* BROWSE SINGLE / CATALOGUE SHOW */
 
+h3.catalogueShow, h4.catalogueShow, h5.catalogueShow {
+  width: 100%;
+  font-size: 1em;
+  position: relative;
+}
+
+h3.catalogueShow, h4.catalogueShow {
+  text-align: center;
+}
+
+h3.catalogueShow {
+  cursor: pointer;
+  cursor: hand;
+}
+
+h3.catalogueShow a[href*=trismegistos] {
+  position: absolute;
+  right: 0;
+  font-size: 8pt;
+}
+
+h3.catalogueShow span {
+  position: absolute;
+  right: 0;
+  top: 1.8em;
+}
+
+h5.catalogueShow span.Datierung {
+  float: right;
+}
+
 table.catalogueShow th,
 table.catalogueShow td {
   padding: 0 0 0.4em 0;
@@ -317,7 +373,8 @@ table.catalogueShow td {
 table.catalogueShow th {
   font-weight: bold;
   padding-right: 1em;
-  text-align: right;
+  text-align: left;
+  width: 14em;
 }
 
 table.catalogueShow tr.daht,
@@ -344,6 +401,109 @@ table.catalogueShow tr.translation ul li,
 table.catalogueShow tr.mentionedDates ul li,
 table.catalogueShow tr.pictureLinks ul li{
   margin-left: 1em;
+}
+
+div.text, div.pictureLink{
+  float: left;
+}
+
+div.text{
+  width: 60%;
+  overflow: scroll;
+}
+
+div.pictureLink{
+  width: 30%;
+}
+
+.pictureLinkWrapper { width: 600px; height: 390px; padding: 0; overflow: hidden; }
+.pictureLinkFrame { width: 800px; height: 520px; border: 1px solid black; }
+.pictureLinkFrame {
+  -ms-zoom: 0.75;
+  -moz-transform: scale(0.75);
+  -moz-transform-origin: 0 0;
+  -o-transform: scale(0.75);
+  -o-transform-origin: 0 0;
+  -webkit-transform: scale(0.75);
+  -webkit-transform-origin: 0 0;
+}
+
+div.pictureLink img {
+  width: 400px;
+}
+
+/* DDB TEXTS */
+
+*[lang="la"] {
+font-family: "GentiumAlt", "Gentium","Palatino Linotype", "Palatino", "Times New Roman", "Times", "Arial Unicode MS", serif;
+}
+
+*[lang="grc"] {
+font-family: "Lucida Grande", "Cardo", "Arial Unicode MS","Galilee Unicode Gk", "New Athena Unicode", "Athena Unicode", 
+    "Palatino Linotype", "Titus Cyberbit Basic", "Vusillus Old Face", "Alphabetum", "Galatia SIL", 
+    "Code 2000", "GentiumAlt", "Gentium", "Minion Pro", "GeorgiaGreek", "Vusillus Old Face Italic", 
+    "Everson Mono", "Aristarcoj", "Porson", "Legendum", "Aisa Unicode", "Hindsight Unicode", "Caslon", 
+    "Verdana", "Tahoma";
+}
+   
+*[lang="cop"] {
+    font-family: "Antinoou", "IFAO-Grec Unicode", "Gentium Plus", "Gentium", "New Athena Unicode", "Times New Roman";
+}
+
+div#edition {
+margin-left: 6em;
+}
+
+div.textpart {
+font-family: "Lucida Grande", "Cardo", "Arial Unicode MS","Galilee Unicode Gk", "New Athena Unicode", "Athena Unicode", 
+    "Palatino Linotype", "Titus Cyberbit Basic", "Vusillus Old Face", "Alphabetum", "Galatia SIL", 
+    "Code 2000", "GentiumAlt", "Gentium", "Minion Pro", "GeorgiaGreek", "Vusillus Old Face Italic", 
+    "Everson Mono", "Aristarcoj", "Porson", "Legendum", "Aisa Unicode", "Hindsight Unicode", "Caslon", 
+    "Verdana", "Tahoma";
+line-height: 1.4;
+vertical-align: -20%;
+margin-bottom: 8px;
+padding: 0px;
+}
+
+#content div.textpart p {
+  margin: 0 0 0 2em;
+  text-indent: -2em;
+}
+
+
+div#apparatus {
+font-family: "Lucida Grande", "Cardo", "Arial Unicode MS","Galilee Unicode Gk", "New Athena Unicode", "Athena Unicode", 
+    "Palatino Linotype", "Titus Cyberbit Basic", "Vusillus Old Face", "Alphabetum", "Galatia SIL", 
+    "Code 2000", "GentiumAlt", "Gentium", "Minion Pro", "GeorgiaGreek", "Vusillus Old Face Italic", 
+    "Everson Mono", "Aristarcoj", "Porson", "Legendum", "Aisa Unicode", "Hindsight Unicode", "Caslon", 
+    "Verdana", "Tahoma";
+}
+
+span.textpartnumber {
+display: block;
+line-height: 1;
+margin-left: -6em;
+margin-bottom: 0;
+}
+    
+.linenumber {
+float: left;
+margin-left: -3em;
+}
+
+.linenumberbroken {
+color: red;
+float: left;
+margin-left: -3em;
+}
+
+.underline {
+text-decoration: underline;
+}
+
+.italic {
+font-style: italic;
 }
 
 /* CATALOGUE LIST / BROWSE MULTI */

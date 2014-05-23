@@ -27,100 +27,98 @@
           <ul>
             <li><a href="{{ path('PapyrillioHgvBundle_BrowseMultiple') }}" title="Liste der Datensätze">Tabelle</a></li>
             <li><a href="{{ path('PapyrillioHgvBundle_BrowseSingle') }}" title="Einzelansicht">Formular</a></li>
-            <li><a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}" title="Filterfunktion">Suche</a></li>
-            <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp') }}" title="Hilfe">?</a></li>
-            <li><a href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}">⌂</a></li>
+            <li class="inactive">
+              <a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}" title="Filterfunktion">Suche</a>
+              <ul class="sub">
+                <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="Suchhilfe">Deutsch</a></li>
+                <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="Search help">English</a></li>
+              </ul>
+            </li>
+            <li><a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': {'skip': 0, 'max': 100}, 'sort': {1: {'key': 'publikationLang', 'direction': 'ascend'}}}) }}">Alle</a> </li>
+            <li><a href="http://147.142.225.252/hgv.dev/texte/HGV-Texte.html" title="Hilfe">Texte</a></li>
+            
+            
+            <li><a href="{{ path('PapyrillioHgvBundle_DefaultAbbreviation') }}" title="Abkürzungen im HGV zitierter Bücher" target="Biblio">Abkürzungen zitierter Bücher</a></li>
+            
+            <li class="inactive">
+              <a href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}" title="Info">Info</a>
+              <ul class="sub">
+                <li><a href="{{ path('PapyrillioHgvBundle_DefaultIntroduction') }}" title="Einführung">Einführung</a></li>
+                <li><a href="{{ path('PapyrillioHgvBundle_DefaultPublication') }}" title="Liste der aufgenommenen Publikationen">Liste der aufgenommenen Publikationen</a></li>
+              </ul>
+            </li>
+
           </ul>
         </div>
       </nav><!-- end of top nav -->
 
-      <section id="main"><!-- #main content and sidebar area -->
-
-        <aside id="sidebar"><!-- sidebar -->
-          <h3>Funktionen</h3>
-          <ul>
-            <!--li><a href="#">Sortieren</a></li-->
-            <li><a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': {'skip': 0, 'max': 100}, 'sort': {1: {'key': 'publikationLang', 'direction': 'ascend'}}}) }}">Alle aufrufen</a></li>
-            <li><a href="{{ path('PapyrillioHgvBundle_PublicationIndex') }}">Texte im HGV</a></li>
-          </ul>
-          <h3>Suchhilfen</h3>
-          <ul>
-            <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="Suchhilfe">Deutsch</a></li>
-            <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="Search help">English</a></li>
-          </ul>
-          <h3>Zusätzlich</h3>
-          <ul>
-            <li><a href="{{ path('PapyrillioHgvBundle_DefaultIntroduction') }}" title="Einführung">Einführung</a></li>
-            <li><a href="{{ path('PapyrillioHgvBundle_DefaultPublication') }}" title="Liste der aufgenommenen Publikationen">Liste der aufgenommenen Publikationen</a></li>
-            <li><a href="{{ path('PapyrillioHgvBundle_DefaultAbbreviation') }}" title="Abkürzungen im HGV zitierter Bücher">Abkürzungen zitierter Bücher</a></li>
-          </ul>
-        </aside><!-- end of sidebar -->
-        
+      <section id="main">
         <section id="content"><!-- #content -->
-
           {% block body %}{% endblock %}
-
         </section><!-- end of #content -->
-    
       </section><!-- end of #main content and sidebar-->
       
-        <footer>
-        <section id="footer-area">
-    
-          <section id="footer-outer-block">
-              <aside class="footer-segment">
-                  <h4>Kataloge</h4>
-                  <ul>
-                    <li><a target="_blank" href="http://zaw-papy.zaw.uni-heidelberg.de/fmi/xsl/Griechisch/home.xsl">Griechische Papyri</a></li>
-                    <li><a target="_blank" href="http://zaw-papy.zaw.uni-heidelberg.de/fmi/xsl/Arabisch/home.xsl">Arabische Papyri</a></li>
-                    <li><a target="_blank" href="http://zaw-papy.zaw.uni-heidelberg.de/fmi/xsl/Demotisch/home.xsl">Demotische Papyri</a></li>
-                    <li><a target="_blank" href="http://zaw-papy.zaw.uni-heidelberg.de/fmi/xsl/Koptisch/home.xsl">Koptische Papyri</a></li>
-                  </ul>
-              </aside><!-- end of #first footer segment -->
+      <footer>
+      <section id="footer-area">
   
-              <aside class="footer-segment">
-                  <h4>Awesome Stuff</h4>
-                    <ul>
-                      <li><a target="_blank" href="http://www.papyri.info/">Papyri.info</a></li>
-                      <li><a target="_blank" href="http://www.trismegistos.org/">Trismegistos</a></li>
-                      <li><a target="_blank" href="http://www.ulb.ac.be/philo/cpeg/bp.htm">Bibliographie Papyrologique</a></li>
-                      <li><a target="_blank" href="http://www.rzuser.uni-heidelberg.de/~gv0/Abkuerzungen.html" title="Abkürzungen im HGV zitierter Bücher">Abkürzungen zitierter Bücher</a></li>
-                      <li><a target="_blank" href="http://147.142.225.252/fmi/iwp/res/iwp_auth.html">Instant WebPublishing</a></li>
-                      <li><a href="http://www.rzuser.uni-heidelberg.de/~gv0/Suchhilfe.html">Suchhilfe Deutsch</a></li>
-                      <li><a href="http://www.rzuser.uni-heidelberg.de/~gv0/Searchhelp.html">Search Help English</a></li>
-                      <li><a href="http://147.142.225.241/Hauptregister/DHelp.htm#Search%20Tips">Suchtipps [TBD???]</a></li>
-                      <li><a href="http://147.142.225.252/fmi/iwp/res/eng/help.html#Navigating_records">Hilfe [TBD???]</a></li>
-                      <li><a href="http://147.142.225.241/Hauptregister/DHelp.htm" title="Hilfe">? [TBD???]</a></li>
-                      <li><a href="http://147.142.225.241/Hauptregister/Help.htm" title="Hilfe">? (Help - English) [TBD???]</a></li>
-                      <li><a href="http://147.142.225.241/Hauptregister/FHelp.htm" title="Hilfe">? (Aide - Français) [TBD???]</a></li>
-                    </ul>
-              </aside><!-- end of #second footer segment -->
+        <section id="footer-outer-block">
+            <aside class="footer-segment">
+                <h4>Kataloge</h4>
+                <ul>
+                  <li><a target="_blank" href="http://zaw-papy.zaw.uni-heidelberg.de/fmi/xsl/Griechisch/home.xsl">Griechische Papyri</a></li>
+                  <li><a target="_blank" href="http://zaw-papy.zaw.uni-heidelberg.de/fmi/xsl/Arabisch/home.xsl">Arabische Papyri</a></li>
+                  <li><a target="_blank" href="http://zaw-papy.zaw.uni-heidelberg.de/fmi/xsl/Demotisch/home.xsl">Demotische Papyri</a></li>
+                  <li><a target="_blank" href="http://zaw-papy.zaw.uni-heidelberg.de/fmi/xsl/Koptisch/home.xsl">Koptische Papyri</a></li>
+                </ul>
+            </aside><!-- end of #first footer segment -->
 
-              <aside class="footer-segment">
-                  <h4>Institutsdirektion</h4>
+            <aside class="footer-segment">
+                <h4>Awesome Stuff</h4>
                   <ul>
-                    <li><a href="http://www.uni-heidelberg.de//fakultaeten/philosophie/zaw/papy/forschung/joerdens_infos.html">Prof. Dr. Andrea Jördens</a></li>
+                    <li><a target="_blank" href="http://www.papyri.info/">Papyri.info</a></li>
+                    <li><a target="_blank" href="http://www.trismegistos.org/">Trismegistos</a></li>
+                    <li><a target="_blank" href="http://www.ulb.ac.be/philo/cpeg/bp.htm">Bibliographie Papyrologique</a></li>
+                    <li><a target="_blank" href="http://www.rzuser.uni-heidelberg.de/~gv0/Abkuerzungen.html" title="Abkürzungen im HGV zitierter Bücher">Abkürzungen zitierter Bücher</a></li>
+                    <li><a target="_blank" href="http://147.142.225.252/fmi/iwp/res/iwp_auth.html">Instant WebPublishing</a></li>
+                    <li><a href="http://www.rzuser.uni-heidelberg.de/~gv0/Suchhilfe.html">Suchhilfe Deutsch</a></li>
+                    <li><a href="http://www.rzuser.uni-heidelberg.de/~gv0/Searchhelp.html">Search Help English</a></li>
+                    <li><a href="http://147.142.225.241/Hauptregister/DHelp.htm#Search%20Tips">Suchtipps [TBD???]</a></li>
+                    <li><a href="http://147.142.225.252/fmi/iwp/res/eng/help.html#Navigating_records">Hilfe [TBD???]</a></li>
+                    <li><a href="http://147.142.225.241/Hauptregister/DHelp.htm" title="Hilfe">? [TBD???]</a></li>
+                    <li><a href="http://147.142.225.241/Hauptregister/Help.htm" title="Hilfe">? (Help - English) [TBD???]</a></li>
+                    <li><a href="http://147.142.225.241/Hauptregister/FHelp.htm" title="Hilfe">? (Aide - Français) [TBD???]</a></li>
                   </ul>
-                  <h4>Sekretariat</h4>
-                  <ul>
-                    <li><a href="mailto:papyrologie@zaw.uni-heidelberg.de">papyrologie@zaw.uni-heidelberg.de</a></li>
-                  </ul>
-              </aside><!-- end of #third footer segment -->
-  
-              <aside class="footer-segment">
-                  <h4>Institut für Papyrologie</h4>
-                    <p>&copy; 2012 <a href="http://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy/index.html">HGV</a><br />Marstallstr. 6<br />D-69117 Heidelberg<br />Tel.: +049-06221-542396<br />Fax.: +49-06221-543679</p>
-              </aside><!-- end of #fourth footer segment -->
-  
-          </section><!-- end of footer-outer-block -->
-  
-        </section><!-- end of footer-area -->
-      </footer>
+            </aside><!-- end of #second footer segment -->
+
+            <aside class="footer-segment">
+                <h4>Institutsdirektion</h4>
+                <ul>
+                  <li><a href="http://www.uni-heidelberg.de//fakultaeten/philosophie/zaw/papy/forschung/joerdens_infos.html">Prof. Dr. Andrea Jördens</a></li>
+                </ul>
+                <h4>Sekretariat</h4>
+                <ul>
+                  <li><a href="mailto:papyrologie@zaw.uni-heidelberg.de">papyrologie@zaw.uni-heidelberg.de</a></li>
+                </ul>
+            </aside><!-- end of #third footer segment -->
+
+            <aside class="footer-segment">
+                <h4>Institut für Papyrologie</h4>
+                  <p>&copy; 2012 <a href="http://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy/index.html">HGV</a><br />Marstallstr. 6<br />D-69117 Heidelberg<br />Tel.: +049-06221-542396<br />Fax.: +49-06221-543679</p>
+            </aside><!-- end of #fourth footer segment -->
+
+        </section><!-- end of footer-outer-block -->
+
+      </section><!-- end of footer-area -->
+    </footer>
   
     </div><!-- #wrapper -->
         
         {% block javascripts %}
             <script src="{{ asset('js/jquery/jquery-1.10.2.min.js') }}" type="text/javascript"></script>
+            <script src="{{ asset('js/main.js') }}" type="text/javascript"></script>
+            <script type="text/javascript">
+              if (window != top) top.location.href = location.href;
+            </script>
         {% endblock %}
     </body>
 </html>

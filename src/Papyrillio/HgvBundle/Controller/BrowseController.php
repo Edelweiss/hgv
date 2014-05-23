@@ -39,6 +39,7 @@ class BrowseController extends HgvController
 
     static $TABLE_MAP = array(
       'publikation'        => 'h',
+      'publikationLang'    => 'h',
       'band'               => 'h',
       'nummer'             => 'h',
       'tmNr'               => 'h',
@@ -126,23 +127,6 @@ class BrowseController extends HgvController
 
         $result = $this->getResult(array_merge($search, $show), $sort);
         $record = $result['data'][0];
-        $translations = array();
-        $original = array('in: ', '&amp;', '&quot;', '&lt;', '&gt;');
-        $mask = array('#INCOLONSPACE#', '#QUOTATIONMARK#', '#LESSTHAN#', '#GREATERTHAN#');
-        $canonical = array('in: ', ' & ', '"', '<', '>');
-        $uebersetzungen = str_replace($original, $mask, $record->getUebersetzungen());
-
-        if(preg_match_all('/(([^: ]+): )([^:]+([ \.$\d]|$))/', $uebersetzungen, $matches)){
-          if(count($matches[0])){
-            foreach ($matches[2] as $index => $language) {
-              $translations[$language] = array();
-              foreach(explode(';', $matches[3][$index]) as $translation){
-
-                $translations[$language][] = str_replace($mask, $canonical, $translation);
-              }
-            }
-          }
-        }
 
         return $this->render('PapyrillioHgvBundle:Browse:single.html.twig', array(
           'search'             => $search,
@@ -151,7 +135,6 @@ class BrowseController extends HgvController
           'showPrev'           => ($show['skip'] > 0 ? array_merge($show, array('skip' => $show['skip'] - 1)) : null),
           'showNext'           => ($show['skip'] < ($result['countSearch'] - 1) ? array_merge($show, array('skip' => $show['skip'] + 1)) : null),
           'fieldList'          => self::$FIELD_LIST_SINGLE,
-          'translations'       => $translations,
           'countTotal'         => $result['countTotal'],
           'countSearch'        => $result['countSearch'],
           'record'             => $record));

@@ -1,34 +1,48 @@
-{# Testfälle: 50307, 8886, 19648, 63705, 9088, 8981a #}
+{# Testfälle: 1005, 28210, 44502, 50307, 8886, 19648, 63705, 9088, 8981a #}
+
+<h3 class="catalogueShow">
+  {% if record.publikationLang %}
+    <a  href="#{{ record.id }}" onclick="top.location.href = '{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': record.id}) }}'">{{ record.publikationLang|raw }}</a>
+  {% else %}
+     …
+  {% endif %}
+  {% if record.TmNr %}
+    <a  href="http://www.trismegistos.org/tm/detail.php?quick={{ record.TmNr }}" target="DAHT">TM Nr. {{ record.tmNr }}</a>
+    {% if record.tmNr~'' != record.id %}
+      <span class="mini">(HGV Nr. {{ record.id }})</span>
+    {% endif %}
+  {% endif %}
+</h3>
+
+<h4 class="catalogueShow">
+  {% if record.originaltitelHtml %}
+    {% if record.originaltitelHtml == 'keiner' %}
+      Titel:
+    {% endif %}
+    {{ record.originaltitelHtml|raw }}
+  {% else %}
+     …
+  {% endif %}
+</h4>
+
+<h5 class="catalogueShow">
+  {% if record.Ort %}
+    {% if record.Ort == 'unbekannt' %}
+      Ort
+    {% endif %}
+    <span>{{ record.ort|raw }}</span>
+  {% endif %}
+  {% if record.datierungIi %}
+    <span class="Datierung">{{ record.datierungIi|raw }}</span>
+  {% endif %}
+</h5>
+
 <table class="catalogueShow">
   <tbody>
-    {% if record.publikationLang %}
-      <tr>
-        <th>Publikation</th>
-        <td>{{ record.publikationLang|raw }}</td>
-      </tr>
-    {% endif %}
     {% if record.anderePublikation %}
       <tr>
         <th>Andere Publikationen</th>
         <td>{{ record.anderePublikation|raw }}</td>
-      </tr>
-    {% endif %}
-    {% if record.datierungIi %}
-      <tr>
-        <th>Datierung</th>
-        <td>{{ record.datierungIi|raw }}</td>
-      </tr>
-    {% endif %}
-    {% if record.Ort %}
-      <tr>
-        <th>Ort</th>
-        <td>{{ record.ort|raw }}</td>
-      </tr>
-    {% endif %}
-    {% if record.originaltitelHtml %}
-      <tr>
-        <th>Originaltitel</th>
-        <td>{{ record.originaltitelHtml|raw }}</td>
       </tr>
     {% endif %}
     {% if record.material %}
@@ -37,41 +51,18 @@
         <td>{{ record.material|raw }}</td>
       </tr>
     {% endif %}
-    {% if record.abbildung or record.pictureLinks %}
+    {% if record.abbildung %}
       <tr class="pictureLinks">
         <th>Abbildung</th>
         <td>
-          {% if record.abbildung %}
-            {{ record.abbildung|raw }}
-          {% endif %}
-          {% if record.abbildung and record.pictureLinks %}
-            <br />
-          {% endif %}
-          {% if record.pictureLinks %}
-            <b>Weitere Informationen / Abbildung im Internet:</b>
-            <ul>
-              {% for pictureLink in record.pictureLinks %}
-                <li>
-                  <a target="Neu" href="{{ pictureLink.url|raw }}" title="{{ pictureLink.url }}">{{ pictureLink.institution }}</a>
-                </li>
-              {% endfor %}
-            </ul>
-          {% endif %}
+          {{ record.abbildung|raw }}
         </td>
       </tr>
     {% endif %}
     {% if record.bl %}
       <tr>
-        <th>BL-Einträge nach BL-Konkordanz</th>
+        <th>BL-Einträge <br /> <span class="mini">(nach BL-Konkordanz)</span></th>
         <td>{{ record.bl|raw }}</td>
-      </tr>
-    {% endif %}
-    {% if record.ddbSer %}
-      <tr>
-        <th>Text der DDBDP</th>
-        <td>
-          <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
-        </td>
       </tr>
     {% endif %}
     {% if record.ldab == 'ja' %}
@@ -100,6 +91,7 @@
       <tr class="translation">
         <th>Übersetzungen</th>
         <td>
+          {% set translations = processTranslations(record.uebersetzungen) %}
           {% if translations %}
             {% for language, translation in translations %}
               <b>{{ language }}:</b>
@@ -156,19 +148,37 @@
         </td>
       </tr>
     {% endif %}
-    {% if record.TmNr %}
-      <tr>
-        <th>TM Nr.</th>
-        <td>
-          <a  href="http://www.trismegistos.org/tm/detail.php?quick={{ record.TmNr }}" target="DAHT">{{ record.tmNr }}</a>
-          {% if record.id != record.tmNr %}
-            <span class="mini">(HGV Nr. {{ record.id }})</span>
-          {% endif %}
-        </td>
-      </tr>
-    {% endif %}
   </tbody>
 </table>
+<div class="text">
+  <h6>
+    Texte der DDBdP
+    {% if record.ddbSer %}
+      <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
+    {% endif %}
+  </h6>
+  {{ record.htmlDdb|raw }}
+</div>
 
+{% if record.pictureLinks %}
+  <div class="pictureLink">
+    <h6>Digitale Info / Abbildungen</h6>
+    {% for pictureLink in record.pictureLinks %}
+        {% if pictureLink.url|slice(-3) == 'jpg' %}
+          <img src="{{ pictureLink.url|raw }}" class="pictureLink" title="{{pictureLink.institution}}" alt="Abbildung im Internet ({{pictureLink.institution}})" />
+        {% else %}
+          <div class="pictureLinkWrapper">
+            <iframe class="pictureLinkFrame" src="{{ pictureLink.url|raw }}"> </iframe>
+          </div>
+        {% endif %}
+        <br class="clear" />
+        <a target="Neu" href="{{ pictureLink.url|raw }}" title="{{ pictureLink.url }}">→ {{ pictureLink.institution }}</a>
+    {% endfor %}
+  </div>
+{% endif %}
 
+<br class="clear"/>
 
+{% if record.ddbSer %}
+  <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
+{% endif %}
