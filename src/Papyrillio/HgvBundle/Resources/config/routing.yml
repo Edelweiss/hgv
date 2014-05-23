@@ -70,3 +70,9 @@ PapyrillioHgvBundle_ShortcutDdb:
     defaults: { _controller: PapyrillioHgvBundle:Shortcut:ddb }
     requirements:
         id:  "[^;]+;[^;]*;[^;]+"
+
+PapyrillioHgvBundle_ShortcutDdbdp:
+    pattern:  /ddb/{id}
+    defaults: { _controller: PapyrillioHgvBundle:Shortcut:ddb }
+    requirements:
+        id:  "([^;]+;[^;]*;[^;]*;[^;]+;[^;]*;[^;]*|[^;]+;[^;]*;[^;]+)" # Publikation, Band*, ZusBand*, Nummer, Seite*, zusaetzlich*
