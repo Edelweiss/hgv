@@ -1,7 +1,12 @@
-{% extends '::base.html.twig' %}
+{% extends '::' ~ (layout is defined ? layout : 'base') ~ '.html.twig' %}
 
 {% block body %}
   {% for hgv in data %}
       {% include 'PapyrillioHgvBundle:Browse:_datasheet.html.twig' with { 'record': hgv, 'translations': null } %}
   {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('js/datasheet.js') }}" type="text/javascript"></script>
 {% endblock %}

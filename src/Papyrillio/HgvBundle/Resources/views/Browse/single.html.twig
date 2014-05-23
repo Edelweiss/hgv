@@ -37,3 +37,8 @@
   {% endif %}
 
 {% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('js/datasheet.js') }}" type="text/javascript"></script>
+{% endblock %}
