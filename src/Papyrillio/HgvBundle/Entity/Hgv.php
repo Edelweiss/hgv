@@ -1347,4 +1347,26 @@ class Hgv
     {
       $this->pictureLinks->clear();
     }
+    
+    public function getHtmlDdb(){
+      $file = '/Users/Admin/idp.data/aquila/' . $this->getFilePathDDb('html');
+
+      if(file_exists($file)){
+        return file_get_contents($file);
+      }
+      return '<span class="mini">DDB-Text ' . $file . ' kann nicht geladen werden.</span>';
+    }
+    
+    public function getFilePathDdb($suffix = 'xml')
+    {
+      if($this->ddbVol == ''){
+        return 'DDB_EpiDoc_' . strtoupper($suffix) . '/' . $this->ddbSer . '/' . $this->ddbSer . '.' . $this->ddbDoc . '.' . $suffix;
+      }
+      return 'DDB_EpiDoc_' . strtoupper($suffix) . '/' . $this->ddbSer . '/' . $this->ddbSer . '.' . $this->ddbVol . '/' . $this->ddbSer . '.' . $this->ddbVol . '.' . $this->ddbDoc . '.' . $suffix;
+    }
+    
+    public function getGithubUrlDdb()
+    {
+      return 'https://github.com/papyri/idp.data/blob/master/' . $this->getFilePathDdb();
+    }
 }
