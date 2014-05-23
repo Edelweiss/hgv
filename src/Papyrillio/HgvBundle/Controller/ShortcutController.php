@@ -29,11 +29,21 @@ class ShortcutController extends HgvController
 
   public function ddbAction($id)
   {
-    $ddb = explode(';', $id); // routing requirement makes sure that there are two »;«
+    $ddb = explode(';', $id); // routing requirements make sure that there are either two or five »;«
     $entityManager = $this->getDoctrine()->getEntityManager();
     $repository = $entityManager->getRepository('PapyrillioHgvBundle:Hgv');
-    $data = $repository->findBy(array('ddbSer' => $ddb[0], 'ddbVol' => $ddb[1], 'ddbDoc' => $ddb[2]), array('texLett' => 'ASC', 'mehrfachKennung' => 'ASC'));
 
-    return $this->render('PapyrillioHgvBundle:Shortcut:shortcut.html.twig', array('data' => $data));
+    $criteria = array();
+    $layout = 'base';
+    if(count($ddb) === 3){
+      $criteria = array('ddbSer' => $ddb[0], 'ddbVol' => $ddb[1], 'ddbDoc' => $ddb[2]);
+    } else if (count($ddb) === 6){
+      $criteria = array('publikation' => $ddb[0], 'band' => $ddb[1], 'zusBand' => $ddb[2], 'nummer' => $ddb[3], 'seite' => $ddb[4], 'zusaetzlich' => $ddb[5]);
+      $layout = 'plain';
+    }
+
+    $data = $repository->findBy($criteria, array('texLett' => 'ASC', 'mehrfachKennung' => 'ASC'));
+
+    return $this->render('PapyrillioHgvBundle:Shortcut:shortcut.html.twig', array('data' => $data, 'layout' => $layout));
   }
 }
