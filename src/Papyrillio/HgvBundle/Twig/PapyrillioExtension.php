@@ -33,11 +33,25 @@ class PapyrillioExtension extends \Twig_Extension
 
   public function processTranslations($input)
   {
-    if(preg_match_all('/(([^: ]+): )([^:]+([ \.$\d]|$))/', $input, $matches)){
-      return '<i>italic</i>';
-    } else {
-      return $input;
+    $translations = array();
+    $original = array('in: ', '&amp;', '&quot;', '&lt;', '&gt;');
+    $mask = array('#INCOLONSPACE#', '#QUOTATIONMARK#', '#LESSTHAN#', '#GREATERTHAN#');
+    $canonical = array('in: ', ' & ', '"', '<', '>');
+    $uebersetzungen = str_replace($original, $mask, $input);
+
+    if(preg_match_all('/(([^: ]+): )([^:]+([ \.$\d]|$))/', $uebersetzungen, $matches)){
+      if(count($matches[0])){
+        foreach ($matches[2] as $index => $language) {
+          $translations[$language] = array();
+          foreach(explode(';', $matches[3][$index]) as $translation){
+
+            $translations[$language][] = str_replace($mask, $canonical, $translation);
+          }
+        }
+      }
     }
+
+    return $translations;
   }
 
   public function getName()
