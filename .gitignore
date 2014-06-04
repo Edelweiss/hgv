@@ -6,5 +6,6 @@
 /vendor/
 /web/bundles/
 /web/images/dev.png
+/src/Papyrillio/HgvBundle/Script/*.log
 /.project
 /.settings
