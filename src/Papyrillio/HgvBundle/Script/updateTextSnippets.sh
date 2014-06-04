@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+export PATH=$PATH:/usr/local/bin:/usr/local/git/bin
+export CLASSPATH=$CLASSPATH:$HOME/Library/saxon/saxon9he.jar
+
 # Daemon
 # ~/Library/LaunchAgents/papyrillio.hgv.idpdata.plist
 # launchctl list | grep papy
