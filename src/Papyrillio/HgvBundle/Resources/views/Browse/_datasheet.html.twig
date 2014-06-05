@@ -89,7 +89,7 @@
     {% endif %}
     {% if record.uebersetzungen %}
       <tr class="translation">
-        <th>Übersetzungen</th>
+        <th>Übersetzungen<br/><span class="hide">verbergen</span><span class="show">anzeigen</span></th>
         <td>
           {% set translations = processTranslations(record.uebersetzungen) %}
           {% if translations %}
@@ -150,34 +150,41 @@
     {% endif %}
   </tbody>
 </table>
-<div class="text">
-  <h6>
-    Texte der DDBdP
-    {% if record.ddbSer %}
-      <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
-    {% endif %}
-  </h6>
-  {{ record.htmlDdb|raw }}
-</div>
 
-{% if record.pictureLinks %}
-  <div class="pictureLink">
-    <h6>Digitale Info / Abbildungen</h6>
-    {% for pictureLink in record.pictureLinks %}
-        {% if pictureLink.url|slice(-3) == 'jpg' %}
-          <img src="{{ pictureLink.url|raw }}" class="pictureLink" title="{{pictureLink.institution}}" alt="Abbildung im Internet ({{pictureLink.institution}})" />
-        {% else %}
-          <div class="pictureLinkWrapper">
-            <iframe class="pictureLinkFrame" src="{{ pictureLink.url|raw }}"> </iframe>
-          </div>
-        {% endif %}
-        <br class="clear" />
-        <a target="Neu" href="{{ pictureLink.url|raw }}" title="{{ pictureLink.url }}">→ {{ pictureLink.institution }}</a>
-    {% endfor %}
+<div class="dashboard">
+  <div class="text">
+    <h6>
+      Texte der DDBdP
+      {% if record.ddbSer %}
+        <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
+      {% endif %}
+      <span class="show">Infofenster für digitale Inhalte wieder einblenden</span>
+    </h6>
+    {{ record.htmlDdb|raw }}
   </div>
-{% endif %}
+  
+  <div class="pictureLink">
+    <h6>Digitale Info / Abbildungen <span class="hide">verbergen</span></h6>
+    {% if record.pictureLinks|length %}
+      {% for pictureLink in record.pictureLinks %}
+          {% if pictureLink.url|slice(-3) == 'jpg' %}
+            <img src="{{ pictureLink.url|raw }}" class="pictureLink" title="{{pictureLink.institution}}" alt="Abbildung im Internet ({{pictureLink.institution}})" />
+          {% else %}
+            <div class="pictureLinkWrapper">
+              <iframe class="pictureLinkFrame" src="{{ pictureLink.url|raw }}"> </iframe>
+            </div>
+          {% endif %}
+          <br class="clear" />
+          <a target="Neu" href="{{ pictureLink.url|raw }}" title="{{ pictureLink.url }}">→ {{ pictureLink.institution }}</a>
+      {% endfor %}
+    {% else %}
+      keine Abbildungen vorhanden
+    {% endif %}
+  </div>
 
+</div>
 <br class="clear"/>
+
 
 {% if record.ddbSer %}
   <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>

@@ -391,6 +391,7 @@ table.catalogueShow tr.dfg a{
 }
 
 table.catalogueShow tr.translation ul,
+
 table.catalogueShow tr.mentionedDates ul,
 table.catalogueShow tr.pictureLinks ul{
   list-style-type: none;
@@ -403,17 +404,57 @@ table.catalogueShow tr.pictureLinks ul li{
   margin-left: 1em;
 }
 
-div.text, div.pictureLink{
+div.text,
+div.pictureLink{
   float: left;
 }
 
-div.text{
+div.dashboard div.text{
   width: 60%;
   overflow: scroll;
 }
 
-div.pictureLink{
+div.dashboard div.pictureLink{
   width: 30%;
+}
+
+div.dashboardHidden div.text{
+  width: 100%
+}
+
+div.dashboardHidden div.pictureLink{
+  display: none;
+}
+
+div.dashboard span,
+div.dashboardHidden span,
+tr.translation span,
+tr.translationHidden span{
+  cursor: pointer;
+  cursor: hand;
+  font-size: 0.8em;
+  display: inline;
+}
+
+div.dashboard span.show{
+  display: none;
+}
+
+div.dashboardHidden span.show{
+  position: absolute;
+  right: 100px;
+}
+
+tr.translation th span.show{
+  display: none
+}
+
+tr.translationHidden th span.hide{
+  display: none;
+}
+
+table.catalogueShow tr.translationHidden ul{
+  display: none;
 }
 
 .pictureLinkWrapper { width: 600px; height: 390px; padding: 0; overflow: hidden; }
