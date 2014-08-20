@@ -185,6 +185,12 @@ Papyrillio\HgvBundle\Entity\Hgv:
             name: datensatz_nr
             type: integer
             nullable: true
+        createdAt:
+            name: created_at
+            type: datetime
+        modifiedAt:
+            name: modified_at
+            type: datetime
     oneToMany:
         pictureLinks:
             targetEntity: PictureLink
