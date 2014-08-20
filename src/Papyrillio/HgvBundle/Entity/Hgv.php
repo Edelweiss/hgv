@@ -1369,4 +1369,54 @@ class Hgv
     {
       return 'https://github.com/papyri/idp.data/blob/master/' . $this->getFilePathDdb();
     }
+    /**
+     * @var datetime $createdAt
+     */
+    private $createdAt;
+
+    /**
+     * @var datetime $modifiedAt
+     */
+    private $modifiedAt;
+
+
+    /**
+     * Set createdAt
+     *
+     * @param datetime $createdAt
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return datetime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set modifiedAt
+     *
+     * @param datetime $modifiedAt
+     */
+    public function setModifiedAt($modifiedAt)
+    {
+        $this->modifiedAt = $modifiedAt;
+    }
+
+    /**
+     * Get modifiedAt
+     *
+     * @return datetime 
+     */
+    public function getModifiedAt()
+    {
+        return $this->modifiedAt;
+    }
 }
