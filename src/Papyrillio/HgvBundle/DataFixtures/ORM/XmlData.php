@@ -121,7 +121,9 @@ abstract class XmlData extends AbstractFixture implements OrderedFixtureInterfac
 
         if($hgv === null){
           $hgv = new Hgv($cols->item($this->positions['texIdLang'])->nodeValue);
+          $hgv->setCreatedAt(new DateTime());
         }
+        $hgv->setModifiedAt(new DateTime());
 
         $hgv->settmNr($cols->item($this->positions['tmNr'])->nodeValue);
         $hgv->settexLett($cols->item($this->positions['texLett'])->nodeValue);

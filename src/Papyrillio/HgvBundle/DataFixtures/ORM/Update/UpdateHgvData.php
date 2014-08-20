@@ -46,7 +46,7 @@ class LoadHgvData extends XmlData
        //   $manager->persist($pictureLink);
        // }
 
-        echo $this->flushCounter . ': ' . $hgv->getPublikationLang() . ' (#' . $hgv->getId() . ")\n";
+        echo $this->flushCounter . ': ' . $hgv->getPublikationLang() . ' (TM-Nr. ' . $hgv->getId() . ")\n";
 
         if(($this->flushCounter++ % 400) === 0){
           $manager->flush();

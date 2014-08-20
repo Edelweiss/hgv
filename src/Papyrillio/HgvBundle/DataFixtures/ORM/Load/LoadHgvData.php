@@ -137,6 +137,9 @@ class LoadHgvData extends XmlData
         $hgv->setzulGeaendertAm(self::makeDate($cols->item($this->positions['zulGeaendertAm'])->nodeValue));
 
         $hgv->setHgvId($hgv->getTmNr() . $hgv->getTexLett());
+        
+        $hgv->setCreatedAt(new DateTime());
+        $hgv->setModifiedAt(new DateTime());
 
         $manager->persist($hgv);
 
