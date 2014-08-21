@@ -286,6 +286,14 @@ class BrowseController extends HgvController
               $parameters[$field . 'Von'] = $matches[1];
               $parameters[$field . 'Bis'] = $matches[2];
             }
+          } else if ($criterion['value'] === '*') {
+            //echo '*-Suche für Feld "' . $field .'"';
+            $where .= '(' . self::$TABLE_MAP[$field] . '.' . $field . ' IS NOT NULL AND ' . self::$TABLE_MAP[$field] . '.' . $field . ' <> :' . $field . ')' . $operator;
+            $parameters[$field] = '';
+          } else if ($criterion['value'] === '=') {
+            //echo '=-Suche für Feld "' . $field .'"';
+            $where .= '(' . self::$TABLE_MAP[$field] . '.' . $field . ' IS NULL OR ' . self::$TABLE_MAP[$field] . '.' . $field . ' = :' . $field . ')' . $operator;
+            $parameters[$field] = '';
           } else {
             if(in_array($field, array('jahr', 'monat', 'tag', 'jh', 'erg', 'jahrIi', 'monatIi', 'tagIi', 'jhIi', 'ergIi', 'chronMinimum', 'chronMaximum', 'chronGlobal', 'datierung', 'datierungIi', 'unsicher'))){
               if($search['mentionedDates'] == 'with'){
