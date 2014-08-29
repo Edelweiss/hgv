@@ -1,7 +1,7 @@
 {# Testfälle: 1005, 28210, 44502, 50307, 8886, 19648, 63705, 9088, 8981a #}
 
 <h3 class="catalogueShow">
-  {% if record.publikationLang %}
+  {% if and record.publikationLang %}
     <a  href="#{{ record.id }}" onclick="top.location.href = '{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': record.hgvId}) }}'">{{ record.publikationLang|raw }}</a>
   {% else %}
      …

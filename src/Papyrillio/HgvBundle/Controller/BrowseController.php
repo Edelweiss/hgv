@@ -126,7 +126,11 @@ class BrowseController extends HgvController
       try{
 
         $result = $this->getResult(array_merge($search, $show), $sort);
-        $record = $result['data'][0];
+        $record = null;
+        if(count($result['data'])){
+          $record = $result['data'][0];
+        }
+        
 
         return $this->render('PapyrillioHgvBundle:Browse:single.html.twig', array(
           'search'             => $search,

@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block title %}
-  {{ parent() }} - {{ record.originaltitelHtml|raw }}
+  {{ parent() }} - {{ record ? record.originaltitelHtml|raw : '' }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -10,7 +10,7 @@
 
 {% block body %}
 
-  <p>Datensatz {{ show ? show['skip'] + 1 : 1 }} von {{ countSearch }} Suchtreffern (Gesamt: {{ countTotal }})
+  <p>Datensatz {{ record ? (show ? show['skip'] + 1 : 1) : 0 }} von {{ countSearch }} Suchtreffern (Gesamt: {{ countTotal }})
 
     {% if showPrev %}
       <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showPrev}) }}">zurück</a>
@@ -26,7 +26,9 @@
 
   {# Testfälle: 50307, 8886, 19648, 63705, 9088, 8981a #}
   
-  {% include 'PapyrillioHgvBundle:Browse:_datasheet.html.twig' with { 'record': record } %}
+  {% if record %}
+    {% include 'PapyrillioHgvBundle:Browse:_datasheet.html.twig' with { 'record': record } %}
+  {% endif %}
 
   {% if showPrev %}
     <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showPrev}) }}">zurück</a>
