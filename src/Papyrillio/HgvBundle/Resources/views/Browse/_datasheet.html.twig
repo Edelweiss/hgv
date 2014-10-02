@@ -1,7 +1,7 @@
 {# Testfälle: 1005, 28210, 44502, 50307, 8886, 19648, 63705, 9088, 8981a #}
 
 <h3 class="catalogueShow">
-  {% if and record.publikationLang %}
+  {% if record.publikationLang %}
     <a  href="#{{ record.id }}" onclick="top.location.href = '{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': record.hgvId}) }}'">{{ record.publikationLang|raw }}</a>
   {% else %}
      …
@@ -131,7 +131,7 @@
       <tr class="mentionedDates">
         <th>Erwähnte Daten</th>
         <td>
-          {% if record.mentionedDates %}
+          {% if record.mentionedDates and record.mentionedDates|length %}
             <ul>
               {% for mentionedDate in record.mentionedDates %}
                 <li>
