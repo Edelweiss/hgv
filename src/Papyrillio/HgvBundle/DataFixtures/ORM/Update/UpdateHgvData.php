@@ -17,7 +17,7 @@ use DOMXPath;
  * php app/console doctrine:fixtures:load --fixtures=src/Papyrillio/HgvBundle/DataFixtures/ORM/Update --append
  * */
 
-class LoadHgvData extends XmlData
+class UpdateHgvData extends XmlData
 {
     function __construct(){
       parent::__construct('hgvUpdate.xml');
@@ -58,7 +58,7 @@ class LoadHgvData extends XmlData
     }
 
     public function getOrder(){
-      return 3;
+      return 4;
     }
 }
 ?>
