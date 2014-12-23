@@ -1419,4 +1419,8 @@ class Hgv
     {
         return $this->modifiedAt;
     }
+    
+    public function __toString(){
+      return 'HGV ' . $this->getId();
+    }
 }
