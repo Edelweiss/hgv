@@ -23,7 +23,8 @@ $(function(){
       feedback.disableForm();
 
       $('#feedbackInfo').html('<p><span class="ui-icon ui-icon-info"></span> Die Daten werden übermittelt …</p>').fadeIn(200, function(){
-        $.ajax('feedback', {
+        $.ajax({
+          url: '/feedback',
           data: formData + '&action=send',
           type: 'post',
           cache: false,
