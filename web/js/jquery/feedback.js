@@ -51,7 +51,8 @@ $(function(){
       }
 
       if($('#feedbackMessage').val()){
-        url = url.replace('Ihre Nachricht an uns …', $('#feedbackMessage').val());
+        console.log($('#feedbackMessage').val());
+        url = url.replace('Ihre Nachricht an uns …', $('#feedbackMessage').val().replace(/\n/g, '%0A'));
       }
 
       window.location.href = url;
