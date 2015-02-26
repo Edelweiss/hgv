@@ -14,10 +14,13 @@ PapyrillioHgvBundle_DefaultIntroduction:
     pattern:  /introduction
     defaults: { _controller: PapyrillioHgvBundle:Default:introduction }
 
-
 PapyrillioHgvBundle_DefaultPublication:
     pattern:  /publicationList
     defaults: { _controller: PapyrillioHgvBundle:Default:publication }
+
+PapyrillioHgvBundle_DefaultFeedback:
+    pattern:  /feedback
+    defaults: { _controller: PapyrillioHgvBundle:Default:feedback }
 
 # P U B L I C A T I O N #
 
