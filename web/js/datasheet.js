@@ -3,7 +3,7 @@ $(function(){
   // copy ddb text to clipboard
   
   $('div.text').each(function(){
-    var furl = '/hgv.dev/js/lmc/lmcbutton.swf';
+    var furl = '/js/lmc/lmcbutton.swf';
     var text = $(this).html().replace(/<h6>(.|\n)+<\/h6>/, '')
                              .replace(/\n/g, ' ')
                              .replace(/<br[^>]*>/g, '\n')
