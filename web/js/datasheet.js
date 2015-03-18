@@ -1,5 +1,7 @@
 $(function(){
 
+  // copy ddb text to clipboard
+  
   $('div.text').each(function(){
     var furl = '/hgv.dev/js/lmc/lmcbutton.swf';
     var text = $(this).html().replace(/<h6>(.|\n)+<\/h6>/, '')
@@ -14,20 +16,28 @@ $(function(){
     $(this).children('h6').append(html);
   });
 
-  $('span.hide').click(function(){
+  // toggle digital images
+  
+  $('h6 span.hide').click(function(){
     $(this).parents('.dashboard').attr('class', 'dashboardHidden');
+    console.log(1);
   });
 
-  $('span.show').click(function(){
+  $('h6 span.show').click(function(){
     $(this).parents('.dashboardHidden').attr('class', 'dashboard');
+    console.log(2);
   });
+  
+  // toggle translation bibliography
   
   $('tr.translation span.show').click(function(){
     $(this).parents('.translationHidden').attr('class', 'translation');
+    console.log(3);
   });
   
   $('tr.translation span.hide').click(function(){
     $(this).parents('.translation').attr('class', 'translationHidden');
+    console.log(4);
   });
 
 });

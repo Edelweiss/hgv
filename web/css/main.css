@@ -455,10 +455,14 @@ div.dashboardHidden div.pictureLink{
   display: none;
 }
 
-div.dashboard span,
-div.dashboardHidden span,
-tr.translation span,
-tr.translationHidden span{
+div.dashboard span.hide,
+div.dashboardHidden span.hide,
+tr.translation span.hide,
+tr.translationHidden span.hide
+div.dashboard span.show,
+div.dashboardHidden span.show,
+tr.translation span.show,
+tr.translationHidden span.show{
   cursor: pointer;
   cursor: hand;
   font-size: 0.8em;
@@ -482,7 +486,7 @@ tr.translationHidden th span.hide{
   display: none;
 }
 
-table.catalogueShow tr.translationHidden ul{
+table.catalogueShow tr.translationHidden td{
   display: none;
 }
 
