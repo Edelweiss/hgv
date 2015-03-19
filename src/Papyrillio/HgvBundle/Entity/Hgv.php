@@ -1357,6 +1357,15 @@ class Hgv
       return '<span class="mini">DDB-Text ' . $file . ' kann nicht geladen werden.</span>';
     }
     
+    public function getHtmlTranslation(){
+      $file = '/Users/Admin/idp.data/aquila/HGV_trans_EpiDoc_HTML/' . $this->getTmNr() . '.html';
+
+      if(file_exists($file)){
+        return file_get_contents($file);
+      }
+      return null;
+    }
+    
     public function getFilePathDdb($suffix = 'xml')
     {
       if($this->ddbVol == ''){
