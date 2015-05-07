@@ -1,0 +1,21 @@
+{% extends '::window.html.twig' %}
+
+{% block titlebar %}Digitale Info / Abbildungen{% endblock %}
+
+{% block content %}
+  {% if record.pictureLinks|length %}
+    {% for pictureLink in record.pictureLinks %}
+      {% if pictureLink.url|slice(-3) == 'jpg' %}
+        <img src="{{ pictureLink.url|raw }}" class="pictureLink" title="{{pictureLink.institution}}" alt="Abbildung im Internet ({{pictureLink.institution}})" />
+      {% else %}
+         <div class="pictureLinkWrapper">
+           <iframe class="pictureLinkFrame" src="{{ pictureLink.url|raw }}"> </iframe>
+         </div>
+       {% endif %}
+       <br class="clear" />
+       <a target="Neu" href="{{ pictureLink.url|raw }}" title="{{ pictureLink.url }}">→ {{ pictureLink.institution }}</a>
+    {% endfor %}
+  {% else %}
+    keine Abbildungen vorhanden
+  {% endif %}
+{% endblock %}

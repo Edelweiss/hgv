@@ -1,0 +1,11 @@
+
+<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+  <span class="ui-dialog-title">{% block titlebar %}{% endblock %}</span>
+  <button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button" title="schließen">
+    <span class="ui-button-icon-primary ui-icon ui-icon-closethick"></span><span class="ui-button-text">schließen</span>
+  </button>
+</div>
+
+<div class="ui-dialog-content ui-widget-content">
+  {% block content %}{% endblock %}
+</div>

@@ -79,3 +79,27 @@ PapyrillioHgvBundle_ShortcutDdbdp:
     defaults: { _controller: PapyrillioHgvBundle:Shortcut:ddb }
     requirements:
         id:  "([^;]+;[^;]*;[^;]*;[^;]+;[^;]*;[^;]*|[^;]+;[^;]*;[^;]+)" # Publikation, Band*, ZusBand*, Nummer, Seite*, zusaetzlich*
+
+# S U P P L E M E N T A R Y #
+
+PapyrillioHgvBundle_SupplementaryText:
+    pattern:  /supplementary/text/{id} # 12345a (without Mehrfachkennung)
+    defaults: { _controller: PapyrillioHgvBundle:Supplementary:text }
+    requirements:
+        id:  \d+[a-z]*
+
+PapyrillioHgvBundle_SupplementaryTranslation:
+    pattern:  /supplementary/translation/{id}
+    defaults: { _controller: PapyrillioHgvBundle:Supplementary:translation }
+    requirements:
+        id:  \d+[a-z]*
+
+PapyrillioHgvBundle_SupplementaryPicture:
+    pattern:  /supplementary/picture/{id}
+    defaults: { _controller: PapyrillioHgvBundle:Supplementary:picture }
+    requirements:
+        id:  \d+[a-z]*
+
+PapyrillioHgvBundle_SupplementaryDashboardConfiguration:
+    pattern:  /supplementary/dashboardConfiguration
+    defaults: { _controller: PapyrillioHgvBundle:Supplementary:dashboardConfiguration }
