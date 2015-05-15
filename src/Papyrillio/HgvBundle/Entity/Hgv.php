@@ -1358,7 +1358,7 @@ class Hgv
     }
     
     public function getHtmlTranslation(){
-      $file = '/Users/Admin/idp.data/aquila/HGV_trans_EpiDoc_HTML/' . $this->getTmNr() . '.html';
+      $file = '/Users/Admin/idp.data/aquila/HGV_trans_EpiDoc_HTML/' . $this->getHgvId() . '.html';
 
       if(file_exists($file)){
         return file_get_contents($file);
