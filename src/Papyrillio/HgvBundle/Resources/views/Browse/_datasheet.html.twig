@@ -161,6 +161,9 @@
       <span class="show">Infofenster für digitale Inhalte wieder einblenden</span>
     </h6>
     {{ record.htmlDdb|raw }}
+    {% if record.ddbSer %}
+      <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
+    {% endif %}
   </div>
   
   <div class="pictureLink">
@@ -181,11 +184,17 @@
       keine Abbildungen vorhanden
     {% endif %}
   </div>
+  
+  <div class="translation">
+    <h6>Übersetzungen aus dem HGV</h6>
+    {% if record.htmlTranslation %}
+      {{ record.htmlTranslation|raw }}
+    {% else %}
+      keine Übersetzungen verfügbar
+    {% endif %}
+  </div>
 
 </div>
 <br class="clear"/>
 
 
-{% if record.ddbSer %}
-  <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
-{% endif %}
