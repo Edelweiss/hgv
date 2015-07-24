@@ -22,6 +22,7 @@ body {
 }
 
 h5 a{
+  margin-left: 1em;
   font-size: small;
   float: right;
   text-decoration: none;
@@ -290,46 +291,39 @@ margin-top: -15px;
 
 /* CATALOGUE SEARCH */
 
-table.search th,
-table.search td{
-  padding: 0 1em 0 1em;
+div.sort,
+div.browse {
+  float: left;
+  background-color: lightblue;
 }
 
-table.search thead th {
-  font-weight: bold;
+form#catalogueSearch sup {
+  cursor: default;
+  color: #085E9B;
+  
 }
 
-table.search thead tr {
-  border-bottom: solid 1px #c0c0c0;
+div.searchFields, 
+div.additionalSearchOptions {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+    min-width: 840px;
 }
 
-table.search tr.Publikation input,     
-table.search tr.Band input,
-table.search tr.Nummer input,
-table.search tr.TM_Nr\. input,
-table.search tr.J input,
-table.search tr.M input,
-table.search tr.T input,
-table.search tr.J2 input,
-table.search tr.Jh input,
-table.search tr.Ort input,
-table.search tr.Jh2 input{
+div.searchFields label {
+  display: block;
   width: 10em;
+  float: left;
 }
 
-table.search tr.Ort input,
-table.search tr.Originaltitel input,
-table.search tr.Material input,
-table.search tr.Abbildung input,
-table.search tr.Andere input,
-table.search tr.Bemerkungen input,
-table.search tr.Inhalt input,
-table.search tr.Link1FM input,
-table.search tr.ChronMinimum input,
-table.search tr.ChronMaximum input,
-table.search tr.ChronGlobal input,
-table.search tr.Uebersetzungen input{
-  width: 30em;
+div.searchFields select {
+  width: 9em;
+}
+
+fieldset.searchId input,
+fieldset div.tmNr input {
+  width: 6em;
 }
 
 /* FEEDBACK FORM */

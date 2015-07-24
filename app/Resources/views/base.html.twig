@@ -30,13 +30,7 @@
           <ul>
             <li><a href="{{ path('PapyrillioHgvBundle_BrowseMultiple') }}" title="Liste der Datensätze">Tabelle</a></li>
             <li><a href="{{ path('PapyrillioHgvBundle_BrowseSingle') }}" title="Einzelansicht">Formular</a></li>
-            <li class="inactive">
-              <a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}" title="Filterfunktion">Suche</a>
-              <ul class="sub">
-                <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="Suchhilfe">Deutsch</a></li>
-                <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="Search help">English</a></li>
-              </ul>
-            </li>
+            <li><a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}" title="Filterfunktion">Suche</a></li>
             <li><a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': {'skip': 0, 'max': 100}, 'sort': {1: {'key': 'publikationLang', 'direction': 'ascend'}}}) }}">Alle</a> </li>
             <li><a href="http://aquila.zaw.uni-heidelberg.de/texte/HGV-Texte.html" title="Hilfe">Texte</a></li>
             

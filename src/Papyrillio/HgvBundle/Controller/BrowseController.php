@@ -11,7 +11,7 @@ class BrowseController extends HgvController
     const TYPE_SEARCH   = 'search';
     const COUNT_TRUE    = true;
     const COUNT_FALSE   = false;
-    
+
     static $FIELD_LIST_SEARCH = array(
       'publikation'        => 'Publikation',
       'band'               => 'Band',

@@ -10,69 +10,56 @@
 
 {% block body %}
   <form id="catalogueSearch" action="{{ path('PapyrillioHgvBundle_BrowseMultiple') }}" method="get" }} autocomplete="off">
-    <p>Wählen Sie den Suchtyp, geben Sie die Suchkriterien ein, fügen Sie optional eine Sortierreihenfolge hinzu, legen Sie Anzahl der Suchtreffer pro Seite fest und klicken Sie dann auf <b>Suche starten.</b></p>
+    <div class="search">
+    <h5>
+      Suchkriterien<sup title="Wählen Sie den Suchtyp, geben Sie die Suchkriterien ein, fügen Sie optional eine Sortierreihenfolge hinzu, legen Sie Anzahl der Suchtreffer pro Seite fest und klicken Sie dann auf &quot;Suche starten&quot;.">?</sup>
+      <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="Search Help in English"> → Search Help</a>
+      <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="Suchhilfe auf Deutsch"> → Suchhilfe</a>
+    </h5>
 
     <p>
       <input name="search[operator]" value="and" type="radio" checked="checked" />Entsprechung mit allen Wörtern auf der Seite (UND)
       <input name="search[operator]" value="or" type="radio" />Entsprechung mit beliebigem Wort auf der Seite (ODER)
     </p>
-    
-    <p><b>Wichtig:</b> Verwenden Sie in Feld "Publikation" <b>nie</b> "P.Oxy." usw., sondern <b>nur</b> "Oxy" usw. (es sei denn zur Unterscheidung von "P." und "O."). Weitere Hinweise finden Sie außerdem in diesen <b>Suchhilfen</b>: <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="Suchhilfe">Deutsch</a> bzw. <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="Search help">English</a>.</p>
-    
-    <table class="search">
-      <thead>
-        <tr>
-          <th class="field">Feld</th>
-          <th class="type">Typ</th>
-          <th class="criteria">Kriterien</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for key, caption in fieldList%}
-        <tr class="{{ key }}">
-          <th><label for="search_criteria_{{key}}_operator_value">{{ caption }}</label></th>
-          <td class="{{ key }}">
-            <select name="search[criteria][{{key}}][operator]">
-              {% if key in ['inhalt', 'bemerkungen', 'originaltitel', 'abbildung', 'anderePublikation', 'ort'] %}
-                <option value="sp">Splittersuche</option>
-                <option value="cn">Enthält</option>
-                <option value="bw">Beginnt mit</option>
-                <option value="ew">Endet mit</option>
-                <option value="eq">Ist gleich</option>
-                <option value="neq">Ist ungleich</option>
-              {% elseif key in ['publikation', 'material', 'url', 'uebersetzungen'] %}
-                <option value="cn">Enthält</option>
-                <option value="bw">Beginnt mit</option>
-                <option value="ew">Endet mit</option>
-                <option value="eq">Ist gleich</option>
-                <option value="neq">Ist ungleich</option>
-              {% else %}
-                <option value="eq">Ist gleich</option>
-                <option value="neq">Ist ungleich</option>
-                <option value="lt">Kleiner</option>
-                <option value="lte">Kleiner oder gleich</option>
-                <option value="gt">Größer</option>
-                <option value="gte">Größer oder gleich</option>
-              {% endif %}
-            </select>
-          </td>
-          <td>
-            <input type="text" name="search[criteria][{{key}}][value]" id="search_criteria_{{key}}_operator_value" />
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    
-    <h3>Optionen</h3>
-    <p>
-      <input type="radio" name="search[mentionedDates]" id="search_mentionedDatesWithout" value="without" checked="checked"/>Nur in <b>Hauptdatenbank</b> suchen.<br />
-      <input type="radio" name="search[mentionedDates]" id="search_mentionedDatesWith" value="with" />Bei Suche <b>erwähnten Daten</b> mit einbeziehen.<br />
-      <input type="radio" name="search[mentionedDates]" id="search_mentionedDatesOnly" value="only" />Nur in <b>erwähnten Daten</b> suchen.<br />
-    </p>
 
-    <h3>Sortieren</h3>
-    <p><b>Hinweis:</b> Wenn keine Sortierreihenfolge angegeben wurde, werden die Datensätze automatisch nach Datum (Jahr, Monat, Tag und Chron-Global) oder nach der zuletzt ausgewählten Reihenfolge sortiert.</p>
+    <div class="searchFields">
+      <fieldset class="searchId">
+        {% for key in ['publikation', 'band', 'nummer', 'anderePublikation'] %}
+          {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': key } %}
+        {% endfor %}
+      </fieldset>
+
+      <fieldset class="searchDescription">
+        {% for key in ['ort', 'originaltitel', 'material', 'inhalt', 'bemerkungen', 'uebersetzungen'] %}
+          {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': key } %}
+        {% endfor %}
+      </fieldset>
+
+      <fieldset class="searchImage">
+        {% for key in ['abbildung', 'url'] %}
+          {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': key } %}
+        {% endfor %}
+        <br />
+        {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': 'tmNr' } %}
+      </fieldset>
+
+      <fieldset class="searchDate">
+        {% for key in ['jahr', 'monat', 'tag', 'jahrIi', 'jh', 'jhIi', 'chronMinimum', 'chronMaximum', 'chronGlobal'] %}
+          {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': key } %}
+        {% endfor %}
+      </fieldset>
+    
+      <fieldset class="searchOptions">
+        <input type="radio" name="search[mentionedDates]" id="search_mentionedDatesWithout" value="without" checked="checked"/>Nur in <b>Hauptdatenbank</b> suchen.<br />
+        <input type="radio" name="search[mentionedDates]" id="search_mentionedDatesWith" value="with" />Bei Suche <b>erwähnten Daten</b> mit einbeziehen.<br />
+        <input type="radio" name="search[mentionedDates]" id="search_mentionedDatesOnly" value="only" />Nur in <b>erwähnten Daten</b> suchen.<br />
+      </fieldset>
+    </div>
+    </div>
+
+
+    <div class="additionalSearchOptions">
+    <h5>Sortieren<sup title="Wenn keine Sortierreihenfolge angegeben wurde, werden die Datensätze automatisch nach Datum (Jahr, Monat, Tag und Chron-Global) oder nach der zuletzt ausgewählten Reihenfolge sortiert.">?</sup></h5>
 
     <p>
       {% for i in 1..5 %}
@@ -94,8 +81,7 @@
       {% endfor %}
     </p>
 
-
-    <h3>Blättern</h3>
+    <h5>Blättern</h5>
     <p>
       <label>Anzahl Suchtreffer pro Seite</label>
       
@@ -114,5 +100,6 @@
       <input type="submit" value="Suche starten" />
       <input type="reset" value="Felder löschen" />
     </p>
+    </div>
   </form>
 {% endblock %}
