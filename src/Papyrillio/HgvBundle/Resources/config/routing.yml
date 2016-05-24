@@ -78,7 +78,7 @@ PapyrillioHgvBundle_ShortcutDdbdp:
     pattern:  /ddb/{id}
     defaults: { _controller: PapyrillioHgvBundle:Shortcut:ddb }
     requirements:
-        id:  "([^;]+;[^;]*;[^;]*;[^;]+;[^;]*;[^;]*|[^;]+;[^;]*;[^;]+)" # Publikation, Band*, ZusBand*, Nummer, Seite*, zusaetzlich*
+        id:  "([^;]+;[^;]*;[^;]*;[^;]+;[^;]*;[^;]*|[^;]+;[^;]*;[^;]*;[^;]*;[^;]*;[^;]+|[^;]+;[^;]*;[^;]+)" # Publikation, Band*, ZusBand*, Nummer, Seite*, zusaetzlich* ODER Publikation, Band*, ZusBand*, Nummer*, Seite*, zusaetzlich ODER Publikation Band* Nummer
 
 # S U P P L E M E N T A R Y #
 
