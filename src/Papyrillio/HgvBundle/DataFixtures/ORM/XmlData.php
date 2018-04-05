@@ -63,6 +63,7 @@ abstract class XmlData extends AbstractFixture implements OrderedFixtureInterfac
       'datierungIi' => 'Datierung2',
       'anderePublikation' => 'Andere Publikation',
       'bl' => 'BL',
+      'blOnline' => 'blOnline',
       'uebersetzungen' => 'Uebersetzungen',
       'abbildung' => 'Abbildung',
       'linkFm' => 'Link1FM',
@@ -157,6 +158,7 @@ abstract class XmlData extends AbstractFixture implements OrderedFixtureInterfac
         $hgv->setdatierungIi($cols->item($this->positions['datierungIi'])->nodeValue);
         $hgv->setanderePublikation($cols->item($this->positions['anderePublikation'])->nodeValue);
         $hgv->setbl($cols->item($this->positions['bl'])->nodeValue);
+        $hgv->setblOnline($cols->item($this->positions['blOnline'])->nodeValue);
         $hgv->setuebersetzungen($cols->item($this->positions['uebersetzungen'])->nodeValue);
         $hgv->setabbildung($cols->item($this->positions['abbildung'])->nodeValue);
         $hgv->setort($cols->item($this->positions['ort'])->nodeValue);

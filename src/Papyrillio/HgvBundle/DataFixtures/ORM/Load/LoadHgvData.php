@@ -54,6 +54,7 @@ class LoadHgvData extends XmlData
       'datierungIi' => 'Datierung2',
       'anderePublikation' => 'Andere Publikation',
       'bl' => 'BL',
+      'blOnline' => 'blOnline',
       'uebersetzungen' => 'Uebersetzungen',
       'abbildung' => 'Abbildung',
       'linkFm' => 'Link1FM',
@@ -116,6 +117,7 @@ class LoadHgvData extends XmlData
         $hgv->setdatierungIi($cols->item($this->positions['datierungIi'])->nodeValue);
         $hgv->setanderePublikation($cols->item($this->positions['anderePublikation'])->nodeValue);
         $hgv->setbl($cols->item($this->positions['bl'])->nodeValue);
+        $hgv->setblOnline(self::makeInteger($cols->item($this->positions['blOnline'])->nodeValue));
         $hgv->setuebersetzungen($cols->item($this->positions['uebersetzungen'])->nodeValue);
         $hgv->setabbildung($cols->item($this->positions['abbildung'])->nodeValue);
         $hgv->setlinkFm($cols->item($this->positions['linkFm'])->nodeValue);
