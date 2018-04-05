@@ -126,6 +126,9 @@ Papyrillio\HgvBundle\Entity\Hgv:
         bl:
             type: text
             nullable: true
+        blOnline:
+            type: boolean
+            nullable: true
         uebersetzungen:
             type: text
             nullable: true

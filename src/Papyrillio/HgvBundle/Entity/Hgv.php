@@ -170,6 +170,11 @@ class Hgv
     private $bl;
 
     /**
+     * @var boolean $blOnline
+     */
+    private $blOnline;
+
+    /**
      * @var text $uebersetzungen
      */
     private $uebersetzungen;
@@ -911,6 +916,26 @@ class Hgv
     public function getBl()
     {
         return $this->bl;
+    }
+
+    /**
+     * Set blOnline
+     *
+     * @param boolean $blOnline
+     */
+    public function setBlOnline($blOnline)
+    {
+        $this->blOnline = $blOnline;
+    }
+
+    /**
+     * Get blOnline
+     *
+     * @return boolean 
+     */
+    public function getBlOnline()
+    {
+        return $this->blOnline;
     }
 
     /**
