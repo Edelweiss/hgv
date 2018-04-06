@@ -67,10 +67,15 @@
           </td>
         </tr>
       {% endif %}
-      {% if result.firstRecord.field('BL') %}
+      {% if result.firstRecord.field('BL') or result.firstRecord.field('blOnline') %}
         <tr>
           <th>BL-Einträge nach BL-Konkordanz</th>
-          <td>{{ result.firstRecord.field('BL')|raw }}</td>
+          <td>
+            {{ result.firstRecord.field('BL')|raw }}
+            {% if result.firstRecord.field('blOnline') %}
+              <a target="Neu" href="http://147.142.225.252/bl/app.php/hgv/{{ result.firstRecord.field('hgvId') }}">BL online</a>
+            {% endif %}
+          </td>
         </tr>
       {% endif %}
       {% if result.firstRecord.field('ddbSer') %}

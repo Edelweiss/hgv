@@ -59,10 +59,15 @@
         </td>
       </tr>
     {% endif %}
-    {% if record.bl %}
+    {% if record.bl or record.blOnline %}
       <tr>
         <th>BL-Einträge <br /> <span class="mini">(nach BL-Konkordanz)</span></th>
-        <td>{{ record.bl|raw }}</td>
+        <td>
+          {{ record.bl|raw }}
+          {% if record.blOnline %}
+            <a target="Neu" href="http://147.142.225.252/bl/app.php/hgv/{{ record.hgvId }}">BL online</a>
+          {% endif %}
+        </td>
       </tr>
     {% endif %}
     {% if record.ldab == 'ja' %}

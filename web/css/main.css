@@ -375,7 +375,7 @@ h3.catalogueShow {
 h3.catalogueShow a[href*=trismegistos] {
   position: absolute;
   right: 0;
-  font-size: 8pt;
+  font-size: 0.8em;
 }
 
 h3.catalogueShow span {
@@ -425,6 +425,11 @@ table.catalogueShow tr.translation ul li,
 table.catalogueShow tr.mentionedDates ul li,
 table.catalogueShow tr.pictureLinks ul li{
   margin-left: 1em;
+}
+
+table.catalogueShow a[href*='147.142.225.252/bl'] {
+  font-size: 0.8em;
+  font-weight: bold;
 }
 
 div.text,
