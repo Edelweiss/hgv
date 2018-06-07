@@ -73,7 +73,7 @@
           <td>
             {{ result.firstRecord.field('BL')|raw }}
             {% if result.firstRecord.field('blOnline') %}
-              <a target="Neu" href="http://147.142.225.252/bl/app.php/hgv/{{ result.firstRecord.field('hgvId') }}">BL online</a>
+              <a target="Neu" href="https://aquila.zaw.uni-heidelberg.de/bl/hgv/{{ result.firstRecord.field('hgvId') }}">BL online</a>
             {% endif %}
           </td>
         </tr>
