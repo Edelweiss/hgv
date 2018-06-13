@@ -15,7 +15,7 @@
     <input name="search[operator]" value="and" type="radio" checked="checked" />Entsprechung mit allen Wörtern auf der Seite (UND)
 
     <input name="search[operator]" value="or" type="radio" />Entsprechung mit beliebigem Wort auf der Seite (ODER)
-    <p><b>Wichtig:</b> Verwenden Sie in Feld "Publikation" <b>nie</b> "P.Oxy." usw., sondern <b>nur</b> "Oxy" usw. (es sei denn zur Unterscheidung von "P." und "O."). Weitere Hinweise finden Sie außerdem in<br> diesen <b>Suchhilfen</b>: <a href="http://www.rzuser.uni-heidelberg.de/~gv0/Suchhilfe.html" target="Hilfe">Deutsch</a> bzw. <a href="http://www.rzuser.uni-heidelberg.de/~gv0/Searchhelp.html" target="Hilfe">English</a>.</p>
+    <p><b>Wichtig:</b> Verwenden Sie in Feld "Publikation" <b>nie</b> "P.Oxy." usw., sondern <b>nur</b> "Oxy" usw. (es sei denn zur Unterscheidung von "P." und "O."). Weitere Hinweise finden Sie außerdem in<br> diesen <b>Suchhilfen</b>: <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}">Deutsch</a> bzw. <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}">English</a>.</p>
     <table class="search">
       <thead>
         <tr>
