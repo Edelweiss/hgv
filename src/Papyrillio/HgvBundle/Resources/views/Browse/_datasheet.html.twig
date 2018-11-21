@@ -164,8 +164,11 @@
         <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
       {% endif %}
       <span class="show">Infofenster für digitale Inhalte wieder einblenden</span>
-    </h6>
-    {{ record.htmlDdb|raw }}
+      <button class="clipboard" data-clipboard-target="#ddbText" title="Firefox 41+, Safari 10+, Chrome42+, Opera 29+, IE 9+, Edge12+">DDB-Text in die Zwischenablage übernehmen</button>
+    </h6>    
+    <div id="ddbText">
+      {{ record.htmlDdb|raw }}
+    </div>
     {% if record.ddbSer %}
       <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
     {% endif %}
