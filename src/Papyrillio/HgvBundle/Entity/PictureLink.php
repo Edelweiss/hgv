@@ -109,7 +109,7 @@ class PictureLink
     
     public function __construct($linkFm){
         $this->setUrl(trim($linkFm));
-        if(preg_match('|^http://([^?/]+)[?/]|', $linkFm, $matches)){
+        if(preg_match('|^https?://([^?/]+)[?/]|', $linkFm, $matches)){
             $this->setInstitution($matches[1]);
         }
     }
