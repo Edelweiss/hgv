@@ -158,19 +158,23 @@
 
 <div class="dashboard">
   <div class="text">
-    <h6>
-      Texte der DDbDP
+    {% if record.hasHtmlDdb %}
+      <h6>
+        Texte der DDbDP
+        {% if record.ddbSer %}
+          <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
+        {% endif %}
+        <span class="show">Infofenster für digitale Inhalte wieder einblenden</span>
+        <button class="clipboard" data-clipboard-target="#ddbText" title="Firefox 41+, Safari 10+, Chrome42+, Opera 29+, IE 9+, Edge12+">DDB-Text in die Zwischenablage übernehmen</button>
+      </h6>    
+      <div id="ddbText">
+        {{ record.htmlDdb|raw }}
+      </div>
       {% if record.ddbSer %}
         <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
       {% endif %}
-      <span class="show">Infofenster für digitale Inhalte wieder einblenden</span>
-      <button class="clipboard" data-clipboard-target="#ddbText" title="Firefox 41+, Safari 10+, Chrome42+, Opera 29+, IE 9+, Edge12+">DDB-Text in die Zwischenablage übernehmen</button>
-    </h6>    
-    <div id="ddbText">
-      {{ record.htmlDdb|raw }}
-    </div>
-    {% if record.ddbSer %}
-      <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
+    {% else %}
+      Kein DDB-Text verfügbar
     {% endif %}
   </div>
   

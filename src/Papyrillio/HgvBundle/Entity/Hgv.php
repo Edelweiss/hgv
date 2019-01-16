@@ -1373,6 +1373,13 @@ class Hgv
       $this->pictureLinks->clear();
     }
     
+    public function hasHtmlDdb(){
+      if($this->ddbSer){
+        return true;
+      }
+      return false;
+    }
+
     public function getHtmlDdb(){
       $file = '/Users/Admin/idp.data/aquila/' . $this->getFilePathDDb('html');
 
