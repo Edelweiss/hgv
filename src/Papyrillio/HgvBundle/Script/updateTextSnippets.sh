@@ -24,7 +24,9 @@ cd ~/navigator/master >> $log 2>&1
 git fetch >> $log 2>&1
 git merge origin/master >> $log 2>&1
 cd epidoc-xslt >> $log 2>&1
-svn up >> $log 2>&1
+# svn up >> $log 2>&1
+git fetch >> $log 2>&1
+git merge origin/master >> $log 2>&1
 
 # Update idp.data
 # ===============
