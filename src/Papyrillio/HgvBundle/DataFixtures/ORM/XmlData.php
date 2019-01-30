@@ -77,6 +77,7 @@ abstract class XmlData extends AbstractFixture implements OrderedFixtureInterfac
       'ldab' => 'LDAB',
       'dfg' => 'DFG',
       'ddbSer' => 'ddbSer',
+      'ddbSerIdp' => 'ddbSerIDP',
       'ddbVol' => 'ddbVol',
       'ddbDoc' => 'ddbDoc',
       'eingegebenAm' => 'eingegeben am',
@@ -170,7 +171,11 @@ abstract class XmlData extends AbstractFixture implements OrderedFixtureInterfac
         $hgv->setdaht($cols->item($this->positions['daht'])->nodeValue);
         $hgv->setldab($cols->item($this->positions['ldab'])->nodeValue);
         $hgv->setdfg($cols->item($this->positions['dfg'])->nodeValue);
-        $hgv->setddbSer($cols->item($this->positions['ddbSer'])->nodeValue);
+        $ddbSer = $cols->item($this->positions['ddbSer'])->nodeValue;
+        if(!$ddbSer or $ddbSer == ''){
+          $ddbSer = $cols->item($this->positions['ddbSerIdp'])->nodeValue;
+        }
+        $hgv->setddbSer($ddbSer);
         $hgv->setddbVol($cols->item($this->positions['ddbVol'])->nodeValue);
         $hgv->setddbDoc($cols->item($this->positions['ddbDoc'])->nodeValue);
         $hgv->setDatensatzNr($cols->item($this->positions['DatensatzNr'])->nodeValue);
