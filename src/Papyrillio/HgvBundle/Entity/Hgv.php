@@ -1372,16 +1372,16 @@ class Hgv
     {
       $this->pictureLinks->clear();
     }
-    
+
     public function hasHtmlDdb(){
-      if($this->ddbSer){
+      if($this->ddbSer and file_exists($this->getFullFilePathDdb('html'))){
         return true;
       }
       return false;
     }
 
     public function getHtmlDdb(){
-      $file = '/Users/Admin/idp.data/aquila/' . $this->getFilePathDDb('html');
+      $file = $this->getFullFilePathDdb('html');
 
       if(file_exists($file)){
         return file_get_contents($file);
@@ -1396,6 +1396,11 @@ class Hgv
         return file_get_contents($file);
       }
       return null;
+    }
+
+    public function getFullFilePathDdb($suffix = 'xml')
+    {
+      return '/Users/Admin/idp.data/aquila/' . $this->getFilePathDDb($suffix);
     }
     
     public function getFilePathDdb($suffix = 'xml')
