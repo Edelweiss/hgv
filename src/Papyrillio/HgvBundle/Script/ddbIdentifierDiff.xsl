@@ -72,7 +72,7 @@
 
     <xsl:template name="FIX">
         <xsl:call-template name="csvLine">
-            <xsl:with-param name="data" select="('tm', 'hgv', 'ddb', 'series', 'volume', 'document', 'aquila ddbSerIDP', 'aquila ddbSer', 'aquila ddbVol', 'aquila ddbDoc')"/>
+            <xsl:with-param name="data" select="('tm', 'hgv', 'ddb', 'series', 'volume', 'document', 'aquila ddbSerIDP', 'aquila ddbSer', 'aquila ddbVol', 'aquila ddbDoc', 'update aquila')"/>
         </xsl:call-template>
 
         <xsl:for-each select="$ddbList//item">
@@ -89,13 +89,14 @@
             <xsl:if test="$aquila and not($ddbSeries = $aquila_ddbSeries)">                
                 <xsl:message select="concat(position(), ' ---- ', $hgv, '/', $ddb, ' ----')"/>
                 <xsl:message select="concat($ddbSeries, ' / ',  $aquila_ddbSeries)"/>
-                
+
                 <xsl:variable name="aquila_ddbVolume" select="string($aquila//fm:COL[$volume_position]/fm:DATA)"/>
                 <xsl:variable name="aquila_ddbDocument" select="string($aquila//fm:COL[$document_position]/fm:DATA)"/>
                 <xsl:variable name="aquila_ddbSeriesIdp" select="string($aquila//fm:COL[$seriesIdp_position]/fm:DATA)"/>
-                
+                <xsl:variable name="aquila_update" select="if($ddbSeries = $aquila_ddbSeriesIdp)then('to be added to FM master')else('')"/>
+
                 <xsl:call-template name="csvLine">
-                    <xsl:with-param name="data" select="($tm, $hgv, $ddb, $ddbSeries, $ddbVolume, $ddbDocument, $aquila_ddbSeriesIdp, $aquila_ddbSeries, $aquila_ddbVolume, $aquila_ddbDocument)"/>
+                    <xsl:with-param name="data" select="($tm, $hgv, $ddb, $ddbSeries, $ddbVolume, $ddbDocument, $aquila_ddbSeriesIdp, $aquila_ddbSeries, $aquila_ddbVolume, $aquila_ddbDocument, $aquila_update)"/>
                 </xsl:call-template>
             </xsl:if>
 
