@@ -12,7 +12,7 @@ export CLASSPATH=$CLASSPATH:$HOME/Library/saxon/saxon9he.jar
 git="$HOME/idp.data/aquila"
 fmp="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Data/ddbser.xml"
 exp="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Script/ddbSer.py"
-csv="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Script/ddbIdentifierDiff.csv"
+csv="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Data/ddbIdentifierDiff.csv"
 xsl="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Script/ddbIdentifierDiff.xsl"
 log="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Script/ddbIdentifierDiff.log"
 
