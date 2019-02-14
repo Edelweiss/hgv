@@ -3,6 +3,7 @@
 import sys
 import pyodbc
 import codecs
+import re
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
@@ -45,20 +46,27 @@ class FileMakerFmpRow:
       xml = xml + '<COL><DATA>' + value + '</DATA></COL>' 
     return '<ROW>' + xml + '</ROW>'
 
+if len(sys.argv == 3):
+  configFile = sys.argv[1]
+  resultFile = sys.argv[2]
 
-crsr = conn.cursor()
-rows = crsr.execute("select TMNr_plus_texLett, ddbSerIDP, ddbSer, ddbVol, ddbDoc from Hauptregister").fetchall()
-fields = ['TMNr_plus_texLett', 'ddbSerIDP', 'ddbSer', 'ddbVol', 'ddbDoc']
-fmpDoc = FileMakerFmpDoc(fields, rows)
+  config = open(configFile, 'r').read()
+  dsn = re.search('filemaker_database *= *(.+)', config).group(1)
+  uid = re.search('filemaker_username *= *(.+)', config).group(1)
+  pwd = re.search('filemaker_password *= *(.+)', config).group(1)
+  con = 'DSN='+ dsn +';UID='+ uid +';PWD='+ pwd
 
-#print fmpDoc.toXml()
+  conn = pyodbc.connect(con) # the DSN value should be the name of the entry in odbc.ini, not freetds.conf
+  crsr = conn.cursor()
+  rows = crsr.execute("select TMNr_plus_texLett, ddbSerIDP, ddbSer, ddbVol, ddbDoc from Hauptregister").fetchall()
+  fields = ['TMNr_plus_texLett', 'ddbSerIDP', 'ddbSer', 'ddbVol', 'ddbDoc']
+  fmpDoc = FileMakerFmpDoc(fields, rows)
 
-#f = open('/Users/Admin/hgv.dev/src/Papyrillio/HgvBundle/Data/ddbser.xml', 'w')
-#f.write(fmpDoc.toXml())
+  print fmpDoc.toXml()
 
+  file = codecs.open(resultFile, "w", "utf-8")
+  file.write(fmpDoc.toXml().decode('cp1252'))
+  file.close()
 
-file.write(fmpDoc.toXml().decode('cp1252'))
-file.close()
-
-crsr.close()
-conn.close()
+  crsr.close()
+  conn.close()

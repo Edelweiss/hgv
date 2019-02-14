@@ -10,6 +10,7 @@ export CLASSPATH=$CLASSPATH:$HOME/Library/saxon/saxon9he.jar
 # tail -fn 100 ~/hgv.dev/src/Papyrillio/HgvBundle/Script/ddbIdentifierDiff.log
 
 git="$HOME/idp.data/aquila"
+cnf="$HOME/hgv.dev/app/config/parameters.ini"
 fmp="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Data/ddbser.xml"
 exp="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Script/ddbSer.py"
 csv="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Data/ddbIdentifierDiff.csv"
@@ -33,7 +34,7 @@ git merge origin/master >> $log 2>&1
 
 echo "-------- (2) Export from FileMaker --------" >> $log
 #python $exp > $fmp 2> $log
-python $exp >> $log 2>&1
+python $exp $cnf $fmp >> $log 2>&1
 
 # Generate Alert Log
 # ==================
