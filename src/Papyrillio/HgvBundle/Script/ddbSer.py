@@ -46,7 +46,7 @@ class FileMakerFmpRow:
       xml = xml + '<COL><DATA>' + value + '</DATA></COL>' 
     return '<ROW>' + xml + '</ROW>'
 
-if len(sys.argv == 3):
+if len(sys.argv) == 3:
   configFile = sys.argv[1]
   resultFile = sys.argv[2]
 
