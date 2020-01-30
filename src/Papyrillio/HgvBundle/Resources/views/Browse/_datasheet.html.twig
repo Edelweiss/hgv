@@ -15,13 +15,13 @@
 </h3>
 
 <h4 class="catalogueShow">
-  {% if record.originaltitelHtml %}
-    {% if record.originaltitelHtml == 'keiner' %}
+  {% if record.originaltitel == 'keiner' %}
       Titel:
-    {% endif %}
+  {% endif %}
+  {% if record.originaltitelHtml %}
     {{ record.originaltitelHtml|raw }}
   {% else %}
-     …
+    {{ record.originaltitel }}
   {% endif %}
 </h4>
 

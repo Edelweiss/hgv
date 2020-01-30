@@ -62,7 +62,13 @@
             <td class="publikationLang">{{ record.publikationLang }}</td>
             <td class="datierungIi">{{ record.datierungIi }}</td>
             <td class="ort">{{ record.ort }}</td>
-            <td class="originaltitelHtml">{{ record.originaltitelHtml|raw }}</td>
+            <td class="originaltitelHtml">
+              {% if record.originaltitelHtml %}
+                {{ record.originaltitelHtml|raw }}
+              {% else %}
+                {{ record.originaltitel }}
+              {% endif %}
+            </td>
             {% if search.mentionedDates != 'without' %}
               <td class="mentionedDates">{{ record.erwaehnteDaten }}</td>
             {% endif %}
