@@ -9,6 +9,9 @@ PapyrillioHgvBundle_DefaultAbbreviation:
 PapyrillioHgvBundle_DefaultHelp:
     path:  /help/{topic}/{language}
     controller: App\Controller\Default:help
+    defaults:
+        topic: null
+        language: null
 
 PapyrillioHgvBundle_DefaultIntroduction:
     path:  /introduction
@@ -27,6 +30,10 @@ PapyrillioHgvBundle_DefaultFeedback:
 PapyrillioHgvBundle_PublicationLoadNumbers:
     path:  /publication/load/numbers/{collection}/{volume}/{particle}
     controller: App\Controller\Publication:loadNumbers
+    defaults:
+        collection: null
+        volume: null
+        particle: null
 
 PapyrillioHgvBundle_PublicationLoadResults:
     path:  /publication/load/results/{collection}/{volume}/{particle}/{number}/{side}/{extra}
@@ -35,6 +42,13 @@ PapyrillioHgvBundle_PublicationLoadResults:
       particle: "[^/]*"
       number: "[^/]*"
       side: "[^/]*"
+    defaults:
+        collection: null
+        volume: null
+        particle: null
+        number: null
+        side: null
+        extra: null
 
 PapyrillioHgvBundle_PublicationIndex:
     path:  /publication
