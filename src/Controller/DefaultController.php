@@ -12,16 +12,16 @@ class DefaultController extends HgvController
     return $this->render('PapyrillioHgvBundle:Default:index.html.twig');
   }*/
  
-    public function index(): Response
-    {
-      dump('jere');
-      return $this->render('default/index.html.twig', [
-        'controller_name' => 'DefaultController'
-    ]);
-    }
+  public function index(): Response
+  {
+    return $this->render('default/index.html.twig', [
+      'controller_name' => 'DefaultController'
+  ]);
+  }
 
-  public function abbreviationAction(){
-    return $this->render('PapyrillioHgvBundle:Default:abbreviation.html.twig');
+  public function abbreviation(): Response
+  {
+    return $this->render('default/abbreviation.html.twig');
   }
 
   public function helpAction($topic = '', $language = ''){
