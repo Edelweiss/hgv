@@ -1,0 +1,105 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+  {{ parent() }} - Suche
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+
+{% block body %}
+  <form id="catalogueSearch" action="{{ path('PapyrillioHgvBundle_BrowseMultiple') }}" method="get" }} autocomplete="off">
+    <div class="search">
+    <h5>
+      Suchkriterien<sup title="Wählen Sie den Suchtyp, geben Sie die Suchkriterien ein, fügen Sie optional eine Sortierreihenfolge hinzu, legen Sie Anzahl der Suchtreffer pro Seite fest und klicken Sie dann auf &quot;Suche starten&quot;.">?</sup>
+      <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="Search Help in English"> → Search Help</a>
+      <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="Suchhilfe auf Deutsch"> → Suchhilfe</a>
+    </h5>
+
+    <p>
+      <input name="search[operator]" value="and" type="radio" checked="checked" />Entsprechung mit allen Wörtern auf der Seite (UND)
+      <input name="search[operator]" value="or" type="radio" />Entsprechung mit beliebigem Wort auf der Seite (ODER)
+    </p>
+
+    <div class="searchFields">
+      <fieldset class="searchId">
+        {% for key in ['publikation', 'band', 'nummer', 'anderePublikation'] %}
+          {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': key } %}
+        {% endfor %}
+      </fieldset>
+
+      <fieldset class="searchDescription">
+        {% for key in ['ort', 'originaltitel', 'material', 'inhalt', 'bemerkungen', 'uebersetzungen'] %}
+          {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': key } %}
+        {% endfor %}
+      </fieldset>
+
+      <fieldset class="searchImage">
+        {% for key in ['abbildung', 'url'] %}
+          {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': key } %}
+        {% endfor %}
+        <br />
+        {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': 'tmNr' } %}
+      </fieldset>
+
+      <fieldset class="searchDate">
+        {% for key in ['jahr', 'monat', 'tag', 'jahrIi', 'jh', 'jhIi', 'chronMinimum', 'chronMaximum', 'chronGlobal'] %}
+          {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': key } %}
+        {% endfor %}
+      </fieldset>
+    
+      <fieldset class="searchOptions">
+        <input type="radio" name="search[mentionedDates]" id="search_mentionedDatesWithout" value="without" checked="checked"/>Nur in <b>Hauptdatenbank</b> suchen.<br />
+        <input type="radio" name="search[mentionedDates]" id="search_mentionedDatesWith" value="with" />Bei Suche <b>erwähnten Daten</b> mit einbeziehen.<br />
+        <input type="radio" name="search[mentionedDates]" id="search_mentionedDatesOnly" value="only" />Nur in <b>erwähnten Daten</b> suchen.<br />
+      </fieldset>
+    </div>
+    </div>
+
+
+    <div class="additionalSearchOptions">
+    <h5>Sortieren<sup title="Wenn keine Sortierreihenfolge angegeben wurde, werden die Datensätze automatisch nach Datum (Jahr, Monat, Tag und Chron-Global) oder nach der zuletzt ausgewählten Reihenfolge sortiert.">?</sup></h5>
+
+    <p>
+      {% for i in 1..5 %}
+        <label for="sort_{{ i }}_key">{{ loop.index}}. Suchfeld</label>
+        <select name="sort[{{ i }}][key]" id="sort_{{ i }}_key">
+          <option value=""></option>
+          {% for key, caption in fieldList%}
+            <option value="{{ key }}">{{ caption }}</option>
+          {% endfor %}
+        </select>
+        <label for="sort_{{ i }}_direction">Suchrichtung</label>
+        <select name="sort[{{ i }}][direction]" id="sort_{{ i }}_direction">
+          <option value="ascend">aufsteigend</option>
+          <option value="descend">absteigend</option>
+        </select>
+        {% if not loop.last %}
+          <br />
+        {% endif %}
+      {% endfor %}
+    </p>
+
+    <h5>Blättern</h5>
+    <p>
+      <label>Anzahl Suchtreffer pro Seite</label>
+      
+      <select name="search[max]" value="100">
+        <option>10</option>
+        <option>20</option>
+        <option>50</option>
+        <option selected="selected">100</option>
+        <option>200</option>
+        <option>500</option>
+      </select>
+    </p>
+
+    <p>
+      <input type="hidden" name="search[skip]" value="0" />
+      <input type="submit" value="Suche starten" />
+      <input type="reset" value="Felder löschen" />
+    </p>
+    </div>
+  </form>
+{% endblock %}

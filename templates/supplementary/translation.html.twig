@@ -1,0 +1,12 @@
+{% extends '::window.html.twig' %}
+
+{% block titlebar %}Übersetzungen aus dem HGV{% endblock %}
+
+{% block content %}
+  {% if record.htmlTranslation %}
+    {{ record.htmlTranslation|raw }}
+  {% else %}
+    keine
+  {% endif %}
+{% endblock %}
+

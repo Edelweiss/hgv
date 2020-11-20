@@ -1,0 +1,5 @@
+{% for hgv in publications %}
+  <li>
+    {% include 'PapyrillioHgvBundle:Browse:_datasheet.html.twig' with { 'record': hgv, 'translations': null } %}
+  </li>
+{% endfor %}

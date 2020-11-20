@@ -1,0 +1,103 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+  {{ parent() }} - Suche
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+
+{% block body %}
+  <form id="catalogueSearch" action="{{ path('PapyrillioHgvBundle_BrowseMultiple') }}" method="get" }} autocomplete="off">
+    <p>Wählen Sie den Suchtyp, geben Sie die Suchkriterien ein, fügen Sie optional eine Sortierreihenfolge hinzu, legen Sie Anzahl der Suchtreffer pro Seite fest und klicken Sie dann auf <b>Suche starten.</b> <a href="http://147.142.225.241/Hauptregister/DHelp.htm#Search%20Tips" target="FileMaker Pro Web Companion Help">Suchtipps</a></p>
+
+    <input name="search[operator]" value="and" type="radio" checked="checked" />Entsprechung mit allen Wörtern auf der Seite (UND)
+
+    <input name="search[operator]" value="or" type="radio" />Entsprechung mit beliebigem Wort auf der Seite (ODER)
+    <p><b>Wichtig:</b> Verwenden Sie in Feld "Publikation" <b>nie</b> "P.Oxy." usw., sondern <b>nur</b> "Oxy" usw. (es sei denn zur Unterscheidung von "P." und "O."). Weitere Hinweise finden Sie außerdem in<br> diesen <b>Suchhilfen</b>: <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}">Deutsch</a> bzw. <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}">English</a>.</p>
+    <table class="search">
+      <thead>
+        <tr>
+          <th class="field">Feld</th>
+          <th class="type">Typ</th>
+          <th class="criteria">Kriterien</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for key, caption in fieldList%}
+        <tr class="{{ key }}">
+          <th><label for="search_criteria_{{key}}_operator_value">{{ caption }}</label></th>
+          <td class="{{ key }}">
+            <select name="search[criteria][{{key}}][operator]">
+              <option value="cn">Enthält</option>
+              <option value="bw">Beginnt mit</option>
+              <option value="ew">Endet mit</option>
+              <option value="eq">Ist gleich</option>
+              <option value="neq">Ist ungleich</option>
+              <option value="lt">Kleiner als</option>
+              <option value="lte">Kleiner als oder gleich</option>
+              <option value="gt">Größer als</option>
+              <option value="gte">Größer als oder gleich</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" name="search[criteria][{{key}}][value]" id="search_criteria_{{key}}_operator_value" />
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    
+    <h3>Optionen</h3>
+    <p><input type="checkbox" name="search[mentionedDates]" name="search_mentionedDates"/><b>Auch in erwähnten Daten suchen</b></p>
+
+    <h3>Sortieren</h3>
+    <p><b>Hinweis:</b> Wenn keine Sortierreihenfolge angegeben wurde, werden die Datensätze automatisch nach Datum (Jahr, Monat, Tag und Chron-Global) oder nach der zuletzt ausgewählten Reihenfolge sortiert.</p>
+    
+    {% for i in 1..5 %}
+      <label for="sort_{{ i }}_key">{{ loop.index}}. Suchfeld</label>
+      <select name="sort[{{ i }}][key]" id="sort_{{ i }}_key">
+        <option value=""></option>
+        {% for key, caption in fieldList%}
+          <option value="{{ key }}">{{ caption }}</option>
+        {% endfor %}
+      </select>
+      <label for="sort_{{ i }}_direction">Suchrichtung</label>
+      <select name="sort[{{ i }}][direction]" id="sort_{{ i }}_direction">
+        <option value="ascend">aufsteigend</option>
+        <option value="descend">absteigend</option>
+      </select>
+      {% if not loop.last %}
+        <br />
+      {% endif %}
+    {% endfor %}
+
+    <h3>Blättern</h3>
+    <label>Anzahl Suchtreffer pro Seite</label>
+    
+    <select name="search[max]" value="100">
+      <option>10</option>
+      <option>20</option>
+      <option>50</option>
+      <option selected="selected">100</option>
+      <option>200</option>
+      <option>500</option>
+    </select>
+
+    <br />
+
+    <input type="hidden" name="search[skip]" value="0" />
+    <input type="submit" value="Suche starten" />
+    <input type="reset" value="Felder löschen" />
+  </form>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script type="text/javascript">
+
+
+  </script>
+{% endblock %}

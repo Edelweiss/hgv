@@ -1,0 +1,124 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Einführung{% endblock %}
+
+{% block body %}
+
+  <div class="page help">
+
+    <h5>Einführung</h5>
+
+    <p>Am <a href="https://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy">Institut für
+    Papyrologie</a> der <a href="https://www.uni-heidelberg.de">Universität
+    Heidelberg</a> wurde in den Jahren 1988 bis 2002 in der Arbeitsstelle "Papyrus-Editionen" der <a href="http://www.haw.baden-wuerttemberg.de/">Heidelberger Akademie der
+    Wissenschaften</a> ein elektronisches Gesamtverzeichnis der bisher 
+    veröffentlichten griechischen
+    Papyrusurkunden Ägyptens erarbeitet, welches auch verwandte Texte auf 
+    Ostraka und ähnlichen Schriftträgern, solche in lateinischer Sprache und
+     solche aus anderen Regionen des Vorderen Orients mit einschließt, 
+    während literarische und semiliterarische Texte sowie Inschriften 
+    grundsätzlich unberücksichtigt bleiben. Seit der Schließung der 
+    Arbeitsstelle Ende 2002 ist das Unternehmen ohne dauerhafte 
+    Finanzierung, sondern konnte seitdem nur durch kurzfristige Maßnahmen 
+    wie das von der <a href="http://www.dfg.de/">Deutschen Forschungsgemeinschaft</a> (DFG) geförderte Projekt "<a href="https://www.zaw.uni-heidelberg.de/hps/pap/Erweiterung.htm">Erweiterung des HGV
+    um bibliographische Nachweise vorhandener Übersetzungen
+    und Übersetzung der in BGU I-IV enthaltenen griechischen Texte</a><a>" sowie den unentgeltlichen Einsatz der unten genannten Personen am Leben gehalten werden.</a></p><a>
+    
+    </a><p><a>Die Datenbank, auf welcher das Gesamtverzeichnis basiert, wird
+     mit Hilfe des Programms "FileMaker Pro" erstellt. Ihre ursprüngliche 
+    Zielsetzung war, einen schnellen
+    Überblick darüber zu ermöglichen, welche Papyri usw. aus einem 
+    bestimmten
+    Zeitraum als Quellen zur Verfügung stehen. Besondere Aufmerksamkeit 
+    wurde bei der
+    Aufnahme daher dem Entstehungsdatum der Urkunden und gegebenenfalls in 
+    ihnen
+    erwähnten, weiter zurückliegenden Daten gewidmet. Darüber hinaus wurden
+    aber auch andere Informationen gespeichert, so etwa das Material des 
+    Schriftträgers, der Herkunftsort der Urkunde innerhalb
+    Ägyptens, Hinweise darauf, wo eventuell Reproduktionen des Originals
+    veröffentlicht worden sind, der in der jeweiligen Edition verwendete 
+    Originaltitel und Angaben zum Inhalt der Texte. Verweise auf in jüngerer
+     Zeit erschienene Sekundärliteratur werden - wenngleich nicht 
+    systematisch - ebenfalls laufend aufgenommen (zur Auflösung der 
+    verwendeten Abkürzungen s. </a><a href="{{ path('PapyrillioHgvBundle_DefaultAbbreviation') }}">Abkürzungen zitierter Bücher</a>).
+    
+     Seit immer mehr die Papyrologie unterstützende Arbeitsmittel im 
+    Internet zur Verfügung stehen (wie etwa die Volltextdatenbank der "Duke 
+    Databank of Documentary Papyri" und die inzwischen recht zahlreichen 
+    digitalen Abbildungen), sind unsere Bestrebungen dahingehend ausgeweitet
+     worden, <i>links</i> auf derartige Ressourcen in die Datenbank zu 
+    integrieren. Wir glauben, das HGV auf diese Weise zu einer 
+    Informationszentrale für alle Internet-Aktivitäten auf dem Felde der 
+    Papyrologie ausgebaut zu haben.</p>
+    
+    <p>Seit dem Sommer des Jahres 2000 ist die Datenbank im Prinzip 
+    vollständig, d.h. sie enthält alle in selbständigen Publikationen 
+    veröffentlichten einschlägigen Texte (ausgenommen sind nur die in 
+    Zeitschriftenartikeln usw. erschienenen Publikationen), so daß nur noch 
+    die laufenden Neuerscheinungen nachgetragen zu werden brauchen.
+    Im Augenblick (April 2008) enthält die Datenbank rund 56.100 Datensätze;
+     sie entstammen den nahezu 580 in der <a href="{{ path('PapyrillioHgvBundle_DefaultPublication') }}">Liste der
+    aufgenommenen Publikationen</a> verzeichneten Editionsbänden. Zu beachten ist dabei, daß die Zahl der bearbeiteten Texte <i>de facto</i>
+     etwas geringer ist, da im Falle von unsicher datierten Urkunden mehrere
+     (und zwar maximal 3) separate Datensätze pro Text angelegt werden.</p>
+    
+    <p>In der Vergangenheit wurden anfangs (seit August 1993)  über das WWW 
+    Auszüge aus der Datenbank in der Form
+    von chronologisch geordneten Listen zur Verfügung gestellt, die sich auf
+     die
+    beiden Eintragungen "Datierung" und "Beleg" beschränkten.
+    Seit Dezember 1997 ist dem Benutzer jedoch
+    auch der direkte Zugriff auf die Datenbank möglich, so daß wir  heute 
+    auf diese Listen verzichten. Der Benutzer kann jetzt eigene Recherchen 
+    durchführen (auch in kombinierter Suche nach mehreren Begriffen, man 
+    vergleiche die Suchhilfen <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}"> Deutsch</a> und <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}">English</a>). Außerdem ist auf diese Weise
+    jederzeit größste Aktualität gewährleistet. Schließlich kann man in
+    einer zweiten Datenbank namens "Erwähnte Daten" ebenfalls nach
+    Datierungen suchen (augenblicklicher Stand: April 2008). Diese Datenbank enthält
+    solche chronologischen, auf bestimmte Jahre festlegbaren Angaben, die wir nicht als das
+    Abfassungsdatum der Urkunde angesehen haben, sondern die in der Urkunde nur
+    "erwähnt" werden.</p>
+    
+    <p>Literaturhinweise: 
+    </p><ul>
+    <li style="margin-left: 2em;">James M. S. Cowey, Heidelberg Documentary Papyri Project, in: A.
+    Bülow-Jacobsen (Hrsg.), Proceedings of the 20th International Congress of
+    Papyrologists, Copenhagen, 23-29 August, 1992, Copenhagen 1994, S. 609-612
+    </li><li style="margin-left: 2em;">Dieter Hagedorn, Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens, in: M.
+    Fell, C. Schäfer, L. Wierschowski (Hrsg.), Datenbanken in der Alten Geschichte
+    (Computer und Antike 2), St. Katharinen 1994, S. 226-231
+    </li><li style="margin-left: 2em;">Wolfgang Habermann, Zur chronologischen Verteilung der 
+    papyrologischen Zeugnisse, Zeitschrift für Papyrologie und Epigraphik 
+    117 (1997) 180-182
+    </li><li style="margin-left: 2em;">Roger Bagnall, <a href="http://csanet.org/bmerr/1998/BagnaHeideAug.html">Review of Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens</a> (Datum der Besprechung: 3. August 1998)
+    </li><li style="margin-left: 2em;">Kai Ruffing, Elektronische Ressourcen in der Papyrologie, in: 
+    A. Cristofori u.a. (Hrsg.), La rete di Arachne - Arachnes Netz, 
+    Stuttgart 2000, S. 167-183 (174-177)
+    </li><li style="margin-left: 2em;"> Kai Ruffing, Papyrologische Ressourcen im Internet, in: F. 
+    Krüpe u.a. (Hrsg.), Digitalisierte Vergangenheit. Datenbanken und 
+    Multimedia von der Antke bis zur frühen Neuzeit, Wiesbaden 2005, S. 
+    27-46
+    </li></ul>
+    
+    <p>Kollegen, die Fragen haben, Fehler korrigieren oder andere Kommentare beisteuern
+    wollen, mögen sich wenden an<br />
+    
+    <a href="mailto:James.Cowey@urz.uni-heidelberg.de">James.Cowey@urz.uni-heidelberg.de</a><br />
+    <a href="mailto:dieter.hagedorn@urz.uni-heidelberg.de">Dieter.Hagedorn@urz.uni-heidelberg.de</a></p>
+    
+    <p>oder an folgende Adressen:<br /><br />
+    
+    James M. S. Cowey<br /> Institut für Papyrologie<br /> Universität Heidelberg<br />
+    Marstallstr. 6<br /> D-69117 Heidelberg
+    <br /><br />oder<br /><br />
+    Dieter Hagedorn<br />
+    Kirschblütenweg 6<br />
+    D-50996 Köln</p>
+    
+    <p>Hinweise und Anregungen jeglicher Art sind willkommen.</p>
+
+
+  </div>
+
+{% endblock %}

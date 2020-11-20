@@ -1,0 +1,15 @@
+{% extends '::window.html.twig' %}
+
+{% block titlebar %}Text der DDbDP{% endblock %}
+
+{% block content %}
+  {% if record.ddbSer %}
+    <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
+  {% endif %}
+
+  {{ record.htmlDdb|raw }}
+
+  {% if record.ddbSer %}
+    <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
+  {% endif %}
+{% endblock %}

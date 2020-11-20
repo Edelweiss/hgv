@@ -1,0 +1,212 @@
+{# Testfälle: 1005, 28210, 44502, 50307, 8886, 19648, 63705, 9088, 8981a #}
+
+<h3 class="catalogueShow">
+  {% if record.publikationLang %}
+    <a  href="#{{ record.id }}" onclick="top.location.href = '{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': record.hgvId}) }}'">{{ record.publikationLang|raw }}</a>
+  {% else %}
+     …
+  {% endif %}
+  {% if record.TmNr %}
+    <a  href="http://www.trismegistos.org/tm/detail.php?quick={{ record.TmNr }}" target="DAHT">TM Nr. {{ record.tmNr }}</a>
+    {% if record.tmNr~'' != record.id %}
+      <span class="mini">(HGV Nr. {{ record.id }})</span>
+    {% endif %}
+  {% endif %}
+</h3>
+
+<h4 class="catalogueShow">
+  {% if record.originaltitel == 'keiner' %}
+      Titel:
+  {% endif %}
+  {% if record.originaltitelHtml %}
+    {{ record.originaltitelHtml|raw }}
+  {% else %}
+    {{ record.originaltitel }}
+  {% endif %}
+</h4>
+
+<h5 class="catalogueShow">
+  {% if record.Ort %}
+    {% if record.Ort == 'unbekannt' %}
+      Ort
+    {% endif %}
+    <span>{{ record.ort|raw }}</span>
+  {% endif %}
+  {% if record.datierungIi %}
+    <span class="Datierung">{{ record.datierungIi|raw }}</span>
+  {% endif %}
+</h5>
+
+<table class="catalogueShow">
+  <tbody>
+    {% if record.anderePublikation %}
+      <tr>
+        <th>Andere Publikationen</th>
+        <td>{{ record.anderePublikation|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.material %}
+      <tr>
+        <th>Material</th>
+        <td>{{ record.material|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.abbildung %}
+      <tr class="pictureLinks">
+        <th>Abbildung</th>
+        <td>
+          {{ record.abbildung|raw }}
+        </td>
+      </tr>
+    {% endif %}
+    {% if record.bl or record.blOnline %}
+      <tr>
+        <th>BL-Einträge <br /> <span class="mini">(nach BL-Konkordanz)</span></th>
+        <td>
+          {{ record.bl|raw }}
+          {% if record.blOnline %}
+            <a target="Neu" href="https://aquila.zaw.uni-heidelberg.de/bl/hgv/{{ record.hgvId }}">BL online</a>
+          {% endif %}
+        </td>
+      </tr>
+    {% endif %}
+    {% if record.ldab == 'ja' %}
+      <tr class="ldab">
+        <th></th>
+        <td>
+          Trismegistos ermöglicht den Link zu Metadaten für diesen (semi)literarischen Text bei <a href="http://www.trismegistos.org/ldab/text.php?tm={{ record.tmNr }}" target="DAHT">LDAB</a>
+        </td>
+      </tr>
+    {% endif %}
+    {% if record.bemerkungen %}
+      <tr>
+        <th>Bemerkungen</th>
+        <td>{{ record.bemerkungen|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.daht == 'ja' %}
+      <tr class="daht">
+        <th></th>
+        <td>
+          Trismegistos ermöglicht den Link zu Metadaten für diesen bilinguen Text bei <a href="http://www.trismegistos.org/DAHT/daht_text_detail.php?tm={{ record.tmNr }}" target="DAHT">DAHT</a>
+        </td>
+      </tr>
+    {% endif %}
+    {% if record.uebersetzungen %}
+      <tr class="translation">
+        <th>Übersetzungen<br/><span class="hide">verbergen</span><span class="show">anzeigen</span></th>
+        <td>
+          {% set translations = processTranslations(record.uebersetzungen) %}
+          {% if translations %}
+            {% for language, translation in translations %}
+              <b>{{ language }}:</b>
+              <br />
+              <ul>
+              {% for bibliography in translation %}
+                <li>{{ bibliography|raw }}</li>
+              {% endfor %}
+              </ul>
+            {% endfor %}
+          {% else %}
+            {{ record.uebersetzungen|raw }}
+          {% endif %}
+        </td>
+      </tr>
+    {% endif %}
+    {% if record.dfg %}
+      <tr class="dfg">
+        <th></th>
+        <td>
+          <br />
+          <a href="https://www.zaw.uni-heidelberg.de/hps/pap/trans/DFG/de/{{ record.tmNr }}{{ record.texLett }}de.html" target="BGU">Deutsche Übersetzung (HGV-Erweiterungsprojekt, finanziert von der DFG)</a>
+          <br />
+          <a href="https://www.zaw.uni-heidelberg.de/hps/pap/trans/DFG/eng/{{ record.tmNr }}{{ record.texLett }}eng.html" target="BGU">English translation (HGV Enhancement Project funded by the DFG)</a>
+          <br />
+          <br />
+        </td>
+      </tr>
+    {% endif %}
+    {% if record.inhaltHtml %}
+      <tr>
+        <th>Inhalt</th>
+        <td>{{ record.InhaltHtml|raw }}</td>
+      </tr>
+    {% endif %}
+    {% if record.erwaehnteDaten %}
+      <tr class="mentionedDates">
+        <th>Erwähnte Daten</th>
+        <td>
+          {% if record.mentionedDates and record.mentionedDates|length %}
+            <ul>
+              {% for mentionedDate in record.mentionedDates %}
+                <li>
+                  {% if mentionedDate.zeile %}
+                    <b>{{ mentionedDate.zeile }}:</b>
+                  {% endif %}
+                  {{ mentionedDate.datierung }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            {{ record.erwaehnteDaten|raw }}
+          {% endif %}
+        </td>
+      </tr>
+    {% endif %}
+  </tbody>
+</table>
+
+<div class="dashboard">
+  <div class="text">
+    {% if record.hasHtmlDdb %}
+      <h6>
+        Texte der DDbDP
+        {% if record.ddbSer %}
+          <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
+        {% endif %}
+        <span class="show">Infofenster für digitale Inhalte wieder einblenden</span>
+        <button class="clipboard" data-clipboard-target="#ddbText" title="Firefox 41+, Safari 10+, Chrome42+, Opera 29+, IE 9+, Edge12+">DDB-Text in die Zwischenablage übernehmen</button>
+      </h6>    
+      <div id="ddbText">
+        {{ record.htmlDdb|raw }}
+      </div>
+      {% if record.ddbSer %}
+        <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
+      {% endif %}
+    {% else %}
+      Kein DDB-Text verfügbar
+    {% endif %}
+  </div>
+  
+  <div class="pictureLink">
+    <h6>Digitale Info / Abbildungen <span class="hide">verbergen</span></h6>
+    {% if record.pictureLinks|length %}
+      {% for pictureLink in record.pictureLinks %}
+          {% if pictureLink.url|slice(-3) == 'jpg' %}
+            <img src="{{ pictureLink.url|raw }}" class="pictureLink" title="{{pictureLink.institution}}" alt="Abbildung im Internet ({{pictureLink.institution}})" />
+          {% else %}
+            <div class="pictureLinkWrapper">
+              <iframe class="pictureLinkFrame" src="{{ pictureLink.url|raw }}"> </iframe>
+            </div>
+          {% endif %}
+          <br class="clear" />
+          <a target="Neu" href="{{ pictureLink.url|raw }}" title="{{ pictureLink.url }}">→ {{ pictureLink.institution }}</a>
+      {% endfor %}
+    {% else %}
+      keine Abbildungen vorhanden
+    {% endif %}
+  </div>
+  
+  <div class="translation">
+    <h6>Übersetzungen aus dem HGV</h6>
+    {% if record.htmlTranslation %}
+      {{ record.htmlTranslation|raw }}
+    {% else %}
+      keine Übersetzungen verfügbar
+    {% endif %}
+  </div>
+
+</div>
+<br class="clear"/>
+
+

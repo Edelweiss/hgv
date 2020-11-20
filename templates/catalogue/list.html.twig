@@ -1,0 +1,62 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+  {{ parent() }} - Tabelle
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+{% endblock %}
+
+{% block body %}
+  <p> Datensätze {{ from }}-{{ to }} von {{ result.foundSetCount }} Suchtreffern (Gesamt: {{ result.tableRecordCount }})</p>
+
+  <table class="catalogueList">
+    <thead>
+      <tr>
+        <th></th>
+        {% for key, field in fieldList %}
+          <th class="{{ key }} {{ sortDirections[key] }}" title="{{ sortDirections[key] == 'asc' ? 'aufwärts' : 'abwärts' }} sortieren nach Feld »{{ field }}«">
+            <a href="{{ path('PapyrillioHgvBundle_CatalogueList', {'search': search, 'sort': sortLinkParameters[key]}) }}">{{ field }}</a>
+          </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for index, record in result.records %}
+        <tr>
+          <th title="{{ record.recordId }}"><a href="{{ path('PapyrillioHgvBundle_CatalogueShow', {'search': search, 'sort': sort, 'show': {'skip': search['skip'] + index, 'max': 1}}) }}">{{ from + index }}</a></th>
+          {% for key, field in fieldList %}
+            <td class="{{ key }}">
+            {% if key == 'OriginaltitelHTML' %}
+              {{ record.field(key)|decode|raw }}
+            {% else %}
+              {{ record.field(key) }}
+            {% endif %}
+            </td>
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if searchPrev %}
+    <a href="{{ path('PapyrillioHgvBundle_CatalogueList', {'search': searchPrev, 'sort': sort}) }}">zurück</a>
+  {% endif %}
+
+  {% if searchNext %}
+    <a href="{{ path('PapyrillioHgvBundle_CatalogueList', {'search': searchNext, 'sort': sort}) }}">weiter</a>
+  {% endif %}
+  
+  {% include 'PapyrillioHgvBundle:Catalogue:snippetSearch.html.twig' with {'search': search, 'sort': sort, 'operatorSymbolList': operatorSymbolList} %}
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+
+  <script type="text/javascript">
+
+
+  </script>
+{% endblock %}

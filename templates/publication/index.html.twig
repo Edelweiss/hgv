@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Texte im HGV{% endblock %}
+
+{% block body %}
+  <h5>Texte im HGV</h5>
+  <div id="publication">
+    <ul id="volume" class="publication">
+      {% for publication in publications %}
+        <li data-url="{{ path('PapyrillioHgvBundle_PublicationLoadNumbers', {'collection': publication.collection, 'volume': publication.volume, 'particle': publication.particle}) }}">
+          {% if publication.totalReprint %}
+            <i>
+          {% endif %}
+          {{ publication.collection }} {{ publication.volume ? publication.volume|roman : '' }}{{ publication.particle }}
+          {% if publication.totalReprint %}
+            </i>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+    <ul id="number" class="publication"></ul>
+    <ul id="result" class="publication"></ul>
+  </div>
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('js/publication.js') }}" type="text/javascript"></script>
+{% endblock %}
