@@ -1,3 +1,3 @@
-[submodule "web/texte"]
-	path = web/texte
+[submodule "public/texte"]
+	path = public/texte
 	url = https://github.com/Edelweiss/hgv.texte.git
