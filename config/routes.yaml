@@ -1,3 +1,105 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+PapyrillioHgvBundle_DefaultIndex:
+    path:  /start
+    controller: App\Controller\DefaultController::index
+
+PapyrillioHgvBundle_DefaultAbbreviation:
+    path:  /abbreviations
+    controller: App\Controller\DefaultController::abbreviation
+
+PapyrillioHgvBundle_DefaultHelp:
+    path:  /help/{topic}/{language}
+    controller: App\Controller\Default:help
+
+PapyrillioHgvBundle_DefaultIntroduction:
+    path:  /introduction
+    controller: App\Controller\DefaultController::introduction
+
+PapyrillioHgvBundle_DefaultPublication:
+    path:  /publicationList
+    controller: App\Controller\DefaultController::publication
+
+PapyrillioHgvBundle_DefaultFeedback:
+    path:  /feedback
+    controller: App\Controller\DefaultController::feedback
+
+# P U B L I C A T I O N #
+
+PapyrillioHgvBundle_PublicationLoadNumbers:
+    path:  /publication/load/numbers/{collection}/{volume}/{particle}
+    controller: App\Controller\Publication:loadNumbers
+
+PapyrillioHgvBundle_PublicationLoadResults:
+    path:  /publication/load/results/{collection}/{volume}/{particle}/{number}/{side}/{extra}
+    controller: App\Controller\Publication:loadResults
+    requirements:
+      particle: "[^/]*"
+      number: "[^/]*"
+      side: "[^/]*"
+
+PapyrillioHgvBundle_PublicationIndex:
+    path:  /publication
+    controller: App\Controller\PublicationController::index
+
+# B R O W S E #
+
+PapyrillioHgvBundle_BrowseMultiple:
+    path:  /
+    controller: App\Controller\BrowseController::multiple
+
+PapyrillioHgvBundle_BrowseSingle:
+    path:  /show
+    controller: App\Controller\BrowseController::single
+
+PapyrillioHgvBundle_BrowseSearch:
+    path:  /search
+    controller: App\Controller\BrowseController::search
+
+# S H O R T C U T #
+
+PapyrillioHgvBundle_ShortcutHgv:
+    path:  /hgv/{id}
+    controller: App\Controller\ShortcutController::hgv
+    requirements:
+        id:  \d+[a-z]*
+
+PapyrillioHgvBundle_ShortcutTm:
+    path:  /tm/{id}
+    controller: App\Controller\ShortcutController::tm
+    requirements:
+        id:  \d+
+
+PapyrillioHgvBundle_ShortcutDdb:
+    path:  /ddb/{id}
+    controller: App\Controller\ShortcutController::ddb
+    requirements:
+        id:  "[^;]+;[^;]*;[^;]+"
+
+PapyrillioHgvBundle_ShortcutDdbdp:
+    path:  /ddb/{id}
+    controller: App\Controller\ShortcutController::ddb
+    requirements:
+        id:  "([^;]+;[^;]*;[^;]*;[^;]+;[^;]*;[^;]*|[^;]+;[^;]*;[^;]*;[^;]*;[^;]*;[^;]+|[^;]+;[^;]*;[^;]+|[^;]+;{5})" # Publikation, Band*, ZusBand*, Nummer, Seite*, zusaetzlich* ODER Publikation, Band*, ZusBand*, Nummer*, Seite*, zusaetzlich ODER Publikation Band* Nummer ODER Publikation;;;;;
+
+# S U P P L E M E N T A R Y #
+
+PapyrillioHgvBundle_SupplementaryText:
+    path:  /supplementary/text/{id} # 12345a (without Mehrfachkennung)
+    controller: App\Controller\SupplementaryController::text
+    requirements:
+        id:  \d+[a-z]*
+
+PapyrillioHgvBundle_SupplementaryTranslation:
+    path:  /supplementary/translation/{id}
+    controller: App\Controller\SupplementaryController::translation
+    requirements:
+        id:  \d+[a-z]*
+
+PapyrillioHgvBundle_SupplementaryPicture:
+    path:  /supplementary/picture/{id}
+    controller: App\Controller\SupplementaryController::picture
+    requirements:
+        id:  \d+[a-z]*
+
+PapyrillioHgvBundle_SupplementaryDashboardConfiguration:
+    path:  /supplementary/dashboardConfiguration
+    controller: App\Controller\SupplementaryController::dashboardConfiguration
