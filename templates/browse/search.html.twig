@@ -25,27 +25,27 @@
     <div class="searchFields">
       <fieldset class="searchId">
         {% for key in ['publikation', 'band', 'nummer', 'anderePublikation'] %}
-          {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': key } %}
+          {% include 'browse/_searchField.html.twig' with { 'key': key } %}
         {% endfor %}
       </fieldset>
 
       <fieldset class="searchDescription">
         {% for key in ['ort', 'originaltitel', 'material', 'inhalt', 'bemerkungen', 'uebersetzungen'] %}
-          {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': key } %}
+          {% include 'browse/_searchField.html.twig' with { 'key': key } %}
         {% endfor %}
       </fieldset>
 
       <fieldset class="searchImage">
         {% for key in ['abbildung', 'url'] %}
-          {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': key } %}
+          {% include 'browse/_searchField.html.twig' with { 'key': key } %}
         {% endfor %}
         <br />
-        {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': 'tmNr' } %}
+        {% include 'Browse/_searchField.html.twig' with { 'key': 'tmNr' } %}
       </fieldset>
 
       <fieldset class="searchDate">
         {% for key in ['jahr', 'monat', 'tag', 'jahrIi', 'jh', 'jhIi', 'chronMinimum', 'chronMaximum', 'chronGlobal'] %}
-          {% include 'PapyrillioHgvBundle:Browse:_searchField.html.twig' with { 'key': key } %}
+          {% include 'Browse/_searchField.html.twig' with { 'key': key } %}
         {% endfor %}
       </fieldset>
     
