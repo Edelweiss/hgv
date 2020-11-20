@@ -8,10 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends HgvController
 {
-  /*public function indexAction(){
-    return $this->render('PapyrillioHgvBundle:Default:index.html.twig');
-  }*/
- 
   public function index(): Response
   {
     return $this->render('default/index.html.twig', [
@@ -24,19 +20,23 @@ class DefaultController extends HgvController
     return $this->render('default/abbreviation.html.twig');
   }
 
-  public function helpAction($topic = '', $language = ''){
-    return $this->render('PapyrillioHgvBundle:Default:help' . ucfirst($topic) . ucfirst($language) . '.html.twig');
+  public function help($topic = '', $language = ''): Response
+  {
+    return $this->render('default/help' . ucfirst($topic) . ucfirst($language) . '.html.twig');
   }
 
-  public function introductionAction(){
-    return $this->render('PapyrillioHgvBundle:Default:introduction.html.twig');
+  public function introduction(): Response
+  {
+    return $this->render('default/introduction.html.twig');
   }
 
-  public function publicationAction(){
-    return $this->render('PapyrillioHgvBundle:Default:publication.html.twig');
+  public function publication(): Response
+  {
+    return $this->render('default/publication.html.twig');
   }
 
-  public function feedbackAction(){
+  public function feedback(): Response
+  {
     $to = 'Dieter Hagedorn <dieter.hagedorn@urz.uni-heidelberg.de>, James Cowey <james.cowey@urz.uni-heidelberg.de>, Carmen Lanz <carmen.lanz@zaw.uni-heidelberg.de>';
     $to = 'James Cowey <james.cowey@urz.uni-heidelberg.de>, Carmen Lanz <carmen.lanz@zaw.uni-heidelberg.de>';
     $name    = $this->smcf_filter($this->getParameter('name'));
