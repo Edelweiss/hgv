@@ -16,6 +16,7 @@
 
 .DS_Store
 
+# LEGACY
 /app/bootstrap*
 /app/cache/*
 /app/logs/*
@@ -27,3 +28,6 @@
 /src/Papyrillio/HgvBundle/Script/*.log
 /.project
 /.settings
+
+#NEW
+/.env
