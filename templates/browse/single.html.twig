@@ -15,19 +15,17 @@
     {% if showPrev %}
       <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showPrev}) }}">zurück</a>
     {% endif %}
-  
+
     {% if showNext %}
       <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showNext}) }}">weiter</a>
     {% endif %}
 
   </p>
 
-
-
   {# Testfälle: 50307, 8886, 19648, 63705, 9088, 8981a #}
-  
+
   {% if record %}
-    {% include browse/_datasheet.html.twig' with { 'record': record } %}
+    {% include 'browse/_datasheet.html.twig' with { 'record': record } %}
   {% endif %}
 
   {% if showPrev %}
