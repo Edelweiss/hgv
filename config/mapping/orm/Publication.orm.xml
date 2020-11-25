@@ -6,8 +6,13 @@
         <id name="id" type="integer">
             <generator strategy="AUTO"/>
         </id>
-        <field name="institution" type="text" nullable="true" />
-        <field name="name" type="text" nullable="true" />
-        <field name="url" type="text" nullable="false" />
+        <field name="collection" type="text" nullable="true" />
+        <field name="volume" type="integer" nullable="true" />
+        <field name="particle" type="text" nullable="true" />
+        <field name="number" type="integer" nullable="true" />
+        <field name="side" type="text" nullable="true" />
+        <field name="extra" type="text" nullable="true" />
+        <one-to-many field="children" target-entity="Publication" mapped-by="parent" />
+        <many-to-one field="parent" target-entity="Publication" inversed-by="children"/>
     </entity>
 </doctrine-mapping>

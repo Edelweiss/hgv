@@ -9,5 +9,8 @@
         <field name="institution" type="text" nullable="true" />
         <field name="name" type="text" nullable="true" />
         <field name="url" type="text" nullable="false" />
+        <many-to-one field="metadata" target-entity="Hgv" inversed-by="pictureLinks">
+            <join-column name="hgv_id" referenced-column-name="id" on-delete="CASCADE"/>
+        </many-to-one>
     </entity>
 </doctrine-mapping>

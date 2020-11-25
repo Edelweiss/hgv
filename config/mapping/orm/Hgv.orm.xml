@@ -74,5 +74,23 @@
         <field name="DatensatzNr" column="DatensatzNr" type="integer" nullable="true" />
         <field name="createdAt" column="createdAt" type="datetime" />
         <field name="modifiedAt" column="modifiedAt" type="datetime" />
+        <one-to-many field="pictureLinks" target-entity="PictureLink" mapped-by="metadata" orphan-removal="true">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+            <order-by>
+                <order-by-field name="institution" direction="ASC" />
+                <order-by-field name="name" direction="ASC" />
+            </order-by>
+        </one-to-many>
+        <one-to-many field="mentionedDates" target-entity="MentionedDate" mapped-by="metadata">
+            <order-by>
+                <order-by-field name="jahr" direction="ASC" />
+                <order-by-field name="monat" direction="ASC" />
+                <order-by-field name="tag" direction="ASC" />
+                <order-by-field name="jh" direction="ASC" />
+            </order-by>
+        </one-to-many>
     </entity>
 </doctrine-mapping>

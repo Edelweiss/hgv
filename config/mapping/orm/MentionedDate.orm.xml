@@ -20,5 +20,8 @@
         <field name="unsicher" type="text" nullable="true" />
         <field name="datierung" type="text" nullable="true" />
         <field name="datierungIi" column="datierungIi" type="text" nullable="true" />
+        <many-to-one field="metadata" target-entity="Hgv" inversed-by="mentionedDates">
+            <join-column name="hgv_id" referenced-column-name="id" on-delete="CASCADE"/>
+        </many-to-one>
     </entity>
 </doctrine-mapping>
