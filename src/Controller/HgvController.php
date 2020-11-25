@@ -16,14 +16,15 @@ class HgvController extends AbstractController{
       $this->request = $requestStack->getCurrentRequest();
   }
   protected function getParameter($key){
-    $get  = $this->request->query->get($key);
+    return $this->request->query->all($key);
+    /*$get  = $this->request->query->get($key);
     $post = $this->request->request->get($key);
 
     if($post && (is_array($post) || strlen(trim($post)))){
       return $post;
     }
 
-    return $get;
+    return $get;*/
   }
 
   protected function getSessionParameter($key){
