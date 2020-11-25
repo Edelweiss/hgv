@@ -1,12 +1,8 @@
 <?php
 
-namespace Papyrillio\HgvBundle\Entity;
+namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * Papyrillio\HgvBundle\Entity\MentionedDate
- */
+use App\Repository\MentionedDateRepository;
 
 class MentionedDate
 {
