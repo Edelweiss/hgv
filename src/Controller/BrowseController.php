@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Hgv;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -211,8 +212,8 @@ class BrowseController extends HgvController
       $orderBy = $this->orderBy($sort);
       list($where, $parameters) = $this->where($search);
 
-      $entityManager = $this->getDoctrine()->getEntityManager();
-      $repository = $entityManager->getRepository('PapyrillioHgvBundle:Hgv');
+      $entityManager = $this->getDoctrine()->getManager();
+      $repository = $entityManager->getRepository(Hgv::class);
 
       $select = $this->select($search, $sort);
       $selectCount = $this->select($search, $sort, self::COUNT_TRUE);
