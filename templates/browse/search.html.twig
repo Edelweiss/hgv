@@ -40,12 +40,12 @@
           {% include 'browse/_searchField.html.twig' with { 'key': key } %}
         {% endfor %}
         <br />
-        {% include 'Browse/_searchField.html.twig' with { 'key': 'tmNr' } %}
+        {% include 'browse/_searchField.html.twig' with { 'key': 'tmNr' } %}
       </fieldset>
 
       <fieldset class="searchDate">
         {% for key in ['jahr', 'monat', 'tag', 'jahrIi', 'jh', 'jhIi', 'chronMinimum', 'chronMaximum', 'chronGlobal'] %}
-          {% include 'Browse/_searchField.html.twig' with { 'key': key } %}
+          {% include 'browse/_searchField.html.twig' with { 'key': key } %}
         {% endfor %}
       </fieldset>
     

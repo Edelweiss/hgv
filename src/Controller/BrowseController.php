@@ -136,7 +136,7 @@ class BrowseController extends HgvController
         }
         
 
-        return $this->render('PapyrillioHgvBundle:Browse:single.html.twig', array(
+        return $this->render('browse/single.html.twig', array(
           'search'             => $search,
           'sort'               => $sort,
           'show'               => $show,
@@ -147,7 +147,7 @@ class BrowseController extends HgvController
           'countSearch'        => $result['countSearch'],
           'record'             => $record));
       } catch(Exception $e){
-        return $this->render('PapyrillioHgvBundle:Catalogue:error.html.twig', array('message' => 'FileMaker Error #' . $e->getMessage()));
+        return $this->render('catalogue/error.html.twig', array('message' => 'FileMaker Error #' . $e->getMessage()));
       }
     }
 
@@ -187,7 +187,7 @@ class BrowseController extends HgvController
           }
           $sortLinkParameters[$key] = array(1 => array('key' => $key, 'direction' => $direction));
         }
-        return $this->render('PapyrillioHgvBundle:Browse:multi.html.twig', array(
+        return $this->render('browse/multi.html.twig', array(
           'result' => $result['data'],
           'search' => $search,
           'sort' => $sort,
@@ -204,7 +204,7 @@ class BrowseController extends HgvController
           'query' => $result['query']
         ));
       } catch(Exception $e){
-        return $this->render('PapyrillioHgvBundle:Catalogue:error.html.twig', array('message' => 'Error: ' . $e->getMessage()));
+        return $this->render('catalogue/error.html.twig', array('message' => 'Error: ' . $e->getMessage()));
       }
     }
 
