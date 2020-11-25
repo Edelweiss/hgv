@@ -248,14 +248,14 @@ class BrowseController extends HgvController
           break;
         }
       }
-      
+
       foreach($search['criteria'] as $field => $criterion){
         if(self::$TABLE_MAP[$field] === 'p'){
           $pictureLinks = true;
           break;
         }
       }
-      
+
       if($pictureLinks){
         $select .= 'LEFT JOIN h.pictureLinks p ';
       }
