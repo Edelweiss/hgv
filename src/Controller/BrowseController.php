@@ -239,7 +239,7 @@ class BrowseController extends HgvController
       $select = $count ? 'SELECT COUNT(DISTINCT h.id) ' : 'SELECT DISTINCT h ';
       
       // choose tables
-      $select .= 'FROM PapyrillioHgvBundle:Hgv h LEFT JOIN h.mentionedDates m ';
+      $select .= 'FROM App\Entity\Hgv h LEFT JOIN h.mentionedDates m ';
 
       $pictureLinks = false;
       foreach($sort as $sortItem){
