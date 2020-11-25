@@ -16,64 +16,64 @@
             <lifecycle-callback type="postPersist" method="doStuffOnPostPersist"/>
         </lifecycle-callbacks-->
 
-        <!--id name="id" column="id" type="uuid"/-->
+        <!--id name="id" type="uuid"/-->
         <id name="id" type="string" length="64"><!-- texIdLang (TmNr + texLett + mehrfachKennung) -->
             <!-- unique -->
             <!-- index -->
             <!--generator strategy="AUTO"/>
             <sequence-generator sequence-name="tablename_seq" allocation-size="100" initial-value="1" /-->
         </id>
-        <field name="tmNr" column="tm_nr" type="integer" nullable="true" />
-        <field name="texLett" column="tex_lett" type="text" nullable="true" />
-        <field name="mehrfachKennung" column="mehrfach_kennung" type="text" nullable="true" />
-        <field name="hgvId" column="hgv_id" type="text" nullable="true" />
+        <field name="tmNr" column="tmNr" type="integer" nullable="true" />
+        <field name="texLett" column="texLett" type="text" nullable="true" />
+        <field name="mehrfachKennung" column="mehrfachKennung" type="text" nullable="true" />
+        <field name="hgvId" column="hgvId" type="text" nullable="true" />
         <field name="publikation" type="text" nullable="true" />
         <field name="band" type="integer" nullable="true" />
-        <field name="zusBand" column="zus_band" type="text" nullable="true" />
-        <field name="nummer" type="text" nullable="true" />
+        <field name="zusBand" column="zusBand" type="text" nullable="true" />
+        <field name="nummer" column="nummer" type="text" nullable="true" />
         <field name="seite" type="text" nullable="true" />
         <field name="zusaetzlich" type="text" nullable="true" />
-        <field name="publikationLang" column="publication_lang" type="text" nullable="true" />
+        <field name="publikationLang" column="publikationLang" type="text" nullable="true" />
         <field name="material" type="text" nullable="true" />
-        <field name="zusaetzlichSort" column="zusaetzlich_sort" type="text" nullable="true" />
+        <field name="zusaetzlichSort" column="zusaetzlichSort" type="text" nullable="true" />
         <field name="jahr" type="integer" nullable="true" />
         <field name="monat" type="integer" nullable="true" />
         <field name="tag" type="integer" nullable="true" />
         <field name="jh" type="integer" nullable="true" />
         <field name="erg" type="text" nullable="true" />
-        <field name="jahrIi" column="jahr_ii" type="integer" nullable="true" />
-        <field name="monatIi" column="monat_ii" type="integer" nullable="true" />
-        <field name="tagIi" column="tag_ii" type="integer" nullable="true" />
-        <field name="jhIi" column="jh_ii" type="integer" nullable="true" />
-        <field name="ergIi" column="erg_ii" type="text" nullable="true" />
-        <field name="chronMinimum" column="chron_minimum" type="integer" nullable="true" />
-        <field name="chronMaximum" column="chron_maximum" type="integer" nullable="true" />
-        <field name="chronGlobal" column="chron_global" type="integer" nullable="true" />
-        <field name="erwaehnteDaten" column="erwaehnte_daten" type="text" nullable="true" />
+        <field name="jahrIi" column="jahrIi" type="integer" nullable="true" />
+        <field name="monatIi" column="monatIi" type="integer" nullable="true" />
+        <field name="tagIi" column="tagIi" type="integer" nullable="true" />
+        <field name="jhIi" column="jhIi" type="integer" nullable="true" />
+        <field name="ergIi" column="ergIi" type="text" nullable="true" />
+        <field name="chronMinimum" column="chronMinimum" type="integer" nullable="true" />
+        <field name="chronMaximum" column="chronMaximum" type="integer" nullable="true" />
+        <field name="chronGlobal" column="chronGlobal" type="integer" nullable="true" />
+        <field name="erwaehnteDaten" column="erwaehnteDaten" type="text" nullable="true" />
         <field name="unsicher" type="text" nullable="true" />
         <field name="datierung" type="text" nullable="true" />
-        <field name="datierungIi" column="datierung_ii" type="text" nullable="true" />
-        <field name="anderePublikation" column="andere_publikation" type="text" nullable="true" />
+        <field name="datierungIi" column="datierungIi" type="text" nullable="true" />
+        <field name="anderePublikation" column="anderePublikation" type="text" nullable="true" />
         <field name="bl" type="text" nullable="true" />
-        <field name="blOnline" type="boolean" nullable="true" />
+        <field name="blOnline" column="blOnline" type="boolean" nullable="true" />
         <field name="uebersetzungen" type="text" nullable="true" />
         <field name="abbildung" type="text" nullable="true" />
         <field name="ort" type="text" nullable="true" />
         <field name="originaltitel" type="text" nullable="true" />
-        <field name="originaltitelHtml" column="originaltitel_html" type="text" nullable="true" />
+        <field name="originaltitelHtml" column="originaltitelHtml" type="text" nullable="true" />
         <field name="inhalt" type="text" nullable="true" />
-        <field name="inhaltHtml" column="inhalt_html" type="text" nullable="true" />
+        <field name="inhaltHtml" column="inhaltHtml" type="text" nullable="true" />
         <field name="bemerkungen" type="text" nullable="true" />
         <field name="daht" type="text" nullable="true" />
         <field name="ldab" type="text" nullable="true" />
         <field name="dfg" type="text" nullable="true" />
-        <field name="ddbSer" column="ddb_ser" type="text" nullable="true" />
-        <field name="ddbVol" column="ddb_vol" type="text" nullable="true" />
-        <field name="ddbDoc" column="ddb_doc" type="text" nullable="true" />
-        <field name="eingegebenAm" column="eingegeben_am" type="date" nullable="true" />
-        <field name="zulGeaendertAm" column="zul_geaendert_am" type="date" nullable="true" />
-        <field name="DatensatzNr" column="datensatz_nr" type="integer" nullable="true" />
-        <field name="createdAt" column="created_at" type="datetime" />
-        <field name="modifiedAt" column="modified_at" type="datetime" />
+        <field name="ddbSer" column="ddbSer" type="text" nullable="true" />
+        <field name="ddbVol" column="ddbVol" type="text" nullable="true" />
+        <field name="ddbDoc" column="ddbDoc" type="text" nullable="true" />
+        <field name="eingegebenAm" column="eingegebenAm" type="date" nullable="true" />
+        <field name="zulGeaendertAm" column="zulGeaendertAm" type="date" nullable="true" />
+        <field name="DatensatzNr" column="DatensatzNr" type="integer" nullable="true" />
+        <field name="createdAt" column="createdAt" type="datetime" />
+        <field name="modifiedAt" column="modifiedAt" type="datetime" />
     </entity>
 </doctrine-mapping>
