@@ -10,21 +10,17 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 class HgvController extends AbstractController{
   protected $request;
+  protected $allParameters = [];
 
   public function __construct(RequestStack $requestStack)
   {
       $this->request = $requestStack->getCurrentRequest();
+      $this->allParameters = array_merge($this->request->request->all(), $this->request->query->all());
   }
   protected function getParameter($key){
-    return $this->request->query->all($key);
-    /*$get  = $this->request->query->get($key);
-    $post = $this->request->request->get($key);
-
-    if($post && (is_array($post) || strlen(trim($post)))){
-      return $post;
+    if(array_key_exists($key, $this->allParameters)){
+      return $this->allParameters[$key];
     }
-
-    return $get;*/
   }
 
   protected function getSessionParameter($key){
