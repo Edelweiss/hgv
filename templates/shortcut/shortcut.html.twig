@@ -1,8 +1,8 @@
-{% extends '::' ~ (layout is defined ? layout : 'base') ~ '.html.twig' %}
+{% extends (layout is defined ? layout : 'base') ~ '.html.twig' %}
 
 {% block body %}
   {% for hgv in data %}
-      {% include 'PapyrillioHgvBundle:Browse:_datasheet.html.twig' with { 'record': hgv, 'translations': null } %}
+      {% include 'browse/_datasheet.html.twig' with { 'record': hgv, 'translations': null } %}
   {% endfor %}
 {% endblock %}
 
