@@ -6,6 +6,7 @@ use App\Repository\HgvRepository;
 
 class Hgv
 {
+    private const IDP_DATA  = __DIR__ . '/../../data';
     /**
      * @var string $id
      */
@@ -1384,7 +1385,6 @@ class Hgv
 
     public function getHtmlDdb(){
       $file = $this->getFullFilePathDdb('html');
-
       if(file_exists($file)){
         return file_get_contents($file);
       }
@@ -1392,7 +1392,7 @@ class Hgv
     }
     
     public function getHtmlTranslation(){
-      $file = '/Users/Admin/idp.data/aquila/HGV_trans_EpiDoc_HTML/' . $this->getHgvId() . '.html';
+      $file = Hgv::IDP_DATA . '/HGV_trans_EpiDoc_HTML/' . $this->getHgvId() . '.html';
 
       if(file_exists($file)){
         return file_get_contents($file);
@@ -1402,7 +1402,7 @@ class Hgv
 
     public function getFullFilePathDdb($suffix = 'xml')
     {
-      return '/Users/Admin/idp.data/aquila/' . $this->getFilePathDDb($suffix);
+      return Hgv::IDP_DATA . '/' . $this->getFilePathDDb($suffix);
     }
     
     public function getFilePathDdb($suffix = 'xml')
