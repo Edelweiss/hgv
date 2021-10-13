@@ -57,12 +57,12 @@ class UpdateDatabaseCommand extends ParseHgvFmpCommand
 
 
         if(($this->flushCounter++ % 400) === 0){
-   #   $this->entityManager->flush();
-   #   $this->entityManager->clear();
+      $this->entityManager->flush();
+      $this->entityManager->clear();
 	}
       }
-   #   $this->entityManager->flush();
-   #   $this->entityManager->clear();
+      $this->entityManager->flush();
+      $this->entityManager->clear();
 
         return Command::SUCCESS;
         // return Command::FAILURE;
