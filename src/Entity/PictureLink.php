@@ -115,7 +115,7 @@ class PictureLink
      *
      * @param Papyrillio\HgvBundle\Entity\Hgv $metadata
      */
-    public function setMetadata(\Papyrillio\HgvBundle\Entity\Hgv $metadata)
+    public function setMetadata(\App\Entity\Hgv $metadata)
     {
         $this->metadata = $metadata;
     }

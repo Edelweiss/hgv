@@ -1331,7 +1331,7 @@ class Hgv
      *
      * @param Papyrillio\HgvBundle\Entity\MentionedDate $mentionedDate
      */
-    public function addMentionedDate(\Papyrillio\HgvBundle\Entity\MentionedDate $mentionedDate)
+    public function addMentionedDate(\App\Entity\MentionedDate $mentionedDate)
     {
         $mentionedDate->setMetadata($this);
         $this->mentionedDates[] = $mentionedDate;
@@ -1352,7 +1352,7 @@ class Hgv
      *
      * @param Papyrillio\HgvBundle\Entity\PictureLink $pictureLink
      */
-    public function addPictureLink(\Papyrillio\HgvBundle\Entity\PictureLink $pictureLink)
+    public function addPictureLink(\App\Entity\PictureLink $pictureLink)
     {
         $pictureLink->setMetadata($this);
         $this->pictureLinks[] = $pictureLink;

@@ -208,7 +208,7 @@ class Publication
      *
      * @param Papyrillio\HgvBundle\Entity\Publication $children
      */
-    public function addPublication(\Papyrillio\HgvBundle\Entity\Publication $children)
+    public function addPublication(\App\Entity\Publication $children)
     {
         $this->children[] = $children;
     }
@@ -228,7 +228,7 @@ class Publication
      *
      * @param Papyrillio\HgvBundle\Entity\Publication $parent
      */
-    public function setParent(\Papyrillio\HgvBundle\Entity\Publication $parent)
+    public function setParent(\App\Entity\Publication $parent)
     {
         $this->parent = $parent;
     }
