@@ -46,7 +46,7 @@ class UpdateDatabaseCommand extends ParseHgvFmpCommand
 
         $hgv = $this->generateObjectFromXml($row, $hgv);
 
-        echo ($this->flushCounter + 1) . ': ' . $hgv->getPublikationLang() . ' (TM-Nr. ' . $hgv->getId() . ') [' . $unitOfWorkStates[$this->entityManager->getUnitOfWork()->getEntityState($hgv)] .  ']'  . "\n";
+        echo ($this->flushCounter + 1) . ': ' . $hgv->getPublikationLang() . ' (HGV full ' . $hgv->getId()  . ') [' . $unitOfWorkStates[$this->entityManager->getUnitOfWork()->getEntityState($hgv)] .  ']'  . "\n";
         if($this->entityManager->getUnitOfWork()->getEntityState($hgv) === UnitOfWork::STATE_NEW){
           $this->entityManager->persist($hgv);
         }
