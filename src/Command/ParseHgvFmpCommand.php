@@ -177,7 +177,7 @@ echo $key . ' > ' . $position . "\n";
         $hgv->setdatierungIi($cols->item($this->positions['datierungIi'])->nodeValue);
         $hgv->setanderePublikation($cols->item($this->positions['anderePublikation'])->nodeValue);
         $hgv->setbl($cols->item($this->positions['bl'])->nodeValue);
-        #$hgv->setblOnline($cols->item($this->positions['blOnline'])->nodeValue);
+        $hgv->setblOnline($cols->item($this->positions['blOnline'])->nodeValue);
         $hgv->setuebersetzungen($cols->item($this->positions['uebersetzungen'])->nodeValue);
         $hgv->setabbildung($cols->item($this->positions['abbildung'])->nodeValue);
         $hgv->setort($cols->item($this->positions['ort'])->nodeValue);
@@ -191,7 +191,7 @@ echo $key . ' > ' . $position . "\n";
         $hgv->setdfg($cols->item($this->positions['dfg'])->nodeValue);
         $ddbSer = $cols->item($this->positions['ddbSer'])->nodeValue;
         if(!$ddbSer or $ddbSer == ''){
-          #$ddbSer = $cols->item($this->positions['ddbSerIdp'])->nodeValue;
+          $ddbSer = $cols->item($this->positions['ddbSerIdp'])->nodeValue;
         }
         $hgv->setddbSer($ddbSer);
         $hgv->setddbVol($cols->item($this->positions['ddbVol'])->nodeValue);
