@@ -41,27 +41,20 @@ class UpdateRecordsCommand extends ReadFodsCommand
         $hgv = $this->generateObjectFromXml($row, $hgv);
         echo ($this->flushCounter + 1) . ': ' . $hgv->getPublikationLang() . ' (HGV full ' . $hgv->getId()  . ') [' . $unitOfWorkStates[$this->entityManager->getUnitOfWork()->getEntityState($hgv)] .  ']'  . "\n";
 
-      
 
-/*
-      
+        if($this->entityManager->getUnitOfWork()->getEntityState($hgv) === UnitOfWork::STATE_NEW){
+          $this->entityManager->persist($hgv);
+        }
 
-      
-
-      
-      if($this->entityManager->getUnitOfWork()->getEntityState($hgv) === UnitOfWork::STATE_NEW){
-        $this->entityManager->persist($hgv);
-      }
-
-      if(($this->flushCounter++ % 400) === 0){
-        $this->entityManager->flush();
-        $this->entityManager->clear();
-      }*/
+        if(($this->flushCounter++ % 400) === 0){
+          $this->entityManager->flush();
+          $this->entityManager->clear();
+        }
       }
     }
-    /*$this->entityManager->flush();
+    $this->entityManager->flush();
     $this->entityManager->clear();
-*/
+
     return Command::SUCCESS;
     //return Command::FAILURE;
     //return Command::INVALID

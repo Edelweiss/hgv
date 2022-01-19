@@ -109,7 +109,7 @@ class ReadFodsCommand extends Command
         echo 'import dir: ' . self::IMPORT_DIR . "\n";
         return Command::SUCCESS;
         // return Command::FAILURE;
-        // return Command::INVALID
+        // return Command::INVALID;
     }
 
     protected function loadFodsData($fodsFile)
@@ -138,14 +138,14 @@ class ReadFodsCommand extends Command
     protected static function makeInteger($fmInt){
       return str_replace(' ', '', $fmInt);
     }
-
-    protected static function makeDate($fmDate){
-      if(preg_match('/\d\d.\d\d.\d\d\d\d/', $fmDate)){
-        return new DateTime(substr($fmDate, 6, 4) . '-' . substr($fmDate, 3, 2) . '-' . substr($fmDate, 0, 2));
+*/
+    protected static function makeDate($germanDate){
+      if(preg_match('/\d\d.\d\d.\d\d\d\d/', $germanDate)){
+        return new DateTime(substr($germanDate, 6, 4) . '-' . substr($germanDate, 3, 2) . '-' . substr($germanDate, 0, 2));
       }
       return new DateTime();
     }
-*/
+
     protected function getValue($row, $fieldName){
       $fieldIndex = $this->positions[$fieldName];
       $nodeList = $this->xpath->evaluate('table:table-cell[(count(preceding-sibling::table:table-cell[not(@table:number-columns-repeated)]) + sum(preceding-sibling::table:table-cell/@table:number-columns-repeated) + 1) >= ' . $fieldIndex . ']', $row);
@@ -170,6 +170,69 @@ class ReadFodsCommand extends Command
         $hgv = new Hgv($this->getValue($row, 'hgv_id_long'));
         $hgv->setCreatedAt(new DateTime());
       }
+      $hgv->setModifiedAt(new DateTime());
+      $hgv->settmNr($this->getValue($row, 'tm_id'));
+      $hgv->settexLett($this->getValue($row, 'hgv_letter'));
+      $hgv->setmehrfachKennung($this->getValue($row, 'multiple_letter'));
+      $hgv->setpublikation($this->getValue($row, 'publication'));
+      $hgv->setband($this->getValue($row, 'volume'));
+      $hgv->setzusBand($this->getValue($row, 'volume_extra'));
+      $hgv->setnummer($this->getValue($row, 'number'));
+      $hgv->setzusaetzlich($this->getValue($row, 'number_extra'));
+      $hgv->setseite($this->getValue($row, 'side'));
+      $hgv->setpublikationLang($this->getValue($row, 'publication_long'));
+      $hgv->setmaterial($this->getValue($row, 'material'));
+      #$hgv->setzusaetzlichSort($this->getValue($row, 'xxx'));
+      $hgv->setinvNr($this->getValue($row, 'inventory_number'));
+      $hgv->setjahr($this->getValue($row, 'year_1'));
+      $hgv->setmonat($this->getValue($row, 'month_1'));
+      $hgv->settag($this->getValue($row, 'day_1'));
+      $hgv->setjh($this->getValue($row, 'century_1'));
+      $hgv->seterg($this->getValue($row, 'extra_1'));
+      $hgv->setjahrIi($this->getValue($row, 'year_2'));
+      $hgv->setmonatIi($this->getValue($row, 'month_2'));
+      $hgv->settagIi($this->getValue($row, 'day_2'));
+      $hgv->setjhIi($this->getValue($row, 'century_2'));
+      $hgv->setergIi($this->getValue($row, 'extra_2'));
+      $hgv->setunsicher($this->getValue($row, 'uncertain'));
+      $hgv->setchronMinimum($this->getValue($row, 'chron_minimum'));
+      $hgv->setchronMaximum($this->getValue($row, 'chron_maximum'));
+      $hgv->setchronGlobal($this->getValue($row, 'chron_global'));
+      $hgv->seterwaehnteDaten($this->getValue($row, 'mentioned_dates'));
+      $hgv->setdatierung($this->getValue($row, 'date_1'));
+      $hgv->setdatierungIi($this->getValue($row, 'date_2'));
+      $hgv->setanderePublikation($this->getValue($row, 'other_publication'));
+      #$hgv->setbl($this->getValue($row, 'xxx'));
+      #$hgv->setblOnline($this->getValue($row, 'xxx'));
+      $hgv->setuebersetzungen($this->getValue($row, 'translations'));
+      $hgv->setabbildung($this->getValue($row, 'published_photo'));
+      $hgv->setort($this->getValue($row, 'provenance'));
+      $hgv->setoriginaltitel($this->getValue($row, 'original_title'));
+      $hgv->setoriginaltitelHtml($this->getValue($row, 'original_title'));
+      $hgv->setinhalt($this->getValue($row, 'content'));
+      $hgv->setinhaltHtml($this->getValue($row, 'content'));
+      $hgv->setbemerkungen($this->getValue($row, 'notes'));
+      #$hgv->setdaht($this->getValue($row, 'xxx'));
+      #$hgv->setldab($this->getValue($row, 'xxx'));
+      #$hgv->setdfg($this->getValue($row, 'xxx'));
+      $hgv->setddbSer($this->getValue($row, 'ddb_collection_hybrid'));
+      $hgv->setddbVol($this->getValue($row, 'ddb_volume_number'));
+      $hgv->setddbDoc($this->getValue($row, 'ddb_document_number'));
+      #$hgv->setDatensatzNr($this->getValue($row, 'xxx'));
+      $hgv->seteingegebenAm(self::makeDate($this->getValue($row, 'created')));
+      $hgv->setzulGeaendertAm(self::makeDate($this->getValue($row, 'created')));
+
+      $hgv->setHgvId($hgv->getTmNr() . $hgv->getTexLett());
+
+      if($hgv->getPictureLinks()){
+        $hgv->getPictureLinks()->clear();
+      } // due to definition »orphanRemoval: true« in »Hgv.orm.yml« old picture links will be deleted (i.e. removed) automatically
+
+      foreach(explode(' ', $this->getValue($row, 'image_link')) as $linkFm){
+        $pictureLink = new PictureLink($linkFm);
+        $hgv->addPictureLink($pictureLink);
+      } // due to definition »cascade: ['persist', 'remove']« in »Hgv.orm.yml« these picture links will become persistent as soon as the owning HGV record will become persistent
+
       /*
         $cols = $this->xpath->evaluate('fm:COL/fm:DATA[1]', $row);
 
