@@ -17,6 +17,7 @@ class UpdateRecordsCommand extends ReadFodsCommand
   // the name of the command (the part after "bin/console")
   protected static $defaultName = 'app:update-records';
   protected $entityManager;
+  protected $dryRun = false;
 
   public function __construct(EntityManagerInterface $entityManager){
     $this->entityManager = $entityManager;
@@ -40,23 +41,33 @@ class UpdateRecordsCommand extends ReadFodsCommand
         $hgv = $this->entityManager->getRepository(Hgv::class)->findOneBy(['id' => $tm]);
         $hgv = $this->generateObjectFromXml($row, $hgv);
         echo ($this->flushCounter + 1) . ': ' . $hgv->getPublikationLang() . ' (HGV full ' . $hgv->getId()  . ') [' . $unitOfWorkStates[$this->entityManager->getUnitOfWork()->getEntityState($hgv)] .  ']'  . "\n";
-
-
-        if($this->entityManager->getUnitOfWork()->getEntityState($hgv) === UnitOfWork::STATE_NEW){
-          $this->entityManager->persist($hgv);
+        if($this->dryRun){
+          $this->runDry($hgv);
         }
-
+        if(!$this->dryRun){
+          if($this->entityManager->getUnitOfWork()->getEntityState($hgv) === UnitOfWork::STATE_NEW || $this->entityManager->getUnitOfWork()->getEntityState($hgv) === UnitOfWork::STATE_DETACHED){
+            $this->entityManager->persist($hgv);
+          }
+        }
         if(($this->flushCounter++ % 400) === 0){
-          $this->entityManager->flush();
-          $this->entityManager->clear();
+	  if(!$this->dryRun){
+            $this->entityManager->flush();
+            $this->entityManager->clear();
+	  }
         }
       }
     }
-    $this->entityManager->flush();
-    $this->entityManager->clear();
+    if(!$this->dryRun){
+      $this->entityManager->flush();
+      $this->entityManager->clear();
+    }
 
     return Command::SUCCESS;
     //return Command::FAILURE;
     //return Command::INVALID
+  }
+  function runDry($hgv){
+    echo $hgv->getPublikationLang() . ' (' . $hgv->getPublikation() . '|' . $hgv->getBand() . '|' . $hgv->getZusBand() . '|' . $hgv->getNummer() . '|' . $hgv->getSeite() . '|' . $hgv->getZusaetzlich() . ')';
+    echo "\n";
   }
 }

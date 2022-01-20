@@ -148,7 +148,8 @@ class ReadFodsCommand extends Command
 
     protected function getValue($row, $fieldName){
       $fieldIndex = $this->positions[$fieldName];
-      $nodeList = $this->xpath->evaluate('table:table-cell[(count(preceding-sibling::table:table-cell[not(@table:number-columns-repeated)]) + sum(preceding-sibling::table:table-cell/@table:number-columns-repeated) + 1) >= ' . $fieldIndex . ']', $row);
+      //$nodeList = $this->xpath->evaluate('table:table-cell[(count(preceding-sibling::table:table-cell[not(@table:number-columns-repeated)]) + sum(preceding-sibling::table:table-cell/@table:number-columns-repeated) + (1)) >= ' . $fieldIndex . ']', $row);
+      $nodeList = $this->xpath->evaluate('table:table-cell[(count(preceding-sibling::table:table-cell[not(@table:number-columns-repeated)]) + sum(preceding-sibling::table:table-cell/@table:number-columns-repeated) + (1 - count(@table:number-columns-repeated) + sum(@table:number-columns-repeated))) >= ' . $fieldIndex . ']', $row);
       if(!$nodeList->item(0)){
         echo '----------------------------------------------- ' . $fieldName . '/' . $fieldIndex . "\n";
         foreach($this->xpath->evaluate('table:table-cell', $row) as $node){
