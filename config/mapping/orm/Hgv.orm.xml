@@ -35,6 +35,7 @@
         <field name="publikationLang" column="publikationLang" type="text" nullable="true" />
         <field name="material" type="text" nullable="true" />
         <field name="zusaetzlichSort" column="zusaetzlichSort" type="text" nullable="true" />
+        <field name="invNr" column="invNr" type="text" nullable="true" />
         <field name="jahr" type="integer" nullable="true" />
         <field name="monat" type="integer" nullable="true" />
         <field name="tag" type="integer" nullable="true" />
