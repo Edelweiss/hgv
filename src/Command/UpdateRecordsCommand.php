@@ -5,6 +5,7 @@ namespace App\Command;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
 use Doctrine\ORM\UnitOfWork;
 use App\Command\ReadFodsCommand;
 use App\Entity\Hgv;
@@ -27,11 +28,12 @@ class UpdateRecordsCommand extends ReadFodsCommand
 
   protected function configure(): void
   {
-    // ...
+    $this->addArgument('dry_run', InputArgument::OPTIONAL, 'Just simulate.');
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int
   {
+    $this->dryRun = preg_match('#^dry[-_]?[rR]un$#', $input->getArgument('dry_run')) ? true : false;
     $unitOfWorkStates = [UnitOfWork::STATE_REMOVED => 'REMOVED', UnitOfWork::STATE_MANAGED => 'MANAGED', UnitOfWork::STATE_DETACHED => 'DETACHED', UnitOfWork::STATE_NEW => 'NEW']; 
     echo '[managed = ' . UnitOfWork::STATE_MANAGED . '; rm = ' . UnitOfWork::STATE_REMOVED . '; detached = ' . UnitOfWork::STATE_DETACHED . '; new = ' . UnitOfWork::STATE_NEW . ']' . "\n";
 
@@ -67,7 +69,9 @@ class UpdateRecordsCommand extends ReadFodsCommand
     //return Command::INVALID
   }
   function runDry($hgv){
-    echo $hgv->getPublikationLang() . ' (' . $hgv->getPublikation() . '|' . $hgv->getBand() . '|' . $hgv->getZusBand() . '|' . $hgv->getNummer() . '|' . $hgv->getSeite() . '|' . $hgv->getZusaetzlich() . ')';
+    $indent = '    ';
+    echo $indent . $hgv->getDdbSer() . ';' . $hgv->getDdbVol() . ';' . $hgv->getDdbDoc() . ' (' . $hgv->getPublikation() . '|' . $hgv->getBand() . '|' . $hgv->getZusBand() . '|' . $hgv->getNummer() . '|' . $hgv->getSeite() . '|' . $hgv->getZusaetzlich() . ')' . "\n";
+    echo $indent . 'InvNr. ' . $hgv->getInvNr();
     echo "\n";
   }
 }
