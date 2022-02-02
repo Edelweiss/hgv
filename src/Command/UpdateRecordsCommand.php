@@ -38,9 +38,9 @@ class UpdateRecordsCommand extends ReadFodsCommand
     echo '[managed = ' . UnitOfWork::STATE_MANAGED . '; rm = ' . UnitOfWork::STATE_REMOVED . '; detached = ' . UnitOfWork::STATE_DETACHED . '; new = ' . UnitOfWork::STATE_NEW . ']' . "\n";
 
     foreach($this->xpath->evaluate('//table:table-row[position() > ' . $this->headerLine . ']') as $row){
-      $tm = $this->getValue($row, 'tm_id');
-      if(\preg_match('/^\d+$/', $tm)){
-        $hgv = $this->entityManager->getRepository(Hgv::class)->findOneBy(['id' => $tm]);
+      $id = $this->getValue($row, 'hgv_id_long');
+      if(\preg_match('/^\d+[A-Za-z]*( [XYZ])?$/', $id)){
+        $hgv = $this->entityManager->getRepository(Hgv::class)->findOneBy(['id' => $id]);
         $hgv = $this->generateObjectFromXml($row, $hgv);
         echo ($this->flushCounter + 1) . ': ' . $hgv->getPublikationLang() . ' (HGV full ' . $hgv->getId()  . ') [' . $unitOfWorkStates[$this->entityManager->getUnitOfWork()->getEntityState($hgv)] .  ']'  . "\n";
         if($this->dryRun){
