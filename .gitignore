@@ -32,3 +32,4 @@
 #NEW
 /.env
 /data
+/script/*.log
