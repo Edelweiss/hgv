@@ -1,21 +1,18 @@
 #!/usr/bin/env bash
 
-export PATH=$PATH:/usr/local/bin:/usr/local/git/bin
-export CLASSPATH=$CLASSPATH:$HOME/Library/saxon/saxon9he.jar
+export SAXONC_HOME=/usr/lib
+#export PATH=$PATH:/usr/local/bin:/usr/local/git/bin
+#export CLASSPATH=$CLASSPATH:$HOME/Library/saxon/saxon9he.jar
 
-# Daemon
-# ~/Library/LaunchAgents/papyrillio.hgv.ddbser.plist
-# launchctl list | grep papy
-# Log
-# tail -fn 100 ~/hgv.dev/src/Papyrillio/HgvBundle/Script/ddbIdentifierDiff.log
+# tail -fn 100 /var/www/aquila_dev/script/ddbIdentifierDiff.log
 
-git="$HOME/idp.data/aquila"
-cnf="$HOME/hgv.dev/app/config/parameters.ini"
-fmp="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Data/ddbser.xml"
-exp="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Script/ddbSer.py"
-csv="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Data/ddbIdentifierDiff.csv"
-xsl="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Script/ddbIdentifierDiff.xsl"
-log="$HOME/hgv.dev/src/Papyrillio/HgvBundle/Script/ddbIdentifierDiff.log"
+git="/var/www/aquila_dev/idp.data"
+cnf="/var/www/aquila_dev/.env"
+fmp="/var/www/aquila_dev/data/ddbser.xml"
+exp="/var/www/aquila_dev/script/ddbSer.py"
+csv="/var/www/aquila_dev/data/ddbIdentifierDiff.csv"
+xsl="/var/www/aquila_dev/script/ddbIdentifierDiff.xsl"
+log="/var/www/aquila_dev/script/ddbIdentifierDiff.log"
 
 date > $log
 echo $xsl >> $log
