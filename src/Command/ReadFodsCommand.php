@@ -43,6 +43,8 @@ class ReadFodsCommand extends Command
       'publikationLang' => 'publication_long',
 
       'invNr'           => 'inventory_number',
+      'place'           => 'place',
+      'collection'      => 'collection',
       //place
       //collection
 
@@ -184,7 +186,7 @@ class ReadFodsCommand extends Command
       $hgv->setpublikationLang($this->getValue($row, 'publication_long'));
       $hgv->setmaterial($this->getValue($row, 'material'));
       #$hgv->setzusaetzlichSort($this->getValue($row, 'xxx'));
-      $hgv->setinvNr($this->getValue($row, 'inventory_number'));
+      $hgv->setinvNr($this->getValue($row, 'place') . ', ' . $this->getValue($row, 'collection') . ', ' . $this->getValue($row, 'inventory_number'));
       $hgv->setjahr($this->getValue($row, 'year_1'));
       $hgv->setmonat($this->getValue($row, 'month_1'));
       $hgv->settag($this->getValue($row, 'day_1'));
