@@ -6,7 +6,7 @@ use App\Repository\HgvRepository;
 
 class Hgv
 {
-    private const IDP_DATA  = __DIR__ . '/../../data';
+    private const IDP_DATA  = '/mnt/sds_cifs/idp.data/papyri/aquila';
     /**
      * @var string $id
      */
