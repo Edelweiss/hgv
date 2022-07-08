@@ -54,6 +54,7 @@ class BrowseController extends HgvController
       'jhIi'               => 'h',
       'ort'                => 'h',
       'originaltitel'      => 'h',
+      'originaltitelHtml'  => 'h',
       'material'           => 'h',
       'abbildung'          => 'h',
       'anderePublikation'  => 'h',
