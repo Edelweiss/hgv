@@ -22,7 +22,7 @@ class UpdateRecordsCommand extends ReadFodsCommand
 
   public function __construct(EntityManagerInterface $entityManager){
     $this->entityManager = $entityManager;
-    $this->importFile = 'hgv.fods';    
+    $this->importFile = 'HGV.fods';
     parent::__construct();
   }
 

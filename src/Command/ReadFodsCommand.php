@@ -20,8 +20,8 @@ class ReadFodsCommand extends Command
     const NAMESPACE_TABLE     = 'urn:oasis:names:tc:opendocument:xmlns:table:1.0';
     const IMPORT_DIR          = __DIR__ . '/../../data/';
 
-    protected $importFile = 'hgv.fods';
-    protected $tableName = 'hgv';
+    protected $importFile = 'HGV.fods';
+    protected $tableName = 'HGV';
     protected $headerKey = 'tm_id';
     protected $headerLine = 1;
     protected $flushCounter = 0;
@@ -122,7 +122,6 @@ class ReadFodsCommand extends Command
       $xpath = new DOMXPath($doc);
       $xpath->registerNamespace('table', self::NAMESPACE_TABLE);
       $this->xpath = $xpath;
-
       // column positions
       $this->headerLine = count($this->xpath->evaluate("//table:table-cell[normalize-space(.) = '" . $this->headerKey . "']/ancestor::table:table-row/preceding-sibling::table:table-row")) + 1;
       foreach($this->xpath->evaluate("//table:table[@table:name='" . $this->tableName . "']//table:table-row[" . $this->headerLine . "]//table:table-cell") as $position => $index){
