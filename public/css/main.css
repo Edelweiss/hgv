@@ -78,11 +78,19 @@ nav div.menu > ul > li.active ul.sub {
   font-weight: normal;
   font-size: 10pt;
   display: none;
+  width: 200px;
+}
+
+nav div.menu > ul > li.inactive ul.sub li,
+nav div.menu > ul > li.active ul.sub li {
+  margin: .5em 0 .5em 0;
 }
 
 nav div.menu > ul > li.active ul.sub {
   display: block;
 }
+
+
 
 /* nav */
 
