@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  {{ parent() }} - {{ record ? record.originaltitelHtml|raw : '' }}
+  {{ record ? record.publikationLang|raw ~ ' (TM/HGV ' ~ record.id ~ ')' ~ ' - ' ~ record.originaltitelHtml|raw : parent() }}
 {% endblock %}
 
 {% block stylesheets %}
