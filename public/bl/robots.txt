@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /fmi/
+Disallow: /login
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /

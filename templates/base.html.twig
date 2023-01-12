@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        {% include 'matomo_tag.html' %}
         <meta charset="UTF-8" />
         <title>{% block title %}HGV{% endblock %}</title>
         {% block stylesheets %}
@@ -56,7 +57,7 @@
                         </p>
                       </div>
                     </div>
-                    <form action="#">
+                    <form id="feedback" action="#">
                       <label for="feedbackName">*Name:</label>
                       <input type="text" id="feedbackName" name="name" tabindex="1001" required />
                       <br/>
@@ -73,7 +74,7 @@
                       <br/>
                     </form>
                     <p>
-                      Bitte geben Sie in die obigen Felder Ihren Namen, Ihre E-Mail-Adresse und Ihre Nachricht an uns ein und drücken Sie auf senden oder schreiben Sie uns eine <a id="feedbackEmail" href="mailto:dh@urz.uni-heidelberg.de,jc@urz.uni-heidelberg.de,cl@zaw.uni-heidelberg.de?subject=Rückmeldung zum Webauftritt vom HGV&body=Ihre Nachricht an uns …">E-Mail</a>.
+                      Bitte geben Sie in die obigen Felder Ihren Namen, Ihre E-Mail-Adresse und Ihre Nachricht an uns ein und drücken Sie auf senden oder schreiben Sie uns eine <a id="feedbackEmail" href="mailto:james.cowey@urz.uni-heidelberg.de,carmen.lanz@uni-heidelberg.de?subject=Rückmeldung zum Webauftritt vom HGV&body=Ihre Nachricht an uns …">E-Mail</a>.
                     </p>
                   </div>
                 </li>
