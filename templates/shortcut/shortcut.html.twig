@@ -1,5 +1,12 @@
 {% extends (layout is defined ? layout : 'base') ~ '.html.twig' %}
 
+{% block title %}
+  {% for hgv in data %}
+    {{ hgv.publikationLang|raw ~ ' (TM/HGV ' ~ hgv.id ~ ')' ~ ' - ' ~ hgv.originaltitelHtml|raw }}
+    {{ loop.last ? '' : ' - ' }}
+  {% endfor %}
+{% endblock %}
+
 {% block body %}
   {% for hgv in data %}
       {% include 'browse/_datasheet.html.twig' with { 'record': hgv, 'translations': null } %}
