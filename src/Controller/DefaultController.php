@@ -26,7 +26,7 @@ class DefaultController extends HgvController
     return $this->render('default/help' . ucfirst($topic) . ucfirst($language) . '.html.twig');
   }
 
-  public function introduction(Matomo $matomo): Response
+  public function introduction(MatomoReport $matomo): Response
   {
     return $this->render('default/introduction.html.twig', ['matomo' => $matomo]);
   }
