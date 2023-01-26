@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Service\Matomo;
+
 class DefaultController extends HgvController
 {
   public function index(): Response
@@ -24,9 +26,9 @@ class DefaultController extends HgvController
     return $this->render('default/help' . ucfirst($topic) . ucfirst($language) . '.html.twig');
   }
 
-  public function introduction(): Response
+  public function introduction(Matomo $matomo): Response
   {
-    return $this->render('default/introduction.html.twig');
+    return $this->render('default/introduction.html.twig', ['matomo' => $matomo]);
   }
 
   public function publication(): Response
