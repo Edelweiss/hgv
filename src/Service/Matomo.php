@@ -3,7 +3,7 @@
 namespace App\Service;
 
 class Matomo {
-  private token = '';
+  private $token = '';
 
   /*protected function configure($path, $file, $direction = null){
     $this->loadImage($path, $file);
