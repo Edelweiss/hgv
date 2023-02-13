@@ -26,13 +26,13 @@ class MatomoUrl extends Matomo {
   // API
 
   public function getVisitorApiUrl(){
-    return $this->getApiUrl('VisitFrequency.get', 'range', '2023-01-01,2023-02-15');
+    return $this->getApiUrl('VisitFrequency.get', 'range', '2023-01-16,2023-02-13');
   }
 
   // WIDGET
 
   public function getCloudWidgetUrl(){
-    return $this->getWidgetUrl('UserCountry', 'getCountry', 'range', '2023-01-01,2023-02-15', ['viewDataTable' => 'cloud', 'filter_limit' => '42']);
+    return $this->getWidgetUrl('UserCountry', 'getCountry', 'range', '2023-01-16,2023-02-13', ['viewDataTable' => 'cloud', 'filter_limit' => '42']);
   }
 }
 
