@@ -102,9 +102,8 @@
     </li></ul>
     <hr />
     Das HGV ist ein Werkzeug, das inzwischen auf der ganzen Welt zum Einsatz kommt.
-    <br/>
     {% if matomo.visitors > 0 %}
-    Bei den {{ matomo.visitors }} Seitenaufrufen der vergangenen vier Wochen kamen die Besucher hauptsächlich aus<a href="{{ matomo.cloudWidgetUrl }}" style="text-decoration: none; color: black">:</a>
+    Bei den {{ matomo.visitors }} Seitenaufrufen der vergangenen vier Wochen kamen die Besucher hauptsächlich aus den folgenden Ländern<a href="{{ matomo.cloudWidgetUrl }}" style="text-decoration: none; color: black">:</a>
 
     <iframe id="matomo_cloud" src="{{ matomo.cloudWidgetUrl }}" scrolling="yes" height="250" width="100%" frameborder="0" marginheight="0" marginwidth="0"></iframe>
     {% endif %}
