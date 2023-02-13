@@ -13,7 +13,7 @@ class MatomoReport extends MatomoUrl {
     curl_close($ch);
   }
 
-  public function xyz(){
+  public function getVisitors(){
     return $this->getHtml($this->getApiUrl('VisitFrequency.get', 'range', '2023-01-01,2023-02-15'));
   }
 
