@@ -8,7 +8,7 @@ class MatomoUrl extends Matomo {
   const FORMAT_JSON = 'JSON';
 
   public function visitors($module = self::MODULE_API){
-    return $this->getApi('VisitFrequency.get', 'range', '2023-01-01,2023-02-15')
+    return $this->getApi('VisitFrequency.get', 'range', '2023-01-01,2023-02-15');
   }
 
   public function getApi($method, $period, $date){
