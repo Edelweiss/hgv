@@ -28,7 +28,7 @@ class MatomoUrl extends Matomo {
   // WIDGET
 
   public function getCloudWidgetUrl(){
-    return this->getWidgetUrl('UserCountry', 'getCountry', 'range', '2023-01-01,2023-02-15', '&viewDataTable=cloud&filter_limit=42');
+    return $this->getWidgetUrl('UserCountry', 'getCountry', 'range', '2023-01-01,2023-02-15', '&viewDataTable=cloud&filter_limit=42');
     //return $this->url . '?module=' . $module . '&action=iframe&disableLink=1&widget=1&moduleToWidgetize=UserCountry&actionToWidgetize=getCountry&period=range&date=2023-01-01,2023-02-15&viewDataTable=cloud&filter_limit=42&idSite=' . $this->site . '&token_auth=' . $this->token;
   }
 }
