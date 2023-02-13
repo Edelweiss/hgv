@@ -15,7 +15,10 @@ class MatomoReport extends MatomoUrl {
   }
 
   public function getVisitors(){
-    return json_decode($this->getResponse($this->getApiUrl('VisitFrequency.get', 'range', '2023-01-15,2023-02-13')))['nb_actions_new'];
+    if($v = json_decode($this->getResponse($this->getApiUrl('VisitFrequency.get', 'range', '2023-01-15,2023-02-13')))){
+      return $v['nb_actions_new'];
+    }
+    return 0;
   }
 
   public function getCloud(){
