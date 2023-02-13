@@ -19,7 +19,7 @@ class MatomoReport extends MatomoUrl {
   }
 
   public function getCloud(){
-    return $this->getHtml($this->cloud());
+    return $this->getHtml($this->getCloudWidget());
   }
 }
 
