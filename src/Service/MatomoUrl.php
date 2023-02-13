@@ -17,7 +17,7 @@ class MatomoUrl extends Matomo {
 
   public function getWidgetUrl($widget, $action, $period, $date, $extra = []){
     $extraParameters = '';
-    foreach($extra as $kay => $value){
+    foreach($extra as $key => $value){
       $extraParameters .= '&' . $key . '=' . $value;
     }
     return $this->url . '?module=' . self::MODULE_WIDGET . '&moduleToWidgetize' . $widget . '&actionToWidgetize' . $action . '&period=' . $period . '&date=' . $date . $extraParameters . '&idSite=' . $this->site . '&token_auth=' . $this->token;
