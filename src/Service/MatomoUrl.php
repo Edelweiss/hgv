@@ -20,7 +20,7 @@ class MatomoUrl extends Matomo {
     foreach($extra as $key => $value){
       $extraParameters .= '&' . $key . '=' . $value;
     }
-    return $this->url . '?module=' . self::MODULE_WIDGET . '&moduleToWidgetize' . $widget . '&actionToWidgetize' . $action . '&period=' . $period . '&date=' . $date . $extraParameters . '&idSite=' . $this->site . '&token_auth=' . $this->token;
+    return $this->url . '?module=' . self::MODULE_WIDGET . '&moduleToWidgetize=' . $widget . '&actionToWidgetize=' . $action . '&period=' . $period . '&date=' . $date . $extraParameters . '&idSite=' . $this->site . '&token_auth=' . $this->token;
   }
 
   // API
