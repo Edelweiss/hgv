@@ -15,8 +15,12 @@ class MatomoUrl extends Matomo {
     return $this->getUrl('?module=' . self::MODULE_API . '&format=' . self::FORMAT_JSON . '&method=' . $method . '&period=' . $period . '&date=' . $date);
   }
 
-  public function getWidgetUrl($widget, $action, $period, $date, $extra = ''){
-    return $this->url . '?module=' . self::MODULE_WIDGET . '&moduleToWidgetize' . $widget . '&actionToWidgetize' . $action . '&period=' . $period . '&date=' . $date . $extra . '&idSite=' . $this->site . '&token_auth=' . $this->token;
+  public function getWidgetUrl($widget, $action, $period, $date, $extra = []){
+    $extraParameters = '';
+    foreach($extra as $kay => $value){
+      $extraParameters .= '&' . $key . '=' . $value;
+    }
+    return $this->url . '?module=' . self::MODULE_WIDGET . '&moduleToWidgetize' . $widget . '&actionToWidgetize' . $action . '&period=' . $period . '&date=' . $date . $extraParameters . '&idSite=' . $this->site . '&token_auth=' . $this->token;
   }
 
   // API
@@ -28,8 +32,7 @@ class MatomoUrl extends Matomo {
   // WIDGET
 
   public function getCloudWidgetUrl(){
-    return $this->getWidgetUrl('UserCountry', 'getCountry', 'range', '2023-01-01,2023-02-15', '&viewDataTable=cloud&filter_limit=42');
-    //return $this->url . '?module=' . $module . '&action=iframe&disableLink=1&widget=1&moduleToWidgetize=UserCountry&actionToWidgetize=getCountry&period=range&date=2023-01-01,2023-02-15&viewDataTable=cloud&filter_limit=42&idSite=' . $this->site . '&token_auth=' . $this->token;
+    return $this->getWidgetUrl('UserCountry', 'getCountry', 'range', '2023-01-01,2023-02-15', ['viewDataTable' => 'cloud', 'filter_limit' => '42']);
   }
 }
 
