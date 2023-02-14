@@ -3,7 +3,12 @@
 namespace App\Service;
 
 class MatomoReport extends MatomoUrl {
+  protected $apiResponses = [];
+
   protected function getResponse($url){
+    if(strpos($url, self::MODULE_API !== false) && isset($this->apiResponses[$url])){
+      return $this->apiResponses[$url];
+    }
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     // Set so curl_exec returns the result instead of outputting it.
@@ -11,6 +16,9 @@ class MatomoReport extends MatomoUrl {
     // Get the response and close the channel.
     $response = curl_exec($ch);
     curl_close($ch);
+    if(strpos($url, self::MODULE_API !== false)){
+      $this->apiResponses[$url] = $response;
+    }
     return $response;
   }
 
