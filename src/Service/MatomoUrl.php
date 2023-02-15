@@ -12,7 +12,7 @@ class MatomoUrl extends Matomo {
   }
 
   public function getApiUrl($method, $period, $date){
-    return $this->getUrl('?module=' . self::MODULE_API . '&format=' . self::FORMAT_JSON . '&method=' . $method . '&period=' . $period . '&date=' . $date);
+    return $this->getUrl('?module=' . self::MODULE_API . '&format=' . self::FORMAT_JSON . '&method=' . $method . '&language=de&period=' . $period . '&date=' . $date);
   }
 
   public function getWidgetUrl($widget, $action, $period, $date, $extra = []){
