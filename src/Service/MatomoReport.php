@@ -4,6 +4,7 @@ namespace App\Service;
 
 class MatomoReport extends MatomoUrl {
   protected $apiResponses = [];
+  protected $date = '2023-01-15,2023-02-13';
 
   protected function getResponse($url){
     if(strpos($url, self::MODULE_API !== false) && isset($this->apiResponses[$url])){
@@ -21,21 +22,35 @@ class MatomoReport extends MatomoUrl {
     }
     return $response;
   }
-  //https://papy.zaw.uni-heidelberg.de/tomo/index.php?module=API&method=UserCountry.getCountry&idSite=1&period=day&date=yesterday&format=JSON&token_auth=8b08c00be37339ffa8ad668e82390398&force_api_session=1
+
+  protected function selectInfos($a, $keyParamter, $valueParameter){
+    $infos = [];
+    if(is_array($a)){
+      foreach($a as $item){
+        $infos[$item[$keyParamter]] = $item[$valueParameter];
+      }
+    }
+    return $infos;
+  }
+  
+  public function getSearchKeywords(){
+    return $this->selectInfos(
+      json_decode($this->getResponse($this->getApiUrl('Actions.getSiteSearchKeywords', 'range', $this->date)), true),
+      'label',
+      'nb_hits'
+    );
+  }
 
   public function getCountries(){
-    $countries = [];
-    if($a = json_decode($this->getResponse($this->getApiUrl('UserCountry.getCountry', 'range', '2023-01-15,2023-02-13')), true)){
-      foreach($a as $country){
-        $countries[$country['label']] = $country['nb_visits'];
-      }
-      return $countries;
-    }
-    return 0;
+    return $this->selectInfos(
+      json_decode($this->getResponse($this->getApiUrl('UserCountry.getCountry', 'range', $this->date)), true),
+      'label',
+      'nb_visits'
+    );
   }
 
   public function getVisitors(){
-    if($v = json_decode($this->getResponse($this->getApiUrl('VisitFrequency.get', 'range', '2023-01-15,2023-02-13')), true)){
+    if($v = json_decode($this->getResponse($this->getApiUrl('VisitFrequency.get', 'range', $this->date)), true)){
       return $v['nb_actions_new'];
     }
     return 0;
