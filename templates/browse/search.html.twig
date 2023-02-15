@@ -20,7 +20,7 @@
     <p>Gerne gesucht:</p>
     <p>
       {% for keyword, hits in matomo.searchKeywords %}
-        {% if loop.index < 20 and keyword matches not '/\d/' %}
+        {% if loop.index < 20 and keyword matches not '/^[\\d]+$/' %}
           <span>{{keyword}}</span>
         {% endif %}
       {% endfor %}
