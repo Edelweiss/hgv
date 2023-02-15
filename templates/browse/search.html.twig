@@ -18,11 +18,13 @@
     </h5>
 
     <p>Gerne gesucht:</p>
-    <ul>
+    <p>
       {% for keyword, hits in matomo.searchKeywords %}
-        <li>{{keyword}}</li>
+        {% if loop.index < 20 and keyword matches not '\d' %}
+          <span>{{keyword}}</span>
+        {% endif %}
       {% endfor %}
-    </ul>
+    </p>
 
     <p>
       <input name="search[operator]" value="and" type="radio" checked="checked" />Entsprechung mit allen Wörtern auf der Seite (UND)
