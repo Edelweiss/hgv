@@ -21,6 +21,18 @@ class MatomoReport extends MatomoUrl {
     }
     return $response;
   }
+  //https://papy.zaw.uni-heidelberg.de/tomo/index.php?module=API&method=UserCountry.getCountry&idSite=1&period=day&date=yesterday&format=JSON&token_auth=8b08c00be37339ffa8ad668e82390398&force_api_session=1
+
+  public function getCountries(){
+    $countries = [];
+    if($a = json_decode($this->getResponse($this->getApiUrl('UserCountry.getCountry', 'range', '2023-01-15,2023-02-13')), true)){
+      foreach($a as $country){
+        $countries[$country['label']] = $country['nb_visits'];
+      }
+      return $countries;
+    }
+    return 0;
+  }
 
   public function getVisitors(){
     if($v = json_decode($this->getResponse($this->getApiUrl('VisitFrequency.get', 'range', '2023-01-15,2023-02-13')), true)){
