@@ -17,6 +17,13 @@
       <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="Suchhilfe auf Deutsch"> → Suchhilfe</a>
     </h5>
 
+    <p>Gerne gesucht:</p>
+    <ul>
+      {% for keyword, hits in matomo.searchKeywords %}
+        <li>{{keyword}}</li>
+      {% endfor %}
+    </ul>
+
     <p>
       <input name="search[operator]" value="and" type="radio" checked="checked" />Entsprechung mit allen Wörtern auf der Seite (UND)
       <input name="search[operator]" value="or" type="radio" />Entsprechung mit beliebigem Wort auf der Seite (ODER)
