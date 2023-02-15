@@ -12,6 +12,15 @@
   <form id="catalogueSearch" action="{{ path('PapyrillioHgvBundle_BrowseMultiple') }}" method="get" }} autocomplete="off">
     <p>Wählen Sie den Suchtyp, geben Sie die Suchkriterien ein, fügen Sie optional eine Sortierreihenfolge hinzu, legen Sie Anzahl der Suchtreffer pro Seite fest und klicken Sie dann auf <b>Suche starten.</b> <a href="http://147.142.225.241/Hauptregister/DHelp.htm#Search%20Tips" target="FileMaker Pro Web Companion Help">Suchtipps</a></p>
 
+    <p>Gerne gesucht:</p>
+    {% if matomo.searchKeywords %}
+      <ul>
+        {% for keyword, hits in matomo.searchKeywords %}
+          <li>{{keyword}}</li>
+        {% endif %}
+      </ul>
+    {% endif %}
+
     <input name="search[operator]" value="and" type="radio" checked="checked" />Entsprechung mit allen Wörtern auf der Seite (UND)
 
     <input name="search[operator]" value="or" type="radio" />Entsprechung mit beliebigem Wort auf der Seite (ODER)

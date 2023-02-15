@@ -6,7 +6,7 @@ class MatomoUrl extends Matomo {
   const MODULE_WIDGET = 'Widgetize&action=iframe&disableLink=1&widget=1';
   const MODULE_API = 'API';
   const FORMAT_JSON = 'JSON';
-  
+
   private function getUrl($parameters){
     return $this->url . $parameters . '&language=de&idSite=' . $this->site . '&token_auth=' . $this->token;
   }

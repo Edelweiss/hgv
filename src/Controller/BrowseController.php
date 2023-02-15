@@ -7,6 +7,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Service\MatomoReport;
+
 class BrowseController extends HgvController
 {
     const TYPE_SINGLE   = 'table';
@@ -112,9 +114,9 @@ class BrowseController extends HgvController
     /**
      * Show search form
      * **/
-    public function search(): Response
+    public function search(MatomoReport $matomo): Response
     {
-      return $this->render('browse/search.html.twig', array('fieldList' => self::$FIELD_LIST_SEARCH));
+      return $this->render('browse/search.html.twig', ['matomo' => $matomo, 'fieldList' => self::$FIELD_LIST_SEARCH]);
     }
 
     /***
