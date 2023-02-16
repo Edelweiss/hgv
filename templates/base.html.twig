@@ -15,6 +15,7 @@
           <link href="{{ asset('css/jquery-ui.theme.min.css') }}" type="text/css" rel="stylesheet" />
         {% endblock %}
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        {% include 'matomo.html' %}
     </head>
     <body>
     {% if app.environment == 'dev' %}
@@ -22,9 +23,12 @@
     {% endif %}
     <div id="wrapper"><!-- #wrapper -->
       <header><!-- header -->
-        <h1><a href="#">Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens</a></h1>
-        <h2><a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="logo" src="{{ asset('images/Siegel.jpg') }}" alt="Siegel" title="Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens" /></a></h2>
-        {% include 'matomo.html' %}
+        <!--h1><a href="#">Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens</a></h1-->
+        
+        <h2 style="position: relative;">
+        <a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="hgv" src="{{ asset('images/HGV.png') }}" alt="HGV – Heidelberger Gesamtverzeichnis" title="Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens" /></a>  
+          <a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="logo" src="{{ asset('images/Siegel.jpg') }}" alt="Siegel" title="Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens" /></a>
+        </h2>
       </header><!-- end of header -->
 
       <nav><!-- top nav -->
