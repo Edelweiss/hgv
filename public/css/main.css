@@ -224,8 +224,9 @@ header h2 img#hgv {
     background-color: transparent;
     height: 120px;
     position: relative;
-    top: 4px;
+    top: 6px;
     float: none;
+    clear: both;
 }
 
 header h1 a,
