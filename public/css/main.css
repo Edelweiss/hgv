@@ -207,14 +207,17 @@ header h1 {
 
 header h2 {
     /*height: 245px;*/
+    height: 128px;
     background-color: #4e75a0;
     padding-left: 0.4em;
+    position: relative;
 }
 
 header h2 img {
     /*height: 245px;*/
     height: 128px;
     background-color: #4e75a0;
+    float: right;
 }
 
 header h2 img#hgv {
@@ -222,6 +225,7 @@ header h2 img#hgv {
     height: 120px;
     position: relative;
     top: 4px;
+    float: none;
 }
 
 header h1 a,
