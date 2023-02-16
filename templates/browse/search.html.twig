@@ -17,11 +17,10 @@
       <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="Suchhilfe auf Deutsch"> → Suchhilfe</a>
     </h5>
 
-    <p>Gerne gesucht:</p>
-    <p>
+    <p>Gerne gesucht:
       {% for keyword, hits in matomo.searchKeywords %}
-        {% if loop.index < 20 and keyword matches not '/^[\\d]+$/' %}
-          <span>{{keyword}}</span>
+        {% if loop.index < 30 and not(keyword matches '/\\d/') %}
+          <span>{{keyword}}{{ loop.index < 29 ? ' · ' : ''}}</span>
         {% endif %}
       {% endfor %}
     </p>
