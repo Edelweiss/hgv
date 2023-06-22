@@ -33,3 +33,4 @@
 /.env
 /data
 /script/*.log
+/script/*.log.old
