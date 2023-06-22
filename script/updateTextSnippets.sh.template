@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+#
+# {Authors: Carmen Maria Lanz, Martin Hettich}
+# (Generierung der Transkription und Übersetzungen im HTML-Format für HGV)
+
+set -e  ### Fail on any error! (AKA: exit immediately on non-zero return)
+#set -x ### DEBUGGING: eXplizitly echo commands before executing (AKA: print command trace)
+
+### Preconditions: run as user ubuntu, and ?
+### Invariants: ?
+### Postconditions: ?
+
+
+## Prepare, set variables, check user:
+export SAXONC_HOME=/usr/lib
+idp="/var/www/aquila/idp.data/"
+## Navigator-Pfad enthält einen Symlink von /var/www/navigator nach /home/ubuntu/navigator:
+navi="/var/www/navigator/paplio"
+htm="${navi}/updateTextSnippets.html"  ### sollte normalerweise leer bleiben, diese html-Datei.
+log="${navi}/../updateTextSnippets.log"
+xsl="/var/www/navigator/paplio/pn-xslt/MakeAquila.xsl"
+
+if [[ $(id -u) == 0 ]]
+then
+   echo -e "Please run this script ${0} as regular user, not as root." | tee -a $log
+   exit 4
+fi
+
+
+# check and set lock file or exit:
+#lockfile=$(pwd)/git-update-in-progress.lock
+#if [[ -f $(pwd)/git-update-in-progress.lock ]];
+#then
+#   echo -e "Lockfile git-update-in-progress.lock exists. Either $0 is already running, or got aborted an left behind the lock-file.\nCheck last log file: ${log}.old to know more details.\n"
+#   exit 1;
+#else
+#   touch ${navi}/../git-update-in-progress.lock
+#fi
+
+
+# Keep one old log file, by renaming, if it exists:
+if [[ -f $log ]]; then mv -f $log $log.old; fi
+
+# Start a new log file:
+echo "---\n" $(date --iso=s) > $log
+echo "--- This is $0 running as $USER in $PWD on $(hostname -f)," >> $log
+echo "--- with navi=${navi},  idp=${idp},  xsl=${xsl},  log=$log and  htm=$htm" >> $log
+
+
+# Update navigator and EpiDoc stylesheets
+# =======================================
+
+cd $navi >> $log 2>&1
+git fetch >> $log 2>&1
+git merge papyri/paplio >> $log 2>&1
+git merge papyri/master >> $log 2>&1
+
+cd epidoc-xslt >> $log 2>&1
+git fetch >> $log 2>&1
+git merge papyri/master >> $log 2>&1
+
+
+# Update idp.data
+# ===============
+
+cd $idp >> $log 2>&1
+git fetch >> $log 2>&1
+git merge papyri/master >> $log 2>&1
+
+
+# Generate html snippets
+# ======================
+## $htm should remain empty, unless transform produces stdout
+/home/ubuntu/tmp/libsaxon-HEC-11.3/command/transform -o:$htm -it:GENERATE-HTML-SNIPPETS -xsl:$xsl collection=ddbdp line-inc=5 >> $log 2>&1
+
+# remove lock-file: ###!!!### If previous run crashed, we need to delete the lock-file manually, still. TODO: Automate.
+#rm -f $lockfile
+
+echo -e "--- $0 finishes successfully: " `date --iso=s` "\n...\n" >>  $log
+
+exit 0
