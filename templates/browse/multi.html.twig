@@ -6,9 +6,9 @@
 
 {% block body %}
   {% if countSearch %}
-    <p> Datensätze {{ from }}-{{ to }} von {{ countSearch }} Suchtreffern (Gesamt: {{ countTotal }})<span id="showSearchParameters" title="Suchparameter anzeigen">?</span></p>
+    <p> Datensätze {{ from }}-{{ to }} von {{ countSearch }} Suchtreffern (Gesamt: {{ countTotal }}{% if countSearch != countTotal %} <a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': {'skip': 0, 'max': 100}, 'sort': {1: {'key': 'publikationLang', 'direction': 'ascend'}}}) }}">→ Suchfilter aufheben</a>{% endif %})<span id="showSearchParameters" title="Suchparameter anzeigen">?</span></p>
   {% else %}
-    <p> {{ countSearch }} Suchtreffer (Gesamt: {{ countTotal }})<span id="showSearchParameters" title="Suchparameter anzeigen">?</span></p>
+    <p> {{ countSearch }} Suchtreffer (Gesamt: {{ countTotal }} <a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': {'skip': 0, 'max': 100}, 'sort': {1: {'key': 'publikationLang', 'direction': 'ascend'}}}) }}">→ Suchfilter aufheben</a>)<span id="showSearchParameters" title="Suchparameter anzeigen">?</span></p>
   {% endif %}
   <p id="searchParameters" style="display: none;">
     <b>Suchoptionen</b><br />

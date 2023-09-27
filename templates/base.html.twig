@@ -35,16 +35,16 @@
         <div class="menu">
           <ul>
             <li><a href="{{ path('PapyrillioHgvBundle_BrowseMultiple') }}" title="Liste der Datensätze">Tabelle</a></li>
-            <li><a href="{{ path('PapyrillioHgvBundle_BrowseSingle') }}" title="Einzelansicht">Formular</a></li>
+            <!--li><a href="{{ path('PapyrillioHgvBundle_BrowseSingle') }}" title="Einzelansicht">Formular</a></li-->
             <li><a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}" title="Filterfunktion">Suche</a></li>
-            <li><a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': {'skip': 0, 'max': 100}, 'sort': {1: {'key': 'publikationLang', 'direction': 'ascend'}}}) }}">Alle</a> </li>
+            <!--li><a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': {'skip': 0, 'max': 100}, 'sort': {1: {'key': 'publikationLang', 'direction': 'ascend'}}}) }}">Alle</a> </li-->
             <li><a href="/texte/HGV-Texte.html" title="Hilfe">Texte</a></li>
             {% if app.environment == 'dev' %}
               <li><a href="{{ path('PapyrillioHgvBundle_PublicationIndex') }}" style="color: red;">Texte im HGV</a></li>
             {% endif %}
             
             <li><a href="{{ path('PapyrillioHgvBundle_DefaultAbbreviation') }}" title="Abkürzungen im HGV zitierter Bücher" target="Biblio">Abkürzungen zitierter Bücher</a></li>
-            <li><a href="https://papy.zaw.uni-heidelberg.de/gv0/Papyri/Verstreutes_Uebersicht.html" title="Verstreut publizierte Heidelberger Papyri" target="Biblio">Verstreute Papyri</a></li>
+            <li><a href="https://papy.zaw.uni-heidelberg.de/gv0" title="Publizierte Heidelberger Stücke">Publizierte Heidelberger Stücke</a></li>
             
             <li class="inactive">
               <a href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}" title="Info">Info</a>
@@ -105,10 +105,12 @@
             <aside class="footer-segment">
                 <h4>Kataloge</h4>
                 <ul>
-                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/papyri">Griechische Papyri</a></li>
-                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/papyri">Arabische Papyri</a></li>
-                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/papyri">Demotische Papyri</a></li>
-                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/papyri">Koptische Papyri</a></li>
+                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/papyri">Papyrussammlung des Instituts für Papyrologie Heidelberg</a></li>
+<li>&nbsp;</li>
+                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/helios/digi/hd_papyrus.html#GreekList">Griechische Papyri</a></li>
+                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/helios/digi/hd_papyrus.html#KoptList">Koptische Papyri</a></li>
+                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/helios/digi/hd_papyrus.html#LatinList">Lateinische Papyri</a></li>
+                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/helios/digi/hd_papyrus.html#HebList">Hebräische Papyri</a></li>
                 </ul>
             </aside><!-- end of #first footer segment -->
 
