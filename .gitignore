@@ -32,5 +32,6 @@
 #NEW
 /.env
 /data
+/idp.data
 /script/*.log
 /script/*.log.old
