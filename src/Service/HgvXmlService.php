@@ -42,6 +42,25 @@ class HgvXmlService
         'chronGlobal'       => "\$notBefore",   // approximate: used as sortYear integer
         'jahr'              => "\$notBefore",
         'jh'                => "\$notBefore",
+        // aliases / new fields
+        'ddb'               => "string((\$doc//tei:idno[@type='ddb-hybrid'])[1])",
+        'hgv'               => "string((\$doc//tei:idno[@type='filename'])[1])",
+        'pubAbbr'           => "\$pubAbbr",
+        'pubVol'            => "\$pubVol",
+        'pubNr'             => "\$pubNr",
+        'notBefore'         => "\$notBefore",
+        'notAfter'          => "\$notAfter",
+        'when'              => "\$when",
+        'precision'         => "\$precision",
+        'settlement'        => "\$settlement",
+        'collection'        => "\$collection",
+        'invNo'             => "\$invNo",
+        'provenance'        => "\$provenance",
+        'illustrations'     => "\$illustrations",
+        'figureUrls'        => "\$figureUrls",
+        'translations'      => "\$translationsPlain",
+        'commentary'        => "\$commentary",
+        'mentionedDates'    => "\$erwaehnteDaten",
     ];
 
     /** Fields that hold ISO-year strings and should be compared as integers. */
@@ -67,6 +86,23 @@ class HgvXmlService
         'material'          => "\$material",
         'tmNr'              => "\$sortTm",
         'inhalt'            => "\$keywords",
+        // new sort keys
+        'ddb'               => "string((\$doc//tei:idno[@type='ddb-hybrid'])[1])",
+        'hgv'               => "\$sortTm",
+        'pubAbbr'           => "\$pubAbbr",
+        'pubVol'            => "\$pubVol",
+        'pubNr'             => "\$pubNr",
+        'notBefore'         => "\$sortYear",
+        'notAfter'          => "\$sortYear",
+        'when'              => "\$when",
+        'settlement'        => "\$settlement",
+        'collection'        => "\$collection",
+        'invNo'             => "\$invNo",
+        'provenance'        => "\$provenance",
+        'illustrations'     => "\$illustrations",
+        'translations'      => "\$translationsPlain",
+        'commentary'        => "\$commentary",
+        'mentionedDates'    => "\$erwaehnteDaten",
     ];
 
     public function __construct(BaseXClient $client)
@@ -278,6 +314,14 @@ XQ;
   let $sortTm       := if (string(($doc//tei:idno[@type='TM'])[1]) castable as xs:integer)
                        then xs:integer(string(($doc//tei:idno[@type='TM'])[1]))
                        else 0
+  let $when         := string($origDate/@when)
+  let $precision    := string(($origDate/@precision, $origDate/@cert)[1])
+  let $settlement   := string(($doc//tei:msIdentifier/tei:placeName/tei:settlement)[1])
+  let $collection   := string(($doc//tei:msIdentifier/tei:placeName/tei:collection)[1])
+  let $invNo        := string(($doc//tei:msIdentifier/tei:idno[@type='invNo'])[1])
+  let $provenance   := string-join($doc//tei:provenance[@type='located']//tei:placeName[@type='ancient']/text(), ' – ')
+  let $erwaehnteDaten := string(($doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1])
+  let $figureUrls   := string-join($doc//tei:figure/tei:graphic/string(@url), '; ')
 XQ;
     }
 
@@ -341,7 +385,16 @@ $bindings$whereStr$orderStr
     "keywords": \$keywords,
     "otherPub": \$otherPubs,
     "commentary": \$commentary,
-    "illustrations": \$illustrations
+    "illustrations": \$illustrations,
+    "when":          \$when,
+    "precision":     \$precision,
+    "settlement":    \$settlement,
+    "collection":    \$collection,
+    "invNo":         \$invNo,
+    "provenance":    \$provenance,
+    "translations":  \$translationsPlain,
+    "erwaehnteDaten": \$erwaehnteDaten,
+    "figureUrls":    \$figureUrls
   }
 return map {
   "total":    \$total,

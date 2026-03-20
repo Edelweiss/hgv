@@ -56,17 +56,36 @@ $(function(){
             if (type !== 'display' || !data) return data || '';
             return '<a href="/tm/' + encodeURIComponent(data) + '" target="_blank">' + $('<span>').text(data).html() + '</a>';
           }
-        }
+        },
+        // ── Initially hidden columns (9-26) ──────────────────────────────────
+        { data: 'ddb',          title: 'DDB',               visible: false }, // 9
+        { data: 'hgvId',        title: 'HGV Id',            visible: false }, // 10
+        { data: 'pubAbbr',      title: 'Publikation Abk.',  visible: false }, // 11
+        { data: 'pubVol',       title: 'Band',              visible: false }, // 12
+        { data: 'pubNr',        title: 'Nummer',            visible: false }, // 13
+        { data: 'notBefore',    title: 'Nicht vor',         visible: false }, // 14
+        { data: 'notAfter',     title: 'Nicht nach',        visible: false }, // 15
+        { data: 'when',         title: 'Genaudatum',        visible: false }, // 16
+        { data: 'precision',    title: 'Präzision',         visible: false }, // 17
+        { data: 'settlement',   title: 'Aufbewahrungsort',  visible: false }, // 18
+        { data: 'collection',   title: 'Sammlung',          visible: false }, // 19
+        { data: 'invNo',        title: 'Inv.-Nr.',          visible: false }, // 20
+        { data: 'provenance',   title: 'Herkunft',          visible: false }, // 21
+        { data: 'illustrations',title: 'Abbildungen',       visible: false }, // 22
+        { data: 'figureUrls',   title: 'Bild-URLs',         visible: false }, // 23
+        { data: 'translations', title: 'Übersetzungen',     visible: false }, // 24
+        { data: 'commentary',   title: 'Bemerkungen',       visible: false }, // 25
+        { data: 'mentionedDates',title: 'Erwähnte Daten',   visible: false }  // 26
       ],
 
       // Pagination
       paging: true,
-      pageLength: 25,
-      lengthMenu: [[10, 25, 50, 100, 200], [10, 25, 50, 100, 200]],
+      pageLength: 50,
+      lengthMenu: [[10, 25, 50, 100, 200, 500], [10, 25, 50, 100, 200, 500]],
 
       // Ordering
       ordering: true,
-      order: [[2, 'asc']], // Default: sort by date ascending
+      order: [[1, 'asc'], [2, 'asc']], // Default: sort by date ascending
 
       // Column reordering (drag & drop)
       colReorder: true,
@@ -95,8 +114,8 @@ $(function(){
 
       // Per-column search inputs in tfoot
       initComplete: function() {
-        // Searchable column indices
-        var searchable = [1, 2, 3, 4, 5, 6, 7, 8];
+        // Searchable column indices (excludes col 0 = row-link)
+        var searchable = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26];
         this.api().columns(searchable).every(function() {
           var column = this;
           var input = $('<input type="text" placeholder="Filter …" />')

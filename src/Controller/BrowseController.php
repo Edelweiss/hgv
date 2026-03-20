@@ -155,6 +155,25 @@ class BrowseController extends HgvController
             6 => 'inhalt',           // keywords
             7 => 'anderePublikation',
             8 => 'tmNr',
+            // hidden columns 9-26
+            9  => 'ddb',
+            10 => 'hgv',
+            11 => 'pubAbbr',
+            12 => 'pubVol',
+            13 => 'pubNr',
+            14 => 'notBefore',
+            15 => 'notAfter',
+            16 => 'when',
+            17 => null,              // precision — not sortable
+            18 => 'settlement',
+            19 => 'collection',
+            20 => 'invNo',
+            21 => 'provenance',
+            22 => 'illustrations',
+            23 => null,              // figureUrls — not sortable
+            24 => 'translations',
+            25 => 'commentary',
+            26 => 'mentionedDates',
         ];
 
         // ── Column index → search field map ──────────────────────────────────────
@@ -167,6 +186,24 @@ class BrowseController extends HgvController
             6 => 'inhalt',
             7 => 'anderePublikation',
             8 => 'tmNr',
+            // hidden columns 9-26
+            9  => 'ddb',
+            10 => 'hgv',
+            11 => 'pubAbbr',
+            12 => 'pubVol',
+            13 => 'pubNr',
+            14 => 'notBefore',
+            15 => 'notAfter',
+            16 => 'when',
+            17 => 'precision',
+            18 => 'settlement',
+            19 => 'collection',
+            20 => 'invNo',
+            21 => 'provenance',
+            22 => 'illustrations',
+            24 => 'translations',
+            25 => 'commentary',
+            26 => 'mentionedDates',
         ];
 
         // ── Build sort ────────────────────────────────────────────────────────────
@@ -226,17 +263,36 @@ class BrowseController extends HgvController
 
         $data = [];
         foreach ($result['data'] as $record) {
+            $raw    = $record->toArray();
             $data[] = [
-                'hgvId'            => (string)$record->getHgvId(),
-                'tm'               => (string)$record->getTmNr(),
-                'publ'             => (string)$record->getPublikationLang(),
-                'dating'           => (string)$record->getDatierungIi(),
-                'place'            => (string)$record->getOrt(),
-                'title'            => (string)$record->getOriginaltitelHtml(),
-                'material'         => (string)$record->getMaterial(),
-                'keywords'         => (string)$record->getInhalt(),
-                'otherPub'         => (string)$record->getAnderePublikation(),
-                'DT_RowId'         => 'row_' . $record->getId(),
+                'hgvId'          => (string)($raw['id']          ?? ''),
+                'tm'             => (string)($raw['tm']          ?? ''),
+                'publ'           => (string)($raw['publ']        ?? ''),
+                'dating'         => (string)($raw['dating']      ?? ''),
+                'place'          => (string)($raw['place']       ?? ''),
+                'title'          => (string)($raw['title']       ?? ''),
+                'material'       => (string)($raw['material']    ?? ''),
+                'keywords'       => (string)($raw['keywords']    ?? ''),
+                'otherPub'       => (string)($raw['otherPub']    ?? ''),
+                'DT_RowId'       => 'row_' . ($raw['id'] ?? ''),
+                // hidden columns
+                'ddb'            => (string)($raw['ddb']         ?? ''),
+                'pubAbbr'        => (string)($raw['pubAbbr']     ?? ''),
+                'pubVol'         => (string)($raw['pubVol']      ?? ''),
+                'pubNr'          => (string)($raw['pubNr']       ?? ''),
+                'notBefore'      => (string)($raw['notBefore']   ?? ''),
+                'notAfter'       => (string)($raw['notAfter']    ?? ''),
+                'when'           => (string)($raw['when']        ?? ''),
+                'precision'      => (string)($raw['precision']   ?? ''),
+                'settlement'     => (string)($raw['settlement']  ?? ''),
+                'collection'     => (string)($raw['collection']  ?? ''),
+                'invNo'          => (string)($raw['invNo']       ?? ''),
+                'provenance'     => (string)($raw['provenance']  ?? ''),
+                'illustrations'  => (string)($raw['illustrations'] ?? ''),
+                'figureUrls'     => (string)($raw['figureUrls']  ?? ''),
+                'translations'   => (string)($raw['translations'] ?? ''),
+                'commentary'     => (string)($raw['commentary']  ?? ''),
+                'mentionedDates' => (string)($raw['erwaehnteDaten'] ?? ''),
             ];
         }
 
