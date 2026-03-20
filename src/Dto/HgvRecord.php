@@ -84,6 +84,17 @@ class HgvRecord
     /** Basic rendition of the DDB transcription (line-numbered plain text as HTML). */
     public function getHtmlDdb(): string { return $this->data['ddbText'] ?? ''; }
 
+    /** HTML translation rendered from the EpiDoc translation file on the filesystem, or null. */
+    public function getHtmlTranslation(): ?string
+    {
+        $id = $this->getId();
+        if ($id === null) {
+            return null;
+        }
+        $file = '/mnt/sds_cifs/idp.data/papyri/aquila/HGV_trans_EpiDoc_HTML/' . $id . '.html';
+        return file_exists($file) ? file_get_contents($file) : null;
+    }
+
     // ── Date helpers (used by the search form / sort) ─────────────────────────────
 
     public function getChronMinimum(): ?int
