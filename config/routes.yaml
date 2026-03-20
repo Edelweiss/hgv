@@ -56,7 +56,7 @@ PapyrillioHgvBundle_PublicationIndex:
 
 # B R O W S E #
 
-PapyrillioHgvBundle_BrowseMultiple:
+PapyrillioHgvBundle_Home:
     path:  /
     controller: App\Controller\BrowseController::multiple
 

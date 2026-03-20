@@ -31,10 +31,10 @@
       <nav><!-- top nav -->
         <div class="menu">
           <ul>
-            <li><a href="{{ path('PapyrillioHgvBundle_BrowseMultiple') }}" title="Liste der Datensätze">Tabelle</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_Home') }}" title="Liste der Datensätze">Tabelle</a></li>
             <!--li><a href="{{ path('PapyrillioHgvBundle_BrowseSingle') }}" title="Einzelansicht">Formular</a></li-->
             <li><a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}" title="Filterfunktion">Suche</a></li>
-            <!--li><a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': {'skip': 0, 'max': 100}, 'sort': {1: {'key': 'publikationLang', 'direction': 'ascend'}}}) }}">Alle</a> </li-->
+            <!--li><a href="{{ path('PapyrillioHgvBundle_Home', {'search': {'skip': 0, 'max': 100}, 'sort': {1: {'key': 'publikationLang', 'direction': 'ascend'}}}) }}">Alle</a> </li-->
             <li><a href="/texte/HGV-Texte.html" title="Hilfe">Texte</a></li>
             {% if app.environment == 'dev' %}
               <li><a href="{{ path('PapyrillioHgvBundle_PublicationIndex') }}" style="color: red;">Texte im HGV</a></li>

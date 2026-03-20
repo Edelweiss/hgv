@@ -12,6 +12,7 @@
 {% block body %}
 
   <table id="catalogueTable" class="catalogueList display"
+         data-root-url="{{ path('PapyrillioHgvBundle_Home') }}"
          data-api-url="{{ path('PapyrillioHgvBundle_BrowseMultipleApi') }}"
          data-single-url="{{ path('PapyrillioHgvBundle_BrowseSingle') }}">
     <thead>

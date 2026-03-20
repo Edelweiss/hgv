@@ -6,6 +6,7 @@ $(function(){
 
   // Initialize DataTables with server-side processing
   if ($('#catalogueTable').length) {
+    var rootUrl   = $('#catalogueTable').data('root-url');
     var apiUrl    = $('#catalogueTable').data('api-url');
     var singleUrl = $('#catalogueTable').data('single-url');
 
@@ -39,7 +40,7 @@ $(function(){
           title: 'Publikation',
           render: function(data, type, row) {
             if (type !== 'display' || !data) return data || '';
-            var href = '/hgv/' + encodeURIComponent(row.hgvId);
+            var href = rootUrl + 'hgv/' + encodeURIComponent(row.hgvId);
             return '<a href="' + href + '">' + $('<span>').text(data).html() + '</a>';
           }
         },
@@ -54,7 +55,7 @@ $(function(){
         { data: 'tm',       title: 'TM Nr.',              // 8
           render: function(data, type) {
             if (type !== 'display' || !data) return data || '';
-            return '<a href="/tm/' + encodeURIComponent(data) + '" target="_blank">' + $('<span>').text(data).html() + '</a>';
+            return '<a href="' + rootUrl + 'tm/' + encodeURIComponent(data) + '" target="_blank">' + $('<span>').text(data).html() + '</a>';
           }
         },
         // ── Initially hidden columns (9-26) ──────────────────────────────────
