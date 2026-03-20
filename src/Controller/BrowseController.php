@@ -164,13 +164,13 @@ class BrowseController extends HgvController
             14 => 'notBefore',
             15 => 'notAfter',
             16 => 'when',
-            17 => null,              // precision — not sortable
+            17 => 'precision',
             18 => 'settlement',
             19 => 'collection',
             20 => 'invNo',
             21 => 'provenance',
             22 => 'illustrations',
-            23 => null,              // figureUrls — not sortable
+            23 => 'figureUrls',
             24 => 'translations',
             25 => 'commentary',
             26 => 'mentionedDates',
@@ -201,6 +201,7 @@ class BrowseController extends HgvController
             20 => 'invNo',
             21 => 'provenance',
             22 => 'illustrations',
+            23 => 'figureUrls',
             24 => 'translations',
             25 => 'commentary',
             26 => 'mentionedDates',
