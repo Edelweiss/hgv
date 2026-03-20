@@ -31,15 +31,25 @@ class BaseXClient
 
     /**
      * Execute an XQuery and return the result as a string.
+     *
+     * Uses the BaseX REST XML-wrapped POST format which is supported by all
+     * BaseX 12.x versions.  The query text is embedded inside a
+     * <query xmlns="http://basex.org/rest"><text>…</text></query> envelope
+     * and POSTed with Content-Type: application/xml.
      */
     public function xquery(string $query): string
     {
+        // Wrap the XQuery in the BaseX REST XML envelope
+        $body = '<query xmlns="http://basex.org/rest"><text>'
+            . htmlspecialchars($query, ENT_XML1, 'UTF-8')
+            . '</text></query>';
+
         $response = $this->httpClient->request('POST', $this->baseUrl, [
             'auth_basic' => [$this->user, $this->password],
             'headers' => [
-                'Content-Type' => 'application/xquery',
+                'Content-Type' => 'application/xml',
             ],
-            'body' => $query,
+            'body' => $body,
         ]);
 
         return $response->getContent();

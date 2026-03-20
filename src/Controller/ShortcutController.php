@@ -2,51 +2,67 @@
 
 namespace App\Controller;
 
-use App\Entity\Hgv;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RequestStack;
+
+use App\Service\HgvXmlService;
 
 class ShortcutController extends HgvController
 {
-  public function hgv($id): Response
-  {
-    $tm = preg_replace('/[^\d]+/', '', $id);
-    $texLett = preg_replace('/\d+/', '', $id);
-    
-    $entityManager = $this->getDoctrine()->getManager();
-    $repository = $entityManager->getRepository(Hgv::class);
-    $data = $repository->findBy(array('tmNr' => $tm, 'texLett' => $texLett), array('mehrfachKennung' => 'ASC'));
+    private HgvXmlService $xmlService;
 
-    return $this->render('shortcut/shortcut.html.twig', array('data' => $data));
-  }
-
-  public function tm($id): Response
-  {
-    $entityManager = $this->getDoctrine()->getManager();
-    $repository = $entityManager->getRepository(Hgv::class);
-    $data = $repository->findBy(array('tmNr' => $id), array('texLett' => 'ASC', 'mehrfachKennung' => 'ASC'));
-
-    return $this->render('shortcut/shortcut.html.twig', array('data' => $data));
-  }
-
-  public function ddb($id): Response
-  {
-    $ddb = explode(';', $id); // routing requirements make sure that there are either two or five »;«
-    $entityManager = $this->getDoctrine()->getManager();
-    $repository = $entityManager->getRepository(Hgv::class);
-
-    $criteria = array();
-    $layout = 'base';
-    if(count($ddb) === 3){
-      $criteria = array('ddbSer' => $ddb[0], 'ddbVol' => $ddb[1], 'ddbDoc' => $ddb[2]);
-    } else if (count($ddb) === 6){
-      $criteria = array('publikation' => $ddb[0], 'band' => $ddb[1], 'zusBand' => $ddb[2], 'nummer' => $ddb[3], 'seite' => $ddb[4], 'zusaetzlich' => $ddb[5]);
-      $layout = 'plain';
+    public function __construct(RequestStack $requestStack, HgvXmlService $xmlService)
+    {
+        parent::__construct($requestStack);
+        $this->xmlService = $xmlService;
     }
 
-    $data = $repository->findBy($criteria, array('texLett' => 'ASC', 'mehrfachKennung' => 'ASC'));
+    /** /hgv/{id}  — lookup by HGV filename, e.g. "8981a". */
+    public function hgv(string $id): Response
+    {
+        // Load full record so the datasheet has all details
+        $record = $this->xmlService->getFullRecord($id);
+        $data   = $record ? [$record] : [];
+        return $this->render('shortcut/shortcut.html.twig', ['data' => $data]);
+    }
 
-    return $this->render('shortcut/shortcut.html.twig', array('data' => $data, 'layout' => $layout));
-  }
+    /** /tm/{id}  — lookup by TM number. */
+    public function tm(string $id): Response
+    {
+        $data = $this->xmlService->findByTm($id);
+        // Load full records for the datasheet
+        $full = [];
+        foreach ($data as $r) {
+            $full[] = $this->xmlService->getFullRecord($r->getId()) ?? $r;
+        }
+        return $this->render('shortcut/shortcut.html.twig', ['data' => $full]);
+    }
+
+    /** /ddb/{id}  — lookup by ddb-hybrid or publication parts. */
+    public function ddb(string $id): Response
+    {
+        $parts  = explode(';', $id);
+        $layout = 'base';
+
+        if (count($parts) === 3) {
+            // ddb-hybrid format: "pub;vol;doc"
+            $data = $this->xmlService->findByDdbHybrid($id);
+        } elseif (count($parts) === 6) {
+            // Extended format: pub;band;zusBand;nummer;seite;zusaetzlich
+            $data   = $this->xmlService->findByPublicationParts(
+                $parts[0], $parts[1], $parts[2], $parts[3], $parts[4], $parts[5]
+            );
+            $layout = 'plain';
+        } else {
+            $data = [];
+        }
+
+        // Load full records
+        $full = [];
+        foreach ($data as $r) {
+            $full[] = $this->xmlService->getFullRecord($r->getId()) ?? $r;
+        }
+
+        return $this->render('shortcut/shortcut.html.twig', ['data' => $full, 'layout' => $layout]);
+    }
 }

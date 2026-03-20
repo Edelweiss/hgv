@@ -4,90 +4,47 @@
   {{ parent() }} - Tabelle
 {% endblock %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="{{ asset('js/DataTables/datatables.min.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
-  {% if countSearch %}
-    <p> Datensätze {{ from }}-{{ to }} von {{ countSearch }} Suchtreffern (Gesamt: {{ countTotal }}{% if countSearch != countTotal %} <a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': {'skip': 0, 'max': 100}, 'sort': {1: {'key': 'publikationLang', 'direction': 'ascend'}}}) }}">→ Suchfilter aufheben</a>{% endif %})<span id="showSearchParameters" title="Suchparameter anzeigen">?</span></p>
-  {% else %}
-    <p> {{ countSearch }} Suchtreffer (Gesamt: {{ countTotal }} <a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': {'skip': 0, 'max': 100}, 'sort': {1: {'key': 'publikationLang', 'direction': 'ascend'}}}) }}">→ Suchfilter aufheben</a>)<span id="showSearchParameters" title="Suchparameter anzeigen">?</span></p>
-  {% endif %}
-  <p id="searchParameters" style="display: none;">
-    <b>Suchoptionen</b><br />
-    <i>Operator: </i>{{ search.operator == 'and' ? '&&' : '||' }}<br />
-    <i>Auslassung: </i>{{ search.skip }}<br />
-    <i>Maximale Seitengröße: </i>{{ search.max }}<br />
-    <i>Erwähnte Daten: </i>{{ search.mentionedDates == 'with' ? 'einbeziehen' : (search.mentionedDates == 'only' ? 'nur in Erwähnten Daten suchen' : 'nicht miteinbeziehen') }}<br />
-    
-    {% if search.criteria %}
-      <b>Suchfilter</b><br />
-      {% for key, criterion  in search.criteria %}
-        <i>{{ key }}</i> {{ criterion.operator }} {{ criterion.value }}
-      {% endfor %}
-      <br />
-    {% endif %}
 
-    {% if sort %}
-      <b>Sortierung</b><br />
-      {% for sortItem in sort %}
-        <i>{{ sortItem.key }}:</i> {{ sortItem.direction }}
-      {% endfor %}
-      <br />
-    {% endif %}
-
-    {% if query %}
-      <b>Abfrage in Pseudo-SQL</b><br />
-      {{ query }}<br />
-    {% endif %}
-
-  </p>
-
-  {% if countSearch %}
-    <table class="catalogueList">
-      <thead>
-        <tr>
-          <th></th>
-          {% for key, field in fieldList %}
-            <th class="{{ key }} {{ sortDirections[key] }}" title="{{ sortDirections[key] == 'asc' ? 'aufwärts' : 'abwärts' }} sortieren nach Feld »{{ field }}«">
-              <a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': search, 'sort': sortLinkParameters[key]}) }}">{{ field }}</a>
-            </th>
-          {% endfor %}
-          {% if search.mentionedDates != 'without' %}
-            <th class="mentionedDates">Erwähnte Daten</td>
-          {% endif %}
-        </tr>
-      </thead>
-      <tbody>
-        {% for index, record in result %}
-          <tr>
-          　<th title="HGV ID {{ record.hgvId }}"><a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': {'skip': search['skip'] + index, 'max': 1}}) }}">{{ from + index }}</a></th>
-            <td class="publikationLang">{{ record.publikationLang }}</td>
-            <td class="datierungIi">{{ record.datierungIi }}</td>
-            <td class="ort">{{ record.ort }}</td>
-            <td class="originaltitelHtml">
-              {% if record.originaltitelHtml %}
-                {{ record.originaltitelHtml|raw }}
-              {% else %}
-                {{ record.originaltitel }}
-              {% endif %}
-            </td>
-            {% if search.mentionedDates != 'without' %}
-              <td class="mentionedDates">{{ record.erwaehnteDaten }}</td>
-            {% endif %}
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  {% endif %}
-
-  {% if searchPrev %}
-    <a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': searchPrev, 'sort': sort}) }}">zurück</a>
-  {% endif %}
-
-  {% if searchNext %}
-    <a href="{{ path('PapyrillioHgvBundle_BrowseMultiple', {'search': searchNext, 'sort': sort}) }}">weiter</a>
-  {% endif %}
+  <table id="catalogueTable" class="catalogueList display"
+         data-api-url="{{ path('PapyrillioHgvBundle_BrowseMultipleApi') }}"
+         data-single-url="{{ path('PapyrillioHgvBundle_BrowseSingle') }}">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Publikation</th>
+        <th>Datierung</th>
+        <th>Ort</th>
+        <th>Titel</th>
+        <th>Material</th>
+        <th>Inhalt / Schlagworte</th>
+        <th>Andere Publikationen</th>
+        <th>TM Nr.</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th></th>
+        <th>Publikation</th>
+        <th>Datierung</th>
+        <th>Ort</th>
+        <th>Titel</th>
+        <th>Material</th>
+        <th>Inhalt / Schlagworte</th>
+        <th>Andere Publikationen</th>
+        <th>TM Nr.</th>
+      </tr>
+    </tfoot>
+  </table>
 {% endblock %}
 
 {% block javascripts %}
   {{ parent() }}
+  <script src="{{ asset('js/DataTables/datatables.min.js') }}" type="text/javascript"></script>
   <script src="{{ asset('js/browseMulti.js') }}" type="text/javascript"></script>
 {% endblock %}

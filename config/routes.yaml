@@ -60,6 +60,10 @@ PapyrillioHgvBundle_BrowseMultiple:
     path:  /
     controller: App\Controller\BrowseController::multiple
 
+PapyrillioHgvBundle_BrowseMultipleApi:
+    path:  /api/browse
+    controller: App\Controller\BrowseController::multipleApi
+
 PapyrillioHgvBundle_BrowseSingle:
     path:  /show
     controller: App\Controller\BrowseController::single
