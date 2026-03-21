@@ -108,7 +108,18 @@ declare function hgv:extract-metadata($doc as element(tei:TEI)) as map(*) {
 
     'publication':    string($bibl/tei:title[@type='abbreviated']),
     'volume':         string($bibl/tei:biblScope[@type='volume']),
-    'number':         string($bibl/tei:biblScope[@type='numbers']),
+    'fascicle':       string($bibl/tei:biblScope[@type='fascicle']),
+    'numbers':        string($bibl/tei:biblScope[@type='numbers']),
+    'side':           string($bibl/tei:biblScope[@type='side']),
+
+    'lines':          string($bibl/tei:biblScope[@type='lines']),
+    'pages':          string($bibl/tei:biblScope[@type='pages']),
+    'fragments':      string($bibl/tei:biblScope[@type='fragments']),
+    'folio':          string($bibl/tei:biblScope[@type='folio']),
+    'inventory':      string($bibl/tei:biblScope[@type='inventory']),
+    'number':         string($bibl/tei:biblScope[@type='number']),
+    'columns':        string($bibl/tei:biblScope[@type='columns']),
+    'generic':        string($bibl/tei:biblScope[@type='generic']),
 
     'material':       string($doc//tei:support/tei:material),
     'place':          string($origin/tei:origPlace),
