@@ -249,8 +249,8 @@ class HgvXmlService
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 declare option output:method "json";
 array {
-  for \$doc in db:get('hgv')//tei:TEI
-  let \$pub := \$doc//tei:bibl[@type='publication'][@subtype='principal']
+  for \$doc in db:get('hgv')/tei:TEI
+  let \$pub := (\$doc//tei:bibl[@type='publication'][@subtype='principal'])[1]
   where $whereInner
   return map {
     "id":  string(\$doc//tei:idno[@type='filename']),
@@ -290,9 +290,9 @@ XQ;
     {
         return <<<'XQ'
   let $pub          := ($doc//tei:bibl[@type='publication'][@subtype='principal'])[1]
-  let $pubAbbr      := string($pub/tei:title[@type='abbreviated'])
-  let $pubVol       := string($pub/tei:biblScope[@type='volume'])
-  let $pubNr        := string($pub/tei:biblScope[@type='numbers'])
+  let $pubAbbr      := string(($pub/tei:title[@type='abbreviated'])[1])
+  let $pubVol       := string(($pub/tei:biblScope[@type='volume'])[1])
+  let $pubNr        := string(($pub/tei:biblScope[@type='numbers'])[1])
   let $origDate     := ($doc//tei:history/tei:origin/tei:origDate)[1]
   let $notBefore    := string(($origDate/@notBefore, $origDate/@when)[1])
   let $notAfter     := string(($origDate/@notAfter,  $origDate/@when)[1])
@@ -337,10 +337,10 @@ XQ;
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 declare option output:method "json";
 
-let \$total := count(db:get('hgv')//tei:TEI)
+let \$total := count(db:get('hgv')/tei:TEI)
 let \$filtered :=
   count(
-    for \$doc in db:get('hgv')//tei:TEI
+    for \$doc in db:get('hgv')/tei:TEI
 $bindings$whereStr
     return 1
   )
@@ -351,10 +351,20 @@ XQ;
     /**
      * Build full search-and-paginate XQuery returning
      * {"total": N, "filtered": M, "data": [...]}.
+     *
+     * Uses a two-phase approach:
+     *  Phase 1 – lightweight scan of all records; returns sorted/filtered document
+     *            node references.  When no WHERE clause is active only the minimal
+     *            sort-key bindings are computed (avoids string-join() on 65k docs).
+     *  Phase 2 – builds the full output map only for the requested page ($limit docs).
      */
     private function buildSearchXQuery(string $where, string $order, int $offset, int $limit): string
     {
-        $bindings = $this->commonLetBindings();
+        // When filtering, every binding may be referenced by WHERE; use full set.
+        // When only sorting, use the minimal set to avoid expensive string-join() calls.
+        $phase1Bindings = ($where !== '') ? $this->commonLetBindings() : $this->phase1Bindings($order);
+        $phase2Bindings = $this->commonLetBindings();
+
         $whereStr = $where ? "\n  $where" : '';
         $orderStr = $order ? "\n  $order" : '';
 
@@ -362,10 +372,18 @@ XQ;
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 declare option output:method "json";
 
-let \$total := count(db:get('hgv')//tei:TEI)
-let \$results :=
-  for \$doc in db:get('hgv')//tei:TEI
-$bindings$whereStr$orderStr
+(: Phase 1 – lightweight scan; collect sorted/filtered document node references :)
+let \$total := count(db:get('hgv')/tei:TEI)
+let \$sorted :=
+  for \$doc in db:get('hgv')/tei:TEI
+$phase1Bindings$whereStr$orderStr
+  return \$doc
+let \$filtered := count(\$sorted)
+
+(: Phase 2 – build output maps only for the requested page :)
+let \$data :=
+  for \$doc in subsequence(\$sorted, $offset, $limit)
+$phase2Bindings
   return map {
     "id":       string((\$doc//tei:idno[@type='filename'])[1]),
     "tm":       string((\$doc//tei:idno[@type='TM'])[1]),
@@ -398,10 +416,63 @@ $bindings$whereStr$orderStr
   }
 return map {
   "total":    \$total,
-  "filtered": count(\$results),
-  "data":     array { subsequence(\$results, $offset, $limit) }
+  "filtered": \$filtered,
+  "data":     array { \$data }
 }
 XQ;
+    }
+
+    /**
+     * Minimal let-bindings for phase 1 when there is no WHERE clause.
+     * Only computes the expressions actually needed by ORDER BY, skipping all the
+     * expensive string-join() calls that are only required for output fields.
+     */
+    private function phase1Bindings(string $order): string
+    {
+        // Always include publication fields and year/tm sort keys (default sort).
+        $base = <<<'XQB'
+  let $pub       := ($doc//tei:bibl[@type='publication'][@subtype='principal'])[1]
+  let $pubAbbr   := string(($pub/tei:title[@type='abbreviated'])[1])
+  let $pubVol    := string(($pub/tei:biblScope[@type='volume'])[1])
+  let $pubNr     := string(($pub/tei:biblScope[@type='numbers'])[1])
+  let $origDate  := ($doc//tei:history/tei:origin/tei:origDate)[1]
+  let $notBefore := string(($origDate/@notBefore, $origDate/@when)[1])
+  let $notAfter  := string(($origDate/@notAfter,  $origDate/@when)[1])
+  let $sortYear  := if ($notBefore != '' and $notBefore castable as xs:integer)
+                    then xs:integer($notBefore)
+                    else if ($notAfter != '' and $notAfter castable as xs:integer)
+                    then xs:integer($notAfter)
+                    else 9999
+  let $sortTm    := if (string(($doc//tei:idno[@type='TM'])[1]) castable as xs:integer)
+                    then xs:integer(string(($doc//tei:idno[@type='TM'])[1]))
+                    else 0
+XQB;
+        // Only add extra bindings when the ORDER BY clause actually references them.
+        $optional = [
+            '$place'             => "  let \$place    := string((\$doc//tei:origPlace)[1])\n",
+            '$title'             => "  let \$title    := string((\$doc//tei:titleStmt/tei:title)[1])\n",
+            '$material'          => "  let \$material := string((\$doc//tei:material)[1])\n",
+            '$dating'            => "  let \$dating   := normalize-space(string(\$origDate))\n",
+            '$when'              => "  let \$when     := string(\$origDate/@when)\n",
+            '$settlement'        => "  let \$settlement := string((\$doc//tei:msIdentifier/tei:placeName/tei:settlement)[1])\n",
+            '$collection'        => "  let \$collection := string((\$doc//tei:msIdentifier/tei:placeName/tei:collection)[1])\n",
+            '$invNo'             => "  let \$invNo    := string((\$doc//tei:msIdentifier/tei:idno[@type='invNo'])[1])\n",
+            '$keywords'          => "  let \$keywords := string-join(\$doc//tei:keywords[@scheme='hgv']/tei:term/text(), '; ')\n",
+            '$otherPubs'         => "  let \$otherPubs := string-join(\$doc//tei:bibl[@type='publication'][@subtype='other']/text(), '; ')\n",
+            '$illustrations'     => "  let \$illustrations := string-join(\$doc//tei:bibl[@type='illustration']/text(), '; ')\n",
+            '$commentary'        => "  let \$commentary := string-join(\$doc//tei:div[@type='commentary'][@subtype='general']/tei:p/text(), ' ')\n",
+            '$translationsPlain' => "  let \$translationsPlain := string-join(\$doc//tei:div[@type='bibliography'][@subtype='translations']//tei:bibl[@type='translations']/text(), '; ')\n",
+            '$erwaehnteDaten'    => "  let \$erwaehnteDaten := string((\$doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1])\n",
+            '$provenance'        => "  let \$provenance := string-join(\$doc//tei:provenance[@type='located']//tei:placeName[@type='ancient']/text(), ' \u2013 ')\n",
+            '$figureUrls'        => "  let \$figureUrls := string-join(\$doc//tei:figure/tei:graphic/string(@url), '; ')\n",
+        ];
+        $extra = '';
+        foreach ($optional as $varName => $binding) {
+            if (str_contains($order, $varName)) {
+                $extra .= $binding;
+            }
+        }
+        return $base . $extra;
     }
 
     /**
@@ -414,16 +485,16 @@ XQ;
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 declare option output:method "json";
 
-let \$doc := (db:get('hgv')//tei:TEI[
+let \$doc := (db:get('hgv')/tei:TEI[
   tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='filename'] = '$safeId'
 ])[1]
 return
   if (\$doc)
   then
     let \$pub      := (\$doc//tei:bibl[@type='publication'][@subtype='principal'])[1]
-    let \$pubAbbr  := string(\$pub/tei:title[@type='abbreviated'])
-    let \$pubVol   := string(\$pub/tei:biblScope[@type='volume'])
-    let \$pubNr    := string(\$pub/tei:biblScope[@type='numbers'])
+    let \$pubAbbr  := string((\$pub/tei:title[@type='abbreviated'])[1])
+    let \$pubVol   := string((\$pub/tei:biblScope[@type='volume'])[1])
+    let \$pubNr    := string((\$pub/tei:biblScope[@type='numbers'])[1])
     let \$ddb      := string((\$doc//tei:idno[@type='ddb-hybrid'])[1])
     let \$ddbParts := tokenize(\$ddb, ';')
     let \$origDate := (\$doc//tei:history/tei:origin/tei:origDate)[1]
@@ -664,7 +735,7 @@ XQ;
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
 declare option output:method "json";
 array {
-  for \$doc in db:get('hgv')//tei:TEI[
+  for \$doc in db:get('hgv')/tei:TEI[
     tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='$safeType'] = '$safeValue'
   ]
   let \$pub      := (\$doc//tei:bibl[@type='publication'][@subtype='principal'])[1]
@@ -720,7 +791,7 @@ XQ;
 
         $xquery = <<<XQ
 declare namespace tei = "http://www.tei-c.org/ns/1.0";
-let \$doc := (db:get('ddb')//tei:TEI[
+let \$doc := (db:get('ddb')/tei:TEI[
   tei:teiHeader/tei:fileDesc/tei:publicationStmt/tei:idno[@type='ddb-hybrid'] = '$safeHybrid'
 ])[1]
 return
