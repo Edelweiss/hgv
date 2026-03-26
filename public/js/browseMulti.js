@@ -49,7 +49,14 @@ $(function(){
             return '<a href="' + href + '">' + $('<span>').text(data).html() + '</a>';
           }
         },
-        { data: 'dating',   title: 'Datierung' },        // 2
+        { data: 'dating',   title: 'Datierung',           // 2
+          render: function(data, type, row) {
+            if (type !== 'display' || !row.dates || row.dates.length <= 1) return data || '';
+            return row.dates.map(function(d) {
+              return $('<span>').text(d.dating || '').html();
+            }).filter(function(s) { return s !== ''; }).join('<br>');
+          }
+        },
         { data: 'place',    title: 'Ort' },               // 3
         { data: 'title',    title: 'Titel' },             // 4
         { data: 'material', title: 'Material' },          // 5
@@ -69,10 +76,38 @@ $(function(){
         { data: 'pubAbbr',      title: 'Publikation Abk.',  visible: false }, // 11
         { data: 'pubVol',       title: 'Band',              visible: false }, // 12
         { data: 'pubNr',        title: 'Nummer',            visible: false }, // 13
-        { data: 'notBefore',    title: 'Nicht vor',         visible: false }, // 14
-        { data: 'notAfter',     title: 'Nicht nach',        visible: false }, // 15
-        { data: 'when',         title: 'Genaudatum',        visible: false }, // 16
-        { data: 'precision',    title: 'Präzision',         visible: false }, // 17
+        { data: 'notBefore',    title: 'Nicht vor',         visible: false, // 14
+          render: function(data, type, row) {
+            if (type !== 'display' || !row.dates || row.dates.length <= 1) return data || '';
+            return row.dates.map(function(d) {
+              return $('<span>').text(d.notBefore || '').html();
+            }).join('<br>');
+          }
+        },
+        { data: 'notAfter',     title: 'Nicht nach',        visible: false, // 15
+          render: function(data, type, row) {
+            if (type !== 'display' || !row.dates || row.dates.length <= 1) return data || '';
+            return row.dates.map(function(d) {
+              return $('<span>').text(d.notAfter || '').html();
+            }).join('<br>');
+          }
+        },
+        { data: 'when',         title: 'Genaudatum',        visible: false, // 16
+          render: function(data, type, row) {
+            if (type !== 'display' || !row.dates || row.dates.length <= 1) return data || '';
+            return row.dates.map(function(d) {
+              return $('<span>').text(d.when || '').html();
+            }).join('<br>');
+          }
+        },
+        { data: 'precision',    title: 'Präzision',         visible: false, // 17
+          render: function(data, type, row) {
+            if (type !== 'display' || !row.dates || row.dates.length <= 1) return data || '';
+            return row.dates.map(function(d) {
+              return $('<span>').text(d.precision || '').html();
+            }).join('<br>');
+          }
+        },
         { data: 'settlement',   title: 'Aufbewahrungsort',  visible: false }, // 18
         { data: 'collection',   title: 'Sammlung',          visible: false }, // 19
         { data: 'invNo',        title: 'Inv.-Nr.',          visible: false }, // 20

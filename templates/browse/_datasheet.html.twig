@@ -28,7 +28,12 @@
     {% endif %}
     <span>{{ record.place|raw }}</span>
   {% endif %}
-  {% if record.dating %}
+  {% if record.dates|length > 1 %}
+    {% for d in record.dates %}
+      <span class="Datierung">{{ d.dating|raw }}</span>
+      {% if not loop.last %}<br />{% endif %}
+    {% endfor %}
+  {% elseif record.dating %}
     <span class="Datierung">{{ record.dating|raw }}</span>
   {% endif %}
 </h5>

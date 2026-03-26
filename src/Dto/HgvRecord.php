@@ -94,6 +94,14 @@ class HgvRecord
 
     // ── Date helpers ──────────────────────────────────────────────────────────────
 
+    /**
+     * All origDate entries, each as an associative array with keys:
+     * xmlId, dating, notBefore, notAfter, when, precision.
+     *
+     * @return array<int,array{xmlId: string, dating: string, notBefore: string, notAfter: string, when: string, precision: string}>
+     */
+    public function getDates(): array { return $this->data['dates'] ?? []; }
+
     public function getNotBefore(): ?int
     {
         $v = $this->data['notBefore'] ?? '';

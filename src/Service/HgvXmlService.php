@@ -62,6 +62,22 @@ class HgvXmlService
         'notBefore', 'notAfter', 'sortYear', 'year', 'century',
     ];
 
+    /**
+     * Multi-date fields: expressions reference $od (an individual tei:origDate
+     * element) and are wrapped with "some $od in $origDates satisfies (...)"
+     * in buildCondition().
+     */
+    private const MULTI_DATE_FIELD_EXPR = [
+        'dating'    => "normalize-space(string(\$od))",
+        'when'      => "string(\$od/@when)",
+        'precision' => "string((\$od/@precision, \$od/@cert)[1])",
+        'notBefore' => "string((\$od/@notBefore, \$od/@when)[1])",
+        'notAfter'  => "string((\$od/@notAfter,  \$od/@when)[1])",
+        'year'      => "string((\$od/@notBefore, \$od/@when)[1])",
+        'century'   => "string((\$od/@notBefore, \$od/@when)[1])",
+        'sortYear'  => "string((\$od/@notBefore, \$od/@when)[1])",
+    ];
+
     // ── Sort key → XQuery order-by expression ────────────────────────────────────
 
     private const SORT_EXPR = [
@@ -237,6 +253,7 @@ declare option output:method "json";
 array {
   for \$doc in db:get('hgv')/tei:TEI
   let \$pub := (\$doc//tei:bibl[@type='publication'][@subtype='principal'])[1]
+  let \$origDates := \$doc//tei:history/tei:origin/tei:origDate
   where $whereInner
   return map {
     "id":  string(\$doc//tei:idno[@type='filename']),
@@ -246,10 +263,21 @@ array {
     "pubAbbr": string(\$pub/tei:title[@type='abbreviated']),
     "pubVol":  string(\$pub/tei:biblScope[@type='volume']),
     "pubNr":   string(\$pub/tei:biblScope[@type='numbers']),
-    "dating":  normalize-space(string(\$doc//tei:origDate)),
+    "dating":  normalize-space(string((\$origDates)[1])),
     "place":   string(\$doc//tei:origPlace),
     "title":   string(\$doc//tei:titleStmt/tei:title),
-    "material": string(\$doc//tei:material)
+    "material": string(\$doc//tei:material),
+    "dates": array {
+      for \$od in \$origDates
+      return map {
+        "xmlId":     string(\$od/@xml:id),
+        "dating":    normalize-space(string(\$od)),
+        "notBefore": string((\$od/@notBefore, \$od/@when)[1]),
+        "notAfter":  string((\$od/@notAfter,  \$od/@when)[1]),
+        "when":      string(\$od/@when),
+        "precision": string((\$od/@precision, \$od/@cert)[1])
+      }
+    }
   }
   order by string(\$doc//tei:idno[@type='filename']) ascending
 }
@@ -277,7 +305,8 @@ XQ;
   let $pubAbbr      := string(($pub/tei:title[@type='abbreviated'])[1])
   let $pubVol       := string(($pub/tei:biblScope[@type='volume'])[1])
   let $pubNr        := string(($pub/tei:biblScope[@type='numbers'])[1])
-  let $origDate     := ($doc//tei:history/tei:origin/tei:origDate)[1]
+  let $origDates    := $doc//tei:history/tei:origin/tei:origDate
+  let $origDate     := $origDates[1]
   let $notBefore    := string(($origDate/@notBefore, $origDate/@when)[1])
   let $notAfter     := string(($origDate/@notAfter,  $origDate/@when)[1])
   let $place        := string(($doc//tei:origPlace)[1])
@@ -306,6 +335,17 @@ XQ;
   let $provenance   := string-join($doc//tei:provenance[@type='located']//tei:placeName[@type='ancient']/text(), ' – ')
   let $mentionedDatesText := string(($doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1])
   let $figureUrls   := string-join($doc//tei:figure/tei:graphic/string(@url), '; ')
+  let $datesMap     := array {
+    for $od in $origDates
+    return map {
+      "xmlId":     string($od/@xml:id),
+      "dating":    normalize-space(string($od)),
+      "notBefore": string(($od/@notBefore, $od/@when)[1]),
+      "notAfter":  string(($od/@notAfter,  $od/@when)[1]),
+      "when":      string($od/@when),
+      "precision": string(($od/@precision, $od/@cert)[1])
+    }
+  }
 XQ;
     }
 
@@ -394,7 +434,8 @@ $phase2Bindings
     "provenance":    \$provenance,
     "translations":  \$translationsPlain,
     "mentionedDatesText": \$mentionedDatesText,
-    "figureUrls":    \$figureUrls
+    "figureUrls":    \$figureUrls,
+    "dates":         \$datesMap
   }
 return map {
   "total":    \$total,
@@ -417,7 +458,8 @@ XQ;
   let $pubAbbr   := string(($pub/tei:title[@type='abbreviated'])[1])
   let $pubVol    := string(($pub/tei:biblScope[@type='volume'])[1])
   let $pubNr     := string(($pub/tei:biblScope[@type='numbers'])[1])
-  let $origDate  := ($doc//tei:history/tei:origin/tei:origDate)[1]
+  let $origDates := $doc//tei:history/tei:origin/tei:origDate
+  let $origDate  := $origDates[1]
   let $notBefore := string(($origDate/@notBefore, $origDate/@when)[1])
   let $notAfter  := string(($origDate/@notAfter,  $origDate/@when)[1])
   let $sortYear  := if ($notBefore != '' and $notBefore castable as xs:integer)
@@ -479,7 +521,8 @@ return
     let \$pubNr    := string((\$pub/tei:biblScope[@type='numbers'])[1])
     let \$ddb      := string((\$doc//tei:idno[@type='ddb-hybrid'])[1])
     let \$ddbParts := tokenize(\$ddb, ';')
-    let \$origDate := (\$doc//tei:history/tei:origin/tei:origDate)[1]
+    let \$origDates := \$doc//tei:history/tei:origin/tei:origDate
+    let \$origDate  := \$origDates[1]
     let \$notBefore := string((\$origDate/@notBefore, \$origDate/@when)[1])
     let \$notAfter  := string((\$origDate/@notAfter,  \$origDate/@when)[1])
     let \$blEntries :=
@@ -537,6 +580,17 @@ return
       "mentionedDates": array { \$mentionedDates },
       "mentionedDatesText": string((\$doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1]),
       "provenance": \$provenance,
+      "dates": array {
+        for \$od in \$origDates
+        return map {
+          "xmlId":     string(\$od/@xml:id),
+          "dating":    normalize-space(string(\$od)),
+          "notBefore": string((\$od/@notBefore, \$od/@when)[1]),
+          "notAfter":  string((\$od/@notAfter,  \$od/@when)[1]),
+          "when":      string(\$od/@when),
+          "precision": string((\$od/@precision, \$od/@cert)[1])
+        }
+      },
       "pictureLinks": array {
         for \$g in \$doc//tei:figure/tei:graphic
         return map { "url": string(\$g/@url), "institution": "" }
@@ -572,19 +626,30 @@ XQ;
 
     /**
      * Build a single XQuery predicate for one criterion.
+     * For multi-date fields (dating, when, precision, notBefore, notAfter, …)
+     * the condition is wrapped with "some $od in $origDates satisfies (…)" so
+     * that ALL origDate elements in a record are checked.
+     *
      * Returns null when the field is unknown.
      */
     private function buildCondition(string $field, string $op, string $value): ?string
     {
+        // Check if this is a multi-date field requiring "some $od in $origDates" pattern
+        $multiDateExpr = self::MULTI_DATE_FIELD_EXPR[$field] ?? null;
+
         // Special wildcard operators
         if ($value === '*') {
-            // Field is non-empty
+            if ($multiDateExpr) {
+                return "(some \$od in \$origDates satisfies ($multiDateExpr != '' and exists($multiDateExpr)))";
+            }
             $expr = self::FIELD_EXPR[$field] ?? null;
             if (!$expr) return null;
             return "($expr != '' and $expr != ())";
         }
         if ($value === '=') {
-            // Field is empty
+            if ($multiDateExpr) {
+                return "(not(\$origDates) or (every \$od in \$origDates satisfies ($multiDateExpr = '' or not($multiDateExpr))))";
+            }
             $expr = self::FIELD_EXPR[$field] ?? null;
             if (!$expr) return null;
             return "($expr = '' or not($expr))";
@@ -595,80 +660,97 @@ XQ;
             return $this->buildDateRangeCondition($field, (int)$m[1], (int)$m[2]);
         }
 
+        // Use multi-date expression if available, otherwise regular FIELD_EXPR
+        $expr = $multiDateExpr ?? (self::FIELD_EXPR[$field] ?? null);
+        if (!$expr) {
+            return null; // unknown field — skip silently
+        }
+
         // Splittersuche (operator 'sp'): all words must appear
         if ($op === 'sp') {
-            $expr = self::FIELD_EXPR[$field] ?? null;
-            if (!$expr) return null;
             $parts = [];
             foreach (preg_split('/\s+/', trim($value)) as $word) {
                 if ($word === '') continue;
                 $safeWord = $this->escXQ($word);
                 $parts[] = "contains(lower-case($expr), lower-case('$safeWord'))";
             }
-            return empty($parts) ? null : '(' . implode(' and ', $parts) . ')';
-        }
-
-        $expr = self::FIELD_EXPR[$field] ?? null;
-        if (!$expr) {
-            return null; // unknown field — skip silently
+            if (empty($parts)) return null;
+            $inner = '(' . implode(' and ', $parts) . ')';
+            if ($multiDateExpr) {
+                return "(some \$od in \$origDates satisfies $inner)";
+            }
+            return $inner;
         }
 
         $safeVal = $this->escXQ($value);
         $isNumeric = in_array($field, self::NUMERIC_FIELDS, true);
 
+        $cond = null;
         switch ($op) {
-            case 'cn': return "contains(lower-case($expr), lower-case('$safeVal'))";
-            case 'bw': return "starts-with(lower-case($expr), lower-case('$safeVal'))";
-            case 'ew': return "ends-with(lower-case($expr), lower-case('$safeVal'))";
+            case 'cn': $cond = "contains(lower-case($expr), lower-case('$safeVal'))"; break;
+            case 'bw': $cond = "starts-with(lower-case($expr), lower-case('$safeVal'))"; break;
+            case 'ew': $cond = "ends-with(lower-case($expr), lower-case('$safeVal'))"; break;
             case 'eq':
-                if ($isNumeric && is_numeric($value)) {
-                    return "($expr castable as xs:integer and xs:integer($expr) = $safeVal)";
-                }
-                return "lower-case($expr) = lower-case('$safeVal')";
+                $cond = ($isNumeric && is_numeric($value))
+                    ? "($expr castable as xs:integer and xs:integer($expr) = $safeVal)"
+                    : "lower-case($expr) = lower-case('$safeVal')";
+                break;
             case 'neq':
-                if ($isNumeric && is_numeric($value)) {
-                    return "($expr castable as xs:integer and xs:integer($expr) != $safeVal)";
+                // "not equal" for multi-date: none of the dates match the value
+                if ($multiDateExpr) {
+                    $eqCond = ($isNumeric && is_numeric($value))
+                        ? "($expr castable as xs:integer and xs:integer($expr) = $safeVal)"
+                        : "lower-case($expr) = lower-case('$safeVal')";
+                    return "(not(some \$od in \$origDates satisfies $eqCond))";
                 }
-                return "lower-case($expr) != lower-case('$safeVal')";
+                $cond = ($isNumeric && is_numeric($value))
+                    ? "($expr castable as xs:integer and xs:integer($expr) != $safeVal)"
+                    : "lower-case($expr) != lower-case('$safeVal')";
+                break;
             case 'lt':
-                if ($isNumeric && is_numeric($value)) {
-                    return "($expr castable as xs:integer and xs:integer($expr) < $safeVal)";
-                }
-                return "$expr < '$safeVal'";
+                $cond = ($isNumeric && is_numeric($value))
+                    ? "($expr castable as xs:integer and xs:integer($expr) < $safeVal)"
+                    : "$expr < '$safeVal'";
+                break;
             case 'lte':
-                if ($isNumeric && is_numeric($value)) {
-                    return "($expr castable as xs:integer and xs:integer($expr) <= $safeVal)";
-                }
-                return "$expr <= '$safeVal'";
+                $cond = ($isNumeric && is_numeric($value))
+                    ? "($expr castable as xs:integer and xs:integer($expr) <= $safeVal)"
+                    : "$expr <= '$safeVal'";
+                break;
             case 'gt':
-                if ($isNumeric && is_numeric($value)) {
-                    return "($expr castable as xs:integer and xs:integer($expr) > $safeVal)";
-                }
-                return "$expr > '$safeVal'";
+                $cond = ($isNumeric && is_numeric($value))
+                    ? "($expr castable as xs:integer and xs:integer($expr) > $safeVal)"
+                    : "$expr > '$safeVal'";
+                break;
             case 'gte':
-                if ($isNumeric && is_numeric($value)) {
-                    return "($expr castable as xs:integer and xs:integer($expr) >= $safeVal)";
-                }
-                return "$expr >= '$safeVal'";
+                $cond = ($isNumeric && is_numeric($value))
+                    ? "($expr castable as xs:integer and xs:integer($expr) >= $safeVal)"
+                    : "$expr >= '$safeVal'";
+                break;
         }
 
-        return null;
+        if ($cond === null) return null;
+
+        if ($multiDateExpr) {
+            return "(some \$od in \$origDates satisfies $cond)";
+        }
+        return $cond;
     }
 
     /**
      * Build numeric year-range condition for date fields.
+     * Checks across all origDate elements (multi-date aware).
      */
     private function buildDateRangeCondition(string $field, int $from, int $to): ?string
     {
-        // Map field to appropriate XQuery year expression
-        $expr = match ($field) {
-            'notBefore', 'year'    => "\$notBefore",
-            'notAfter'             => "\$notAfter",
-            'sortYear'             => "\$notBefore",
+        $odExpr = match ($field) {
+            'notBefore', 'year'    => "string((\$od/@notBefore, \$od/@when)[1])",
+            'notAfter'             => "string((\$od/@notAfter, \$od/@when)[1])",
+            'sortYear'             => "string((\$od/@notBefore, \$od/@when)[1])",
             default                => null,
         };
-        if (!$expr) return null;
-        return "($expr castable as xs:integer and xs:integer($expr) >= $from and xs:integer($expr) <= $to)";
+        if (!$odExpr) return null;
+        return "(some \$od in \$origDates satisfies ($odExpr castable as xs:integer and xs:integer($odExpr) >= $from and xs:integer($odExpr) <= $to))";
     }
 
     // ── ORDER BY builder ──────────────────────────────────────────────────────────
@@ -722,7 +804,8 @@ array {
   let \$pubAbbr  := string(\$pub/tei:title[@type='abbreviated'])
   let \$pubVol   := string(\$pub/tei:biblScope[@type='volume'])
   let \$pubNr    := string(\$pub/tei:biblScope[@type='numbers'])
-  let \$origDate := (\$doc//tei:history/tei:origin/tei:origDate)[1]
+  let \$origDates := \$doc//tei:history/tei:origin/tei:origDate
+  let \$origDate  := \$origDates[1]
   order by string((\$doc//tei:idno[@type='filename'])[1]) ascending
   return map {
     "id":       string((\$doc//tei:idno[@type='filename'])[1]),
@@ -738,7 +821,18 @@ array {
     "place":    string((\$doc//tei:origPlace)[1]),
     "title":    string((\$doc//tei:titleStmt/tei:title)[1]),
     "material": string((\$doc//tei:material)[1]),
-    "keywords": string-join(\$doc//tei:keywords[@scheme='hgv']/tei:term/text(), '; ')
+    "keywords": string-join(\$doc//tei:keywords[@scheme='hgv']/tei:term/text(), '; '),
+    "dates": array {
+      for \$od in \$origDates
+      return map {
+        "xmlId":     string(\$od/@xml:id),
+        "dating":    normalize-space(string(\$od)),
+        "notBefore": string((\$od/@notBefore, \$od/@when)[1]),
+        "notAfter":  string((\$od/@notAfter,  \$od/@when)[1]),
+        "when":      string(\$od/@when),
+        "precision": string((\$od/@precision, \$od/@cert)[1])
+      }
+    }
   }
 }
 XQ;
