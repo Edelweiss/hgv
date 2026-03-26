@@ -78,6 +78,15 @@ class HgvXmlService
         'sortYear'  => "string((\$od/@notBefore, \$od/@when)[1])",
     ];
 
+    /**
+     * Multi-provenance fields: expressions reference $prov (an individual
+     * tei:provenance element) and are wrapped with
+     * "some $prov in $provenances satisfies (...)" in buildCondition().
+     */
+    private const MULTI_PROVENANCE_FIELD_EXPR = [
+        'provenance' => "string-join(\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ' ')",
+    ];
+
     // ── Sort key → XQuery order-by expression ────────────────────────────────────
 
     private const SORT_EXPR = [
@@ -254,6 +263,7 @@ array {
   for \$doc in db:get('hgv')/tei:TEI
   let \$pub := (\$doc//tei:bibl[@type='publication'][@subtype='principal'])[1]
   let \$origDates := \$doc//tei:history/tei:origin/tei:origDate
+  let \$provenances := \$doc//tei:provenance
   where $whereInner
   return map {
     "id":  string(\$doc//tei:idno[@type='filename']),
@@ -276,6 +286,16 @@ array {
         "notAfter":  string((\$od/@notAfter,  \$od/@when)[1]),
         "when":      string(\$od/@when),
         "precision": string((\$od/@precision, \$od/@cert)[1])
+      }
+    },
+    "provenances": array {
+      for \$prov in \$provenances
+      return map {
+        "xmlId":  string(\$prov/tei:p/@xml:id),
+        "type":   string(\$prov/@type),
+        "place":  string-join(\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ', '),
+        "nome":   string(\$prov/tei:p/tei:placeName[@subtype='nome']),
+        "region": string(\$prov/tei:p/tei:placeName[@subtype='region'])
       }
     }
   }
@@ -335,6 +355,7 @@ XQ;
   let $provenance   := string-join($doc//tei:provenance[@type='located']//tei:placeName[@type='ancient']/text(), ' – ')
   let $mentionedDatesText := string(($doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1])
   let $figureUrls   := string-join($doc//tei:figure/tei:graphic/string(@url), '; ')
+  let $provenances  := $doc//tei:provenance
   let $datesMap     := array {
     for $od in $origDates
     return map {
@@ -344,6 +365,16 @@ XQ;
       "notAfter":  string(($od/@notAfter,  $od/@when)[1]),
       "when":      string($od/@when),
       "precision": string(($od/@precision, $od/@cert)[1])
+    }
+  }
+  let $provenancesMap := array {
+    for $prov in $provenances
+    return map {
+      "xmlId":  string($prov/tei:p/@xml:id),
+      "type":   string($prov/@type),
+      "place":  string-join($prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ', '),
+      "nome":   string($prov/tei:p/tei:placeName[@subtype='nome']),
+      "region": string($prov/tei:p/tei:placeName[@subtype='region'])
     }
   }
 XQ;
@@ -435,7 +466,8 @@ $phase2Bindings
     "translations":  \$translationsPlain,
     "mentionedDatesText": \$mentionedDatesText,
     "figureUrls":    \$figureUrls,
-    "dates":         \$datesMap
+    "dates":         \$datesMap,
+    "provenances":   \$provenancesMap
   }
 return map {
   "total":    \$total,
@@ -487,7 +519,7 @@ XQB;
             '$commentary'        => "  let \$commentary := string-join(\$doc//tei:div[@type='commentary'][@subtype='general']/tei:p/text(), ' ')\n",
             '$translationsPlain' => "  let \$translationsPlain := string-join(\$doc//tei:div[@type='bibliography'][@subtype='translations']//tei:bibl[@type='translations']/text(), '; ')\n",
             '$mentionedDatesText'    => "  let \$mentionedDatesText := string((\$doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1])\n",
-            '$provenance'        => "  let \$provenance := string-join(\$doc//tei:provenance[@type='located']//tei:placeName[@type='ancient']/text(), ' \u2013 ')\n",
+            '$provenance'        => "  let \$provenances := \$doc//tei:provenance\n  let \$provenance := string-join(\$doc//tei:provenance[@type='located']//tei:placeName[@type='ancient']/text(), ' \u2013 ')\n",
             '$figureUrls'        => "  let \$figureUrls := string-join(\$doc//tei:figure/tei:graphic/string(@url), '; ')\n",
         ];
         $extra = '';
@@ -550,6 +582,7 @@ return
       return string(\$g)
     let \$provenance := string-join(
       \$doc//tei:provenance[@type='located']//tei:placeName[@type='ancient']/text(), ' – ')
+    let \$provenances := \$doc//tei:provenance
     return map {
       "id":         string((\$doc//tei:idno[@type='filename'])[1]),
       "tm":         string((\$doc//tei:idno[@type='TM'])[1]),
@@ -591,6 +624,16 @@ return
           "precision": string((\$od/@precision, \$od/@cert)[1])
         }
       },
+      "provenances": array {
+        for \$prov in \$provenances
+        return map {
+          "xmlId":  string(\$prov/tei:p/@xml:id),
+          "type":   string(\$prov/@type),
+          "place":  string-join(\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ', '),
+          "nome":   string(\$prov/tei:p/tei:placeName[@subtype='nome']),
+          "region": string(\$prov/tei:p/tei:placeName[@subtype='region'])
+        }
+      },
       "pictureLinks": array {
         for \$g in \$doc//tei:figure/tei:graphic
         return map { "url": string(\$g/@url), "institution": "" }
@@ -629,26 +672,43 @@ XQ;
      * For multi-date fields (dating, when, precision, notBefore, notAfter, …)
      * the condition is wrapped with "some $od in $origDates satisfies (…)" so
      * that ALL origDate elements in a record are checked.
+     * For multi-provenance fields the same pattern is used with
+     * "some $prov in $provenances satisfies (…)".
      *
      * Returns null when the field is unknown.
      */
     private function buildCondition(string $field, string $op, string $value): ?string
     {
-        // Check if this is a multi-date field requiring "some $od in $origDates" pattern
+        // Check if this is a multi-date or multi-provenance field
         $multiDateExpr = self::MULTI_DATE_FIELD_EXPR[$field] ?? null;
+        $multiProvExpr = self::MULTI_PROVENANCE_FIELD_EXPR[$field] ?? null;
+
+        // Determine the quantifier variable/collection for "some ... satisfies" wrapping
+        $quantVar  = null;  // e.g. '$od' or '$prov'
+        $quantColl = null;  // e.g. '$origDates' or '$provenances'
+        $multiExpr = null;
+        if ($multiDateExpr) {
+            $quantVar  = '$od';
+            $quantColl = '$origDates';
+            $multiExpr = $multiDateExpr;
+        } elseif ($multiProvExpr) {
+            $quantVar  = '$prov';
+            $quantColl = '$provenances';
+            $multiExpr = $multiProvExpr;
+        }
 
         // Special wildcard operators
         if ($value === '*') {
-            if ($multiDateExpr) {
-                return "(some \$od in \$origDates satisfies ($multiDateExpr != '' and exists($multiDateExpr)))";
+            if ($multiExpr) {
+                return "(some $quantVar in $quantColl satisfies ($multiExpr != '' and exists($multiExpr)))";
             }
             $expr = self::FIELD_EXPR[$field] ?? null;
             if (!$expr) return null;
             return "($expr != '' and $expr != ())";
         }
         if ($value === '=') {
-            if ($multiDateExpr) {
-                return "(not(\$origDates) or (every \$od in \$origDates satisfies ($multiDateExpr = '' or not($multiDateExpr))))";
+            if ($multiExpr) {
+                return "(not($quantColl) or (every $quantVar in $quantColl satisfies ($multiExpr = '' or not($multiExpr))))";
             }
             $expr = self::FIELD_EXPR[$field] ?? null;
             if (!$expr) return null;
@@ -660,8 +720,8 @@ XQ;
             return $this->buildDateRangeCondition($field, (int)$m[1], (int)$m[2]);
         }
 
-        // Use multi-date expression if available, otherwise regular FIELD_EXPR
-        $expr = $multiDateExpr ?? (self::FIELD_EXPR[$field] ?? null);
+        // Use multi expression if available, otherwise regular FIELD_EXPR
+        $expr = $multiExpr ?? (self::FIELD_EXPR[$field] ?? null);
         if (!$expr) {
             return null; // unknown field — skip silently
         }
@@ -676,8 +736,8 @@ XQ;
             }
             if (empty($parts)) return null;
             $inner = '(' . implode(' and ', $parts) . ')';
-            if ($multiDateExpr) {
-                return "(some \$od in \$origDates satisfies $inner)";
+            if ($multiExpr) {
+                return "(some $quantVar in $quantColl satisfies $inner)";
             }
             return $inner;
         }
@@ -696,12 +756,12 @@ XQ;
                     : "lower-case($expr) = lower-case('$safeVal')";
                 break;
             case 'neq':
-                // "not equal" for multi-date: none of the dates match the value
-                if ($multiDateExpr) {
+                // "not equal" for multi-value: none of the items match the value
+                if ($multiExpr) {
                     $eqCond = ($isNumeric && is_numeric($value))
                         ? "($expr castable as xs:integer and xs:integer($expr) = $safeVal)"
                         : "lower-case($expr) = lower-case('$safeVal')";
-                    return "(not(some \$od in \$origDates satisfies $eqCond))";
+                    return "(not(some $quantVar in $quantColl satisfies $eqCond))";
                 }
                 $cond = ($isNumeric && is_numeric($value))
                     ? "($expr castable as xs:integer and xs:integer($expr) != $safeVal)"
@@ -731,8 +791,8 @@ XQ;
 
         if ($cond === null) return null;
 
-        if ($multiDateExpr) {
-            return "(some \$od in \$origDates satisfies $cond)";
+        if ($multiExpr) {
+            return "(some $quantVar in $quantColl satisfies $cond)";
         }
         return $cond;
     }
@@ -806,6 +866,7 @@ array {
   let \$pubNr    := string(\$pub/tei:biblScope[@type='numbers'])
   let \$origDates := \$doc//tei:history/tei:origin/tei:origDate
   let \$origDate  := \$origDates[1]
+  let \$provenances := \$doc//tei:provenance
   order by string((\$doc//tei:idno[@type='filename'])[1]) ascending
   return map {
     "id":       string((\$doc//tei:idno[@type='filename'])[1]),
@@ -831,6 +892,16 @@ array {
         "notAfter":  string((\$od/@notAfter,  \$od/@when)[1]),
         "when":      string(\$od/@when),
         "precision": string((\$od/@precision, \$od/@cert)[1])
+      }
+    },
+    "provenances": array {
+      for \$prov in \$provenances
+      return map {
+        "xmlId":  string(\$prov/tei:p/@xml:id),
+        "type":   string(\$prov/@type),
+        "place":  string-join(\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ', '),
+        "nome":   string(\$prov/tei:p/tei:placeName[@subtype='nome']),
+        "region": string(\$prov/tei:p/tei:placeName[@subtype='region'])
       }
     }
   }

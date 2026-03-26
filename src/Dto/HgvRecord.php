@@ -60,6 +60,15 @@ class HgvRecord
     public function getTranslations(): ?string       { return $this->data['translations']  ?? null; }
     /** Provenance places joined by ' - '. */
     public function getProvenance(): ?string         { return $this->data['provenance']    ?? null; }
+
+    /**
+     * All provenance entries, each as an associative array with keys:
+     * xmlId, type, place, nome, region.
+     *
+     * @return array<int,array{xmlId: string, type: string, place: string, nome: string, region: string}>
+     */
+    public function getProvenances(): array { return $this->data['provenances'] ?? []; }
+
     /** Inventory number. */
     public function getInventoryNumber(): ?string    { return $this->data['invNo']         ?? null; }
 

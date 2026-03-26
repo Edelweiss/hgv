@@ -111,7 +111,19 @@ $(function(){
         { data: 'settlement',   title: 'Aufbewahrungsort',  visible: false }, // 18
         { data: 'collection',   title: 'Sammlung',          visible: false }, // 19
         { data: 'invNo',        title: 'Inv.-Nr.',          visible: false }, // 20
-        { data: 'provenance',   title: 'Herkunft',          visible: false }, // 21
+        { data: 'provenance',   title: 'Herkunft',          visible: false,  // 21
+          render: function(data, type, row) {
+            if (type !== 'display' || !row.provenances || row.provenances.length <= 1) return data || '';
+            return row.provenances.map(function(p) {
+              var parts = [];
+              if (p.type) parts.push($('<em>').text(p.type).prop('outerHTML'));
+              if (p.place) parts.push($('<span>').text(p.place).html());
+              if (p.nome) parts.push($('<span>').text(p.nome).html());
+              if (p.region) parts.push($('<span>').text(p.region).html());
+              return parts.join(' – ');
+            }).filter(function(s) { return s !== ''; }).join('<br>');
+          }
+        },
         { data: 'illustrations',title: 'Abbildungen',       visible: false }, // 22
         { data: 'figureUrls',   title: 'Bild-URLs',         visible: false }, // 23
         { data: 'translations', title: 'Übersetzungen',     visible: false }, // 24

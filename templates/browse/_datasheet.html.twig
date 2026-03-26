@@ -104,6 +104,23 @@
         <td>{{ record.keywords|raw }}</td>
       </tr>
     {% endif %}
+    {% if record.provenances|length %}
+      <tr>
+        <th>Herkunft</th>
+        <td>
+          <ul>
+            {% for prov in record.provenances %}
+              <li>
+                {% if prov.type %}<em>{{ prov.type }}</em>: {% endif %}
+                {{ prov.place|raw }}
+                {% if prov.nome %} – {{ prov.nome|raw }}{% endif %}
+                {% if prov.region %} ({{ prov.region|raw }}){% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+    {% endif %}
     {% if record.mentionedDatesText %}
       <tr class="mentionedDates">
         <th>Erwähnte Daten</th>

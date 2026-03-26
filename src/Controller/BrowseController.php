@@ -266,6 +266,7 @@ class BrowseController extends HgvController
         foreach ($result['data'] as $record) {
             $raw    = $record->toArray();
             $dates  = $raw['dates'] ?? [];
+            $provenances = $raw['provenances'] ?? [];
             $data[] = [
                 'hgvId'          => (string)($raw['id']          ?? ''),
                 'tm'             => (string)($raw['tm']          ?? ''),
@@ -296,6 +297,7 @@ class BrowseController extends HgvController
                 'commentary'     => (string)($raw['commentary']  ?? ''),
                 'mentionedDates' => (string)($raw['mentionedDatesText'] ?? ''),
                 'dates'          => $dates,
+                'provenances'    => $provenances,
             ];
         }
 
