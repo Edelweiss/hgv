@@ -2,7 +2,7 @@
 
 {% block title %}
   {% for hgv in data %}
-    {{ hgv.publikationLang|raw ~ ' (TM/HGV ' ~ hgv.id ~ ')' ~ ' - ' ~ hgv.originaltitelHtml|raw }}
+    {{ hgv.publicationFull|raw ~ ' (TM/HGV ' ~ hgv.id ~ ')' ~ ' - ' ~ hgv.title|raw }}
     {{ loop.last ? '' : ' - ' }}
   {% endfor %}
 {% endblock %}

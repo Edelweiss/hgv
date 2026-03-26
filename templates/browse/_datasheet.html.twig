@@ -1,48 +1,44 @@
 {# Testfälle: 1005, 28210, 44502, 50307, 8886, 19648, 63705, 9088, 8981a #}
 
 <h3 class="catalogueShow">
-  {% if record.publikationLang %}
-    <a  href="#{{ record.id }}" onclick="top.location.href = '{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': record.hgvId}) }}'">{{ record.publikationLang|raw }}</a>
+  {% if record.publicationFull %}
+    <a  href="#{{ record.id }}" onclick="top.location.href = '{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': record.hgvId}) }}'">{{ record.publicationFull|raw }}</a>
   {% else %}
      …
   {% endif %}
-  {% if record.TmNr %}
-    <a  href="http://www.trismegistos.org/tm/detail.php?quick={{ record.TmNr }}" target="DAHT">TM Nr. {{ record.tmNr }}</a>
-    {% if record.tmNr~'' != record.id %}
+  {% if record.tm %}
+    <a  href="http://www.trismegistos.org/tm/detail.php?quick={{ record.tm }}" target="DAHT">TM Nr. {{ record.tm }}</a>
+    {% if record.tm~'' != record.id %}
       <span class="mini">(HGV Nr. {{ record.id }})</span>
     {% endif %}
   {% endif %}
 </h3>
 
 <h4 class="catalogueShow">
-  {% if record.originaltitel == 'keiner' %}
+  {% if record.title == 'keiner' %}
       Titel:
   {% endif %}
-  {% if record.originaltitelHtml %}
-    {{ record.originaltitelHtml|raw }}
-  {% else %}
-    {{ record.originaltitel }}
-  {% endif %}
+  {{ record.title|raw }}
 </h4>
 
 <h5 class="catalogueShow">
-  {% if record.Ort %}
-    {% if record.Ort == 'unbekannt' %}
+  {% if record.place %}
+    {% if record.place == 'unbekannt' %}
       Ort
     {% endif %}
-    <span>{{ record.ort|raw }}</span>
+    <span>{{ record.place|raw }}</span>
   {% endif %}
-  {% if record.datierungIi %}
-    <span class="Datierung">{{ record.datierungIi|raw }}</span>
+  {% if record.dating %}
+    <span class="Datierung">{{ record.dating|raw }}</span>
   {% endif %}
 </h5>
 
 <table class="catalogueShow">
   <tbody>
-    {% if record.anderePublikation %}
+    {% if record.otherPublications %}
       <tr>
         <th>Andere Publikationen</th>
-        <td>{{ record.anderePublikation|raw }}</td>
+        <td>{{ record.otherPublications|raw }}</td>
       </tr>
     {% endif %}
     {% if record.material %}
@@ -51,11 +47,11 @@
         <td>{{ record.material|raw }}</td>
       </tr>
     {% endif %}
-    {% if record.abbildung %}
+    {% if record.illustrations %}
       <tr class="pictureLinks">
         <th>Abbildung</th>
         <td>
-          {{ record.abbildung|raw }}
+          {{ record.illustrations|raw }}
         </td>
       </tr>
     {% endif %}
@@ -70,33 +66,17 @@
         </td>
       </tr>
     {% endif %}
-    {% if record.ldab == 'ja' %}
-      <tr class="ldab">
-        <th></th>
-        <td>
-          Trismegistos ermöglicht den Link zu Metadaten für diesen (semi)literarischen Text bei <a href="http://www.trismegistos.org/ldab/text.php?tm={{ record.tmNr }}" target="DAHT">LDAB</a>
-        </td>
-      </tr>
-    {% endif %}
-    {% if record.bemerkungen %}
+    {% if record.commentary %}
       <tr>
         <th>Bemerkungen</th>
-        <td>{{ record.bemerkungen|raw }}</td>
+        <td>{{ record.commentary|raw }}</td>
       </tr>
     {% endif %}
-    {% if record.daht == 'ja' %}
-      <tr class="daht">
-        <th></th>
-        <td>
-          Trismegistos ermöglicht den Link zu Metadaten für diesen bilinguen Text bei <a href="http://www.trismegistos.org/DAHT/daht_text_detail.php?tm={{ record.tmNr }}" target="DAHT">DAHT</a>
-        </td>
-      </tr>
-    {% endif %}
-    {% if record.uebersetzungen %}
+    {% if record.translations %}
       <tr class="translation">
         <th>Übersetzungen<br/><span class="hide">verbergen</span><span class="show">anzeigen</span></th>
         <td>
-          {% set translations = processTranslations(record.uebersetzungen) %}
+          {% set translations = processTranslations(record.translations) %}
           {% if translations %}
             {% for language, translation in translations %}
               <b>{{ language }}:</b>
@@ -108,31 +88,18 @@
               </ul>
             {% endfor %}
           {% else %}
-            {{ record.uebersetzungen|raw }}
+            {{ record.translations|raw }}
           {% endif %}
         </td>
       </tr>
     {% endif %}
-    {% if record.dfg %}
-      <tr class="dfg">
-        <th></th>
-        <td>
-          <br />
-          <a href="https://www.zaw.uni-heidelberg.de/hps/pap/trans/DFG/de/{{ record.tmNr }}{{ record.texLett }}de.html" target="BGU">Deutsche Übersetzung (HGV-Erweiterungsprojekt, finanziert von der DFG)</a>
-          <br />
-          <a href="https://www.zaw.uni-heidelberg.de/hps/pap/trans/DFG/eng/{{ record.tmNr }}{{ record.texLett }}eng.html" target="BGU">English translation (HGV Enhancement Project funded by the DFG)</a>
-          <br />
-          <br />
-        </td>
-      </tr>
-    {% endif %}
-    {% if record.inhaltHtml %}
+    {% if record.keywords %}
       <tr>
         <th>Inhalt</th>
-        <td>{{ record.InhaltHtml|raw }}</td>
+        <td>{{ record.keywords|raw }}</td>
       </tr>
     {% endif %}
-    {% if record.erwaehnteDaten %}
+    {% if record.mentionedDatesText %}
       <tr class="mentionedDates">
         <th>Erwähnte Daten</th>
         <td>
@@ -148,7 +115,7 @@
               {% endfor %}
             </ul>
           {% else %}
-            {{ record.erwaehnteDaten|raw }}
+            {{ record.mentionedDatesText|raw }}
           {% endif %}
         </td>
       </tr>

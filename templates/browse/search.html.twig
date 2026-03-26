@@ -32,27 +32,27 @@
 
     <div class="searchFields">
       <fieldset class="searchId">
-        {% for key in ['publikation', 'band', 'nummer', 'anderePublikation'] %}
+        {% for key in ['publication', 'volume', 'number', 'otherPublications'] %}
           {% include 'browse/_searchField.html.twig' with { 'key': key } %}
         {% endfor %}
       </fieldset>
 
       <fieldset class="searchDescription">
-        {% for key in ['ort', 'originaltitel', 'material', 'inhalt', 'bemerkungen', 'uebersetzungen'] %}
+        {% for key in ['place', 'title', 'material', 'keywords', 'commentary', 'translations'] %}
           {% include 'browse/_searchField.html.twig' with { 'key': key } %}
         {% endfor %}
       </fieldset>
 
       <fieldset class="searchImage">
-        {% for key in ['abbildung', 'url'] %}
+        {% for key in ['illustrations', 'url'] %}
           {% include 'browse/_searchField.html.twig' with { 'key': key } %}
         {% endfor %}
         <br />
-        {% include 'browse/_searchField.html.twig' with { 'key': 'tmNr' } %}
+        {% include 'browse/_searchField.html.twig' with { 'key': 'tm' } %}
       </fieldset>
 
       <fieldset class="searchDate">
-        {% for key in ['jahr', 'monat', 'tag', 'jahrIi', 'jh', 'jhIi', 'chronMinimum', 'chronMaximum', 'chronGlobal'] %}
+        {% for key in ['year', 'century', 'notBefore', 'notAfter', 'sortYear'] %}
           {% include 'browse/_searchField.html.twig' with { 'key': key } %}
         {% endfor %}
       </fieldset>

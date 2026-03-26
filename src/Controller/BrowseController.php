@@ -21,34 +21,34 @@ class BrowseController extends HgvController
 
     /** Fields shown in the advanced search form. */
     static $FIELD_LIST_SEARCH = [
-        'publikation'       => 'Publikation',
-        'band'              => 'Band',
-        'nummer'            => 'Nummer',
-        'tmNr'              => 'TM Nr.',
-        'jahr'              => 'Jahr',
-        'jh'                => 'Jahrhundert',
-        'ort'               => 'Ort',
-        'originaltitel'     => 'Originaltitel',
+        'publication'       => 'Publikation',
+        'volume'            => 'Band',
+        'number'            => 'Nummer',
+        'tm'                => 'TM Nr.',
+        'year'              => 'Jahr',
+        'century'           => 'Jahrhundert',
+        'place'             => 'Ort',
+        'title'             => 'Originaltitel',
         'material'          => 'Material',
-        'abbildung'         => 'Abbildung',
-        'anderePublikation' => 'Andere Publikation',
-        'bemerkungen'       => 'Bemerkungen',
-        'inhalt'            => 'Inhalt',
+        'illustrations'     => 'Abbildung',
+        'otherPublications' => 'Andere Publikation',
+        'commentary'        => 'Bemerkungen',
+        'keywords'          => 'Inhalt',
         'url'               => 'Link',
-        'chronMinimum'      => 'Chron-Minimum',
-        'chronMaximum'      => 'Chron-Maximum',
-        'chronGlobal'       => 'Chron-Global',
-        'uebersetzungen'    => 'Übersetzungen',
+        'notBefore'         => 'Chron-Minimum',
+        'notAfter'          => 'Chron-Maximum',
+        'sortYear'          => 'Chron-Global',
+        'translations'      => 'Übersetzungen',
     ];
 
     /** Used for the single-record field labels. */
     static $FIELD_LIST_SINGLE = [
-        'publikationLang'   => 'Publikation',
-        'datierungIi'       => 'Datierung',
-        'ort'               => 'Ort',
-        'originaltitelHtml' => 'Originaltitel',
+        'publication'       => 'Publikation',
+        'dating'            => 'Datierung',
+        'place'             => 'Ort',
+        'title'             => 'Originaltitel',
         'material'          => 'Material',
-        'abbildung'         => 'Abbildung',
+        'illustrations'     => 'Abbildung',
         'ddbVol'            => 'Texte der DDBDP',
     ];
 
@@ -147,14 +147,14 @@ class BrowseController extends HgvController
         // Must match browseMulti.js column definitions (0-based)
         $sortableColumns = [
             0 => null,               // hgvId link (row number)
-            1 => 'publikationLang',
-            2 => 'datierungIi',
-            3 => 'ort',
-            4 => 'originaltitelHtml',
+            1 => 'publication',
+            2 => 'dating',
+            3 => 'place',
+            4 => 'title',
             5 => 'material',
-            6 => 'inhalt',           // keywords
-            7 => 'anderePublikation',
-            8 => 'tmNr',
+            6 => 'keywords',
+            7 => 'otherPublications',
+            8 => 'tm',
             // hidden columns 9-26
             9  => 'ddb',
             10 => 'hgv',
@@ -173,19 +173,19 @@ class BrowseController extends HgvController
             23 => 'figureUrls',
             24 => 'translations',
             25 => 'commentary',
-            26 => 'mentionedDates',
+            26 => 'mentionedDatesText',
         ];
 
         // ── Column index → search field map ──────────────────────────────────────
         $searchableColumns = [
-            1 => 'publikation',
-            2 => 'datierungIi',
-            3 => 'ort',
-            4 => 'originaltitel',
+            1 => 'publication',
+            2 => 'dating',
+            3 => 'place',
+            4 => 'title',
             5 => 'material',
-            6 => 'inhalt',
-            7 => 'anderePublikation',
-            8 => 'tmNr',
+            6 => 'keywords',
+            7 => 'otherPublications',
+            8 => 'tm',
             // hidden columns 9-26
             9  => 'ddb',
             10 => 'hgv',
@@ -204,7 +204,7 @@ class BrowseController extends HgvController
             23 => 'figureUrls',
             24 => 'translations',
             25 => 'commentary',
-            26 => 'mentionedDates',
+            26 => 'mentionedDatesText',
         ];
 
         // ── Build sort ────────────────────────────────────────────────────────────
@@ -221,7 +221,7 @@ class BrowseController extends HgvController
             }
         }
         if (empty($sort)) {
-            $sort = [1 => ['key' => 'chronGlobal', 'direction' => 'ascend']];
+            $sort = [1 => ['key' => 'sortYear', 'direction' => 'ascend']];
         }
 
         // ── Build per-column search criteria (override session) ───────────────────
@@ -243,9 +243,9 @@ class BrowseController extends HgvController
         $globalSearch = trim($this->request->query->all('search')['value'] ?? '');
         if ($globalSearch !== '' && empty($columnCriteria)) {
             $columnCriteria = [
-                'publikation'   => ['operator' => 'cn', 'value' => $globalSearch],
-                'ort'           => ['operator' => 'cn', 'value' => $globalSearch],
-                'originaltitel' => ['operator' => 'cn', 'value' => $globalSearch],
+                'publication'   => ['operator' => 'cn', 'value' => $globalSearch],
+                'place'         => ['operator' => 'cn', 'value' => $globalSearch],
+                'title'         => ['operator' => 'cn', 'value' => $globalSearch],
             ];
             $operator = 'or';
         }
@@ -293,7 +293,7 @@ class BrowseController extends HgvController
                 'figureUrls'     => (string)($raw['figureUrls']  ?? ''),
                 'translations'   => (string)($raw['translations'] ?? ''),
                 'commentary'     => (string)($raw['commentary']  ?? ''),
-                'mentionedDates' => (string)($raw['erwaehnteDaten'] ?? ''),
+                'mentionedDates' => (string)($raw['mentionedDatesText'] ?? ''),
             ];
         }
 
@@ -366,9 +366,9 @@ class BrowseController extends HgvController
             foreach ($sortList as $sort) {
                 $key = $sort['key'] ?? '';
                 if ($key === 'Datierung2') {
-                    $final[$idx++] = ['key' => 'chronGlobal', 'direction' => $sort['direction']];
+                    $final[$idx++] = ['key' => 'sortYear', 'direction' => $sort['direction']];
                 } elseif ($key === 'PublikationL') {
-                    $final[$idx++] = ['key' => 'publikationLang', 'direction' => $sort['direction']];
+                    $final[$idx++] = ['key' => 'publication', 'direction' => $sort['direction']];
                 } elseif ($key !== '') {
                     $final[$idx++] = $sort;
                 }
@@ -382,6 +382,6 @@ class BrowseController extends HgvController
             return $sortList;
         }
 
-        return [1 => ['key' => 'chronGlobal', 'direction' => 'ascend']];
+        return [1 => ['key' => 'sortYear', 'direction' => 'ascend']];
     }
 }

@@ -3,14 +3,14 @@
           
 
   <select name="search[criteria][{{key}}][operator]">
-    {% if key in ['inhalt', 'bemerkungen', 'originaltitel', 'abbildung', 'anderePublikation', 'ort'] %}
+    {% if key in ['keywords', 'commentary', 'title', 'illustrations', 'otherPublications', 'place'] %}
       <option value="sp">Splittersuche</option>
       <option value="cn">Enthält</option>
       <option value="bw">Beginnt mit</option>
       <option value="ew">Endet mit</option>
       <option value="eq">Ist gleich</option>
       <option value="neq">Ist ungleich</option>
-    {% elseif key in ['publikation', 'material', 'url', 'uebersetzungen'] %}
+    {% elseif key in ['publication', 'material', 'url', 'translations'] %}
       <option value="cn">Enthält</option>
       <option value="bw">Beginnt mit</option>
       <option value="ew">Endet mit</option>

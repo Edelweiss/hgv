@@ -131,8 +131,8 @@ class BaseXCreateDatabaseCommand extends Command
 
         $verifyXQuery = <<<'XQUERY'
 declare namespace tei = 'http://www.tei-c.org/ns/1.0';
-let $hgv-count := count(db:get('hgv')//tei:TEI)
-let $ddb-count := count(db:get('ddb')//tei:TEI)
+let $hgv-count := count(db:get('hgv')/tei:TEI)
+let $ddb-count := count(db:get('ddb')/tei:TEI)
 return 'HGV documents: ' || $hgv-count || '&#10;'
     || 'DDB documents: ' || $ddb-count
 XQUERY;

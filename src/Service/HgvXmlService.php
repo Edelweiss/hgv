@@ -23,77 +23,63 @@ class HgvXmlService
      * in the base FLWOR (see buildSearchXQuery / buildCountXQuery).
      */
     private const FIELD_EXPR = [
-        'publikation'       => "string(\$pub/tei:title[@type='abbreviated'])",
-        'band'              => "string(\$pub/tei:biblScope[@type='volume'])",
-        'nummer'            => "string(\$pub/tei:biblScope[@type='numbers'])",
-        'tmNr'              => "string(\$doc//tei:idno[@type='TM'])",
-        'ort'               => "\$place",
-        'originaltitel'     => "\$title",
+        'publication'       => "string(\$pub/tei:title[@type='abbreviated'])",
+        'volume'            => "string(\$pub/tei:biblScope[@type='volume'])",
+        'number'            => "string(\$pub/tei:biblScope[@type='numbers'])",
+        'tm'                => "string(\$doc//tei:idno[@type='TM'])",
+        'place'             => "\$place",
+        'title'             => "\$title",
         'material'          => "\$material",
-        'datierungIi'       => "\$dating",
-        'anderePublikation' => "\$otherPubs",
-        'inhalt'            => "\$keywords",
-        'abbildung'         => "\$illustrations",
-        'bemerkungen'       => "\$commentary",
-        'uebersetzungen'    => "\$translationsPlain",
+        'dating'            => "\$dating",
+        'otherPublications' => "\$otherPubs",
+        'keywords'          => "\$keywords",
+        'illustrations'     => "\$illustrations",
+        'commentary'        => "\$commentary",
+        'translations'      => "\$translationsPlain",
         'url'               => "string-join(\$doc//tei:figure/tei:graphic/@url, ' ')",
-        'chronMinimum'      => "\$notBefore",
-        'chronMaximum'      => "\$notAfter",
-        'chronGlobal'       => "\$notBefore",   // approximate: used as sortYear integer
-        'jahr'              => "\$notBefore",
-        'jh'                => "\$notBefore",
-        // aliases / new fields
+        'notBefore'         => "\$notBefore",
+        'notAfter'          => "\$notAfter",
+        'sortYear'          => "\$notBefore",   // approximate: used as sortYear integer
+        'year'              => "\$notBefore",
+        'century'           => "\$notBefore",
         'ddb'               => "string((\$doc//tei:idno[@type='ddb-hybrid'])[1])",
         'hgv'               => "string((\$doc//tei:idno[@type='filename'])[1])",
         'pubAbbr'           => "\$pubAbbr",
         'pubVol'            => "\$pubVol",
         'pubNr'             => "\$pubNr",
-        'notBefore'         => "\$notBefore",
-        'notAfter'          => "\$notAfter",
         'when'              => "\$when",
         'precision'         => "\$precision",
         'settlement'        => "\$settlement",
         'collection'        => "\$collection",
         'invNo'             => "\$invNo",
         'provenance'        => "\$provenance",
-        'illustrations'     => "\$illustrations",
         'figureUrls'        => "\$figureUrls",
-        'translations'      => "\$translationsPlain",
-        'commentary'        => "\$commentary",
-        'mentionedDates'    => "\$erwaehnteDaten",
+        'mentionedDatesText' => "\$mentionedDatesText",
     ];
 
     /** Fields that hold ISO-year strings and should be compared as integers. */
     private const NUMERIC_FIELDS = [
-        'chronMinimum', 'chronMaximum', 'chronGlobal', 'jahr', 'jh', 'jhIi',
-        'jahrIi', 'monat', 'monatIi', 'tag', 'tagIi',
+        'notBefore', 'notAfter', 'sortYear', 'year', 'century',
     ];
 
     // ── Sort key → XQuery order-by expression ────────────────────────────────────
 
     private const SORT_EXPR = [
-        'chronGlobal'       => "\$sortYear",
-        'datierungIi'       => "\$sortYear",
-        'monat'             => "\$sortYear",
-        'tag'               => "\$sortYear",
-        'chronMinimum'      => "\$sortYear",
-        'chronMaximum'      => "\$sortYear",
-        'publikation'       => "\$pubAbbr, \$pubVol, \$pubNr",
-        'publikationLang'   => "\$pubAbbr, \$pubVol, \$pubNr",
-        'ort'               => "\$place",
-        'originaltitel'     => "\$title",
-        'originaltitelHtml' => "\$title",
+        'sortYear'          => "\$sortYear",
+        'dating'            => "\$sortYear",
+        'notBefore'         => "\$sortYear",
+        'notAfter'          => "\$sortYear",
+        'publication'       => "\$pubAbbr, \$pubVol, \$pubNr",
+        'place'             => "\$place",
+        'title'             => "\$title",
         'material'          => "\$material",
-        'tmNr'              => "\$sortTm",
-        'inhalt'            => "\$keywords",
-        // new sort keys
+        'tm'                => "\$sortTm",
+        'keywords'          => "\$keywords",
         'ddb'               => "string((\$doc//tei:idno[@type='ddb-hybrid'])[1])",
         'hgv'               => "\$sortTm",
         'pubAbbr'           => "\$pubAbbr",
         'pubVol'            => "\$pubVol",
         'pubNr'             => "\$pubNr",
-        'notBefore'         => "\$sortYear",
-        'notAfter'          => "\$sortYear",
         'when'              => "\$when",
         'settlement'        => "\$settlement",
         'collection'        => "\$collection",
@@ -102,7 +88,7 @@ class HgvXmlService
         'illustrations'     => "\$illustrations",
         'translations'      => "\$translationsPlain",
         'commentary'        => "\$commentary",
-        'mentionedDates'    => "\$erwaehnteDaten",
+        'mentionedDatesText' => "\$mentionedDatesText",
     ];
 
     public function __construct(BaseXClient $client)
@@ -320,7 +306,7 @@ XQ;
   let $collection   := string(($doc//tei:msIdentifier/tei:placeName/tei:collection)[1])
   let $invNo        := string(($doc//tei:msIdentifier/tei:idno[@type='invNo'])[1])
   let $provenance   := string-join($doc//tei:provenance[@type='located']//tei:placeName[@type='ancient']/text(), ' – ')
-  let $erwaehnteDaten := string(($doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1])
+  let $mentionedDatesText := string(($doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1])
   let $figureUrls   := string-join($doc//tei:figure/tei:graphic/string(@url), '; ')
 XQ;
     }
@@ -411,7 +397,7 @@ $phase2Bindings
     "invNo":         \$invNo,
     "provenance":    \$provenance,
     "translations":  \$translationsPlain,
-    "erwaehnteDaten": \$erwaehnteDaten,
+    "mentionedDatesText": \$mentionedDatesText,
     "figureUrls":    \$figureUrls
   }
 return map {
@@ -462,7 +448,7 @@ XQB;
             '$illustrations'     => "  let \$illustrations := string-join(\$doc//tei:bibl[@type='illustration']/text(), '; ')\n",
             '$commentary'        => "  let \$commentary := string-join(\$doc//tei:div[@type='commentary'][@subtype='general']/tei:p/text(), ' ')\n",
             '$translationsPlain' => "  let \$translationsPlain := string-join(\$doc//tei:div[@type='bibliography'][@subtype='translations']//tei:bibl[@type='translations']/text(), '; ')\n",
-            '$erwaehnteDaten'    => "  let \$erwaehnteDaten := string((\$doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1])\n",
+            '$mentionedDatesText'    => "  let \$mentionedDatesText := string((\$doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1])\n",
             '$provenance'        => "  let \$provenance := string-join(\$doc//tei:provenance[@type='located']//tei:placeName[@type='ancient']/text(), ' \u2013 ')\n",
             '$figureUrls'        => "  let \$figureUrls := string-join(\$doc//tei:figure/tei:graphic/string(@url), '; ')\n",
         ];
@@ -555,7 +541,7 @@ return
       "illustrations": string-join(\$doc//tei:bibl[@type='illustration']/text(), '; '),
       "figureUrls": array { \$figures },
       "mentionedDates": array { \$mentionedDates },
-      "erwaehnteDaten": string((\$doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1]),
+      "mentionedDatesText": string((\$doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1]),
       "provenance": \$provenance,
       "pictureLinks": array {
         for \$g in \$doc//tei:figure/tei:graphic
@@ -682,9 +668,9 @@ XQ;
     {
         // Map field to appropriate XQuery year expression
         $expr = match ($field) {
-            'chronMinimum', 'jahr' => "\$notBefore",
-            'chronMaximum'         => "\$notAfter",
-            'chronGlobal'          => "\$notBefore",
+            'notBefore', 'year'    => "\$notBefore",
+            'notAfter'             => "\$notAfter",
+            'sortYear'             => "\$notBefore",
             default                => null,
         };
         if (!$expr) return null;
