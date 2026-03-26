@@ -10,6 +10,11 @@ $(function(){
     var apiUrl    = $('#catalogueTable').data('api-url');
     var singleUrl = $('#catalogueTable').data('single-url');
 
+    // Default visibility per column index (matches column definitions above)
+    var defaultVisible = [true, true, true, true, true, true, false, false, true,
+      false, false, false, false, false, false, false, false, false,
+      false, false, false, false, false, false, false, false, false];
+
     var table = $('#catalogueTable').DataTable({
       // Server-side processing
       processing: true,
@@ -106,6 +111,30 @@ $(function(){
           extend: 'collection',
           text: 'Export',
           buttons: ['copy', 'csv', 'print']
+        },
+        {
+          text: 'Reset',
+          action: function(e, dt, node, config) {
+            // Clear global search
+            dt.search('');
+            // Clear all column searches and reset visibility to initial config
+            dt.columns().every(function(index) {
+              this.search('');
+              if (index < defaultVisible.length) {
+                this.visible(defaultVisible[index]);
+              }
+            });
+            // Reset ordering to default
+            dt.order([[1, 'asc'], [2, 'asc']]);
+            // Reset page length
+            dt.page.len(50);
+            // Clear saved state
+            dt.state.clear();
+            // Clear footer filter inputs
+            $('tfoot input').val('');
+            // Redraw
+            dt.draw();
+          }
         }
       ],
 
