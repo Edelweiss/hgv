@@ -112,22 +112,22 @@
             {% for prov in record.provenances %}
               <li>
                 {% if prov.type %}<em>{{ prov.type }}</em>: {% endif %}
-                {% if prov.placeRef and prov.placeRef starts with 'https://www.trismegistos.org/' %}
-                  <a href="{{ prov.placeRef }}" target="_blank">{{ prov.place }}</a>
+                {% if prov.placeRef and 'trismegistos.org/' in prov.placeRef %}
+                  <a href="{{ prov.placeRef starts with 'http' ? prov.placeRef : 'https://' ~ prov.placeRef }}" target="_blank">{{ prov.place }}</a>
                 {% else %}
                   {{ prov.place }}
                 {% endif %}
                 {% if prov.nome %}
                   –
-                  {% if prov.nomeRef and prov.nomeRef starts with 'https://www.trismegistos.org/' %}
-                    <a href="{{ prov.nomeRef }}" target="_blank">{{ prov.nome }}</a>
+                  {% if prov.nomeRef and 'trismegistos.org/' in prov.nomeRef %}
+                    <a href="{{ prov.nomeRef starts with 'http' ? prov.nomeRef : 'https://' ~ prov.nomeRef }}" target="_blank">{{ prov.nome }}</a>
                   {% else %}
                     {{ prov.nome }}
                   {% endif %}
                 {% endif %}
                 {% if prov.region %}
-                  ({% if prov.regionRef and prov.regionRef starts with 'https://www.trismegistos.org/' %}
-                    <a href="{{ prov.regionRef }}" target="_blank">{{ prov.region }}</a>
+                  ({% if prov.regionRef and 'trismegistos.org/' in prov.regionRef %}
+                    <a href="{{ prov.regionRef starts with 'http' ? prov.regionRef : 'https://' ~ prov.regionRef }}" target="_blank">{{ prov.region }}</a>
                   {% else %}
                     {{ prov.region }}
                   {% endif %})

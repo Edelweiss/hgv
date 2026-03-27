@@ -300,11 +300,11 @@ array {
         "xmlId":  string(\$prov/tei:p/@xml:id),
         "type":   string(\$prov/@type),
         "place":  string-join(\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ', '),
-        "placeRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1]),
+        "placeRef": (let \$t := (for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/@ref)[1]), '\s+') where contains(\$r, 'trismegistos.org/') return \$r)[1] return if (starts-with(\$t, 'http')) then \$t else if (\$t != '') then concat('https://', \$t) else ''),
         "nome":   string(\$prov/tei:p/tei:placeName[@subtype='nome']),
-        "nomeRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='nome']/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1]),
+        "nomeRef": (let \$t := (for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='nome']/@ref)[1]), '\s+') where contains(\$r, 'trismegistos.org/') return \$r)[1] return if (starts-with(\$t, 'http')) then \$t else if (\$t != '') then concat('https://', \$t) else ''),
         "region": string(\$prov/tei:p/tei:placeName[@subtype='region']),
-        "regionRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='region']/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1])
+        "regionRef": (let \$t := (for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='region']/@ref)[1]), '\s+') where contains(\$r, 'trismegistos.org/') return \$r)[1] return if (starts-with(\$t, 'http')) then \$t else if (\$t != '') then concat('https://', \$t) else '')
       }
     }
   }
@@ -384,11 +384,11 @@ XQ;
       "xmlId":  string($prov/tei:p/@xml:id),
       "type":   string($prov/@type),
       "place":  string-join($prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ', '),
-      "placeRef": string((for $r in tokenize(string(($prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/@ref)[1]), '\s+') where starts-with($r, 'https://www.trismegistos.org/') return $r)[1]),
+      "placeRef": (let $t := (for $r in tokenize(string(($prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/@ref)[1]), '\s+') where contains($r, 'trismegistos.org/') return $r)[1] return if (starts-with($t, 'http')) then $t else if ($t != '') then concat('https://', $t) else ''),
       "nome":   string($prov/tei:p/tei:placeName[@subtype='nome']),
-      "nomeRef": string((for $r in tokenize(string(($prov/tei:p/tei:placeName[@subtype='nome']/@ref)[1]), '\s+') where starts-with($r, 'https://www.trismegistos.org/') return $r)[1]),
+      "nomeRef": (let $t := (for $r in tokenize(string(($prov/tei:p/tei:placeName[@subtype='nome']/@ref)[1]), '\s+') where contains($r, 'trismegistos.org/') return $r)[1] return if (starts-with($t, 'http')) then $t else if ($t != '') then concat('https://', $t) else ''),
       "region": string($prov/tei:p/tei:placeName[@subtype='region']),
-      "regionRef": string((for $r in tokenize(string(($prov/tei:p/tei:placeName[@subtype='region']/@ref)[1]), '\s+') where starts-with($r, 'https://www.trismegistos.org/') return $r)[1])
+      "regionRef": (let $t := (for $r in tokenize(string(($prov/tei:p/tei:placeName[@subtype='region']/@ref)[1]), '\s+') where contains($r, 'trismegistos.org/') return $r)[1] return if (starts-with($t, 'http')) then $t else if ($t != '') then concat('https://', $t) else '')
     }
   }
 XQ;
@@ -648,11 +648,11 @@ return
           "xmlId":  string(\$prov/tei:p/@xml:id),
           "type":   string(\$prov/@type),
           "place":  string-join(\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ', '),
-          "placeRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1]),
+          "placeRef": (let \$t := (for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/@ref)[1]), '\s+') where contains(\$r, 'trismegistos.org/') return \$r)[1] return if (starts-with(\$t, 'http')) then \$t else if (\$t != '') then concat('https://', \$t) else ''),
           "nome":   string(\$prov/tei:p/tei:placeName[@subtype='nome']),
-          "nomeRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='nome']/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1]),
+          "nomeRef": (let \$t := (for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='nome']/@ref)[1]), '\s+') where contains(\$r, 'trismegistos.org/') return \$r)[1] return if (starts-with(\$t, 'http')) then \$t else if (\$t != '') then concat('https://', \$t) else ''),
           "region": string(\$prov/tei:p/tei:placeName[@subtype='region']),
-          "regionRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='region']/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1])
+          "regionRef": (let \$t := (for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='region']/@ref)[1]), '\s+') where contains(\$r, 'trismegistos.org/') return \$r)[1] return if (starts-with(\$t, 'http')) then \$t else if (\$t != '') then concat('https://', \$t) else '')
         }
       },
       "pictureLinks": array {
@@ -921,11 +921,11 @@ array {
         "xmlId":  string(\$prov/tei:p/@xml:id),
         "type":   string(\$prov/@type),
         "place":  string-join(\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ', '),
-        "placeRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1]),
+        "placeRef": (let \$t := (for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/@ref)[1]), '\s+') where contains(\$r, 'trismegistos.org/') return \$r)[1] return if (starts-with(\$t, 'http')) then \$t else if (\$t != '') then concat('https://', \$t) else ''),
         "nome":   string(\$prov/tei:p/tei:placeName[@subtype='nome']),
-        "nomeRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='nome']/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1]),
+        "nomeRef": (let \$t := (for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='nome']/@ref)[1]), '\s+') where contains(\$r, 'trismegistos.org/') return \$r)[1] return if (starts-with(\$t, 'http')) then \$t else if (\$t != '') then concat('https://', \$t) else ''),
         "region": string(\$prov/tei:p/tei:placeName[@subtype='region']),
-        "regionRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='region']/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1])
+        "regionRef": (let \$t := (for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='region']/@ref)[1]), '\s+') where contains(\$r, 'trismegistos.org/') return \$r)[1] return if (starts-with(\$t, 'http')) then \$t else if (\$t != '') then concat('https://', \$t) else '')
       }
     }
   }

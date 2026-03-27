@@ -13,8 +13,9 @@ $(function(){
     function tmLink(text, ref) {
       if (!text) return '';
       var safe = $('<span>').text(text).html();
-      if (ref && ref.indexOf('https://www.trismegistos.org/') === 0) {
-        return '<a href="' + $('<span>').text(ref).html() + '" target="_blank">' + safe + '</a>';
+      if (ref && ref.indexOf('trismegistos.org/') !== -1) {
+        var url = ref.indexOf('://') !== -1 ? ref : 'https://' + ref;
+        return '<a href="' + $('<span>').text(url).html() + '" target="_blank">' + safe + '</a>';
       }
       return safe;
     }
@@ -123,7 +124,7 @@ $(function(){
         { data: 'invNo',        title: 'Inv.-Nr.',          visible: false }, // 20
         { data: 'provenance',   title: 'Herkunft',          visible: false,  // 21
           render: function(data, type, row) {
-            if (type !== 'display' || !row.provenances || row.provenances.length <= 1) return data || '';
+            if (type !== 'display' || !row.provenances || !row.provenances.length) return data || '';
             return row.provenances.map(function(p) {
               var parts = [];
               if (p.type) parts.push($('<em>').text(p.type).prop('outerHTML'));
