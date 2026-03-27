@@ -8,6 +8,16 @@ $(function(){
   if ($('#catalogueTable').length) {
     var rootUrl   = $('#catalogueTable').data('root-url');
     var apiUrl    = $('#catalogueTable').data('api-url');
+
+    // Helper: render a place name as a link if a Trismegistos @ref URL is present
+    function tmLink(text, ref) {
+      if (!text) return '';
+      var safe = $('<span>').text(text).html();
+      if (ref && ref.indexOf('https://www.trismegistos.org/') === 0) {
+        return '<a href="' + $('<span>').text(ref).html() + '" target="_blank">' + safe + '</a>';
+      }
+      return safe;
+    }
     var singleUrl = $('#catalogueTable').data('single-url');
 
     // Default visibility per column index (matches column definitions above)
@@ -117,15 +127,29 @@ $(function(){
             return row.provenances.map(function(p) {
               var parts = [];
               if (p.type) parts.push($('<em>').text(p.type).prop('outerHTML'));
-              if (p.place) parts.push($('<span>').text(p.place).html());
-              if (p.nome) parts.push($('<span>').text(p.nome).html());
-              if (p.region) parts.push($('<span>').text(p.region).html());
-              return parts.join(' – ');
+              if (p.place) parts.push(tmLink(p.place, p.placeRef));
+              if (p.nome) parts.push(tmLink(p.nome, p.nomeRef));
+              if (p.region) parts.push(tmLink(p.region, p.regionRef));
+              return parts.join(' \u2013 ');
             }).filter(function(s) { return s !== ''; }).join('<br>');
           }
         },
-        { data: 'provenancePlace', title: 'Herkunft - Ort',    visible: false }, // 21a
-        { data: 'provenanceNome',  title: 'Herkunft - Gau',    visible: false }, // 21b
+        { data: 'provenancePlace', title: 'Herkunft - Ort',    visible: false, // 21a
+          render: function(data, type, row) {
+            if (type !== 'display' || !row.provenances || !row.provenances.length) return data || '';
+            return row.provenances.map(function(p) {
+              return tmLink(p.place, p.placeRef);
+            }).filter(function(s) { return s !== ''; }).join('<br>');
+          }
+        },
+        { data: 'provenanceNome',  title: 'Herkunft - Gau',    visible: false, // 21b
+          render: function(data, type, row) {
+            if (type !== 'display' || !row.provenances || !row.provenances.length) return data || '';
+            return row.provenances.map(function(p) {
+              return tmLink(p.nome, p.nomeRef);
+            }).filter(function(s) { return s !== ''; }).join('<br>');
+          }
+        },
         { data: 'illustrations',title: 'Abbildungen',       visible: false }, // 22
         { data: 'figureUrls',   title: 'Bild-URLs',         visible: false }, // 23
         { data: 'translations', title: 'Übersetzungen',     visible: false }, // 24

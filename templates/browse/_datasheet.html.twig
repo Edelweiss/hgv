@@ -112,9 +112,26 @@
             {% for prov in record.provenances %}
               <li>
                 {% if prov.type %}<em>{{ prov.type }}</em>: {% endif %}
-                {{ prov.place|raw }}
-                {% if prov.nome %} – {{ prov.nome|raw }}{% endif %}
-                {% if prov.region %} ({{ prov.region|raw }}){% endif %}
+                {% if prov.placeRef and prov.placeRef starts with 'https://www.trismegistos.org/' %}
+                  <a href="{{ prov.placeRef }}" target="_blank">{{ prov.place }}</a>
+                {% else %}
+                  {{ prov.place }}
+                {% endif %}
+                {% if prov.nome %}
+                  –
+                  {% if prov.nomeRef and prov.nomeRef starts with 'https://www.trismegistos.org/' %}
+                    <a href="{{ prov.nomeRef }}" target="_blank">{{ prov.nome }}</a>
+                  {% else %}
+                    {{ prov.nome }}
+                  {% endif %}
+                {% endif %}
+                {% if prov.region %}
+                  ({% if prov.regionRef and prov.regionRef starts with 'https://www.trismegistos.org/' %}
+                    <a href="{{ prov.regionRef }}" target="_blank">{{ prov.region }}</a>
+                  {% else %}
+                    {{ prov.region }}
+                  {% endif %})
+                {% endif %}
               </li>
             {% endfor %}
           </ul>

@@ -300,8 +300,11 @@ array {
         "xmlId":  string(\$prov/tei:p/@xml:id),
         "type":   string(\$prov/@type),
         "place":  string-join(\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ', '),
+        "placeRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1]),
         "nome":   string(\$prov/tei:p/tei:placeName[@subtype='nome']),
-        "region": string(\$prov/tei:p/tei:placeName[@subtype='region'])
+        "nomeRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='nome']/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1]),
+        "region": string(\$prov/tei:p/tei:placeName[@subtype='region']),
+        "regionRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='region']/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1])
       }
     }
   }
@@ -381,8 +384,11 @@ XQ;
       "xmlId":  string($prov/tei:p/@xml:id),
       "type":   string($prov/@type),
       "place":  string-join($prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ', '),
+      "placeRef": string((for $r in tokenize(string(($prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/@ref)[1]), '\s+') where starts-with($r, 'https://www.trismegistos.org/') return $r)[1]),
       "nome":   string($prov/tei:p/tei:placeName[@subtype='nome']),
-      "region": string($prov/tei:p/tei:placeName[@subtype='region'])
+      "nomeRef": string((for $r in tokenize(string(($prov/tei:p/tei:placeName[@subtype='nome']/@ref)[1]), '\s+') where starts-with($r, 'https://www.trismegistos.org/') return $r)[1]),
+      "region": string($prov/tei:p/tei:placeName[@subtype='region']),
+      "regionRef": string((for $r in tokenize(string(($prov/tei:p/tei:placeName[@subtype='region']/@ref)[1]), '\s+') where starts-with($r, 'https://www.trismegistos.org/') return $r)[1])
     }
   }
 XQ;
@@ -642,8 +648,11 @@ return
           "xmlId":  string(\$prov/tei:p/@xml:id),
           "type":   string(\$prov/@type),
           "place":  string-join(\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ', '),
+          "placeRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1]),
           "nome":   string(\$prov/tei:p/tei:placeName[@subtype='nome']),
-          "region": string(\$prov/tei:p/tei:placeName[@subtype='region'])
+          "nomeRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='nome']/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1]),
+          "region": string(\$prov/tei:p/tei:placeName[@subtype='region']),
+          "regionRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='region']/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1])
         }
       },
       "pictureLinks": array {
@@ -912,8 +921,11 @@ array {
         "xmlId":  string(\$prov/tei:p/@xml:id),
         "type":   string(\$prov/@type),
         "place":  string-join(\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ', '),
+        "placeRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1]),
         "nome":   string(\$prov/tei:p/tei:placeName[@subtype='nome']),
-        "region": string(\$prov/tei:p/tei:placeName[@subtype='region'])
+        "nomeRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='nome']/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1]),
+        "region": string(\$prov/tei:p/tei:placeName[@subtype='region']),
+        "regionRef": string((for \$r in tokenize(string((\$prov/tei:p/tei:placeName[@subtype='region']/@ref)[1]), '\s+') where starts-with(\$r, 'https://www.trismegistos.org/') return \$r)[1])
       }
     }
   }
