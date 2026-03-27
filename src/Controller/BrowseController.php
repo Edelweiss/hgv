@@ -169,11 +169,13 @@ class BrowseController extends HgvController
             19 => 'collection',
             20 => 'invNo',
             21 => 'provenance',
-            22 => 'illustrations',
-            23 => 'figureUrls',
-            24 => 'translations',
-            25 => 'commentary',
-            26 => 'mentionedDatesText',
+            22 => 'provenancePlace',
+            23 => 'provenanceNome',
+            24 => 'illustrations',
+            25 => 'figureUrls',
+            26 => 'translations',
+            27 => 'commentary',
+            28 => 'mentionedDatesText',
         ];
 
         // ── Column index → search field map ──────────────────────────────────────
@@ -186,7 +188,7 @@ class BrowseController extends HgvController
             6 => 'keywords',
             7 => 'otherPublications',
             8 => 'tm',
-            // hidden columns 9-26
+            // hidden columns 9-28
             9  => 'ddb',
             10 => 'hgv',
             11 => 'pubAbbr',
@@ -200,11 +202,13 @@ class BrowseController extends HgvController
             19 => 'collection',
             20 => 'invNo',
             21 => 'provenance',
-            22 => 'illustrations',
-            23 => 'figureUrls',
-            24 => 'translations',
-            25 => 'commentary',
-            26 => 'mentionedDatesText',
+            22 => 'provenancePlace',
+            23 => 'provenanceNome',
+            24 => 'illustrations',
+            25 => 'figureUrls',
+            26 => 'translations',
+            27 => 'commentary',
+            28 => 'mentionedDatesText',
         ];
 
         // ── Build sort ────────────────────────────────────────────────────────────
@@ -291,6 +295,8 @@ class BrowseController extends HgvController
                 'collection'     => (string)($raw['collection']  ?? ''),
                 'invNo'          => (string)($raw['invNo']       ?? ''),
                 'provenance'     => (string)($raw['provenance']  ?? ''),
+                'provenancePlace' => (string)($raw['provenancePlace'] ?? ''),
+                'provenanceNome'  => (string)($raw['provenanceNome']  ?? ''),
                 'illustrations'  => (string)($raw['illustrations'] ?? ''),
                 'figureUrls'     => (string)($raw['figureUrls']  ?? ''),
                 'translations'   => (string)($raw['translations'] ?? ''),

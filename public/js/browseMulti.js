@@ -13,7 +13,7 @@ $(function(){
     // Default visibility per column index (matches column definitions above)
     var defaultVisible = [true, true, true, true, true, true, false, false, true,
       false, false, false, false, false, false, false, false, false,
-      false, false, false, false, false, false, false, false, false];
+      false, false, false, false, false, false, false, false, false, false, false];
 
     var table = $('#catalogueTable').DataTable({
       // Server-side processing
@@ -124,6 +124,8 @@ $(function(){
             }).filter(function(s) { return s !== ''; }).join('<br>');
           }
         },
+        { data: 'provenancePlace', title: 'Herkunft - Ort',    visible: false }, // 21a
+        { data: 'provenanceNome',  title: 'Herkunft - Gau',    visible: false }, // 21b
         { data: 'illustrations',title: 'Abbildungen',       visible: false }, // 22
         { data: 'figureUrls',   title: 'Bild-URLs',         visible: false }, // 23
         { data: 'translations', title: 'Übersetzungen',     visible: false }, // 24
@@ -192,7 +194,7 @@ $(function(){
       // Per-column search inputs in tfoot
       initComplete: function() {
         // Searchable column indices (excludes col 0 = row-link)
-        var searchable = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26];
+        var searchable = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
         this.api().columns(searchable).every(function() {
           var column = this;
           var input = $('<input type="text" placeholder="Filter …" />')

@@ -53,6 +53,8 @@ class HgvXmlService
         'collection'        => "\$collection",
         'invNo'             => "\$invNo",
         'provenance'        => "\$provenance",
+        'provenancePlace'   => "\$provenancePlace",
+        'provenanceNome'    => "\$provenanceNome",
         'figureUrls'        => "\$figureUrls",
         'mentionedDatesText' => "\$mentionedDatesText",
     ];
@@ -84,7 +86,9 @@ class HgvXmlService
      * "some $prov in $provenances satisfies (...)" in buildCondition().
      */
     private const MULTI_PROVENANCE_FIELD_EXPR = [
-        'provenance' => "string-join(\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ' ')",
+        'provenance'      => "string-join(\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ' ')",
+        'provenancePlace' => "string-join(\$prov/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ' ')",
+        'provenanceNome'  => "string(\$prov/tei:p/tei:placeName[@subtype='nome'])",
     ];
 
     // ── Sort key → XQuery order-by expression ────────────────────────────────────
@@ -110,6 +114,8 @@ class HgvXmlService
         'collection'        => "\$collection",
         'invNo'             => "\$invNo",
         'provenance'        => "\$provenance",
+        'provenancePlace'   => "\$provenancePlace",
+        'provenanceNome'    => "\$provenanceNome",
         'illustrations'     => "\$illustrations",
         'translations'      => "\$translationsPlain",
         'commentary'        => "\$commentary",
@@ -353,6 +359,8 @@ XQ;
   let $collection   := string(($doc//tei:msIdentifier/tei:placeName/tei:collection)[1])
   let $invNo        := string(($doc//tei:msIdentifier/tei:idno[@type='invNo'])[1])
   let $provenance   := string-join($doc//tei:provenance[@type='located']//tei:placeName[@type='ancient']/text(), ' – ')
+  let $provenancePlace := string-join($doc//tei:provenance/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ' – ')
+  let $provenanceNome  := string-join($doc//tei:provenance/tei:p/tei:placeName[@subtype='nome']/text(), ' – ')
   let $mentionedDatesText := string(($doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1])
   let $figureUrls   := string-join($doc//tei:figure/tei:graphic/string(@url), '; ')
   let $provenances  := $doc//tei:provenance
@@ -463,6 +471,8 @@ $phase2Bindings
     "collection":    \$collection,
     "invNo":         \$invNo,
     "provenance":    \$provenance,
+    "provenancePlace": \$provenancePlace,
+    "provenanceNome":  \$provenanceNome,
     "translations":  \$translationsPlain,
     "mentionedDatesText": \$mentionedDatesText,
     "figureUrls":    \$figureUrls,
@@ -520,6 +530,8 @@ XQB;
             '$translationsPlain' => "  let \$translationsPlain := string-join(\$doc//tei:div[@type='bibliography'][@subtype='translations']//tei:bibl[@type='translations']/text(), '; ')\n",
             '$mentionedDatesText'    => "  let \$mentionedDatesText := string((\$doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1])\n",
             '$provenance'        => "  let \$provenances := \$doc//tei:provenance\n  let \$provenance := string-join(\$doc//tei:provenance[@type='located']//tei:placeName[@type='ancient']/text(), ' \u2013 ')\n",
+            '$provenancePlace'   => "  let \$provenancePlace := string-join(\$doc//tei:provenance/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ' \u2013 ')\n",
+            '$provenanceNome'    => "  let \$provenanceNome := string-join(\$doc//tei:provenance/tei:p/tei:placeName[@subtype='nome']/text(), ' \u2013 ')\n",
             '$figureUrls'        => "  let \$figureUrls := string-join(\$doc//tei:figure/tei:graphic/string(@url), '; ')\n",
         ];
         $extra = '';
