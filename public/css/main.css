@@ -122,8 +122,9 @@ header {
 #main {
     margin: 0 auto;
     padding-top: 30px;
-    background-image: url('../images/Papyrus.jpg');
-    overflow: hidden;
+    background-color: #fdf8e5;
+    background-image: url('../images/Papyrus_12b.png');
+    overflow: scroll;
 }
 
 #content {
