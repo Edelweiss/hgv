@@ -79,7 +79,7 @@ $(function(){
           render: function(data, type) {
             if (type !== 'display' || !data) return data || '';
             var safe = $('<span>').text(data).html();
-            return '<a href="https://www.trismegistos.org/text/' + encodeURIComponent(data) + '" target="_blank">' + safe + '</a>';
+            return '<a href="https://www.trismegistos.org/text/' + encodeURIComponent(data) + '" target="_blank" title="Trismegistos">' + safe + '</a>';
           }
         },
         // ── Initially hidden columns (9-26) ──────────────────────────────────
@@ -87,10 +87,20 @@ $(function(){
           render: function(data, type) {
             if (type !== 'display' || !data) return data || '';
             var safe = $('<span>').text(data).html();
-            return '<a href="https://papyri.info/ddbdp/' + encodeURIComponent(data) + '" target="_blank">' + safe + '</a>';
+            return '<a href="https://papyri.info/ddbdp/' + encodeURIComponent(data) + '" target="_blank" title="Papyri.info">' + safe + '</a>';
           }
         },
-        { data: 'hgvId',        title: 'HGV Id',            visible: false }, // 10
+        { data: 'hgvId',        title: 'HGV Id',            visible: false, // 10
+          render: function(data, type) {
+            if (type !== 'display' || !data) return data || '';
+            var safe = $('<span>').text(data).html();
+            var num = parseInt(data, 10);
+            if (isNaN(num)) return safe;
+            var folder = Math.floor(num / 1000) + 1;
+            var href = 'https://github.com/papyri/idp.data/blob/master/HGV_meta_EpiDoc/HGV' + folder + '/' + encodeURIComponent(data) + '.xml';
+            return '<a href="' + href + '" target="_blank" title="GitHub HGV XML">' + safe + '</a>';
+          }
+        },
         { data: 'pubAbbr',      title: 'Publikation Abk.',  visible: false }, // 11
         { data: 'pubVol',       title: 'Band',              visible: false }, // 12
         { data: 'pubNr',        title: 'Nummer',            visible: false }, // 13
@@ -159,7 +169,24 @@ $(function(){
           }
         },
         { data: 'illustrations',title: 'Abbildungen',       visible: false }, // 22
-        { data: 'figureUrls',   title: 'Bild-URLs',         visible: false }, // 23
+        { data: 'figureUrls',   title: 'Bild-URLs',         visible: false, // 23
+          render: function(data, type) {
+            if (type !== 'display' || !data) return data || '';
+            var urls = data.split(/\s*;\s*/);
+            return urls.map(function(url) {
+              url = url.trim();
+              if (!url) return '';
+              var safeUrl = $('<span>').text(url).html();
+              var label = url;
+              try {
+                var parsed = new URL(url);
+                label = parsed.hostname.replace(/^www\./, '');
+              } catch(e) {}
+              var safeLabel = $('<span>').text(label).html();
+              return '<a href="' + safeUrl + '" target="_blank">' + safeLabel + '</a>';
+            }).filter(function(s) { return s !== ''; }).join('; ');
+          }
+        },
         { data: 'translations', title: 'Übersetzungen',     visible: false }, // 24
         { data: 'commentary',   title: 'Bemerkungen',       visible: false }, // 25
         { data: 'mentionedDates',title: 'Erwähnte Daten',   visible: false }, // 26
