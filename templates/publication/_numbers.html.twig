@@ -1,0 +1,7 @@
+{% for pub in numbers %}
+  <li data-url="{{ path('PapyrillioHgvBundle_PublicationLoadRecords', {series: pub.series, volume: pub.volume, number: pub.number}) }}">
+    {{ pub.label }}
+  </li>
+{% else %}
+  <li class="placeholder">Keine Nummern gefunden.</li>
+{% endfor %}

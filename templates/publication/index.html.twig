@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Texte im HGV{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <style>
+    .publication-browser {
+      display: flex;
+      gap: 1em;
+      min-height: 600px;
+    }
+    .publication-browser .column {
+      border: 1px solid #ccc;
+      overflow-y: auto;
+      max-height: 80vh;
+    }
+    .publication-browser .column-volumes,
+    .publication-browser .column-numbers {
+      flex: 0 0 22%;
+    }
+    .publication-browser .column-results {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 80vh;
+    }
+    .publication-browser .column h3 {
+      padding: 0.5em;
+      margin: 0;
+      background: #f5f5f5;
+      border-bottom: 1px solid #ccc;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    .publication-browser ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .publication-browser ul li {
+      padding: 0.3em 0.6em;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+    }
+    .publication-browser ul li:hover {
+      background: #e8e8ff;
+    }
+    .publication-browser ul li.active {
+      background: #d0d0ff;
+      font-weight: bold;
+    }
+    .publication-browser .placeholder {
+      padding: 1em;
+      color: #999;
+      font-style: italic;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+  <div class="page">
+    <h2>Texte im HGV</h2>
+
+    <div class="publication-browser">
+
+      <div class="column column-volumes">
+        <h3>Bände</h3>
+        <ul id="volume">
+          {% for vol in volumes %}
+            <li data-url="{{ path('PapyrillioHgvBundle_PublicationLoadNumbers', {series: vol.series, volume: vol.volume}) }}">
+              {{ vol.volumeLabel }}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="column column-numbers">
+        <h3>Nummern</h3>
+        <ul id="number">
+          <li class="placeholder">← Band wählen</li>
+        </ul>
+      </div>
+
+      <div class="column column-results">
+        <h3>Datensätze</h3>
+        <div id="result">
+          <p class="placeholder">← Nummer wählen</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="{{ asset('js/publication.js') }}" type="text/javascript"></script>
+  <script src="{{ asset('js/datasheet.js') }}" type="text/javascript"></script>
+{% endblock %}

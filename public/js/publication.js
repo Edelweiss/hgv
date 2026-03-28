@@ -1,11 +1,22 @@
 $(function(){
 
-  $('ul#volume li').click(function(event){
-    $('ul#number').html('');
-    $('ul#result').html('');
-    $('ul#number').load($(this).attr('data-url'));
-    $('ul#volume li').removeClass('active');
-    $(this).addClass('active');
+  // Column 1: click volume → load numbers into column 2, clear column 3
+  $('#volume').on('click', 'li:not(.placeholder)', function() {
+    var $li = $(this);
+    $('#number').html('<li class="placeholder">Laden…</li>');
+    $('#result').html('');
+    $('#number').load($li.attr('data-url'));
+    $('#volume li').removeClass('active');
+    $li.addClass('active');
+  });
+
+  // Column 2: click number → load datasheets into column 3
+  $('#number').on('click', 'li:not(.placeholder)', function() {
+    var $li = $(this);
+    $('#result').html('<p class="placeholder">Laden…</p>');
+    $('#result').load($li.attr('data-url'));
+    $('#number li').removeClass('active');
+    $li.addClass('active');
   });
 
 });

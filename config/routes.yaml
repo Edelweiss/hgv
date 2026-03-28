@@ -27,32 +27,17 @@ PapyrillioHgvBundle_DefaultFeedback:
 
 # P U B L I C A T I O N #
 
-PapyrillioHgvBundle_PublicationLoadNumbers:
-    path:  /publication/load/numbers/{collection}/{volume}/{particle}
-    controller: App\Controller\Publication:loadNumbers
-    defaults:
-        collection: null
-        volume: null
-        particle: null
-
-PapyrillioHgvBundle_PublicationLoadResults:
-    path:  /publication/load/results/{collection}/{volume}/{particle}/{number}/{side}/{extra}
-    controller: App\Controller\Publication:loadResults
-    requirements:
-      particle: "[^/]*"
-      number: "[^/]*"
-      side: "[^/]*"
-    defaults:
-        collection: null
-        volume: null
-        particle: null
-        number: null
-        side: null
-        extra: null
-
 PapyrillioHgvBundle_PublicationIndex:
     path:  /publication
     controller: App\Controller\PublicationController::index
+
+PapyrillioHgvBundle_PublicationLoadNumbers:
+    path:  /publication/load/numbers
+    controller: App\Controller\PublicationController::loadNumbers
+
+PapyrillioHgvBundle_PublicationLoadRecords:
+    path:  /publication/load/records
+    controller: App\Controller\PublicationController::loadRecords
 
 # B R O W S E #
 

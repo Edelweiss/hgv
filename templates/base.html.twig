@@ -35,11 +35,8 @@
             <!--li><a href="{{ path('PapyrillioHgvBundle_BrowseSingle') }}" title="Einzelansicht">Formular</a></li-->
             <li><a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}" title="Filterfunktion">Suche</a></li>
             <!--li><a href="{{ path('PapyrillioHgvBundle_Home', {'search': {'skip': 0, 'max': 100}, 'sort': {1: {'key': 'publikationLang', 'direction': 'ascend'}}}) }}">Alle</a> </li-->
-            <li><a href="/texte/HGV-Texte.html" title="Hilfe">Texte</a></li>
-            {% if app.environment == 'dev' %}
-              <li><a href="{{ path('PapyrillioHgvBundle_PublicationIndex') }}" style="color: red;">Texte im HGV</a></li>
-            {% endif %}
-            
+            <li><a href="{{ path('PapyrillioHgvBundle_PublicationIndex') }}" title="Texte im HGV">Publikationen und Texte</a></li>
+
             <li><a href="{{ path('PapyrillioHgvBundle_DefaultAbbreviation') }}" title="Abkürzungen im HGV zitierter Bücher" target="Biblio">Abkürzungen zitierter Bücher</a></li>
             <li><a href="https://papy.zaw.uni-heidelberg.de/gv0" title="Publizierte Heidelberger Stücke">Publizierte Heidelberger Stücke</a></li>
             

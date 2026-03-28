@@ -1,0 +1,5 @@
+{% for record in records %}
+  {% include 'browse/_datasheet.html.twig' with { 'record': record } %}
+{% else %}
+  <p class="placeholder">Keine Datensätze gefunden.</p>
+{% endfor %}
