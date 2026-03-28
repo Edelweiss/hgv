@@ -23,45 +23,47 @@ class HgvXmlService
      * in the base FLWOR (see buildSearchXQuery / buildCountXQuery).
      */
     private const FIELD_EXPR = [
-        'publication'       => "string(\$pub/tei:title[@type='abbreviated'])",
-        'volume'            => "string(\$pub/tei:biblScope[@type='volume'])",
-        'number'            => "string(\$pub/tei:biblScope[@type='numbers'])",
+        /* ids */
         'tm'                => "string(\$doc//tei:idno[@type='TM'])",
-        'place'             => "\$place",
-        'title'             => "\$title",
-        'material'          => "\$material",
-        'dating'            => "\$dating",
-        'otherPublications' => "\$otherPubs",
-        'keywords'          => "\$keywords",
-        'illustrations'     => "\$illustrations",
-        'commentary'        => "\$commentary",
-        'translations'      => "\$translationsPlain",
-        'url'               => "string-join(\$doc//tei:figure/tei:graphic/@url, ' ')",
-        'notBefore'         => "\$notBefore",
-        'notAfter'          => "\$notAfter",
-        'sortYear'          => "\$notBefore",   // approximate: used as sortYear integer
-        'year'              => "\$notBefore",
-        'century'           => "\$notBefore",
         'ddb'               => "string((\$doc//tei:idno[@type='ddb-hybrid'])[1])",
         'hgv'               => "string((\$doc//tei:idno[@type='filename'])[1])",
-        'pubAbbr'           => "\$pubAbbr",
-        'pubVol'            => "\$pubVol",
-        'pubNr'             => "\$pubNr",
-        'when'              => "\$when",
-        'precision'         => "\$precision",
+        /* inventory number */
         'settlement'        => "\$settlement",
         'collection'        => "\$collection",
         'invNo'             => "\$invNo",
+        /* description */
+        'title'             => "\$title",
+        'material'          => "\$material",
+        'keywords'          => "\$keywords",
+        'commentary'        => "\$commentary",
+        /* place */
+        'place'             => "\$place",
         'provenance'        => "\$provenance",
         'provenancePlace'   => "\$provenancePlace",
         'provenanceNome'    => "\$provenanceNome",
-        'figureUrls'        => "\$figureUrls",
+        /* dating */
+        'dating'            => "\$dating",
+        'notBefore'         => "\$notBefore",
+        'notAfter'          => "\$notAfter",
+        'when'              => "\$when",
+        'precision'         => "\$precision",
+        'sortYear'          => "\$notBefore",   // approximate: used as sortYear integer
+        'year'              => "\$notBefore",
+        'century'           => "\$notBefore",
         'mentionedDatesText' => "\$mentionedDatesText",
-    ];
-
-    /** Fields that hold ISO-year strings and should be compared as integers. */
-    private const NUMERIC_FIELDS = [
-        'notBefore', 'notAfter', 'sortYear', 'year', 'century',
+        /* publication */
+        'publication'       => "string(\$pub/tei:title[@type='abbreviated'])",
+        'volume'            => "string(\$pub/tei:biblScope[@type='volume'])",
+        'number'            => "string(\$pub/tei:biblScope[@type='numbers'])",
+        'pubAbbr'           => "\$pubAbbr",
+        'pubVol'            => "\$pubVol",
+        'pubNr'             => "\$pubNr",
+        /* images and bibliography */
+        'otherPublications' => "\$otherPubs",
+        'translations'      => "\$translationsPlain",
+        'illustrations'     => "\$illustrations",
+        'figureUrls'        => "\$figureUrls",
+        'url'               => "string-join(\$doc//tei:figure/tei:graphic/@url, ' ')"
     ];
 
     /**
@@ -91,37 +93,49 @@ class HgvXmlService
         'provenanceNome'  => "string(\$prov/tei:p/tei:placeName[@subtype='nome'])",
     ];
 
+    /** Fields that hold ISO-year strings and should be compared as integers. */
+    private const NUMERIC_FIELDS = [
+        'notBefore', 'notAfter', 'sortYear', 'year', 'century',
+    ];
+
     // ── Sort key → XQuery order-by expression ────────────────────────────────────
 
     private const SORT_EXPR = [
-        'sortYear'          => "\$sortYear",
-        'dating'            => "\$sortYear",
-        'notBefore'         => "\$sortYear",
-        'notAfter'          => "\$sortYear",
-        'publication'       => "\$pubAbbr, \$pubVol, \$pubNr",
-        'place'             => "\$place",
-        'title'             => "\$title",
-        'material'          => "\$material",
-        'tm'                => "\$sortTm",
-        'keywords'          => "\$keywords",
-        'ddb'               => "string((\$doc//tei:idno[@type='ddb-hybrid'])[1])",
-        'hgv'               => "\$sortTm",
-        'pubAbbr'           => "\$pubAbbr",
-        'pubVol'            => "\$pubVol",
-        'pubNr'             => "\$pubNr",
-        'when'              => "\$when",
-        'settlement'        => "\$settlement",
-        'collection'        => "\$collection",
-        'invNo'             => "\$invNo",
-        'provenance'        => "\$provenance",
-        'provenancePlace'   => "\$provenancePlace",
-        'provenanceNome'    => "\$provenanceNome",
-        'illustrations'     => "\$illustrations",
-        'translations'      => "\$translationsPlain",
-        'commentary'        => "\$commentary",
+        /* ids */
+        'tm'                 => "\$sortTm",
+        'ddb'                => "string((\$doc//tei:idno[@type='ddb-hybrid'])[1])",
+        'hgv'                => "\$sortTm",
+        /* inventory number */
+        'settlement'         => "\$settlement",
+        'collection'         => "\$collection",
+        'invNo'              => "\$invNo",
+        /* description */
+        'title'              => "\$title",
+        'material'           => "\$material",
+        'keywords'           => "\$keywords",
+        'commentary'         => "\$commentary",
+        /* place */
+        'place'              => "\$place",
+        'provenance'         => "\$provenance",
+        'provenancePlace'    => "\$provenancePlace",
+        'provenanceNome'     => "\$provenanceNome",
+        /*dating (sorted by notBefore, then notAfter, then when) */
+        'dating'             => "\$sortYear",
+        'sortYear'           => "\$sortYear",
+        'notBefore'          => "\$sortYear",
+        'notAfter'           => "\$sortYear",
+        'when'               => "\$when",
         'mentionedDatesText' => "\$mentionedDatesText",
-        'otherPublications'  => "\$otherPubs",
         'precision'          => "\$precision",
+        /* publication */
+        'publication'        => "\$pubAbbr, \$pubVol, \$pubNr",
+        'pubAbbr'            => "\$pubAbbr",
+        'pubVol'             => "\$pubVol",
+        'pubNr'              => "\$pubNr",
+        /* images and bibliography */
+        'otherPublications'  => "\$otherPubs",
+        'translations'       => "\$translationsPlain",
+        'illustrations'      => "\$illustrations",
         'figureUrls'         => "\$figureUrls",
     ];
 
