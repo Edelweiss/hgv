@@ -143,80 +143,59 @@ class BrowseController extends HgvController
         $start  = (int)$this->request->query->get('start', 0);
         $length = (int)$this->request->query->get('length', 25);
 
-        // ── Column index → sort key map ───────────────────────────────────────────
-        // Must match browseMulti.js column definitions (0-based)
-        $sortableColumns = [
-            0 => null,               // hgvId link (row number)
-            1 => 'publication',
-            2 => 'dating',
-            3 => 'place',
-            4 => 'title',
-            5 => 'material',
-            6 => 'keywords',
-            7 => 'otherPublications',
-            8 => 'tm',
-            // hidden columns 9-26
-            9  => 'ddb',
-            10 => 'hgv',
-            11 => 'pubAbbr',
-            12 => 'pubVol',
-            13 => 'pubNr',
-            14 => 'notBefore',
-            15 => 'notAfter',
-            16 => 'when',
-            17 => 'precision',
-            18 => 'settlement',
-            19 => 'collection',
-            20 => 'invNo',
-            21 => 'provenance',
-            22 => 'provenancePlace',
-            23 => 'provenanceNome',
-            24 => 'illustrations',
-            25 => 'figureUrls',
-            26 => 'translations',
-            27 => 'commentary',
-            28 => 'mentionedDatesText',
+        // ── JS data field → PHP sort/search key ──────────────────────────────────
+        // Maps the DataTables column 'data' property to the key used by
+        // HgvXmlService SORT_EXPR / FIELD_EXPR.  This is robust against
+        // ColReorder: instead of relying on column indices (which shift when
+        // the user drags columns), we look up columns[i][data] to identify
+        // the actual field.
+        $dataFieldMap = [
+            'publ'            => 'publication',
+            'dating'          => 'dating',
+            'place'           => 'place',
+            'title'           => 'title',
+            'material'        => 'material',
+            'keywords'        => 'keywords',
+            'otherPub'        => 'otherPublications',
+            'tm'              => 'tm',
+            'ddb'             => 'ddb',
+            'hgvId'           => 'hgv',
+            'pubAbbr'         => 'pubAbbr',
+            'pubVol'          => 'pubVol',
+            'pubNr'           => 'pubNr',
+            'notBefore'       => 'notBefore',
+            'notAfter'        => 'notAfter',
+            'when'            => 'when',
+            'precision'       => 'precision',
+            'settlement'      => 'settlement',
+            'collection'      => 'collection',
+            'invNo'           => 'invNo',
+            'provenance'      => 'provenance',
+            'provenancePlace' => 'provenancePlace',
+            'provenanceNome'  => 'provenanceNome',
+            'illustrations'   => 'illustrations',
+            'figureUrls'      => 'figureUrls',
+            'translations'    => 'translations',
+            'commentary'      => 'commentary',
+            'mentionedDates'  => 'mentionedDatesText',
         ];
 
-        // ── Column index → search field map ──────────────────────────────────────
-        $searchableColumns = [
-            1 => 'publication',
-            2 => 'dating',
-            3 => 'place',
-            4 => 'title',
-            5 => 'material',
-            6 => 'keywords',
-            7 => 'otherPublications',
-            8 => 'tm',
-            // hidden columns 9-28
-            9  => 'ddb',
-            10 => 'hgv',
-            11 => 'pubAbbr',
-            12 => 'pubVol',
-            13 => 'pubNr',
-            14 => 'notBefore',
-            15 => 'notAfter',
-            16 => 'when',
-            17 => 'precision',
-            18 => 'settlement',
-            19 => 'collection',
-            20 => 'invNo',
-            21 => 'provenance',
-            22 => 'provenancePlace',
-            23 => 'provenanceNome',
-            24 => 'illustrations',
-            25 => 'figureUrls',
-            26 => 'translations',
-            27 => 'commentary',
-            28 => 'mentionedDatesText',
-        ];
+        // Build a runtime map: column-index → PHP key, based on the 'data'
+        // property that DataTables sends for each column.  This map adapts
+        // automatically if ColReorder has changed column positions.
+        $columns = $this->request->query->all('columns');
+        $colIndexToKey = [];
+        foreach ($columns as $idx => $col) {
+            $dataField = $col['data'] ?? '';
+            $colIndexToKey[(int)$idx] = $dataFieldMap[$dataField] ?? null;
+        }
 
         // ── Build sort ────────────────────────────────────────────────────────────
         $sort = [];
         $idx  = 1;
         foreach ($this->request->query->all('order') as $orderItem) {
             $colIdx = (int)($orderItem['column'] ?? 0);
-            $key    = $sortableColumns[$colIdx] ?? null;
+            $key    = $colIndexToKey[$colIdx] ?? null;
             if ($key !== null) {
                 $sort[$idx++] = [
                     'key'       => $key,
@@ -230,11 +209,11 @@ class BrowseController extends HgvController
 
         // ── Build per-column search criteria (override session) ───────────────────
         $columnCriteria = [];
-        foreach ($this->request->query->all('columns') as $colIdx => $col) {
-            $fieldName = $searchableColumns[(int)$colIdx] ?? null;
-            $val       = trim($col['search']['value'] ?? '');
-            if ($fieldName !== null && $val !== '') {
-                $columnCriteria[$fieldName] = ['operator' => 'cn', 'value' => $val];
+        foreach ($columns as $colIdx => $col) {
+            $key = $colIndexToKey[(int)$colIdx] ?? null;
+            $val = trim($col['search']['value'] ?? '');
+            if ($key !== null && $val !== '') {
+                $columnCriteria[$key] = ['operator' => 'cn', 'value' => $val];
             }
         }
 
@@ -264,7 +243,17 @@ class BrowseController extends HgvController
             'mentionedDates' => $sessionSearch['mentionedDates'] ?? 'without',
         ];
 
-        $result  = $this->xmlService->searchPaginated($search, $sort);
+        try {
+            $result = $this->xmlService->searchPaginated($search, $sort);
+        } catch (\Throwable $e) {
+            return new JsonResponse([
+                'draw'            => $draw,
+                'recordsTotal'    => 0,
+                'recordsFiltered' => 0,
+                'data'            => [],
+                'error'           => 'Server error: ' . $e->getMessage(),
+            ]);
+        }
 
         $data = [];
         foreach ($result['data'] as $record) {
