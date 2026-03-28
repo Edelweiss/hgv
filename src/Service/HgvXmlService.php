@@ -104,8 +104,8 @@ class HgvXmlService
     private const SORT_EXPR = [
         /* ids */
         'tm'                 => "\$sortTm",
-        'ddb'                => "string((\$doc//tei:idno[@type='ddb-hybrid'])[1])",
-        'hgv'                => "\$sortTm",
+        'ddb'                => "\$sortDdbSer, \$sortDdbVol, \$sortDdbDoc",
+        'hgv'                => "\$sortHgvNum, \$sortHgvSuffix",
         /* inventory number */
         'settlement'         => "\$settlement",
         'collection'         => "\$collection",
@@ -129,10 +129,10 @@ class HgvXmlService
         'mentionedDatesText' => "\$mentionedDatesText",
         'precision'          => "\$precision",
         /* publication */
-        'publication'        => "\$pubAbbr, \$pubVol, \$pubNr",
+        'publication'        => "\$pubAbbr, \$sortPubVol, \$sortPubNr",
         'pubAbbr'            => "\$pubAbbr",
-        'pubVol'             => "\$pubVol",
-        'pubNr'              => "\$pubNr",
+        'pubVol'             => "\$sortPubVol",
+        'pubNr'              => "\$sortPubNr",
         /* images and bibliography */
         'otherPublications'  => "\$otherPubs",
         'translations'       => "\$translationsPlain",
@@ -379,6 +379,21 @@ XQ;
   let $sortTm       := if (string(($doc//tei:idno[@type='TM'])[1]) castable as xs:integer)
                        then xs:integer(string(($doc//tei:idno[@type='TM'])[1]))
                        else 0
+  let $hgvId        := string(($doc//tei:idno[@type='filename'])[1])
+  let $sortHgvNum   := let $d := replace($hgvId, '[^0-9]', '')
+                       return if ($d != '' and $d castable as xs:integer) then xs:integer($d) else 0
+  let $sortHgvSuffix := replace($hgvId, '[0-9]', '')
+  let $sortPubVol   := let $d := replace($pubVol, '[^0-9]', '')
+                       return if ($d != '' and $d castable as xs:integer) then xs:integer($d) else 0
+  let $sortPubNr    := let $d := replace(replace($pubNr, '^[^0-9]*', ''), '[^0-9].*$', '')
+                       return if ($d != '' and $d castable as xs:integer) then xs:integer($d) else 0
+  let $ddbHybrid    := string(($doc//tei:idno[@type='ddb-hybrid'])[1])
+  let $ddbParts     := tokenize($ddbHybrid, ';')
+  let $sortDdbSer   := string($ddbParts[1])
+  let $sortDdbVol   := let $d := replace(string($ddbParts[2]), '[^0-9]', '')
+                       return if ($d != '' and $d castable as xs:integer) then xs:integer($d) else 0
+  let $sortDdbDoc   := let $d := replace(string($ddbParts[3]), '[^0-9]', '')
+                       return if ($d != '' and $d castable as xs:integer) then xs:integer($d) else 0
   let $when         := string($origDate/@when)
   let $precision    := string(($origDate/@precision, $origDate/@cert)[1])
   let $settlement   := string(($doc//tei:msIdentifier/tei:placeName/tei:settlement)[1])
@@ -546,6 +561,21 @@ XQ;
   let $sortTm    := if (string(($doc//tei:idno[@type='TM'])[1]) castable as xs:integer)
                     then xs:integer(string(($doc//tei:idno[@type='TM'])[1]))
                     else 0
+  let $hgvId     := string(($doc//tei:idno[@type='filename'])[1])
+  let $sortHgvNum := let $d := replace($hgvId, '[^0-9]', '')
+                     return if ($d != '' and $d castable as xs:integer) then xs:integer($d) else 0
+  let $sortHgvSuffix := replace($hgvId, '[0-9]', '')
+  let $sortPubVol := let $d := replace($pubVol, '[^0-9]', '')
+                     return if ($d != '' and $d castable as xs:integer) then xs:integer($d) else 0
+  let $sortPubNr  := let $d := replace(replace($pubNr, '^[^0-9]*', ''), '[^0-9].*$', '')
+                     return if ($d != '' and $d castable as xs:integer) then xs:integer($d) else 0
+  let $ddbHybrid := string(($doc//tei:idno[@type='ddb-hybrid'])[1])
+  let $ddbParts  := tokenize($ddbHybrid, ';')
+  let $sortDdbSer := string($ddbParts[1])
+  let $sortDdbVol := let $d := replace(string($ddbParts[2]), '[^0-9]', '')
+                     return if ($d != '' and $d castable as xs:integer) then xs:integer($d) else 0
+  let $sortDdbDoc := let $d := replace(string($ddbParts[3]), '[^0-9]', '')
+                     return if ($d != '' and $d castable as xs:integer) then xs:integer($d) else 0
 
 XQB;
         // Only add extra bindings when the ORDER BY clause actually references them.

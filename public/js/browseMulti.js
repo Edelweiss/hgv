@@ -260,6 +260,11 @@ $(function(){
 
       // Per-column search inputs in tfoot
       initComplete: function() {
+        // Add multi-sort hint above the table
+        $('<p class="sort-hint" style="font-size:0.85em;color:#666;margin-bottom:0.3em;">')
+          .html('Tipp: <kbd>Shift</kbd> + Klick auf Spaltenüberschriften für mehrstufige Sortierung')
+          .insertBefore('#catalogueTable');
+
         // Searchable column indices (excludes col 0 = row-link)
         var searchable = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
         this.api().columns(searchable).every(function() {
