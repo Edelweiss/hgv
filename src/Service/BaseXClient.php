@@ -70,6 +70,21 @@ class BaseXClient
     }
 
     /**
+     * Execute an XQuery that returns XML and parse it into a SimpleXMLElement.
+     */
+    public function xqueryXml(string $query): ?\SimpleXMLElement
+    {
+        $result = $this->xquery($query);
+
+        if (empty($result)) {
+            return null;
+        }
+
+        $xml = @simplexml_load_string($result);
+        return $xml ?: null;
+    }
+
+    /**
      * Retrieve a single document by database name and path.
      *
      * @param string $database  e.g. "hgv" or "ddb"
@@ -84,20 +99,5 @@ class BaseXClient
         ]);
 
         return $response->getContent();
-    }
-
-    /**
-     * Execute an XQuery that returns XML and parse it into a SimpleXMLElement.
-     */
-    public function xqueryXml(string $query): ?\SimpleXMLElement
-    {
-        $result = $this->xquery($query);
-
-        if (empty($result)) {
-            return null;
-        }
-
-        $xml = @simplexml_load_string($result);
-        return $xml ?: null;
     }
 }
