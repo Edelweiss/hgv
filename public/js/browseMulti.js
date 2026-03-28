@@ -24,7 +24,7 @@ $(function(){
     // Default visibility per column index (matches column definitions above)
     var defaultVisible = [true, true, true, true, true, true, false, false, true,
       false, false, false, false, false, false, false, false, false,
-      false, false, false, false, false, false, false, false, false, false, false];
+      false, false, false, false, false, false, false, false, false, false, false, false];
 
     var table = $('#catalogueTable').DataTable({
       // Server-side processing
@@ -78,11 +78,18 @@ $(function(){
         { data: 'tm',       title: 'TM Nr.',              // 8
           render: function(data, type) {
             if (type !== 'display' || !data) return data || '';
-            return '<a href="' + rootUrl + 'tm/' + encodeURIComponent(data) + '" target="_blank">' + $('<span>').text(data).html() + '</a>';
+            var safe = $('<span>').text(data).html();
+            return '<a href="https://www.trismegistos.org/text/' + encodeURIComponent(data) + '" target="_blank">' + safe + '</a>';
           }
         },
         // ── Initially hidden columns (9-26) ──────────────────────────────────
-        { data: 'ddb',          title: 'DDB',               visible: false }, // 9
+        { data: 'ddb',          title: 'DDB',               visible: false, // 9
+          render: function(data, type) {
+            if (type !== 'display' || !data) return data || '';
+            var safe = $('<span>').text(data).html();
+            return '<a href="https://papyri.info/ddbdp/' + encodeURIComponent(data) + '" target="_blank">' + safe + '</a>';
+          }
+        },
         { data: 'hgvId',        title: 'HGV Id',            visible: false }, // 10
         { data: 'pubAbbr',      title: 'Publikation Abk.',  visible: false }, // 11
         { data: 'pubVol',       title: 'Band',              visible: false }, // 12
@@ -155,7 +162,15 @@ $(function(){
         { data: 'figureUrls',   title: 'Bild-URLs',         visible: false }, // 23
         { data: 'translations', title: 'Übersetzungen',     visible: false }, // 24
         { data: 'commentary',   title: 'Bemerkungen',       visible: false }, // 25
-        { data: 'mentionedDates',title: 'Erwähnte Daten',   visible: false }  // 26
+        { data: 'mentionedDates',title: 'Erwähnte Daten',   visible: false }, // 26
+        { data: 'blOnline',     title: 'BL online',          visible: false, // 27
+          render: function(data, type, row) {
+            if (type !== 'display' || !data) return data || '';
+            var safe = $('<span>').text(data).html();
+            var href = 'https://beehive.zaw.uni-heidelberg.de/hgv/' + encodeURIComponent(row.hgvId);
+            return '<a href="' + href + '" target="_blank">' + safe + '</a>';
+          }
+        }
       ],
 
       // Pagination
@@ -219,7 +234,7 @@ $(function(){
       // Per-column search inputs in tfoot
       initComplete: function() {
         // Searchable column indices (excludes col 0 = row-link)
-        var searchable = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28];
+        var searchable = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
         this.api().columns(searchable).every(function() {
           var column = this;
           var input = $('<input type="text" placeholder="Filter …" />')

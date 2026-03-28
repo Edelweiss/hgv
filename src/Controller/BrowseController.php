@@ -178,6 +178,7 @@ class BrowseController extends HgvController
             'translations'    => 'translations',
             'commentary'      => 'commentary',
             'mentionedDates'  => 'mentionedDatesText',
+            'blOnline'        => 'blOnline',
         ];
 
         // Build a runtime map: column-index → PHP key, based on the 'data'
@@ -291,6 +292,7 @@ class BrowseController extends HgvController
                 'translations'   => (string)($raw['translations'] ?? ''),
                 'commentary'     => (string)($raw['commentary']  ?? ''),
                 'mentionedDates' => (string)($raw['mentionedDatesText'] ?? ''),
+                'blOnline'       => (string)($raw['blOnline'] ?? ''),
                 'dates'          => $dates,
                 'provenances'    => $provenances,
             ];

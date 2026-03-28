@@ -63,6 +63,7 @@ class HgvXmlService
         'translations'      => "\$translationsPlain",
         'illustrations'     => "\$illustrations",
         'figureUrls'        => "\$figureUrls",
+        'blOnline'          => "\$blOnline",
         'url'               => "string-join(\$doc//tei:figure/tei:graphic/@url, ' ')"
     ];
 
@@ -137,6 +138,7 @@ class HgvXmlService
         'translations'       => "\$translationsPlain",
         'illustrations'      => "\$illustrations",
         'figureUrls'         => "\$figureUrls",
+        'blOnline'           => "\$blOnline",
     ];
 
     public function __construct(BaseXClient $client)
@@ -387,6 +389,10 @@ XQ;
   let $provenanceNome  := string-join($doc//tei:provenance/tei:p/tei:placeName[@subtype='nome']/text(), ' – ')
   let $mentionedDatesText := string(($doc//tei:div[@type='commentary'][@subtype='mentionedDates']/tei:note[@type='original'])[1])
   let $figureUrls   := string-join($doc//tei:figure/tei:graphic/string(@url), '; ')
+  let $blOnline     := string-join(
+    for $bl in $doc//tei:div[@type='bibliography'][@subtype='corrections']//tei:bibl[@type='BL']
+    return concat('BL ', string($bl/tei:biblScope[@type='volume']), if (string($bl/tei:biblScope[@type='pages']) != '') then concat(', S. ', string($bl/tei:biblScope[@type='pages'])) else ''),
+    '; ')
   let $provenances  := $doc//tei:provenance
   let $datesMap     := array {
     for $od in $origDates
@@ -503,6 +509,7 @@ $phase2Bindings
     "translations":  \$translationsPlain,
     "mentionedDatesText": \$mentionedDatesText,
     "figureUrls":    \$figureUrls,
+    "blOnline":      \$blOnline,
     "dates":         \$datesMap,
     "provenances":   \$provenancesMap
   }
@@ -562,6 +569,7 @@ XQB;
             '$provenancePlace'   => "  let \$provenancePlace := string-join(\$doc//tei:provenance/tei:p/tei:placeName[@type='ancient'][not(@subtype)]/text(), ' \u2013 ')\n",
             '$provenanceNome'    => "  let \$provenanceNome := string-join(\$doc//tei:provenance/tei:p/tei:placeName[@subtype='nome']/text(), ' \u2013 ')\n",
             '$figureUrls'        => "  let \$figureUrls := string-join(\$doc//tei:figure/tei:graphic/string(@url), '; ')\n",
+            '$blOnline'          => "  let \$blOnline := string-join(\n    for \$bl in \$doc//tei:div[@type='bibliography'][@subtype='corrections']//tei:bibl[@type='BL']\n    return concat('BL ', string(\$bl/tei:biblScope[@type='volume']), ', S. ', string(\$bl/tei:biblScope[@type='pages'])),\n    '; ')\n",
         ];
         $extra = '';
         foreach ($optional as $varName => $binding) {
