@@ -53,6 +53,7 @@ nav {
     height: 2em;
     margin: 0 auto;
     background: #142952;
+    background-image: url('../images/Papyrus_09b_darkblue.png');
     /* darkblue */
     color: #fff;
 }
@@ -82,6 +83,7 @@ nav div.menu>ul>li.active ul.sub {
     top: 18px;
     left: 0;
     background-color: #142952;
+    background-image: url('../images/Papyrus_09b_darkblue.png');
     padding: 0.2em 0 0.4em 0;
     margin: 0;
     font-weight: normal;
@@ -113,10 +115,6 @@ nav .menu a {
 
 nav .menu a:hover {
     text-decoration: underline;
-}
-
-header {
-    margin: 0 auto;
 }
 
 #main {
@@ -192,11 +190,16 @@ li {
 
 /** HEADER */
 
+header {
+    background-color: #4e75a0;
+    background-image: url('../images/Papyrus_12b_blue.png');
+    background-position: -200px -200px;
+}
+
 header h1,
 header h2 {
     padding: 0;
     margin: 0;
-    color: #4e75a0;
 }
 
 header h1 {
@@ -209,7 +212,6 @@ header h1 {
 header h2 {
     /*height: 245px;*/
     height: 128px;
-    background-color: #4e75a0;
     padding-left: 0.4em;
     position: relative;
 }
@@ -217,7 +219,6 @@ header h2 {
 header h2 img {
     /*height: 245px;*/
     height: 128px;
-    background-color: #4e75a0;
     float: right;
 }
 
@@ -318,6 +319,7 @@ aside ul {
 
 #footer-area {
     background: #333;
+    background-image: url('../images/Papyrus_09b_darkgrey.png');
     color: #FFF;
     font-size: 90%;
     padding: 18px 0;
