@@ -251,6 +251,46 @@ $(function(){
             // Redraw
             dt.draw();
           }
+        },
+        {
+          text: 'Tipps',
+          action: function() {
+            // Build and show a tips modal
+            if ($('#dt-tips-overlay').length) {
+              $('#dt-tips-overlay').show();
+              return;
+            }
+            var html = '<div id="dt-tips-overlay">' +
+              '<div id="dt-tips-modal">' +
+              '<button id="dt-tips-close" title="Schlie\u00dfen">&times;</button>' +
+              '<h3>Tipps zur Tabelle</h3>' +
+              '<h4>Spaltenfilter</h4>' +
+              '<p>In den Eingabefeldern in der Fu\u00dfzeile k\u00f6nnen Sie verschiedene Suchoperatoren verwenden:</p>' +
+              '<table class="dt-tips-table">' +
+              '<tr><th>Eingabe</th><th>Bedeutung</th><th>Beispiel</th></tr>' +
+              '<tr><td><code>text</code></td><td>Enth\u00e4lt (Standard)</td><td><code>Oxy</code></td></tr>' +
+              '<tr><td><code>wort1 wort2</code></td><td>Alle W\u00f6rter m\u00fcssen vorkommen</td><td><code>Brief privat</code></td></tr>' +
+              '<tr><td><code>^text</code></td><td>Beginnt mit</td><td><code>^P.Oxy</code></td></tr>' +
+              '<tr><td><code>text$</code></td><td>Endet mit</td><td><code>Verso$</code></td></tr>' +
+              '<tr><td><code>=text</code></td><td>Exakter Treffer</td><td><code>=Papyrus</code></td></tr>' +
+              '<tr><td><code>!text</code></td><td>Enth\u00e4lt nicht / ungleich</td><td><code>!Papyrus</code></td></tr>' +
+              '<tr><td><code>&gt;n &lt;n &gt;=n &lt;=n</code></td><td>Numerischer Vergleich</td><td><code>&gt;100</code></td></tr>' +
+              '<tr><td><code>n...m</code></td><td>Datumsbereich (auch negativ)</td><td><code>-300...-100</code></td></tr>' +
+              '<tr><td><code>*</code></td><td>Feld nicht leer</td><td><code>*</code></td></tr>' +
+              '<tr><td><code>=</code></td><td>Feld leer</td><td><code>=</code></td></tr>' +
+              '</table>' +
+              '<h4>Sortierung</h4>' +
+              '<p>Klick auf eine Spalten\u00fcberschrift sortiert nach dieser Spalte.<br>' +
+              '<kbd>Shift</kbd> + Klick f\u00fcgt eine weitere Sortierstufe hinzu (mehrstufige Sortierung).</p>' +
+              '<h4>Spalten</h4>' +
+              '<p>Spalten k\u00f6nnen per Drag &amp; Drop auf den Spalten\u00fcberschriften verschoben werden.<br>' +
+              '\u00dcber den Button <em>Spalten</em> lassen sich weitere Spalten ein- und ausblenden.</p>' +
+              '</div></div>';
+            $('body').append(html);
+            $('#dt-tips-close, #dt-tips-overlay').on('click', function(ev) {
+              if (ev.target === this) $('#dt-tips-overlay').hide();
+            });
+          }
         }
       ],
 
@@ -260,11 +300,6 @@ $(function(){
 
       // Per-column search inputs in tfoot
       initComplete: function() {
-        // Add multi-sort hint above the table
-        $('<p class="sort-hint" style="font-size:0.85em;color:#666;margin-bottom:0.3em;">')
-          .html('Tipp: <kbd>Shift</kbd> + Klick auf Spaltenüberschriften für mehrstufige Sortierung')
-          .insertBefore('#catalogueTable');
-
         // Searchable column indices (excludes col 0 = row-link)
         var searchable = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
         var filterTooltip = [

@@ -713,3 +713,101 @@ div#publication ul li.active {
     color: white;
     background-color: #085E9B;
 }
+
+/* ── DataTables tips modal ───────────────────────────────────────────── */
+
+#dt-tips-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#dt-tips-modal {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    padding: 28px 34px 24px;
+    max-width: 560px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#dt-tips-modal h3 {
+    margin: 0 0 16px;
+    font-size: 18px;
+    color: #085E9B;
+}
+
+#dt-tips-modal h4 {
+    margin: 18px 0 6px;
+    font-size: 15px;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 3px;
+}
+
+#dt-tips-modal p {
+    margin: 4px 0 10px;
+}
+
+#dt-tips-close {
+    position: absolute;
+    top: 10px; right: 14px;
+    border: none;
+    background: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #888;
+    line-height: 1;
+}
+#dt-tips-close:hover {
+    color: #333;
+}
+
+table.dt-tips-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 6px 0 10px;
+}
+table.dt-tips-table td {
+    padding: 3px 8px;
+    border-bottom: 1px solid #eee;
+    vertical-align: top;
+}
+table.dt-tips-table th {
+    padding: 3px 8px;
+    border-bottom: 2px solid #ccc;
+    text-align: left;
+    font-size: 13px;
+    color: #555;
+}
+table.dt-tips-table td:first-child {
+    white-space: nowrap;
+    width: 1%;
+}
+table.dt-tips-table code {
+    background: #f4f4f4;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 13px;
+}
+
+#dt-tips-modal kbd {
+    display: inline-block;
+    padding: 2px 6px;
+    font-size: 12px;
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    font-family: inherit;
+}
+}
