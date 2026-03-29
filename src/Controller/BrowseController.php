@@ -214,7 +214,7 @@ class BrowseController extends HgvController
             $key = $colIndexToKey[(int)$colIdx] ?? null;
             $val = trim($col['search']['value'] ?? '');
             if ($key !== null && $val !== '') {
-                $columnCriteria[$key] = ['operator' => 'cn', 'value' => $val];
+                $columnCriteria[$key] = $this->parseFilterSyntax($val);
             }
         }
 
@@ -384,5 +384,68 @@ class BrowseController extends HgvController
         }
 
         return [1 => ['key' => 'sortYear', 'direction' => 'ascend']];
+    }
+
+    /**
+     * Parse column-filter input into operator + value.
+     *
+     * Syntax:
+     *   ^term   → begins with         !term   → not equal / not contains
+     *   term$   → ends with           =term   → exact match
+     *   >n      → greater than        >=n     → greater than or equal
+     *   <n      → less than           <=n     → less than or equal
+     *   *       → field not empty     =       → field empty
+     *   n...m   → date range (passed through as-is with 'cn')
+     *   word1 word2 → split search (all words must appear)
+     *   term    → contains (default)
+     */
+    private function parseFilterSyntax(string $val): array
+    {
+        // Wildcards * and = and date ranges n...m are handled in
+        // HgvXmlService::buildCondition before the operator switch,
+        // so they work with any operator — just pass them through.
+        if ($val === '*' || $val === '=') {
+            return ['operator' => 'cn', 'value' => $val];
+        }
+        if (preg_match('/^-?\d+\.{2,}-?\d+$/', $val)) {
+            return ['operator' => 'cn', 'value' => $val];
+        }
+
+        // >=n  <=n  (must check before > and <)
+        if (preg_match('/^>=(.+)$/', $val, $m)) {
+            return ['operator' => 'gte', 'value' => trim($m[1])];
+        }
+        if (preg_match('/^<=(.+)$/', $val, $m)) {
+            return ['operator' => 'lte', 'value' => trim($m[1])];
+        }
+        // >n  <n
+        if (preg_match('/^>(.+)$/', $val, $m)) {
+            return ['operator' => 'gt', 'value' => trim($m[1])];
+        }
+        if (preg_match('/^<(.+)$/', $val, $m)) {
+            return ['operator' => 'lt', 'value' => trim($m[1])];
+        }
+        // ^term  → begins with
+        if (preg_match('/^\^(.+)$/', $val, $m)) {
+            return ['operator' => 'bw', 'value' => $m[1]];
+        }
+        // term$  → ends with
+        if (preg_match('/^(.+)\$$/', $val, $m)) {
+            return ['operator' => 'ew', 'value' => $m[1]];
+        }
+        // =term  → exact match
+        if (preg_match('/^=(.+)$/', $val, $m)) {
+            return ['operator' => 'eq', 'value' => $m[1]];
+        }
+        // !term  → not equal
+        if (preg_match('/^!(.+)$/', $val, $m)) {
+            return ['operator' => 'neq', 'value' => $m[1]];
+        }
+        // Multiple words → split search (all must appear)
+        if (preg_match('/\S\s+\S/', $val)) {
+            return ['operator' => 'sp', 'value' => $val];
+        }
+        // Default: contains
+        return ['operator' => 'cn', 'value' => $val];
     }
 }

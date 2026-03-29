@@ -267,9 +267,22 @@ $(function(){
 
         // Searchable column indices (excludes col 0 = row-link)
         var searchable = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
+        var filterTooltip = [
+          'Filteroptionen:',
+          '  text \u2013 enth\u00e4lt (Standard)',
+          '  wort1 wort2 \u2013 alle W\u00f6rter m\u00fcssen vorkommen',
+          '  ^text \u2013 beginnt mit',
+          '  text$ \u2013 endet mit',
+          '  =text \u2013 exakter Treffer',
+          '  !text \u2013 enth\u00e4lt nicht / ungleich',
+          '  >n  <n  >=n  <=n \u2013 numerisch',
+          '  100...200 \u2013 Datumsbereich',
+          '  * \u2013 Feld nicht leer',
+          '  = \u2013 Feld leer'
+        ].join('\n');
         this.api().columns(searchable).every(function() {
           var column = this;
-          var input = $('<input type="text" placeholder="Filter …" />')
+          var input = $('<input type="text" placeholder="Filter \u2026" title="' + filterTooltip.replace(/"/g, '&quot;') + '" />')
             .appendTo($(column.footer()).empty())
             .on('keyup change clear', $.fn.dataTable.util.debounce(function() {
               if (column.search() !== this.value) {

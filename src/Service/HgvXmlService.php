@@ -782,11 +782,11 @@ XQ;
         // Special wildcard operators
         if ($value === '*') {
             if ($multiExpr) {
-                return "(some $quantVar in $quantColl satisfies ($multiExpr != '' and exists($multiExpr)))";
+                return "(some $quantVar in $quantColl satisfies ($multiExpr != ''))";
             }
             $expr = self::FIELD_EXPR[$field] ?? null;
             if (!$expr) return null;
-            return "($expr != '' and $expr != ())";
+            return "($expr != '')";
         }
         if ($value === '=') {
             if ($multiExpr) {
