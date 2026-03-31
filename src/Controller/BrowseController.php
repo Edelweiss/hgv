@@ -71,7 +71,6 @@ class BrowseController extends HgvController
     {
         return $this->render('browse/search.html.twig', [
             'matomo'    => $matomo,
-            'fieldList' => self::$FIELD_LIST_SEARCH,
         ]);
     }
 

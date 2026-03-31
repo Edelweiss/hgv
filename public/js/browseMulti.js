@@ -26,13 +26,78 @@ $(function(){
       false, false, false, false, false, false, false, false, false,
       false, false, false, false, false, false, false, false, false, false, false, false];
 
+    // ── Parse URL parameters for initial filters and sort ────────────────────
+    var urlParams = new URLSearchParams(window.location.search);
+    var initialFilters = {};
+    urlParams.forEach(function(value, key) {
+      var match = key.match(/^filter\[(.+)\]$/);
+      if (match && value.trim() !== '') {
+        initialFilters[match[1]] = value.trim();
+      }
+    });
+    var hasUrlFilters = Object.keys(initialFilters).length > 0;
+
+    // Map DataTables data properties → column indices (must match column defs below)
+    var dataToColIndex = {
+      'publ': 1, 'dating': 2, 'place': 3, 'title': 4, 'material': 5,
+      'keywords': 6, 'otherPub': 7, 'tm': 8, 'ddb': 9, 'hgvId': 10,
+      'pubAbbr': 11, 'pubVol': 12, 'pubNr': 13, 'notBefore': 14,
+      'notAfter': 15, 'when': 16, 'precision': 17, 'settlement': 18,
+      'collection': 19, 'invNo': 20, 'provenance': 21,
+      'provenancePlace': 22, 'provenanceNome': 23,
+      'illustrations': 24, 'figureUrls': 25, 'translations': 26,
+      'commentary': 27, 'mentionedDates': 28, 'blOnline': 29
+    };
+
+    // Compute initial sort order from URL params (supports multi-level: sort[1][key], sort[1][dir], sort[2][key], ...)
+    var initialOrder = [[1, 'asc'], [2, 'asc']]; // default: publication, then dating
+    var urlSortLevels = [];
+    for (var si = 1; si <= 5; si++) {
+      var sk = urlParams.get('sort[' + si + '][key]');
+      if (sk && dataToColIndex[sk] !== undefined) {
+        var sd = urlParams.get('sort[' + si + '][dir]') || 'asc';
+        urlSortLevels.push([dataToColIndex[sk], sd === 'desc' ? 'desc' : 'asc']);
+      }
+    }
+    // Fall back to legacy single-sort params
+    if (urlSortLevels.length === 0) {
+      var initialSortKey = urlParams.get('initialSort') || '';
+      var initialSortDir = urlParams.get('initialSortDir') || 'asc';
+      if (initialSortKey && dataToColIndex[initialSortKey] !== undefined) {
+        urlSortLevels.push([dataToColIndex[initialSortKey], initialSortDir === 'desc' ? 'desc' : 'asc']);
+      }
+    }
+    var hasUrlSort = urlSortLevels.length > 0;
+    if (hasUrlSort) {
+      initialOrder = urlSortLevels;
+    }
+
+    // Parse page length from URL
+    var validPageLengths = [10, 25, 50, 100, 200, 500];
+    var urlPageLength = parseInt(urlParams.get('pageLength'), 10);
+    var initialPageLength = (validPageLengths.indexOf(urlPageLength) !== -1) ? urlPageLength : 50;
+
+    var _dtUrlFiltersApplied = false;
+
     var table = $('#catalogueTable').DataTable({
       // Server-side processing
       processing: true,
       serverSide: true,
       ajax: {
         url: apiUrl,
-        type: 'GET'
+        type: 'GET',
+        data: function(d) {
+          // On first draw, inject URL filter params into the AJAX request
+          if (hasUrlFilters && !_dtUrlFiltersApplied) {
+            for (var dataField in initialFilters) {
+              var colIdx = dataToColIndex[dataField];
+              if (colIdx !== undefined && colIdx < d.columns.length) {
+                d.columns[colIdx].search.value = initialFilters[dataField];
+              }
+            }
+            _dtUrlFiltersApplied = true;
+          }
+        }
       },
 
       // Column definitions
@@ -202,12 +267,12 @@ $(function(){
 
       // Pagination
       paging: true,
-      pageLength: 50,
+      pageLength: initialPageLength,
       lengthMenu: [[10, 25, 50, 100, 200, 500], [10, 25, 50, 100, 200, 500]],
 
       // Ordering
       ordering: true,
-      order: [[1, 'asc'], [2, 'asc']], // Default: sort by date ascending
+      order: initialOrder,
 
       // Column reordering (drag & drop)
       colReorder: true,
@@ -294,12 +359,42 @@ $(function(){
         }
       ],
 
+      // Override saved state with URL filter/sort params when coming from search form
+      stateLoadParams: function(settings, data) {
+        if (hasUrlFilters || hasUrlSort) {
+          // Clear saved column searches so URL filters take precedence
+          if (data.columns) {
+            for (var i = 0; i < data.columns.length; i++) {
+              data.columns[i].search.search = '';
+            }
+          }
+          data.search.search = '';
+          data.order = initialOrder;
+          data.length = initialPageLength;
+        }
+      },
+
       // State saving (remembers column order, visibility, page length, sorting)
       stateSave: true,
       stateDuration: 60 * 60 * 24 * 7, // 7 days
 
       // Per-column search inputs in tfoot
       initComplete: function() {
+        var api = this.api();
+
+        // Apply URL filters to DataTables column search state and make columns visible
+        if (hasUrlFilters) {
+          for (var dataField in initialFilters) {
+            var colIdx = dataToColIndex[dataField];
+            if (colIdx !== undefined) {
+              api.column(colIdx).search(initialFilters[dataField]);
+              if (!api.column(colIdx).visible()) {
+                api.column(colIdx).visible(true);
+              }
+            }
+          }
+        }
+
         // Searchable column indices (excludes col 0 = row-link)
         var searchable = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
         var filterTooltip = [

@@ -374,7 +374,7 @@ div.additionalSearchOptions {
 
 div.searchFields label {
     display: block;
-    width: 10em;
+    width: 13em;
     float: left;
 }
 
@@ -728,6 +728,10 @@ div#publication ul li.active {
     justify-content: center;
 }
 
+#dt-tips-overlay.dt-tips-hidden {
+    display: none;
+}
+
 #dt-tips-modal {
     background: #fff;
     border-radius: 8px;
@@ -811,5 +815,22 @@ table.dt-tips-table code {
     border-radius: 3px;
     box-shadow: 0 1px 1px rgba(0,0,0,0.1);
     font-family: inherit;
+}
+}
+
+/* Search form filter-syntax help button */
+.btn-filter-help {
+    display: inline-block;
+    padding: 5px 14px;
+    font-size: 13px;
+    color: #085E9B;
+    background: #f0f6fb;
+    border: 1px solid #b0cde0;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.btn-filter-help:hover {
+    background: #ddeaf5;
+    border-color: #085E9B;
 }
 }
