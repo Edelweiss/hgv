@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  {{ parent() }} - Tabelle
+  {{ parent() }} - {{ 'table.page_title'|trans }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -17,70 +17,70 @@
          data-single-url="{{ path('PapyrillioHgvBundle_BrowseSingle') }}">
     <thead>
       <tr>
-        <th>#</th>
-        <th>Publikation</th>
-        <th>Datierung</th>
-        <th>Ort</th>
-        <th>Titel</th>
-        <th>Material</th>
-        <th>Inhalt / Schlagworte</th>
-        <th>Andere Publikationen</th>
-        <th>TM Nr.</th>
-        <th>DDB</th>
-        <th>HGV Id</th>
-        <th>Publikation Abk.</th>
-        <th>Band</th>
-        <th>Nummer</th>
-        <th>Nicht vor</th>
-        <th>Nicht nach</th>
-        <th>Genaudatum</th>
-        <th>Präzision</th>
-        <th>Aufbewahrungsort</th>
-        <th>Sammlung</th>
-        <th>Inv.-Nr.</th>
-        <th>Herkunft</th>
-        <th>Herkunft - Ort</th>
-        <th>Herkunft - Gau</th>
-        <th>Abbildungen</th>
-        <th>Bild-URLs</th>
-        <th>Übersetzungen</th>
-        <th>Bemerkungen</th>
-        <th>Erwähnte Daten</th>
-        <th>BL online</th>
+        <th>{{ 'table.row_number'|trans }}</th>
+        <th>{{ 'table.publication'|trans }}</th>
+        <th>{{ 'table.dating'|trans }}</th>
+        <th>{{ 'table.place'|trans }}</th>
+        <th>{{ 'table.title'|trans }}</th>
+        <th>{{ 'table.material'|trans }}</th>
+        <th>{{ 'table.keywords'|trans }}</th>
+        <th>{{ 'table.other_publications'|trans }}</th>
+        <th>{{ 'table.tm_no'|trans }}</th>
+        <th>{{ 'table.ddb'|trans }}</th>
+        <th>{{ 'table.hgv_id'|trans }}</th>
+        <th>{{ 'table.publication_abbr'|trans }}</th>
+        <th>{{ 'table.volume'|trans }}</th>
+        <th>{{ 'table.number'|trans }}</th>
+        <th>{{ 'table.not_before'|trans }}</th>
+        <th>{{ 'table.not_after'|trans }}</th>
+        <th>{{ 'table.exact_date'|trans }}</th>
+        <th>{{ 'table.precision'|trans }}</th>
+        <th>{{ 'table.settlement'|trans }}</th>
+        <th>{{ 'table.collection'|trans }}</th>
+        <th>{{ 'table.inv_no'|trans }}</th>
+        <th>{{ 'table.provenance'|trans }}</th>
+        <th>{{ 'table.provenance_place'|trans }}</th>
+        <th>{{ 'table.provenance_nome'|trans }}</th>
+        <th>{{ 'table.illustrations'|trans }}</th>
+        <th>{{ 'table.figure_urls'|trans }}</th>
+        <th>{{ 'table.translations'|trans }}</th>
+        <th>{{ 'table.commentary'|trans }}</th>
+        <th>{{ 'table.mentioned_dates'|trans }}</th>
+        <th>{{ 'table.bl_online'|trans }}</th>
       </tr>
     </thead>
     <tfoot>
       <tr>
         <th></th>
-        <th>Publikation</th>
-        <th>Datierung</th>
-        <th>Ort</th>
-        <th>Titel</th>
-        <th>Material</th>
-        <th>Inhalt / Schlagworte</th>
-        <th>Andere Publikationen</th>
-        <th>TM Nr.</th>
-        <th>DDB</th>
-        <th>HGV Id</th>
-        <th>Publikation Abk.</th>
-        <th>Band</th>
-        <th>Nummer</th>
-        <th>Nicht vor</th>
-        <th>Nicht nach</th>
-        <th>Genaudatum</th>
-        <th>Präzision</th>
-        <th>Aufbewahrungsort</th>
-        <th>Sammlung</th>
-        <th>Inv.-Nr.</th>
-        <th>Herkunft</th>
-        <th>Herkunft - Ort</th>
-        <th>Herkunft - Gau</th>
-        <th>Abbildungen</th>
-        <th>Bild-URLs</th>
-        <th>Übersetzungen</th>
-        <th>Bemerkungen</th>
-        <th>Erwähnte Daten</th>
-        <th>BL online</th>
+        <th>{{ 'table.publication'|trans }}</th>
+        <th>{{ 'table.dating'|trans }}</th>
+        <th>{{ 'table.place'|trans }}</th>
+        <th>{{ 'table.title'|trans }}</th>
+        <th>{{ 'table.material'|trans }}</th>
+        <th>{{ 'table.keywords'|trans }}</th>
+        <th>{{ 'table.other_publications'|trans }}</th>
+        <th>{{ 'table.tm_no'|trans }}</th>
+        <th>{{ 'table.ddb'|trans }}</th>
+        <th>{{ 'table.hgv_id'|trans }}</th>
+        <th>{{ 'table.publication_abbr'|trans }}</th>
+        <th>{{ 'table.volume'|trans }}</th>
+        <th>{{ 'table.number'|trans }}</th>
+        <th>{{ 'table.not_before'|trans }}</th>
+        <th>{{ 'table.not_after'|trans }}</th>
+        <th>{{ 'table.exact_date'|trans }}</th>
+        <th>{{ 'table.precision'|trans }}</th>
+        <th>{{ 'table.settlement'|trans }}</th>
+        <th>{{ 'table.collection'|trans }}</th>
+        <th>{{ 'table.inv_no'|trans }}</th>
+        <th>{{ 'table.provenance'|trans }}</th>
+        <th>{{ 'table.provenance_place'|trans }}</th>
+        <th>{{ 'table.provenance_nome'|trans }}</th>
+        <th>{{ 'table.illustrations'|trans }}</th>
+        <th>{{ 'table.figure_urls'|trans }}</th>
+        <th>{{ 'table.translations'|trans }}</th>
+        <th>{{ 'table.commentary'|trans }}</th>
+        <th>{{ 'table.mentioned_dates'|trans }}</th>
+        <th>{{ 'table.bl_online'|trans }}</th>
       </tr>
     </tfoot>
   </table>

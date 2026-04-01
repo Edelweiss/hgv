@@ -1,34 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens – {{ parent() }}{% endblock %}
+{% block title %}{{ 'site.title'|trans }} – {{ parent() }}{% endblock %}
 
 {% block body %}
 
  <div class="page index"> 
  
   <h5 style="text-align: center; font-size: 2em;"><font style="color: #ff0000; font-size: 1.4em;">H</font>EIDELBERGER <font style="color: #ff0000; font-size: 1.4em;">G</font>ESAMTVERZEICHNIS<br /> DER GRIECHISCHEN <font style="color: #ff0000; font-size: 1.4em;">P</font>APYRUSURKUNDEN <font style="color: #ff0000; font-size: 1.4em;">Ä</font>GYPTENS</h5>
-  <p style="text-align: center; font-size: 1em; font-weight: bold;">einschließlich der Ostraka usw., der lateinischen Texte, sowie der entsprechenden Urkunden aus benachbarten Regionen </p>
+  <p style="text-align: center; font-size: 1em; font-weight: bold;">{{ 'site.subtitle'|trans }}</p>
   <p style="text-align: center;"><img src="{{ asset('images/Siegel1.png') }}" width="200px"/><img src="{{ asset('images/Siegel2c.png') }}" width="200px"/></p>
 
   <hr /> 
   
   <p>
-  <font size="+1"><b>Willkommen beim HGV! Neue Gäste mögen bitte die <a href="{{ path('PapyrillioHgvBundle_DefaultIntroduction') }}">Einführung</a> und die Hinweise (s. unten) lesen.</b></font></p>
+  <font size="+1"><b>{{ 'home.welcome'|trans }} <a href="{{ path('PapyrillioHgvBundle_DefaultIntroduction') }}">{{ 'home.introduction_link'|trans }}</a> {{ 'home.read_notes'|trans }}</b></font></p>
   
-  <p><font size="+1"><b>Sie haben die Möglichkeit der Direktsuche in den Datenbanken des "<a href="{{ path('PapyrillioHgvBundle_Home') }}">Hauptregisters</a>".<br /> 
-  Informationen zu einem bestimmten Text finden Sie auch über diesen Einstieg: <a href="/texte/HGV-Texte.html">Texte im HGV</a>.</b></font></p>
+  <p><font size="+1"><b>{{ 'home.direct_search'|trans }} "<a href="{{ path('PapyrillioHgvBundle_Home') }}">{{ 'home.main_register'|trans }}</a>".<br /> 
+  {{ 'home.text_info'|trans }} <a href="/texte/HGV-Texte.html">{{ 'home.texts_in_hgv'|trans }}</a>.</b></font></p>
   
-  <p>Hinweise zur Benutzung unserer Datenbanken, insbesondere Suchhilfen:</p>
+  <p>{{ 'home.usage_notes'|trans }}</p>
   <ul>
-    <li style="margin-left: 2em;"><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="Suchhilfe">Deutsch</a></li>
-    <li style="margin-left: 2em;"><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="Search help">English</a></li>
+    <li style="margin-left: 2em;"><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="{{ 'nav.help_de_title'|trans }}">{{ 'home.german'|trans }}</a></li>
+    <li style="margin-left: 2em;"><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="{{ 'nav.help_en_title'|trans }}">{{ 'home.english'|trans }}</a></li>
   </ul>
     
-  <p><b>Links zu:</b></p>
+  <p><b>{{ 'home.links_to'|trans }}</b></p>
   <ul>
-    <li style="margin-left: 2em;"><a href="https://papy.zaw.uni-heidelberg.de/gv0/">Publizierte Heidelberger Stücke</a> <b>(digitalisierte Abbildungen Heidelberger Papyri)</b></li>
-    <li style="margin-left: 2em;"><a href="https://www.ub.uni-heidelberg.de/papyri">Kataloge</a> <b>(digitalisierte Kataloge Heidelberger Papyri)</b></li>
-    <li style="margin-left: 2em;"><a href="https://papyri.uni-koeln.de/papyri-woerterlisten/index.html">WörterListen</a> <b>(Kompilation der in den Registern neuerer Publikationen enthaltenen griechischen und lateinischen Wörter und Namen)</b></li>
+    <li style="margin-left: 2em;"><a href="https://papy.zaw.uni-heidelberg.de/gv0/">{{ 'home.published_pieces'|trans }}</a> <b>{{ 'home.published_pieces_desc'|trans }}</b></li>
+    <li style="margin-left: 2em;"><a href="https://www.ub.uni-heidelberg.de/papyri">{{ 'home.catalogs'|trans }}</a> <b>{{ 'home.catalogs_desc'|trans }}</b></li>
+    <li style="margin-left: 2em;"><a href="https://papyri.uni-koeln.de/papyri-woerterlisten/index.html">{{ 'home.word_lists'|trans }}</a> <b>{{ 'home.word_lists_desc'|trans }}</b></li>
   </ul>
  
  </div>

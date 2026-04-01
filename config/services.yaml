@@ -40,6 +40,10 @@ services:
             $user: '%basex.user%'
             $password: '%basex.password%'
 
+    App\EventSubscriber\LocaleSubscriber:
+        arguments:
+            $defaultLocale: '%kernel.default_locale%'
+
     App\Command\BaseXCreateDatabaseCommand:
         arguments:
             $projectDir: '%kernel.project_dir%'

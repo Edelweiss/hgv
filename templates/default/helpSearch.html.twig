@@ -1,0 +1,273 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% if app.request.locale == 'de' %}Suchhilfen und andere Hinweise für das HGV{% else %}Search Tips and other Information for HGV{% endif %}{% endblock %}
+
+{% block body %}
+
+  <div class="page help">
+
+{% if app.request.locale == 'de' %}
+
+    <h5>Suchhilfen und andere Hinweise</h5>
+      <p>
+      Für die Datenbank existieren drei verschiedene Ansichten, 
+    "Tabelle", "Formular" und "Suche". Nach dem Aufruf der Datenbank werden die augenblicklich ca. 60.600 Datensätze in
+     der vorgegebenen Reihenfolge präsentiert, und zwar zunächst in der 
+    tabellarischen Ansicht, welche außer der laufenden Nummer der Datensätze
+     die Felder "Publikation", "Datierung", "Ort" und "Originaltitel"  
+    enthält. Die erste Seite gibt standardmäßig nur die ersten 100 Datensätze wieder, aber 
+    durch Klicken auf das Wort "Weiter" läßt man sich die nächsten 100 
+    anzeigen, usw.
+    </p>
+    <p>
+      Durch einen Mausklick auf die laufende Nummer (oder auf das Wort 
+    "Formular" in der Titelleiste) gelangt man zur Formular-Ansicht des 
+    betreffenden Datensatzes, die zusätzliche Informationen wie z.B. die Felder 
+    "Material", "Abbildung", "Andere Publikation", "Bemerkungen" und 
+    "Inhalt" enthält.
+    </p>
+    <p>
+      Im Such-Layout erscheinen alle für die Suche relevanten Felder.<br />
+      Für diejenigen, die keine Erfahrung im Umgang mit Internet-Datenbanken haben, gibt es am Kopf der Suchseite 
+    Links zu grundlegenden Anleitungen der Online-Suche in 
+    Deutsch und Englisch.
+    </p>
+    <p>
+      Hier einige konkrete Beispiele für Suchmöglichkeiten (<b>Vorbemerkung:</b> In den Feldern "Band", "Nummer", "Jahr", "Monat", Tag", "Jahr (2)", "Jahrhundert" und "Jahrhundert (2)" dürfen nur <u>arabische</u> Ziffern verwendet werden):<br />
+    </p>
+    <p>
+    1) Gesucht sind alle Datensätze aus den Jahren 275 - 285 n.Chr.<br />
+      Man gibt in dem Feld "Jahr" ein: "275...285".</p>
+    <p>
+    2) Gesucht sind alle Datensätze aus den Jahren 80 - 50 v.Chr., die aus dem Arsinoites stammen.<br />
+      Man gibt in dem Feld "Jahr" ein: "-80...-50" und in dem Feld "Ort": "Arsinoites" (oder auch nur "Arsin" oder "Arsi").</p>
+    <p>
+    3) Gesucht sind alle Datensätze von Papyri aus den Jahren zwischen 450 
+    und 490 n.Chr. aus dem Herakleopolites, von denen Abbildungen publiziert
+     sind.<br />
+      Man gibt im Feld "Jahr" ein: "450...490", im Feld "Ort": "Herakl", und im 
+    Feld "Abbildung": "keine". Die Information darüber, wo die 
+    Abbildungen publiziert sind, erhält man nur in der Formular-Ansicht.</p>
+    <p>
+    4) Wer sicher sein will, alle Papyri zu finden, die möglicherweise im 
+    Jahre 602 geschrieben wurden, muß sowohl im Feld "Jahr" als auch im Feld 
+    "Jahr (2)" die Zahl "602" eintragen und oberhalb die Option "ODER" anklicken. 
+    Das Feld "Jahr (2)" sorgt dafür, daß auch Papyri mit der Angabe "601-602 
+    n.Chr." gefunden werden.</p>
+    <p>
+    5) Wer sicher sein will, alle Datensätze für Papyri zu finden, die 
+    möglicherweise im 2. Jh. v.Chr. geschrieben wurden, muß eine Suche
+    mit mit der Option "ODER" starten:
+    <ol style="list-style-type: lower-alpha; margin-left: 4em;">
+    <li>Im Feld "Jahr": "-199...-100",</li>
+    <li>im Feld "Jahrhundert": "-2",</li>
+    <li>und im Feld "Jahrhundert (2)": "-2" (um auch "III-II v.Chr." zu finden).</li>
+    </ol>
+
+    </p>
+    <p>
+    6) Ausführlich zu erklären ist die Verwendungsweise der Formelfelder 
+    "ChronMinimum" und "ChronMaximum", die erst später (November 2003) 
+    eingeführt worden sind. Durch sie ergeben sich zusätzliche Möglichkeiten
+     zur chonologischen Suche.<br />Die Bedeutung der Felder ist bei einer 
+    Datierung wie z.B. "98 - 117", "231 - 232" usw. selbsterklärend: Es 
+    werden automatisch jeweils die Endpunkte der Zeitspanne in die Felder 
+    ChronMinimum und ChronMaximum übernommen. Datierungen nach Jahrhunderten
+     hingegen werden mit einer Formel umgerechnet. So gelten etwa für "III" 
+    die Werte ChronMinimum = 201 und ChronMaximum = 300,  für "Mitte IV" die
+     Werte ChronMinimum = 326 und ChronMaximum = 375, für "Ende III - Anfang
+     II v.Chr." die Werte ChronMinimum = -225 und ChronMaximum = -176, usw.<br />Wenn
+     man bisher Texte aus der Regierungszeit Trajans finden wollte, konnte 
+    man im Feld Jahr nach "98...117" suchen, fand dann aber nur solche 
+    Datierungen, die entweder exakt in den genannten Zeitraum fallen oder 
+    deren Zeitspanne zumindest konkret in ihm beginnt (z.B. 110 - 120). 
+    Nicht gefunden wurden hingegen Datierungen wie z.B. "95 - 100". Mit 
+    Hilfe der beiden neuen Felder lassen sich nun zusätzlich auch alle 
+    diejenigen Datensätze finden, die nur potentiell in einem beliebigen 
+    Zeitraum entstanden sind.
+    <br />
+    <a href="https://aquila.zaw.uni-heidelberg.de/?search[operator]=and&search[criteria][publikation][operator]=cn&search[criteria][publikation][value]=&search[criteria][band][operator]=eq&search[criteria][band][value]=&search[criteria][nummer][operator]=eq&search[criteria][nummer][value]=&search[criteria][anderePublikation][operator]=sp&search[criteria][anderePublikation][value]=&search[criteria][ort][operator]=sp&search[criteria][ort][value]=&search[criteria][originaltitel][operator]=sp&search[criteria][originaltitel][value]=&search[criteria][material][operator]=cn&search[criteria][material][value]=&search[criteria][inhalt][operator]=sp&search[criteria][inhalt][value]=&search[criteria][bemerkungen][operator]=sp&search[criteria][bemerkungen][value]=&search[criteria][uebersetzungen][operator]=cn&search[criteria][uebersetzungen][value]=&search[criteria][abbildung][operator]=sp&search[criteria][abbildung][value]=&search[criteria][url][operator]=cn&search[criteria][url][value]=&search[criteria][tmNr][operator]=eq&search[criteria][tmNr][value]=&search[criteria][jahr][operator]=eq&search[criteria][jahr][value]=&search[criteria][monat][operator]=eq&search[criteria][monat][value]=&search[criteria][tag][operator]=eq&search[criteria][tag][value]=&search[criteria][jahrIi][operator]=eq&search[criteria][jahrIi][value]=&search[criteria][jh][operator]=eq&search[criteria][jh][value]=&search[criteria][jhIi][operator]=eq&search[criteria][jhIi][value]=&search[criteria][chronMinimum][operator]=eq&search[criteria][chronMinimum][value]=50...117&search[criteria][chronMaximum][operator]=eq&search[criteria][chronMaximum][value]=98...150&search[criteria][chronGlobal][operator]=eq&search[criteria][chronGlobal][value]=&search[mentionedDates]=without&sort[1][key]=&sort[1][direction]=ascend&sort[2][key]=&sort[2][direction]=ascend&sort[3][key]=&sort[3][direction]=ascend&sort[4][key]=&sort[4][direction]=ascend&sort[5][key]=&sort[5][direction]=ascend&search[max]=100&search[skip]=0">(A)</a>Will man also alle Urkunden finden, die 
+    potentiell aus der Regierungszeit Trajans stammen, sucht man z.B. in 
+    ChronMinimum nach "50...117" und zugleich in ChronMaximum nach 
+    "98...150". Man findet auf diese Weise auch Texte, deren Datierung "ca. 
+    70 - 130" lautet wie in P.Hib. II 215, "81 - 138" wie in O.Elkab 28 oder
+     "Ende I - Anfang II" wie in P.Oxy. LXVI 4533.
+     <br />
+     Man sieht, daß man für
+     den entscheidenden Zeitraum (d.h. 98-117) beim Eintrag in die 
+    Suchfelder eine Überlappung herstellen muß. Die Extremwerte "50" und 
+    "150" stellen dabei die Toleranz dar und können nach Belieben verändert 
+    werden. In obigem Beispiel werden (wegen ChronMaximum ...150) auch alle 
+    Texte gefunden, deren Datierung "1. Hälfte II" lautet, nicht hingegen 
+    diejenigen, die auf "Mitte II" oder einfach nur "II" datiert sind. 
+    Wollte man auch sie finden, müßte man in ChronMaximum die Toleranz 
+    erhöhen und "98...175" bzw. "98...200" suchen. Ebenso ließe sich die 
+    Toleranz in ChronMinimum auf "1" ausweiten, um auch "I - II" datierte 
+    Texte in das Ergebnis einzuschließen.
+    <br />
+    Eine extreme Ausweitung der 
+    Toleranz stellen Suchen mit z.B. den Kriterien <a href="https://aquila.zaw.uni-heidelberg.de/?search[operator]=and&search[criteria][publikation][operator]=cn&search[criteria][publikation][value]=&search[criteria][band][operator]=eq&search[criteria][band][value]=&search[criteria][nummer][operator]=eq&search[criteria][nummer][value]=&search[criteria][anderePublikation][operator]=sp&search[criteria][anderePublikation][value]=&search[criteria][ort][operator]=sp&search[criteria][ort][value]=&search[criteria][originaltitel][operator]=sp&search[criteria][originaltitel][value]=&search[criteria][material][operator]=cn&search[criteria][material][value]=&search[criteria][inhalt][operator]=sp&search[criteria][inhalt][value]=&search[criteria][bemerkungen][operator]=sp&search[criteria][bemerkungen][value]=&search[criteria][uebersetzungen][operator]=cn&search[criteria][uebersetzungen][value]=&search[criteria][abbildung][operator]=sp&search[criteria][abbildung][value]=&search[criteria][url][operator]=cn&search[criteria][url][value]=&search[criteria][tmNr][operator]=eq&search[criteria][tmNr][value]=&search[criteria][jahr][operator]=eq&search[criteria][jahr][value]=&search[criteria][monat][operator]=eq&search[criteria][monat][value]=&search[criteria][tag][operator]=eq&search[criteria][tag][value]=&search[criteria][jahrIi][operator]=eq&search[criteria][jahrIi][value]=&search[criteria][jh][operator]=eq&search[criteria][jh][value]=&search[criteria][jhIi][operator]=eq&search[criteria][jhIi][value]=&search[criteria][chronMinimum][operator]=lte&search[criteria][chronMinimum][value]=200&search[criteria][chronMaximum][operator]=gte&search[criteria][chronMaximum][value]=101&search[criteria][chronGlobal][operator]=eq&search[criteria][chronGlobal][value]=&search[mentionedDates]=without&sort[1][key]=&sort[1][direction]=ascend&sort[2][key]=&sort[2][direction]=ascend&sort[3][key]=&sort[3][direction]=ascend&sort[4][key]=&sort[4][direction]=ascend&sort[5][key]=&sort[5][direction]=ascend&search[max]=100&search[skip]=0">(B)</a> ChronMinimum &#8804; 200 und 
+    ChronMaximum &#8805; 101 oder mit den Werten <a href="https://aquila.zaw.uni-heidelberg.de/?search[operator]=and&search[criteria][publikation][operator]=cn&search[criteria][publikation][value]=&search[criteria][band][operator]=eq&search[criteria][band][value]=&search[criteria][nummer][operator]=eq&search[criteria][nummer][value]=&search[criteria][anderePublikation][operator]=sp&search[criteria][anderePublikation][value]=&search[criteria][ort][operator]=sp&search[criteria][ort][value]=&search[criteria][originaltitel][operator]=sp&search[criteria][originaltitel][value]=&search[criteria][material][operator]=cn&search[criteria][material][value]=&search[criteria][inhalt][operator]=sp&search[criteria][inhalt][value]=&search[criteria][bemerkungen][operator]=sp&search[criteria][bemerkungen][value]=&search[criteria][uebersetzungen][operator]=cn&search[criteria][uebersetzungen][value]=&search[criteria][abbildung][operator]=sp&search[criteria][abbildung][value]=&search[criteria][url][operator]=cn&search[criteria][url][value]=&search[criteria][tmNr][operator]=eq&search[criteria][tmNr][value]=&search[criteria][jahr][operator]=eq&search[criteria][jahr][value]=&search[criteria][monat][operator]=eq&search[criteria][monat][value]=&search[criteria][tag][operator]=eq&search[criteria][tag][value]=&search[criteria][jahrIi][operator]=eq&search[criteria][jahrIi][value]=&search[criteria][jh][operator]=eq&search[criteria][jh][value]=&search[criteria][jhIi][operator]=eq&search[criteria][jhIi][value]=&search[criteria][chronMinimum][operator]=lte&search[criteria][chronMinimum][value]=115&search[criteria][chronMaximum][operator]=gte&search[criteria][chronMaximum][value]=115&search[criteria][chronGlobal][operator]=eq&search[criteria][chronGlobal][value]=&search[mentionedDates]=without&sort[1][key]=&sort[1][direction]=ascend&sort[2][key]=&sort[2][direction]=ascend&sort[3][key]=&sort[3][direction]=ascend&sort[4][key]=&sort[4][direction]=ascend&sort[5][key]=&sort[5][direction]=ascend&search[max]=100&search[skip]=0">(C)</a> &#8804; 115 für ChronMinimum und 
+    ebenfalls &#8805; 115 für ChronMaximum dar: Sie liefern alle Datensätze, die 
+    möglicherweise (oder sicher) in das 2. Jh. n.Chr. gehören bzw. alle 
+    Datierungen, in die auch das Jahr 115 fällt, also auch "I - VIII" oder 
+    gänzlich undatierte Texte.</p>
+    <p>
+    7) Man kann auch im Feld "Inhalt" suchen. Z.B. bringt der Eintrag "Esel 
+    Kauf" in diesem Feld in Kombination mit dem Suchtyp "Splittersuche" als Suchergebnis eine bestimmte Anzahl von 
+    Urkunden, die mit dem Kauf von Eseln zu tun haben. Wir garantieren aber 
+    nicht für Vollständigkeit.</p>
+    <p>
+    8) Wer sich für Abbildungen der Originale bzw. weitere Informationen 
+    dazu im Internet interessiert, gebe im Feld "Link" das Suchkriterium 
+    "*" ein. Natürlich kann das mit einer chronologischen (oder anderen) 
+    Suche verbunden werden.</p>
+    <p>
+    Grundsätzlich gilt, daß, wenn man den Datensatz für P.Oxy. XLIII 3095 finden will, 
+    die Angabe von "Oxy" in dem Feld "Publikation" und "3095" in 
+    dem Feld "Nummer" genügt, d.h. man kann auf das "P." und auf die Angabe 
+    "43" im Feld "Band" verzichten. Für hohe SB-Nummern oder P.Cair. Masp. usw. genügt sogar
+     die Angabe der Nummer.</p>
+    <p>
+      Um die gefundenen Datensätze (grob) chronologisch zu sortieren, empfehlen wir die Reihenfolge
+      <ol><li style="margin-left: 4em;">"ChronGlobal" </li><li style="margin-left: 4em;">"Monat" </li><li style="margin-left: 4em;">"Tag".</li></ol>
+    </p>
+    <p>
+      Zum Schluß eine Bitte: Bedauerlicherweise enthält eine so große 
+    Datenbank  mit Notwendigkeit noch zahlreiche Fehler, die uns bisher 
+    entgangen sind. Wir wären sehr dankbar für Hinweise auf bemerkte Fehler,
+     damit wir sie so schnell wie möglich beseitigen können.</p>
+    <p>
+    Bitte schreiben Sie an:<br />
+    <a href="mailto:dieter.hagedorn@urz.uni-heidelberg.de">Dieter.Hagedorn@urz.uni-heidelberg.de</a><br />
+    <a href="mailto:James.Cowey@urz.uni-heidelberg.de">James.Cowey@urz.uni-heidelberg.de</a></p>
+    <br /><br /><br /><br />
+
+{% else %}
+
+    <h5>Search Tips and other Information</h5>
+      Three different layouts exist for each database, "Tabelle", "Formular" 
+    and "Suche". Once the database "Hauptregister" has been called up the 
+    entries are presented in a given order in the table layout which 
+    contains the serial number of the text and the fields "PublikationL", 
+    "Datierung2", "Ort" und "Originaltitel". The first page contains the 
+    first 25 entries. By clicking the word "Weiter" the next 25 will be 
+    shown and so on.<br />
+      By clicking the serial number with the mouse (or the word "Formular" in
+     the title bar) one goes to the "Formular" layout where one can in 
+    addition view the fields "Material", "Abbildung", "Andere Publikation", 
+    "Bemerkungen" and "Inhalt".<br />
+      In "Suche" layout all fields which can be used to carry out searches appear.<br />
+      For those who have no experience in using FileMaker Pro or similar 
+    database programmes there are links on our main page to the relevant 
+    basic introductions to FileMaker Pro in English, French and German, as 
+    supplied by the manufacturer.<br />
+      Here are a few concrete examples of searches that might be carried out (<b>preliminary remarks:</b> <u>arabic</u> numerals only are to be used in the fields "Band", "Nummer", "J", "M", T", "J2", "Jh" und "Jh2"):<br />
+    <br />
+    1) A search for all entries dating from the years AD 275 - 285 .<br />
+      One enters "275...285" in the field "J" (= Jahr).<br />
+    <br />
+    2) A search for all entries dating from the years 80 - 50 BC, which come from Arsinoites.<br />
+      One enters "-80...-50" in the field "J" and "Arsinoites" in the field "Ort" (or "Arsin" or "Arsi").<br />
+    <br />
+    3) A search for all entries of papyri dating from the years AD 450 and 
+    490, which come from Herakleopolites and of which there are published 
+    photographs.<br />
+      One enters "450...490" in the field "J", "Herakl." in the field "Ort" 
+    and "keine" in the field "Abbildung". In the case of the last entry the 
+    option "Enthält nicht" must be used. Information concerning published 
+    photographs of any given document are only available in "Formular" 
+    layout.<br />
+    <br />
+    4) Anyone searching for all documents which may have been written in AD 
+    602 must enter "602" in "J" and then in "J2" as well as clicking on the 
+    option "ODER". The field "J2" (= "Jahr 2") makes sure that papyri dated 
+    to AD 601-602 are found.<br />
+    <br />
+    5) Anyone searching for all documents which may have been written in the
+     second century BC must carry out two separate seaches: a) one enters 
+    "-199...-100" in field "J" and then (with the option "ODER") "-2" in 
+    field "Jh" (= "Jahrhundert"). b) "-2" in field "Jh2" (in order to find 
+    documents dated "III-II v.Chr.").<br />
+    <br />
+    6) The use of the formula fields "ChronMinimum" and "ChronMaximum", 
+    which were added at a later date (November 2003), ought to be explained 
+    at greater length, as they open up further possibilities whenever a 
+    detailed chronological search is desirable.<br />The fields are self 
+    explanatory if the date in question is e.g. 98 - 117 or 231 - 232: in 
+    these cases the starting and end dates of any given period appear in the
+     fields ChronMinimum and ChronMaximum. Dates which were assigned to 
+    centuries are converted with the use of a formula. For "III" for 
+    example, the value accorded to the fields are: ChronMinimum = 201 and 
+    ChronMaximum = 300; for "Mitte IV" ChronMinimum = 326 and Chron Maximum =
+     375; for "Ende III - Anfang II v.Chr." ChronMinimum = -225 and 
+    ChronMaximum = -176; etc.<br />Up to now if one wanted to find texts 
+    belonging to the reign of Trajan, it was possible to enter 98...117 into
+     the field J(ahr). This, however, resulted in a list of texts which were
+     dated to precisely this span of 20 years or to a period of which the 
+    starting year fell in this span (<i>e.g.</i> 110-120). Dates such as "95
+     - 100" were not found. With the help of the new fields it is now 
+    possible to find all records, which might potentially belong to any 
+    given time period.<br />Thus if one wants to find all documents, which may
+     potentially come from the reign of Trajan, "50...117" should be entered
+     in ChronMinimum and "98...150" should be entered in ChronMaximum in the
+     same search. In this way texts are found which are dated "ca. 70 - 130"
+     as in P.Hib. II 215, "81 - 138" as in O.Elkab 28 or "Ende I - Anfang 
+    II" as in P.Oxy. LXVI 4533.<br />As can be seen, it is necessary to create
+     an overlap with the time period in question (i.e. 98 - 117) when making
+     an entry in the search fields. The outermost date limits of the search,
+     "50" and "150", represent the tolerance and can of course be altered as
+     one pleases. In the example above all texts will be found with a date 
+    of "1. Hälfte II" (because of ChronMaximum ...150), those dated to 
+    "Mitte II" or simply "II" will not, however, be found. If one wanted to 
+    find these as well, one would have to increase the tolerance and search 
+    for "98...175" or "98...200". Likewise the tolerance could be increased 
+    in ChronMinimum to "1...117", to include texts dated to "I - II".<br />Searches
+     with the criteria ChronMinimum &#8804; 200 and ChronMaximum &#8805; 101 or with &#8804; 
+    115 for ChronMinimum and &#8805; 115 for ChronMaximum represent an extreme 
+    expansion of the tolerance. They produce all records, which are possibly
+     (or definitely) dated to the second century AD or all time periods in 
+    which the year 115 is included, that is even to texts dated "I - VIII" 
+    or completely undated texts.<br />
+    <br />
+    7) One can search in the field "Inhalt". E.g. the entry "Esel Kauf" in 
+    this field will provide a number of documents which have to do with the 
+    sale of donkeys. There is no guarantee of completeness in the case of 
+    searching according to content as we did not develop a system of 
+    categorisation.<br />
+    <br />
+    8) For anyone who is interested in images of the originals or further 
+    information in the Internet, a search for "http" in the field Link1FM 
+    should be carried out. This can, of course, be combined with a 
+    chronological or, indeed, any other type of search.
+    <br />
+    <br />  A basic rule of thumb is that one should avoid as much as possible 
+    entering unnecessary information. Anyone wanting to find P.Oxy. XLIII 
+    3095 should enter <u>only</u> "oxy" in the field "Publikation" and 
+    "3095" in the field "Nummer" (i.e. one avoids "P." - there are thousands
+     of them and the search takes ages quite unnecessarily! - as well as 
+    omitting "43" in the field "Band"). In the case of high SB numbers or 
+    P.Cair.Masp or P.Cair.Zen. it is quite sufficient to enter the number 
+    alone.<br />
+    <br />
+      Documents which have been found can be sorted in rough chronological 
+    order by choosing the option "ChronGlobal" in "Feldname" 1., "M" in 
+    "Feldname" 2., and "T" in "Feldname" 3. It is, however, requested not to
+     try to sort large numbers of documents (e.g. the whole database), 
+    because this takes a long time during which the database is not 
+    available for other users.<br />
+    <br />
+      A final plea. It is unfortunately in the nature of such huge databases 
+    that there will be mistakes which we have failed to notice. We would be 
+    very grateful to receive notice of where mistakes have been spotted so 
+    that we can correct them as quickly as possible. <br />
+    <br />
+    Please write to:<br />
+    <a href="mailto:dieter.hagedorn@urz.uni-heidelberg.de">Dieter.Hagedorn@urz.uni-heidelberg.de</a><br />
+    <a href="mailto:James.Cowey@urz.uni-heidelberg.de">James.Cowey@urz.uni-heidelberg.de</a><br /><br /><br /><br />
+
+{% endif %}
+
+  </div>
+
+{% endblock %}

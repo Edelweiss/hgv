@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Texte im HGV{% endblock %}
+{% block title %}{{ 'publication.page_title'|trans }}{% endblock %}
 
 {% block stylesheets %}
   {{ parent() }}
@@ -61,12 +61,12 @@
 {% block body %}
 
   <div class="page">
-    <h2>Texte im HGV</h2>
+    <h2>{{ 'publication.page_title'|trans }}</h2>
 
     <div class="publication-browser">
 
       <div class="column column-volumes">
-        <h3>Bände</h3>
+        <h3>{{ 'publication.volumes'|trans }}</h3>
         <ul id="volume">
           {% for vol in volumes %}
             <li data-url="{{ path('PapyrillioHgvBundle_PublicationLoadNumbers', {series: vol.series, volume: vol.volume}) }}">
@@ -77,16 +77,16 @@
       </div>
 
       <div class="column column-numbers">
-        <h3>Nummern</h3>
+        <h3>{{ 'publication.numbers'|trans }}</h3>
         <ul id="number">
-          <li class="placeholder">← Band wählen</li>
+          <li class="placeholder">{{ 'publication.select_volume'|trans }}</li>
         </ul>
       </div>
 
       <div class="column column-results">
-        <h3>Datensätze</h3>
+        <h3>{{ 'publication.records'|trans }}</h3>
         <div id="result">
-          <p class="placeholder">← Nummer wählen</p>
+          <p class="placeholder">{{ 'publication.select_number'|trans }}</p>
         </div>
       </div>
 

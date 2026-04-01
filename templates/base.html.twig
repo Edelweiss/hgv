@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale }}">
     <head>
         {% include 'matomo_tag.html' %}
         <meta charset="UTF-8" />
@@ -33,25 +33,22 @@
       <nav><!-- top nav -->
         <div class="menu">
           <ul>
-            <li><a href="{{ path('PapyrillioHgvBundle_Home') }}" title="Liste der Datensätze">Tabelle</a></li>
-            <!--li><a href="{{ path('PapyrillioHgvBundle_BrowseSingle') }}" title="Einzelansicht">Formular</a></li-->
-            <li><a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}" title="Filterfunktion">Suche</a></li>
-            <!--li><a href="{{ path('PapyrillioHgvBundle_Home', {'search': {'skip': 0, 'max': 100}, 'sort': {1: {'key': 'publikationLang', 'direction': 'ascend'}}}) }}">Alle</a> </li-->
-            <li><a href="{{ path('PapyrillioHgvBundle_PublicationIndex') }}" title="Texte im HGV">Publikationen und Texte</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_Home') }}" title="{{ 'nav.table_title'|trans }}">{{ 'nav.table'|trans }}</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}" title="{{ 'nav.search_title'|trans }}">{{ 'nav.search'|trans }}</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_PublicationIndex') }}" title="{{ 'nav.publications_title'|trans }}">{{ 'nav.publications'|trans }}</a></li>
 
-            <li><a href="{{ path('PapyrillioHgvBundle_DefaultAbbreviation') }}" title="Abkürzungen im HGV zitierter Bücher" target="Biblio">Abkürzungen zitierter Bücher</a></li>
-            <li><a href="https://papy.zaw.uni-heidelberg.de/gv0" title="Publizierte Heidelberger Stücke">Publizierte Heidelberger Stücke</a></li>
+            <li><a href="{{ path('PapyrillioHgvBundle_DefaultAbbreviation') }}" title="{{ 'nav.abbreviations_title'|trans }}" target="Biblio">{{ 'nav.abbreviations'|trans }}</a></li>
+            <li><a href="https://papy.zaw.uni-heidelberg.de/gv0" title="{{ 'nav.published_pieces_title'|trans }}">{{ 'nav.published_pieces'|trans }}</a></li>
             
             <li class="inactive">
-              <a href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}" title="Info">Info</a>
+              <a href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}" title="{{ 'nav.info'|trans }}">{{ 'nav.info'|trans }}</a>
               <ul class="sub">
-                <li><a href="{{ path('PapyrillioHgvBundle_DefaultIntroduction') }}" title="Einführung und Geschichte">Einführung</a></li>
-                <li><a href="{{ path('PapyrillioHgvBundle_DefaultPublication') }}" title="Liste der aufgenommenen  Publikationen">Liste der Publikationen</a></li>
-                <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="Hilfeseiten auf Deutsch">Hilfeseiten auf Deutsch</a></li>
-                <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="Help pages in English">Help pages in English</a></li>
+                <li><a href="{{ path('PapyrillioHgvBundle_DefaultIntroduction') }}" title="{{ 'nav.introduction_title'|trans }}">{{ 'nav.introduction'|trans }}</a></li>
+                <li><a href="{{ path('PapyrillioHgvBundle_DefaultPublication') }}" title="{{ 'nav.publication_list_title'|trans }}">{{ 'nav.publication_list'|trans }}</a></li>
+                <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search'}) }}" title="{{ 'nav.help_title'|trans }}">{{ 'nav.help'|trans }}</a></li>
                 <li>
-                  <a href="#" id="feedback" title="Lob, Kritik und Wünsche">Ihre Nachricht an uns …</a>
-                  <div id="feedbackDialogue" style="display: none;" title="Ihre Nachricht an uns, Lob, Kritik und Wünsche">
+                  <a href="#" id="feedback" title="{{ 'nav.feedback_title'|trans }}">{{ 'nav.feedback'|trans }}</a>
+                  <div id="feedbackDialogue" style="display: none;" title="{{ 'feedback.dialogue_title'|trans }}">
                     <div class="ui-widget">
                       <div id="feedbackInfo" class="ui-state-highlight ui-corner-all">
                         <p>
@@ -61,23 +58,23 @@
                       </div>
                     </div>
                     <form id="feedback" action="#">
-                      <label for="feedbackName">*Name:</label>
+                      <label for="feedbackName">{{ 'feedback.name'|trans }}</label>
                       <input type="text" id="feedbackName" name="name" tabindex="1001" required />
                       <br/>
-                      <label for="feedbackEmailAddress">*E-Mail:</label>
+                      <label for="feedbackEmailAddress">{{ 'feedback.email'|trans }}</label>
                       <input type="email" id="feedbackEmailAddress" name="email" tabindex="1002" required />
                       <br/>
-                      <label for="feedbackSubject">Betreff:</label>
+                      <label for="feedbackSubject">{{ 'feedback.subject'|trans }}</label>
                       <input type="text" id="feedbackSubject" name="subject" value="" tabindex="1003" />
                       <br/>
                       <textarea id="feedbackMessage" name="message" rows="4" tabindex="1004" required ></textarea>
                       <br/>
-                      <button type="submit" tabindex="1006" id="feedbackSend">Senden</button>
-                      <button type="reset" tabindex="1007" id="feedbackCancel">Zurücksetzen</button>
+                      <button type="submit" tabindex="1006" id="feedbackSend">{{ 'feedback.send'|trans }}</button>
+                      <button type="reset" tabindex="1007" id="feedbackCancel">{{ 'feedback.reset'|trans }}</button>
                       <br/>
                     </form>
                     <p>
-                      Bitte geben Sie in die obigen Felder Ihren Namen, Ihre E-Mail-Adresse und Ihre Nachricht an uns ein und drücken Sie auf senden oder schreiben Sie uns eine <a id="feedbackEmail" href="mailto:james.cowey@urz.uni-heidelberg.de,carmen.lanz@uni-heidelberg.de?subject=Rückmeldung zum Webauftritt vom HGV&body=Ihre Nachricht an uns …">E-Mail</a>.
+                      {{ 'feedback.instruction'|trans }} <a id="feedbackEmail" href="mailto:james.cowey@urz.uni-heidelberg.de,carmen.lanz@uni-heidelberg.de?subject=Rückmeldung zum Webauftritt vom HGV&body=Ihre Nachricht an uns …">E-Mail</a>.
                     </p>
                   </div>
                 </li>
@@ -85,6 +82,15 @@
             </li>
 
           </ul>
+          <div class="language-switcher">
+            {% for locale in ['de', 'en'] %}
+              {% if app.request.locale == locale %}
+                <span class="active"><img src="{{ asset('images/lang_' ~ locale ~ '.png') }}" alt="{{ ('language.' ~ locale)|trans }}" /></span>
+              {% else %}
+                <a href="{{ path('app_switch_locale', {locale: locale}) }}"><img src="{{ asset('images/lang_' ~ locale ~ '.png') }}" alt="{{ ('language.' ~ locale)|trans }}" /></a>
+              {% endif %}
+            {% endfor %}
+          </div>
         </div>
       </nav><!-- end of top nav -->
 
@@ -99,14 +105,14 @@
   
         <section id="footer-outer-block">
             <aside class="footer-segment">
-                <h4>Kataloge</h4>
+                <h4>{{ 'footer.catalogs'|trans }}</h4>
                 <ul>
-                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/papyri">Papyrussammlung des Instituts für Papyrologie Heidelberg</a></li>
+                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/papyri">{{ 'footer.papyrus_collection'|trans }}</a></li>
 <li>&nbsp;</li>
-                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/helios/digi/hd_papyrus.html#GreekList">Griechische Papyri</a></li>
-                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/helios/digi/hd_papyrus.html#KoptList">Koptische Papyri</a></li>
-                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/helios/digi/hd_papyrus.html#LatinList">Lateinische Papyri</a></li>
-                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/helios/digi/hd_papyrus.html#HebList">Hebräische Papyri</a></li>
+                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/helios/digi/hd_papyrus.html#GreekList">{{ 'footer.greek_papyri'|trans }}</a></li>
+                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/helios/digi/hd_papyrus.html#KoptList">{{ 'footer.coptic_papyri'|trans }}</a></li>
+                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/helios/digi/hd_papyrus.html#LatinList">{{ 'footer.latin_papyri'|trans }}</a></li>
+                  <li><a target="_blank" href="https://www.ub.uni-heidelberg.de/helios/digi/hd_papyrus.html#HebList">{{ 'footer.hebrew_papyri'|trans }}</a></li>
                 </ul>
             </aside><!-- end of #first footer segment -->
 
@@ -120,19 +126,19 @@
             </aside><!-- end of #second footer segment -->
 
             <aside class="footer-segment">
-                <h4>Institutsdirektion</h4>
+                <h4>{{ 'footer.institute_direction'|trans }}</h4>
                 <ul>
                   <li><a target="_blank" href="https://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy/forschung/joerdens_infos.html">Prof. Dr. Andrea Jördens</a></li>
                 </ul>
-                <h4>Sekretariat</h4>
+                <h4>{{ 'footer.secretariat'|trans }}</h4>
                 <ul>
                   <li><a href="mailto:papyrologie@zaw.uni-heidelberg.de">papyrologie@zaw.uni-heidelberg.de</a></li>
                 </ul>
             </aside><!-- end of #third footer segment -->
 
             <aside class="footer-segment">
-                <h4>Institut für Papyrologie</h4>
-                  <p>&copy; 2012 <a target="_blank" href="https://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy">HGV</a><br />Marstallstr. 6<br />D-69117 Heidelberg<br />Tel.: +049-06221-542396<br />Fax.: +49-06221-543679<br /><a href="https://www.uni-heidelberg.de/datenschutzerklaerung_web.html" target="_zde">Zentrale Datenschutzerklärung der Universität Heidelberg</a></p>
+                <h4>{{ 'footer.institute'|trans }}</h4>
+                  <p>&copy; 2012 <a target="_blank" href="https://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy">HGV</a><br />Marstallstr. 6<br />D-69117 Heidelberg<br />Tel.: +049-06221-542396<br />Fax.: +49-06221-543679<br /><a href="https://www.uni-heidelberg.de/datenschutzerklaerung_web.html" target="_zde">{{ 'footer.privacy'|trans }}</a></p>
             </aside><!-- end of #fourth footer segment -->
 
         </section><!-- end of footer-outer-block -->

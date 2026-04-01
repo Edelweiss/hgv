@@ -10,14 +10,14 @@
 
 {% block body %}
 
-  <p>Datensatz {{ record ? (show ? show['skip'] + 1 : 1) : 0 }} von {{ countSearch }} Suchtreffern (Gesamt: {{ countTotal }})
+  <p>{{ 'single.record_of'|trans({'%current%': (record ? (show ? show['skip'] + 1 : 1) : 0), '%total%': countSearch, '%count%': countTotal}) }}
 
     {% if showPrev %}
-      <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showPrev}) }}">zurück</a>
+      <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showPrev}) }}">{{ 'single.back'|trans }}</a>
     {% endif %}
 
     {% if showNext %}
-      <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showNext}) }}">weiter</a>
+      <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showNext}) }}">{{ 'single.forward'|trans }}</a>
     {% endif %}
 
   </p>
@@ -29,11 +29,11 @@
   {% endif %}
 
   {% if showPrev %}
-    <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showPrev}) }}">zurück</a>
+    <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showPrev}) }}">{{ 'single.back'|trans }}</a>
   {% endif %}
 
   {% if showNext %}
-    <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showNext}) }}">weiter</a>
+    <a href="{{ path('PapyrillioHgvBundle_BrowseSingle', {'search': search, 'sort': sort, 'show': showNext}) }}">{{ 'single.forward'|trans }}</a>
   {% endif %}
 
 {% endblock %}

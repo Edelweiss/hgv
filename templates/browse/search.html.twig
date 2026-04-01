@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  {{ parent() }} - Suche
+  {{ parent() }} - {{ 'search.page_title'|trans }}
 {% endblock %}
 
 {% block body %}
   <form id="catalogueSearch" action="{{ path('PapyrillioHgvBundle_Home') }}" method="get" autocomplete="off">
     <div class="search">
       <h5>
-        Filter für die Tabellenansicht
-        <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="Search Help in English"> → Search Help</a>
-        <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="Suchhilfe auf Deutsch"> → Suchhilfe</a>
+        {{ 'search.filter_heading'|trans }}
+        <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="{{ 'nav.help_en_title'|trans }}"> → {{ 'search.search_help'|trans }} (EN)</a>
+        <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="{{ 'nav.help_de_title'|trans }}"> → {{ 'search.search_help'|trans }} (DE)</a>
       </h5>
 
       {% if matomo.searchKeywords|length > 0 %}
-      <p>Häufig gesucht:
+      <p>{{ 'search.frequently_searched'|trans }}
         {% for keyword, hits in matomo.searchKeywords %}
           {% if loop.index < 30 and not(keyword matches '/\\d/') %}
             <span>{{ keyword }}{{ loop.index < 29 ? ' · ' : '' }}</span>
@@ -23,129 +23,129 @@
       </p>
       {% endif %}
 
-      <p><button type="button" id="filterSyntaxBtn" class="btn-filter-help">Filtersyntax anzeigen</button></p>
+      <p><button type="button" id="filterSyntaxBtn" class="btn-filter-help">{{ 'search.show_filter_syntax'|trans }}</button></p>
 
       <div class="searchFields">
         <fieldset class="searchId">
-          <legend>Identifikation</legend>
-          <div><label for="f_publ">Publikation</label>
+          <legend>{{ 'search.fieldset.identification'|trans }}</legend>
+          <div><label for="f_publ">{{ 'search.field.publication'|trans }}</label>
             <input type="text" name="filter[publ]" id="f_publ" /></div>
-          <div><label for="f_pubVol">Band</label>
+          <div><label for="f_pubVol">{{ 'search.field.volume'|trans }}</label>
             <input type="text" name="filter[pubVol]" id="f_pubVol" /></div>
-          <div><label for="f_pubNr">Nummer</label>
+          <div><label for="f_pubNr">{{ 'search.field.number'|trans }}</label>
             <input type="text" name="filter[pubNr]" id="f_pubNr" /></div>
-          <div><label for="f_tm">TM Nr.</label>
+          <div><label for="f_tm">{{ 'search.field.tm'|trans }}</label>
             <input type="text" name="filter[tm]" id="f_tm" /></div>
-          <div><label for="f_hgvId">HGV Id</label>
+          <div><label for="f_hgvId">{{ 'search.field.hgv_id'|trans }}</label>
             <input type="text" name="filter[hgvId]" id="f_hgvId" /></div>
-          <div><label for="f_ddb">DDB</label>
+          <div><label for="f_ddb">{{ 'search.field.ddb'|trans }}</label>
             <input type="text" name="filter[ddb]" id="f_ddb" /></div>
         </fieldset>
 
         <fieldset class="searchDescription">
-          <legend>Inhalt</legend>
-          <div><label for="f_title">Titel</label>
+          <legend>{{ 'search.fieldset.content'|trans }}</legend>
+          <div><label for="f_title">{{ 'search.field.title'|trans }}</label>
             <input type="text" name="filter[title]" id="f_title" /></div>
-          <div><label for="f_keywords">Schlagworte</label>
+          <div><label for="f_keywords">{{ 'search.field.keywords'|trans }}</label>
             <input type="text" name="filter[keywords]" id="f_keywords" /></div>
-          <div><label for="f_material">Material</label>
+          <div><label for="f_material">{{ 'search.field.material'|trans }}</label>
             <input type="text" name="filter[material]" id="f_material" /></div>
-          <div><label for="f_commentary">Bemerkungen</label>
+          <div><label for="f_commentary">{{ 'search.field.commentary'|trans }}</label>
             <input type="text" name="filter[commentary]" id="f_commentary" /></div>
         </fieldset>
 
         <fieldset class="searchDate">
-          <legend>Datierung</legend>
-          <div><label for="f_dating">Datierung</label>
+          <legend>{{ 'search.fieldset.dating'|trans }}</legend>
+          <div><label for="f_dating">{{ 'search.field.dating'|trans }}</label>
             <input type="text" name="filter[dating]" id="f_dating" /></div>
-          <div><label for="f_notBefore">Nicht vor</label>
+          <div><label for="f_notBefore">{{ 'search.field.not_before'|trans }}</label>
             <input type="text" name="filter[notBefore]" id="f_notBefore" /></div>
-          <div><label for="f_notAfter">Nicht nach</label>
+          <div><label for="f_notAfter">{{ 'search.field.not_after'|trans }}</label>
             <input type="text" name="filter[notAfter]" id="f_notAfter" /></div>
-          <div><label for="f_when">Genaudatum</label>
+          <div><label for="f_when">{{ 'search.field.exact_date'|trans }}</label>
             <input type="text" name="filter[when]" id="f_when" /></div>
         </fieldset>
 
         <fieldset class="searchImage">
-          <legend>Herkunft &amp; Aufbewahrung</legend>
-          <div><label for="f_place">Ort</label>
+          <legend>{{ 'search.fieldset.origin'|trans }}</legend>
+          <div><label for="f_place">{{ 'search.field.place'|trans }}</label>
             <input type="text" name="filter[place]" id="f_place" /></div>
-          <div><label for="f_provenance">Herkunft</label>
+          <div><label for="f_provenance">{{ 'search.field.provenance'|trans }}</label>
             <input type="text" name="filter[provenance]" id="f_provenance" /></div>
-          <div><label for="f_settlement">Aufbewahrungsort</label>
+          <div><label for="f_settlement">{{ 'search.field.settlement'|trans }}</label>
             <input type="text" name="filter[settlement]" id="f_settlement" /></div>
-          <div><label for="f_collection">Sammlung</label>
+          <div><label for="f_collection">{{ 'search.field.collection'|trans }}</label>
             <input type="text" name="filter[collection]" id="f_collection" /></div>
-          <div><label for="f_invNo">Inv.-Nr.</label>
+          <div><label for="f_invNo">{{ 'search.field.inv_no'|trans }}</label>
             <input type="text" name="filter[invNo]" id="f_invNo" /></div>
         </fieldset>
 
         <fieldset class="searchOptions">
-          <legend>Referenzen</legend>
-          <div><label for="f_otherPub">Andere Publikationen</label>
+          <legend>{{ 'search.fieldset.references'|trans }}</legend>
+          <div><label for="f_otherPub">{{ 'search.field.other_publications'|trans }}</label>
             <input type="text" name="filter[otherPub]" id="f_otherPub" /></div>
-          <div><label for="f_illustrations">Abbildungen</label>
+          <div><label for="f_illustrations">{{ 'search.field.illustrations'|trans }}</label>
             <input type="text" name="filter[illustrations]" id="f_illustrations" /></div>
-          <div><label for="f_figureUrls">Bild-URLs</label>
+          <div><label for="f_figureUrls">{{ 'search.field.figure_urls'|trans }}</label>
             <input type="text" name="filter[figureUrls]" id="f_figureUrls" /></div>
-          <div><label for="f_translations">Übersetzungen</label>
+          <div><label for="f_translations">{{ 'search.field.translations'|trans }}</label>
             <input type="text" name="filter[translations]" id="f_translations" /></div>
-          <div><label for="f_mentionedDatesCol">Erwähnte Daten (Text)</label>
+          <div><label for="f_mentionedDatesCol">{{ 'search.field.mentioned_dates'|trans }}</label>
             <input type="text" name="filter[mentionedDates]" id="f_mentionedDatesCol" /></div>
-          <div><label for="f_blOnline">BL online</label>
+          <div><label for="f_blOnline">{{ 'search.field.bl_online'|trans }}</label>
             <input type="text" name="filter[blOnline]" id="f_blOnline" /></div>
         </fieldset>
       </div>
     </div>
 
     <div class="additionalSearchOptions">
-      <h5>Optionen</h5>
+      <h5>{{ 'search.options_heading'|trans }}</h5>
 
       <fieldset class="searchOptions">
-        <legend>Erwähnte Daten einbeziehen</legend>
-        <label><input type="radio" name="search[mentionedDates]" value="without" checked="checked" /> Nur in <b>Hauptdatenbank</b> suchen</label><br />
-        <label><input type="radio" name="search[mentionedDates]" value="with" /> Bei Suche <b>erwähnte Daten</b> mit einbeziehen</label><br />
-        <label><input type="radio" name="search[mentionedDates]" value="only" /> Nur in <b>erwähnten Daten</b> suchen</label>
+        <legend>{{ 'search.mentioned_dates_option'|trans }}</legend>
+        <label><input type="radio" name="search[mentionedDates]" value="without" checked="checked" /> {{ 'search.main_database_only'|trans|raw }}</label><br />
+        <label><input type="radio" name="search[mentionedDates]" value="with" /> {{ 'search.include_mentioned_dates'|trans|raw }}</label><br />
+        <label><input type="radio" name="search[mentionedDates]" value="only" /> {{ 'search.mentioned_dates_only'|trans|raw }}</label>
       </fieldset>
 
       <fieldset>
-        <legend>Initiale Sortierung</legend>
+        <legend>{{ 'search.sort_heading'|trans }}</legend>
         {% for i in 1..3 %}
 
-          <label for="sortKey_{{ i }}">{{ i }}. Stufe</label>
+          <label for="sortKey_{{ i }}">{{ 'search.sort_level'|trans({'%level%': i}) }}</label>
           <select name="sort[{{ i }}][key]" id="sortKey_{{ i }}" style="width: 180px">
-            <option value="">{{ i == 1 ? '— Standard (Datum) —' : '—' }}</option>
-            <option value="publ">Publikation</option>
-            <option value="dating">Datierung</option>
-            <option value="place">Ort</option>
-            <option value="title">Titel</option>
-            <option value="material">Material</option>
-            <option value="keywords">Schlagworte</option>
-            <option value="otherPub">Andere Publikationen</option>
-            <option value="tm">TM Nr.</option>
-            <option value="ddb">DDB</option>
-            <option value="hgvId">HGV Id</option>
-            <option value="notBefore">Nicht vor</option>
-            <option value="notAfter">Nicht nach</option>
-            <option value="settlement">Aufbewahrungsort</option>
-            <option value="collection">Sammlung</option>
-            <option value="invNo">Inv.-Nr.</option>
-            <option value="provenance">Herkunft</option>
-            <option value="illustrations">Abbildungen</option>
-            <option value="translations">Übersetzungen</option>
-            <option value="commentary">Bemerkungen</option>
-            <option value="blOnline">BL online</option>
+            <option value="">{{ i == 1 ? 'search.sort_default'|trans : '—' }}</option>
+            <option value="publ">{{ 'sort.publication'|trans }}</option>
+            <option value="dating">{{ 'sort.dating'|trans }}</option>
+            <option value="place">{{ 'sort.place'|trans }}</option>
+            <option value="title">{{ 'sort.title'|trans }}</option>
+            <option value="material">{{ 'sort.material'|trans }}</option>
+            <option value="keywords">{{ 'sort.keywords'|trans }}</option>
+            <option value="otherPub">{{ 'sort.other_pub'|trans }}</option>
+            <option value="tm">{{ 'sort.tm'|trans }}</option>
+            <option value="ddb">{{ 'sort.ddb'|trans }}</option>
+            <option value="hgvId">{{ 'sort.hgv_id'|trans }}</option>
+            <option value="notBefore">{{ 'sort.not_before'|trans }}</option>
+            <option value="notAfter">{{ 'sort.not_after'|trans }}</option>
+            <option value="settlement">{{ 'sort.settlement'|trans }}</option>
+            <option value="collection">{{ 'sort.collection'|trans }}</option>
+            <option value="invNo">{{ 'sort.inv_no'|trans }}</option>
+            <option value="provenance">{{ 'sort.provenance'|trans }}</option>
+            <option value="illustrations">{{ 'sort.illustrations'|trans }}</option>
+            <option value="translations">{{ 'sort.translations'|trans }}</option>
+            <option value="commentary">{{ 'sort.commentary'|trans }}</option>
+            <option value="blOnline">{{ 'sort.bl_online'|trans }}</option>
           </select>
           <select name="sort[{{ i }}][dir]" id="sortDir_{{ i }}">
-            <option value="asc">aufsteigend</option>
-            <option value="desc">absteigend</option>
+            <option value="asc">{{ 'search.sort_ascending'|trans }}</option>
+            <option value="desc">{{ 'search.sort_descending'|trans }}</option>
           </select>
           <br />
         {% endfor %}
       </fieldset>
       <fieldset>
-        <legend>Anzeige</legend>
-        <label for="pageLen">Einträge pro Seite</label>
+        <legend>{{ 'search.display_heading'|trans }}</legend>
+        <label for="pageLen">{{ 'search.entries_per_page'|trans }}</label>
         <select name="pageLength" id="pageLen">
           <option value="10">10</option>
           <option value="25">25</option>
@@ -158,8 +158,8 @@
     </div>
 
       <p>
-        <input type="submit" value="Tabelle öffnen" />
-        <input type="reset" value="Felder löschen" />
+        <input type="submit" value="{{ 'search.open_table'|trans }}" />
+        <input type="reset" value="{{ 'search.clear_fields'|trans }}" />
       </p>
 
   </form>
@@ -167,28 +167,28 @@
   {# ── Filter syntax modal (reuses dt-tips styles) ── #}
   <div id="dt-tips-overlay" class="dt-tips-hidden">
     <div id="dt-tips-modal">
-      <button id="dt-tips-close" title="Schließen">&times;</button>
-      <h3>Filtersyntax</h3>
-      <p>Gilt für alle Eingabefelder auf dieser Seite und für die Spaltenfilter in der Tabellenansicht.</p>
+      <button id="dt-tips-close" title="{{ 'filter.close'|trans }}">&times;</button>
+      <h3>{{ 'filter.heading'|trans }}</h3>
+      <p>{{ 'filter.description'|trans }}</p>
       <table class="dt-tips-table">
-        <tr><th>Eingabe</th><th>Bedeutung</th><th>Beispiel</th></tr>
-        <tr><td><code>text</code></td><td>Enthält (Standard)</td><td><code>Oxy</code></td></tr>
-        <tr><td><code>wort1 wort2</code></td><td>Alle Wörter müssen vorkommen</td><td><code>Brief privat</code></td></tr>
-        <tr><td><code>^text</code></td><td>Beginnt mit</td><td><code>^P.Oxy</code></td></tr>
-        <tr><td><code>text$</code></td><td>Endet mit</td><td><code>Verso$</code></td></tr>
-        <tr><td><code>=text</code></td><td>Exakter Treffer</td><td><code>=Papyrus</code></td></tr>
-        <tr><td><code>!text</code></td><td>Enthält nicht / ungleich</td><td><code>!Papyrus</code></td></tr>
-        <tr><td><code>&gt;n</code> <code>&lt;n</code> <code>&gt;=n</code> <code>&lt;=n</code></td><td>Numerischer Vergleich</td><td><code>&gt;100</code></td></tr>
-        <tr><td><code>n...m</code></td><td>Datumsbereich (auch negativ)</td><td><code>-300...-100</code></td></tr>
-        <tr><td><code>*</code></td><td>Feld nicht leer</td><td><code>*</code></td></tr>
-        <tr><td><code>=</code></td><td>Feld leer</td><td><code>=</code></td></tr>
+        <tr><th>{{ 'filter.input'|trans }}</th><th>{{ 'filter.meaning'|trans }}</th><th>{{ 'filter.example'|trans }}</th></tr>
+        <tr><td><code>text</code></td><td>{{ 'filter.contains'|trans }}</td><td><code>Oxy</code></td></tr>
+        <tr><td><code>wort1 wort2</code></td><td>{{ 'filter.all_words'|trans }}</td><td><code>Brief privat</code></td></tr>
+        <tr><td><code>^text</code></td><td>{{ 'filter.starts_with'|trans }}</td><td><code>^P.Oxy</code></td></tr>
+        <tr><td><code>text$</code></td><td>{{ 'filter.ends_with'|trans }}</td><td><code>Verso$</code></td></tr>
+        <tr><td><code>=text</code></td><td>{{ 'filter.exact_match'|trans }}</td><td><code>=Papyrus</code></td></tr>
+        <tr><td><code>!text</code></td><td>{{ 'filter.not_contains'|trans }}</td><td><code>!Papyrus</code></td></tr>
+        <tr><td><code>&gt;n</code> <code>&lt;n</code> <code>&gt;=n</code> <code>&lt;=n</code></td><td>{{ 'filter.numeric'|trans }}</td><td><code>&gt;100</code></td></tr>
+        <tr><td><code>n...m</code></td><td>{{ 'filter.date_range'|trans }}</td><td><code>-300...-100</code></td></tr>
+        <tr><td><code>*</code></td><td>{{ 'filter.not_empty'|trans }}</td><td><code>*</code></td></tr>
+        <tr><td><code>=</code></td><td>{{ 'filter.empty'|trans }}</td><td><code>=</code></td></tr>
       </table>
-      <h4>Sortierung</h4>
-      <p>Klick auf eine Spaltenüberschrift sortiert nach dieser Spalte.<br />
-      <kbd>Shift</kbd> + Klick fügt eine weitere Sortierstufe hinzu (mehrstufige Sortierung).</p>
-      <h4>Spalten</h4>
-      <p>Spalten können per Drag &amp; Drop auf den Spaltenüberschriften verschoben werden.<br />
-      Über den Button <em>Spalten</em> lassen sich weitere Spalten ein- und ausblenden.</p>
+      <h4>{{ 'filter.sorting_heading'|trans }}</h4>
+      <p>{{ 'filter.sorting_text'|trans }}<br />
+      <kbd>Shift</kbd> + Klick {{ 'filter.sorting_shift'|trans }}</p>
+      <h4>{{ 'filter.columns_heading'|trans }}</h4>
+      <p>{{ 'filter.columns_text'|trans }}<br />
+      {{ 'filter.columns_show_hide'|trans }} <em>{{ 'filter.columns_button'|trans }}</em> {{ 'filter.columns_toggle'|trans }}</p>
     </div>
   </div>
 {% endblock %}

@@ -16,7 +16,7 @@
 
 <h4 class="catalogueShow">
   {% if record.title == 'keiner' %}
-      Titel:
+      {{ 'datasheet.title_label'|trans }}
   {% endif %}
   {{ record.title|raw }}
 </h4>
@@ -24,7 +24,7 @@
 <h5 class="catalogueShow">
   {% if record.place %}
     {% if record.place == 'unbekannt' %}
-      Ort
+      {{ 'datasheet.place_label'|trans }}
     {% endif %}
     <span>{{ record.place|raw }}</span>
   {% endif %}
@@ -42,19 +42,19 @@
   <tbody>
     {% if record.otherPublications %}
       <tr>
-        <th>Andere Publikationen</th>
+        <th>{{ 'datasheet.other_publications'|trans }}</th>
         <td>{{ record.otherPublications|raw }}</td>
       </tr>
     {% endif %}
     {% if record.material %}
       <tr>
-        <th>Material</th>
+        <th>{{ 'datasheet.material'|trans }}</th>
         <td>{{ record.material|raw }}</td>
       </tr>
     {% endif %}
     {% if record.illustrations %}
       <tr class="pictureLinks">
-        <th>Abbildung</th>
+        <th>{{ 'datasheet.illustration'|trans }}</th>
         <td>
           {{ record.illustrations|raw }}
         </td>
@@ -62,24 +62,24 @@
     {% endif %}
     {% if record.bl or record.blOnline %}
       <tr>
-        <th>BL-Einträge <br /> <span class="mini">(nach BL-Konkordanz)</span></th>
+        <th>{{ 'datasheet.bl_entries'|trans }} <br /> <span class="mini">{{ 'datasheet.bl_concordance'|trans }}</span></th>
         <td>
           {{ record.bl|raw }}
           {% if record.blOnline %}
-            <a target="Neu" href="https://beehive.zaw.uni-heidelberg.de/hgv/{{ record.hgvId }}">BL online</a>
+            <a target="Neu" href="https://beehive.zaw.uni-heidelberg.de/hgv/{{ record.hgvId }}">{{ 'datasheet.bl_online'|trans }}</a>
           {% endif %}
         </td>
       </tr>
     {% endif %}
     {% if record.commentary %}
       <tr>
-        <th>Bemerkungen</th>
+        <th>{{ 'datasheet.commentary'|trans }}</th>
         <td>{{ record.commentary|raw }}</td>
       </tr>
     {% endif %}
     {% if record.translations %}
       <tr class="translation">
-        <th>Übersetzungen<br/><span class="hide">verbergen</span><span class="show">anzeigen</span></th>
+        <th>{{ 'datasheet.translations'|trans }}<br/><span class="hide">{{ 'datasheet.translations_hide'|trans }}</span><span class="show">{{ 'datasheet.translations_show'|trans }}</span></th>
         <td>
           {% set translations = processTranslations(record.translations) %}
           {% if translations %}
@@ -100,13 +100,13 @@
     {% endif %}
     {% if record.keywords %}
       <tr>
-        <th>Inhalt</th>
+        <th>{{ 'datasheet.content'|trans }}</th>
         <td>{{ record.keywords|raw }}</td>
       </tr>
     {% endif %}
     {% if record.provenances|length %}
       <tr>
-        <th>Herkunft</th>
+        <th>{{ 'datasheet.provenance'|trans }}</th>
         <td>
           <ul>
             {% for prov in record.provenances %}
@@ -140,7 +140,7 @@
     {% endif %}
     {% if record.mentionedDatesText %}
       <tr class="mentionedDates">
-        <th>Erwähnte Daten</th>
+        <th>{{ 'datasheet.mentioned_dates'|trans }}</th>
         <td>
           {% if record.mentionedDates and record.mentionedDates|length %}
             <ul>
@@ -166,12 +166,12 @@
   <div class="text">
     {% if record.hasHtmlDdb %}
       <h6>
-        Texte der DDbDP
+        {{ 'datasheet.ddb_texts'|trans }}
         {% if record.ddbSer %}
           <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
         {% endif %}
-        <span class="show">Infofenster für digitale Inhalte wieder einblenden</span>
-        <button class="clipboard" data-clipboard-target="#ddbText" title="Firefox 41+, Safari 10+, Chrome42+, Opera 29+, IE 9+, Edge12+">DDB-Text in die Zwischenablage übernehmen</button>
+        <span class="show">{{ 'datasheet.ddb_show_info'|trans }}</span>
+        <button class="clipboard" data-clipboard-target="#ddbText" title="Firefox 41+, Safari 10+, Chrome42+, Opera 29+, IE 9+, Edge12+">{{ 'datasheet.ddb_copy'|trans }}</button>
       </h6>    
       <div id="ddbText">
         {{ record.htmlDdb|raw }}
@@ -180,16 +180,16 @@
         <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
       {% endif %}
     {% else %}
-      Kein DDB-Text verfügbar
+      {{ 'datasheet.no_ddb_text'|trans }}
     {% endif %}
   </div>
   
   <div class="pictureLink">
-    <h6>Digitale Info / Abbildungen <span class="hide">verbergen</span></h6>
+    <h6>{{ 'datasheet.digital_info'|trans }} <span class="hide">{{ 'datasheet.hide'|trans }}</span></h6>
     {% if record.pictureLinks|length %}
       {% for pictureLink in record.pictureLinks %}
           {% if pictureLink.url|slice(-3) == 'jpg' %}
-            <img src="{{ pictureLink.url|raw }}" class="pictureLink" title="{{pictureLink.institution}}" alt="Abbildung im Internet ({{pictureLink.institution}})" />
+            <img src="{{ pictureLink.url|raw }}" class="pictureLink" title="{{pictureLink.institution}}" alt="{{ 'datasheet.internet_image'|trans }} ({{pictureLink.institution}})" />
           {% else %}
             <div class="pictureLinkWrapper">
               <iframe class="pictureLinkFrame" src="{{ pictureLink.url|raw }}"> </iframe>
@@ -199,16 +199,16 @@
           <a target="Neu" href="{{ pictureLink.url|raw }}" title="{{ pictureLink.url }}">→ {{ pictureLink.institution }}</a>
       {% endfor %}
     {% else %}
-      keine Abbildungen vorhanden
+      {{ 'datasheet.no_images'|trans }}
     {% endif %}
   </div>
   
   <div class="translation">
-    <h6>Übersetzungen aus dem HGV</h6>
+    <h6>{{ 'datasheet.hgv_translations'|trans }}</h6>
     {% if record.htmlTranslation %}
       {{ record.htmlTranslation|raw }}
     {% else %}
-      keine Übersetzungen verfügbar
+      {{ 'datasheet.no_translations'|trans }}
     {% endif %}
   </div>
 
