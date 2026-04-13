@@ -13,22 +13,19 @@
   <hr /> 
   
   <p>
-  <font size="+1"><b>{{ 'home.welcome'|trans }} <a href="{{ path('PapyrillioHgvBundle_DefaultIntroduction') }}">{{ 'home.introduction_link'|trans }}</a> {{ 'home.read_notes'|trans }}</b></font></p>
+    {{ 'home.welcome'|trans }} <a href="{{ path('PapyrillioHgvBundle_DefaultIntroduction') }}">{{ 'home.introduction_link'|trans }}</a> {{ 'home.and_the'|trans }} <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search'}) }}" title="{{ 'nav.help_de_title'|trans }}">{{ 'search.search_help'|trans }}</a> {{ 'home.read_notes'|trans }}
+  </p>
   
-  <p><font size="+1"><b>{{ 'home.direct_search'|trans }} "<a href="{{ path('PapyrillioHgvBundle_Home') }}">{{ 'home.main_register'|trans }}</a>".<br /> 
-  {{ 'home.text_info'|trans }} <a href="/texte/HGV-Texte.html">{{ 'home.texts_in_hgv'|trans }}</a>.</b></font></p>
-  
-  <p>{{ 'home.usage_notes'|trans }}</p>
-  <ul>
-    <li style="margin-left: 2em;"><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="{{ 'nav.help_de_title'|trans }}">{{ 'home.german'|trans }}</a></li>
-    <li style="margin-left: 2em;"><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="{{ 'nav.help_en_title'|trans }}">{{ 'home.english'|trans }}</a></li>
-  </ul>
-    
+  <p>
+    {{ 'home.direct_search'|trans }} "<a href="{{ path('PapyrillioHgvBundle_Home') }}">{{ 'home.main_register'|trans }}</a>".<br /> 
+    {{ 'home.text_info'|trans }} <a href="{{ path('PapyrillioHgvBundle_PublicationIndex') }}">{{ 'home.texts_in_hgv'|trans }}</a>.
+  </p>
+
   <p><b>{{ 'home.links_to'|trans }}</b></p>
-  <ul>
-    <li style="margin-left: 2em;"><a href="https://papy.zaw.uni-heidelberg.de/gv0/">{{ 'home.published_pieces'|trans }}</a> <b>{{ 'home.published_pieces_desc'|trans }}</b></li>
-    <li style="margin-left: 2em;"><a href="https://www.ub.uni-heidelberg.de/papyri">{{ 'home.catalogs'|trans }}</a> <b>{{ 'home.catalogs_desc'|trans }}</b></li>
-    <li style="margin-left: 2em;"><a href="https://papyri.uni-koeln.de/papyri-woerterlisten/index.html">{{ 'home.word_lists'|trans }}</a> <b>{{ 'home.word_lists_desc'|trans }}</b></li>
+  <ul style="list-style-type: none; padding-left: 0;">
+    <li style="margin-left: 2em;"><a href="https://papy.zaw.uni-heidelberg.de/gv0/">{{ 'home.published_pieces'|trans }}</a> {{ 'home.published_pieces_desc'|trans }}</li>
+    <li style="margin-left: 2em;"><a href="https://www.ub.uni-heidelberg.de/papyri">{{ 'home.catalogs'|trans }}</a> {{ 'home.catalogs_desc'|trans }}</li>
+    <li style="margin-left: 2em;"><a href="https://papyri.uni-koeln.de/papyri-woerterlisten/index.html">{{ 'home.word_lists'|trans }}</a> {{ 'home.word_lists_desc'|trans }}</li>
   </ul>
  
  </div>

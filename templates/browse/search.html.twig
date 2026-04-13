@@ -9,8 +9,6 @@
     <div class="search">
       <h5>
         {{ 'search.filter_heading'|trans }}
-        <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'en'}) }}" title="{{ 'nav.help_en_title'|trans }}"> → {{ 'search.search_help'|trans }} (EN)</a>
-        <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search', language: 'de'}) }}" title="{{ 'nav.help_de_title'|trans }}"> → {{ 'search.search_help'|trans }} (DE)</a>
       </h5>
 
       {% if matomo.searchKeywords|length > 0 %}
