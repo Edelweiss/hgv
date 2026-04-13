@@ -69,7 +69,7 @@ $(function(){
   
   // event handler
 
-  $('#feedback').click(feedback.open);
+  $('#feedbackLink').click(feedback.open);
   $('#feedbackDialogue form').submit(feedback.send);
   $('#feedbackEmail').click(feedback.email);
   

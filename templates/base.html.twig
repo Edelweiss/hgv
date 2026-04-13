@@ -23,10 +23,9 @@
         <h1><a href="#">{{ 'site.title'|trans }}</a></h1>
         
         <h2 style="position: relative;">
-        <a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="hgv" src="{{ asset('images/HGV.png') }}" alt="{{ 'header.hgv_alt'|trans }}" title="{{ 'site.title'|trans }}" /></a>  
-            <a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="logo" src="{{ asset('images/Siegel2c.png') }}" alt="{{ 'header.seal_alt'|trans }}" title="{{ 'header.academy_seal_title'|trans }}" /></a>
-            <a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="logo" src="{{ asset('images/Siegel1.png') }}" alt="{{ 'header.seal_alt'|trans }}" title="{{ 'header.uni_seal_title'|trans }}" /></a>
-            <!--a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="logo" src="{{ asset('images/Siegel.jpg') }}" alt="Siegel" title="Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens" /></a-->
+        <a href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="hgv" src="{{ asset('images/HGV.png') }}" alt="{{ 'header.hgv_alt'|trans }}" title="{{ 'site.title'|trans }}" /></a>  
+            <a href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="logo" src="{{ asset('images/Siegel2c.png') }}" alt="{{ 'header.seal_alt'|trans }}" title="{{ 'header.academy_seal_title'|trans }}" /></a>
+            <a href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="logo" src="{{ asset('images/Siegel1.png') }}" alt="{{ 'header.seal_alt'|trans }}" title="{{ 'header.uni_seal_title'|trans }}" /></a>
         </h2>
       </header><!-- end of header -->
 
@@ -45,7 +44,7 @@
               <ul class="sub">
                 <li><a href="{{ path('PapyrillioHgvBundle_DefaultIntroduction') }}" title="{{ 'nav.introduction_title'|trans }}">{{ 'nav.introduction'|trans }}</a></li>
                 <li>
-                  <a href="#" id="feedback" title="{{ 'nav.feedback_title'|trans }}">{{ 'nav.feedback'|trans }}</a>
+                  <a href="#" id="feedbackLink" title="{{ 'nav.feedback_title'|trans }}">{{ 'nav.feedback'|trans }}</a>
                   <div id="feedbackDialogue" style="display: none;" title="{{ 'feedback.dialogue_title'|trans }}">
                     <div class="ui-widget">
                       <div id="feedbackInfo" class="ui-state-highlight ui-corner-all">
@@ -147,7 +146,7 @@
     </div><!-- #wrapper -->
         
         {% block javascripts %}
-            <script type="text/javascript">
+            <script>
               window.HGV_TRANS = {
                 dt: {
                   lengthMenu: {{ 'js.dt.lengthMenu'|trans|json_encode|raw }},
@@ -244,24 +243,11 @@
                 loading: {{ 'js.loading'|trans|json_encode|raw }}
               };
             </script>
-            <script src="{{ asset('js/jquery/jquery-4.0.0.js') }}" type="text/javascript"></script>
-            <script type="text/javascript">
-              // jQuery 4 removed functions that jQuery UI still needs
-              jQuery.isFunction = function(obj) { return typeof obj === "function"; };
-              jQuery.trim = function(s) { return s == null ? "" : (s + "").trim(); };
-              jQuery.isWindow = function(obj) { return obj != null && obj === obj.window; };
-              jQuery.isArray = Array.isArray;
-              jQuery.isNumeric = function(n) { return !isNaN(parseFloat(n)) && isFinite(n); };
-              jQuery.now = Date.now;
-              if (!jQuery.expr.pseudos) { jQuery.expr.pseudos = jQuery.expr[':']; }
-            </script>
-            <script src="{{ asset('js/jquery/jquery-ui.min.js') }}" type="text/javascript"></script>
-            <script src="{{ asset('js/main.js') }}" type="text/javascript"></script>
-            <script src="{{ asset('js/jquery/feedback.js') }}" type="text/javascript"></script>
-            <script src="{{ asset('js/clipboard/clipboard.min.js') }}" type="text/javascript"></script>
-            <script type="text/javascript">
-              if (window != top) top.location.href = location.href;
-            </script>
+            <script src="{{ asset('js/jquery/jquery-3.7.1.min.js') }}"></script>
+            <script src="{{ asset('js/jquery/jquery-ui.min.js') }}"></script>
+            <script src="{{ asset('js/main.js') }}"></script>
+            <script src="{{ asset('js/jquery/feedback.js') }}"></script>
+            <script src="{{ asset('js/clipboard/clipboard.min.js') }}"></script>
         {% endblock %}
     </body>
 </html>
