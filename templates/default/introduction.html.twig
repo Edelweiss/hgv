@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Geschichte des HGV{% endblock %}
+{% block title %}{{ 'introduction.title'|trans }}{% endblock %}
 
 {% block body %}
 
   <div class="page help">
 
-    <h5>Einführung</h5>
+    <h5>{{ 'introduction.heading'|trans }}</h5>
+
+{% if app.request.locale == 'de' %}
 
     <p>Am <a href="https://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy">Institut für
     Papyrologie</a> der <a href="https://www.uni-heidelberg.de">Universität
@@ -127,6 +129,71 @@
     
     <p>Hinweise und Anregungen jeglicher Art sind willkommen.</p>
 
+{% else %}
+
+    <p>At the <a href="https://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy">Institute of
+    Papyrology</a> of the <a href="https://www.uni-heidelberg.de">University of
+    Heidelberg</a>, an electronic census of all previously published Greek papyrus documents from Egypt was compiled between 1988 and 2002 at the "Papyrus Editions" unit of the <a href="http://www.haw.baden-wuerttemberg.de/">Heidelberg Academy of
+    Sciences and Humanities</a>. This census also includes related texts on ostraka and similar writing materials, texts in Latin, and texts from other regions of the Near East, while literary and semi-literary texts as well as inscriptions are excluded as a matter of principle. Since the closure of the unit at the end of 2002, the project has been without permanent funding and has since been sustained only through short-term measures such as the project "<a href="https://www.zaw.uni-heidelberg.de/hps/pap/Erweiterung.htm">Expansion of the HGV to Include Bibliographic References to Existing Translations and Translation of the Greek Texts Contained in BGU I–IV</a>," funded by the <a href="http://www.dfg.de/">German Research Foundation</a> (DFG), as well as the voluntary efforts of the persons named below.</p>
+
+    <p>The database on which the census is based was originally created using the program "FileMaker Pro." Its original objective was to provide a quick overview of which papyri etc. from a given period are available as sources. Particular attention was therefore devoted to recording the date of origin of the documents and, where applicable, earlier dates mentioned in them. In addition, other information was also stored, such as the material of the writing support, the place of origin of the document within Egypt, references to where reproductions of the original may have been published, the original title used in the respective edition, and notes on the content of the texts. References to more recently published secondary literature are also continuously added – albeit not systematically (for the resolution of the abbreviations used, see <a href="{{ path('PapyrillioHgvBundle_DefaultAbbreviation') }}">Abbreviations of Cited Books</a>).
+
+     As more and more tools supporting papyrology have become available on the Internet (such as the full-text database of the "Duke Databank of Documentary Papyri" and the now quite numerous digital images), our efforts have been expanded to integrate links to such resources into the database. We believe that we have thereby developed the HGV into a central information hub for all Internet activities in the field of papyrology.</p>
+
+    <p>Since the summer of 2000, the database has been essentially complete, i.e. it contains all relevant texts published in independent publications (only those published in journal articles etc. are excluded), so that only current new publications need to be added. In April 2008, the database contained approximately 56,100 records; these derived from nearly 580 edition volumes listed in the <a href="{{ path('PapyrillioHgvBundle_DefaultPublication') }}">List of Included Publications</a>. It should be noted that the number of texts processed was <i>de facto</i> somewhat smaller, since in the case of documents with uncertain dates, multiple (up to 3) separate records per text were created.</p>
+
+    <p>In the past, excerpts from the database were initially (since August 1993) made available on the WWW in the form of chronologically ordered lists limited to the two entries "Dating" and "Reference." From December 1997, however, the user also had direct access to the database, so that from this point on these lists were discontinued. Users could henceforth conduct their own searches (including combined searches for multiple terms, as described in the <a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search'}) }}">Search Help</a>). Moreover, this ensured that the data was always fully up to date. Finally, from April 2008 to July 2026, a second database called "Mentioned Dates" also allowed searches by date. This database contained chronological references that could be assigned to specific years but which we did not regard as the date of composition of the document itself, but rather as dates merely "mentioned" in the document.</p>
+
+    <p>The current version of the Heidelberg Census of Greek Papyrus Documents from Egypt (HGV) is based on the TEI-XML files that form the basis of the idp.data project and are available on <a href="https://github.com/papyri/idp.data">GitHub</a> and via <a href="https://papyri.info">Papyri.info</a>. It integrates the core data of the HGV including the "mentioned dates" in a BaseX database, which can be queried using the <a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}">search form</a> or the interactive <a href="{{ path('PapyrillioHgvBundle_Home') }}">table view</a>.</p>
+
+    <p>References:
+    </p><ul>
+    <li style="margin-left: 2em;">James M. S. Cowey, Heidelberg Documentary Papyri Project, in: A.
+    Bülow-Jacobsen (ed.), Proceedings of the 20th International Congress of
+    Papyrologists, Copenhagen, 23–29 August, 1992, Copenhagen 1994, pp. 609–612
+    </li><li style="margin-left: 2em;">Dieter Hagedorn, Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens, in: M.
+    Fell, C. Schäfer, L. Wierschowski (eds.), Datenbanken in der Alten Geschichte
+    (Computer und Antike 2), St. Katharinen 1994, pp. 226–231
+    </li><li style="margin-left: 2em;">Wolfgang Habermann, Zur chronologischen Verteilung der
+    papyrologischen Zeugnisse, Zeitschrift für Papyrologie und Epigraphik
+    117 (1997) 180–182
+    </li><li style="margin-left: 2em;">Roger Bagnall, <a href="http://csanet.org/bmerr/1998/BagnaHeideAug.html">Review of Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens</a> (date of review: 3 August 1998)
+    </li><li style="margin-left: 2em;">Kai Ruffing, Elektronische Ressourcen in der Papyrologie, in:
+    A. Cristofori et al. (eds.), La rete di Arachne – Arachnes Netz,
+    Stuttgart 2000, pp. 167–183 (174–177)
+    </li><li style="margin-left: 2em;">Kai Ruffing, Papyrologische Ressourcen im Internet, in: F.
+    Krüpe et al. (eds.), Digitalisierte Vergangenheit. Datenbanken und
+    Multimedia von der Antke bis zur frühen Neuzeit, Wiesbaden 2005, pp.
+    27–46
+    </li></ul>
+    <hr />
+    The HGV is a tool that is now used all over the world.
+    {% if matomo.visitors > 0 %}
+    During the {{ matomo.visitors }} page views of the past four weeks, visitors came mainly from the following countries<a href="{{ matomo.cloudWidgetUrl }}" style="text-decoration: none; color: black">:</a>
+
+    <ul>
+      {% for country, visits in matomo.countries %}
+        {% if loop.index < 5 %}
+        <li>{{ country }}: {{ visits }} visits</li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    <iframe id="matomo_cloud" src="{{ matomo.cloudWidgetUrl }}" scrolling="yes" height="230" width="100%" frameborder="0" marginheight="0" marginwidth="0"></iframe>
+    {% endif %}
+    <p>Colleagues who have questions, wish to correct errors, or would like to contribute other
+    comments are welcome to contact<br />
+
+    <p>
+      <a href="mailto:James.Cowey@urz.uni-heidelberg.de">James M. S. Cowey</a><br /> Institute of Papyrology<br /> University of Heidelberg<br />
+      Marstallstr. 6
+      <br />
+      D-69117 Heidelberg
+    </p>
+
+    <p>Suggestions and comments of any kind are welcome.</p>
+
+{% endif %}
 
   </div>
 

@@ -1,4 +1,5 @@
 $(function(){
+  var fbT = (window.HGV_TRANS || {}).feedback || {};
   var feedback = {
     open: function(){
       $('#feedbackDialogue').dialog({
@@ -7,7 +8,7 @@ $(function(){
         resizable: true,
         modal: true,
         closeOnEscape: true,
-        closeText: 'schließen',
+        closeText: fbT.close || 'close',
         draggable: true,
         hide: { effect: 'blind', duration: 800 },
         show: { effect: 'blind', duration: 800 }
@@ -22,7 +23,7 @@ $(function(){
       var formData = $(this).serialize();
       feedback.disableForm();
 
-      $('#feedbackInfo').html('<p><span class="ui-icon ui-icon-info"></span> Die Daten werden übermittelt …</p>').fadeIn(200, function(){
+      $('#feedbackInfo').html('<p><span class="ui-icon ui-icon-info"></span> ' + (fbT.sending || 'Submitting data \u2026') + '</p>').fadeIn(200, function(){
         $.ajax({
           url: '/feedback',
           data: formData + '&action=send',
@@ -31,12 +32,12 @@ $(function(){
           dataType: 'json',
           success: function (data) {
             if(data.success){
-              $('#feedbackInfo').html('<p><span class="ui-icon ui-icon-info"></span> Vielen Dank.</p>');
+              $('#feedbackInfo').html('<p><span class="ui-icon ui-icon-info"></span> ' + (fbT.thanks || 'Thank you.') + '</p>');
             } else {
               $('#feedbackInfo').html('<p><span class="ui-icon ui-icon-info"></span> ' + data.error + '</p>', feedback.enableForm());
             }
           },
-          error: function(){$('#feedbackInfo').html('<p><span class="ui-icon ui-icon-info"></span> Das Formular konnte nicht gesendet werden. Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut oder benutzen Sie unten stehenden E-Mail-Link.<p>');}
+          error: function(){$('#feedbackInfo').html('<p><span class="ui-icon ui-icon-info"></span> ' + (fbT.error || 'The form could not be sent.') + '<p>');}
         });        
       });
     },
@@ -47,11 +48,11 @@ $(function(){
       var url = $(this).attr('href').replace('dh', 'dieter.hagedorn').replace('jc', 'james.cowey').replace('cl', 'carmen.lanz');
 
       if($('#feedbackSubject').val()){
-        url = url.replace('Rückmeldung zum Webauftritt vom HGV', $('#feedbackSubject').val());
+        url = url.replace(fbT.default_subject || 'Feedback on HGV Website', $('#feedbackSubject').val());
       }
 
       if($('#feedbackMessage').val()){
-        url = url.replace('Ihre Nachricht an uns …', $('#feedbackMessage').val().replace(/\n/g, '%0A'));
+        url = url.replace(fbT.default_body || 'Your message to us \u2026', $('#feedbackMessage').val().replace(/\n/g, '%0A'));
       }
 
       window.location.href = url;

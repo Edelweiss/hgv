@@ -79,6 +79,10 @@ $(function(){
 
     var _dtUrlFiltersApplied = false;
 
+    var T = window.HGV_TRANS || {};
+    var tbl = T.table || {};
+    var flt = T.filter || {};
+
     var table = $('#catalogueTable').DataTable({
       // Server-side processing
       processing: true,
@@ -118,14 +122,14 @@ $(function(){
         {
           // 1 — Publikation
           data: 'publ',
-          title: 'Publikation',
+          title: tbl.publication || 'Publication',
           render: function(data, type, row) {
             if (type !== 'display' || !data) return data || '';
             var href = rootUrl + 'hgv/' + encodeURIComponent(row.hgvId);
             return '<a href="' + href + '">' + $('<span>').text(data).html() + '</a>';
           }
         },
-        { data: 'dating',   title: 'Datierung',           // 2
+        { data: 'dating',   title: tbl.dating || 'Dating',     // 2
           render: function(data, type, row) {
             if (type !== 'display' || !row.dates || row.dates.length <= 1) return data || '';
             return row.dates.map(function(d) {
@@ -133,14 +137,14 @@ $(function(){
             }).filter(function(s) { return s !== ''; }).join('<br>');
           }
         },
-        { data: 'place',    title: 'Ort' },               // 3
-        { data: 'title',    title: 'Titel' },             // 4
-        { data: 'material', title: 'Material' },          // 5
-        { data: 'keywords', title: 'Inhalt / Schlagworte',// 6
+        { data: 'place',    title: tbl.place || 'Place' },               // 3
+        { data: 'title',    title: tbl.title || 'Title' },             // 4
+        { data: 'material', title: tbl.material || 'Material' },          // 5
+        { data: 'keywords', title: tbl.keywords || 'Keywords',// 6
           visible: false },
-        { data: 'otherPub', title: 'Andere Publikationen',// 7
+        { data: 'otherPub', title: tbl.other_publications || 'Other Publications',// 7
           visible: false },
-        { data: 'tm',       title: 'TM Nr.',              // 8
+        { data: 'tm',       title: tbl.tm_no || 'TM No.',              // 8
           render: function(data, type) {
             if (type !== 'display' || !data) return data || '';
             var safe = $('<span>').text(data).html();
@@ -148,14 +152,14 @@ $(function(){
           }
         },
         // ── Initially hidden columns (9-26) ──────────────────────────────────
-        { data: 'ddb',          title: 'DDB',               visible: false, // 9
+        { data: 'ddb',          title: tbl.ddb || 'DDB',               visible: false, // 9
           render: function(data, type) {
             if (type !== 'display' || !data) return data || '';
             var safe = $('<span>').text(data).html();
             return '<a href="https://papyri.info/ddbdp/' + encodeURIComponent(data) + '" target="_blank" title="Papyri.info">' + safe + '</a>';
           }
         },
-        { data: 'hgvId',        title: 'HGV Id',            visible: false, // 10
+        { data: 'hgvId',        title: tbl.hgv_id || 'HGV Id',            visible: false, // 10
           render: function(data, type) {
             if (type !== 'display' || !data) return data || '';
             var safe = $('<span>').text(data).html();
@@ -166,10 +170,10 @@ $(function(){
             return '<a href="' + href + '" target="_blank" title="GitHub HGV XML">' + safe + '</a>';
           }
         },
-        { data: 'pubAbbr',      title: 'Publikation Abk.',  visible: false }, // 11
-        { data: 'pubVol',       title: 'Band',              visible: false }, // 12
-        { data: 'pubNr',        title: 'Nummer',            visible: false }, // 13
-        { data: 'notBefore',    title: 'Nicht vor',         visible: false, // 14
+        { data: 'pubAbbr',      title: tbl.publication_abbr || 'Publication Abbr.',  visible: false }, // 11
+        { data: 'pubVol',       title: tbl.volume || 'Volume',              visible: false }, // 12
+        { data: 'pubNr',        title: tbl.number || 'Number',            visible: false }, // 13
+        { data: 'notBefore',    title: tbl.not_before || 'Not Before',         visible: false, // 14
           render: function(data, type, row) {
             if (type !== 'display' || !row.dates || row.dates.length <= 1) return data || '';
             return row.dates.map(function(d) {
@@ -177,7 +181,7 @@ $(function(){
             }).join('<br>');
           }
         },
-        { data: 'notAfter',     title: 'Nicht nach',        visible: false, // 15
+        { data: 'notAfter',     title: tbl.not_after || 'Not After',        visible: false, // 15
           render: function(data, type, row) {
             if (type !== 'display' || !row.dates || row.dates.length <= 1) return data || '';
             return row.dates.map(function(d) {
@@ -185,7 +189,7 @@ $(function(){
             }).join('<br>');
           }
         },
-        { data: 'when',         title: 'Genaudatum',        visible: false, // 16
+        { data: 'when',         title: tbl.exact_date || 'Exact Date',        visible: false, // 16
           render: function(data, type, row) {
             if (type !== 'display' || !row.dates || row.dates.length <= 1) return data || '';
             return row.dates.map(function(d) {
@@ -193,7 +197,7 @@ $(function(){
             }).join('<br>');
           }
         },
-        { data: 'precision',    title: 'Präzision',         visible: false, // 17
+        { data: 'precision',    title: tbl.precision || 'Precision',         visible: false, // 17
           render: function(data, type, row) {
             if (type !== 'display' || !row.dates || row.dates.length <= 1) return data || '';
             return row.dates.map(function(d) {
@@ -201,10 +205,10 @@ $(function(){
             }).join('<br>');
           }
         },
-        { data: 'settlement',   title: 'Aufbewahrungsort',  visible: false }, // 18
-        { data: 'collection',   title: 'Sammlung',          visible: false }, // 19
-        { data: 'invNo',        title: 'Inv.-Nr.',          visible: false }, // 20
-        { data: 'provenance',   title: 'Herkunft',          visible: false,  // 21
+        { data: 'settlement',   title: tbl.settlement || 'Repository',  visible: false }, // 18
+        { data: 'collection',   title: tbl.collection || 'Collection',          visible: false }, // 19
+        { data: 'invNo',        title: tbl.inv_no || 'Inv. No.',          visible: false }, // 20
+        { data: 'provenance',   title: tbl.provenance || 'Provenance',          visible: false,  // 21
           render: function(data, type, row) {
             if (type !== 'display' || !row.provenances || !row.provenances.length) return data || '';
             return row.provenances.map(function(p) {
@@ -217,7 +221,7 @@ $(function(){
             }).filter(function(s) { return s !== ''; }).join('<br>');
           }
         },
-        { data: 'provenancePlace', title: 'Herkunft - Ort',    visible: false, // 21a
+        { data: 'provenancePlace', title: tbl.provenance_place || 'Provenance - Place',    visible: false, // 21a
           render: function(data, type, row) {
             if (type !== 'display' || !row.provenances || !row.provenances.length) return data || '';
             return row.provenances.map(function(p) {
@@ -225,7 +229,7 @@ $(function(){
             }).filter(function(s) { return s !== ''; }).join('<br>');
           }
         },
-        { data: 'provenanceNome',  title: 'Herkunft - Gau',    visible: false, // 21b
+        { data: 'provenanceNome',  title: tbl.provenance_nome || 'Provenance - Nome',    visible: false, // 21b
           render: function(data, type, row) {
             if (type !== 'display' || !row.provenances || !row.provenances.length) return data || '';
             return row.provenances.map(function(p) {
@@ -233,8 +237,8 @@ $(function(){
             }).filter(function(s) { return s !== ''; }).join('<br>');
           }
         },
-        { data: 'illustrations',title: 'Abbildungen',       visible: false }, // 22
-        { data: 'figureUrls',   title: 'Bild-URLs',         visible: false, // 23
+        { data: 'illustrations',title: tbl.illustrations || 'Illustrations',       visible: false }, // 22
+        { data: 'figureUrls',   title: tbl.figure_urls || 'Figure URLs',         visible: false, // 23
           render: function(data, type) {
             if (type !== 'display' || !data) return data || '';
             var urls = data.split(/\s*;\s*/);
@@ -252,10 +256,10 @@ $(function(){
             }).filter(function(s) { return s !== ''; }).join('; ');
           }
         },
-        { data: 'translations', title: 'Übersetzungen',     visible: false }, // 24
-        { data: 'commentary',   title: 'Bemerkungen',       visible: false }, // 25
-        { data: 'mentionedDates',title: 'Erwähnte Daten',   visible: false }, // 26
-        { data: 'blOnline',     title: 'BL online',          visible: false, // 27
+        { data: 'translations', title: tbl.translations || 'Translations',     visible: false }, // 24
+        { data: 'commentary',   title: tbl.commentary || 'Commentary',       visible: false }, // 25
+        { data: 'mentionedDates',title: tbl.mentioned_dates || 'Mentioned Dates',   visible: false }, // 26
+        { data: 'blOnline',     title: tbl.bl_online || 'BL online',          visible: false, // 27
           render: function(data, type, row) {
             if (type !== 'display' || !data) return data || '';
             var safe = $('<span>').text(data).html();
@@ -285,16 +289,16 @@ $(function(){
       buttons: [
         {
           extend: 'colvis',
-          text: 'Spalten',
+          text: T.dt && T.dt.buttons ? T.dt.buttons.colvis : 'Columns',
           columns: ':gt(0)' // allow toggling all columns except the row-number
         },
         {
           extend: 'collection',
-          text: 'Export',
+          text: T.btn ? T.btn.export_label : 'Export',
           buttons: ['copy', 'csv', 'print']
         },
         {
-          text: 'Reset',
+          text: T.btn ? T.btn.reset : 'Reset',
           action: function(e, dt, node, config) {
             // Clear global search
             dt.search('');
@@ -318,7 +322,7 @@ $(function(){
           }
         },
         {
-          text: 'Tipps',
+          text: T.btn ? T.btn.tips : 'Tips',
           action: function() {
             // Build and show a tips modal
             if ($('#dt-tips-overlay').length) {
@@ -327,29 +331,29 @@ $(function(){
             }
             var html = '<div id="dt-tips-overlay">' +
               '<div id="dt-tips-modal">' +
-              '<button id="dt-tips-close" title="Schlie\u00dfen">&times;</button>' +
-              '<h3>Tipps zur Tabelle</h3>' +
-              '<h4>Spaltenfilter</h4>' +
-              '<p>In den Eingabefeldern in der Fu\u00dfzeile k\u00f6nnen Sie verschiedene Suchoperatoren verwenden:</p>' +
+              '<button id="dt-tips-close" title="' + (flt.close || 'Close') + '">&times;</button>' +
+              '<h3>' + (T.btn ? T.btn.tips : 'Tips') + '</h3>' +
+              '<h4>' + (flt.heading || 'Filter Syntax') + '</h4>' +
+              '<p>' + (flt.description || '') + '</p>' +
               '<table class="dt-tips-table">' +
-              '<tr><th>Eingabe</th><th>Bedeutung</th><th>Beispiel</th></tr>' +
-              '<tr><td><code>text</code></td><td>Enth\u00e4lt (Standard)</td><td><code>Oxy</code></td></tr>' +
-              '<tr><td><code>wort1 wort2</code></td><td>Alle W\u00f6rter m\u00fcssen vorkommen</td><td><code>Brief privat</code></td></tr>' +
-              '<tr><td><code>^text</code></td><td>Beginnt mit</td><td><code>^P.Oxy</code></td></tr>' +
-              '<tr><td><code>text$</code></td><td>Endet mit</td><td><code>Verso$</code></td></tr>' +
-              '<tr><td><code>=text</code></td><td>Exakter Treffer</td><td><code>=Papyrus</code></td></tr>' +
-              '<tr><td><code>!text</code></td><td>Enth\u00e4lt nicht / ungleich</td><td><code>!Papyrus</code></td></tr>' +
-              '<tr><td><code>&gt;n &lt;n &gt;=n &lt;=n</code></td><td>Numerischer Vergleich</td><td><code>&gt;100</code></td></tr>' +
-              '<tr><td><code>n...m</code></td><td>Datumsbereich (auch negativ)</td><td><code>-300...-100</code></td></tr>' +
-              '<tr><td><code>*</code></td><td>Feld nicht leer</td><td><code>*</code></td></tr>' +
-              '<tr><td><code>=</code></td><td>Feld leer</td><td><code>=</code></td></tr>' +
+              '<tr><th>' + (flt.input || 'Input') + '</th><th>' + (flt.meaning || 'Meaning') + '</th><th>' + (flt.example || 'Example') + '</th></tr>' +
+              '<tr><td><code>text</code></td><td>' + (flt.contains || 'Contains') + '</td><td><code>Oxy</code></td></tr>' +
+              '<tr><td><code>wort1 wort2</code></td><td>' + (flt.all_words || 'All words must occur') + '</td><td><code>Brief privat</code></td></tr>' +
+              '<tr><td><code>^text</code></td><td>' + (flt.starts_with || 'Starts with') + '</td><td><code>^P.Oxy</code></td></tr>' +
+              '<tr><td><code>text$</code></td><td>' + (flt.ends_with || 'Ends with') + '</td><td><code>Verso$</code></td></tr>' +
+              '<tr><td><code>=text</code></td><td>' + (flt.exact_match || 'Exact match') + '</td><td><code>=Papyrus</code></td></tr>' +
+              '<tr><td><code>!text</code></td><td>' + (flt.not_contains || 'Does not contain') + '</td><td><code>!Papyrus</code></td></tr>' +
+              '<tr><td><code>&gt;n &lt;n &gt;=n &lt;=n</code></td><td>' + (flt.numeric || 'Numeric comparison') + '</td><td><code>&gt;100</code></td></tr>' +
+              '<tr><td><code>n...m</code></td><td>' + (flt.date_range || 'Date range') + '</td><td><code>-300...-100</code></td></tr>' +
+              '<tr><td><code>*</code></td><td>' + (flt.not_empty || 'Field not empty') + '</td><td><code>*</code></td></tr>' +
+              '<tr><td><code>=</code></td><td>' + (flt.empty || 'Field empty') + '</td><td><code>=</code></td></tr>' +
               '</table>' +
-              '<h4>Sortierung</h4>' +
-              '<p>Klick auf eine Spalten\u00fcberschrift sortiert nach dieser Spalte.<br>' +
-              '<kbd>Shift</kbd> + Klick f\u00fcgt eine weitere Sortierstufe hinzu (mehrstufige Sortierung).</p>' +
-              '<h4>Spalten</h4>' +
-              '<p>Spalten k\u00f6nnen per Drag &amp; Drop auf den Spalten\u00fcberschriften verschoben werden.<br>' +
-              '\u00dcber den Button <em>Spalten</em> lassen sich weitere Spalten ein- und ausblenden.</p>' +
+              '<h4>' + (flt.sorting_heading || 'Sorting') + '</h4>' +
+              '<p>' + (flt.sorting_text || '') + '<br>' +
+              '<kbd>Shift</kbd> + Click ' + (flt.sorting_shift || '') + '</p>' +
+              '<h4>' + (flt.columns_heading || 'Columns') + '</h4>' +
+              '<p>' + (flt.columns_text || '') + '<br>' +
+              (flt.columns_show_hide || '') + ' <em>' + (flt.columns_button || '') + '</em> ' + (flt.columns_toggle || '') + '</p>' +
               '</div></div>';
             $('body').append(html);
             $('#dt-tips-close, #dt-tips-overlay').on('click', function(ev) {
@@ -398,21 +402,21 @@ $(function(){
         // Searchable column indices (excludes col 0 = row-link)
         var searchable = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29];
         var filterTooltip = [
-          'Filteroptionen:',
-          '  text \u2013 enth\u00e4lt (Standard)',
-          '  wort1 wort2 \u2013 alle W\u00f6rter m\u00fcssen vorkommen',
-          '  ^text \u2013 beginnt mit',
-          '  text$ \u2013 endet mit',
-          '  =text \u2013 exakter Treffer',
-          '  !text \u2013 enth\u00e4lt nicht / ungleich',
-          '  >n  <n  >=n  <=n \u2013 numerisch',
-          '  100...200 \u2013 Datumsbereich',
-          '  * \u2013 Feld nicht leer',
-          '  = \u2013 Feld leer'
+          (flt.heading || 'Filter') + ':',
+          '  text \u2013 ' + (flt.contains || 'Contains'),
+          '  wort1 wort2 \u2013 ' + (flt.all_words || 'All words must occur'),
+          '  ^text \u2013 ' + (flt.starts_with || 'Starts with'),
+          '  text$ \u2013 ' + (flt.ends_with || 'Ends with'),
+          '  =text \u2013 ' + (flt.exact_match || 'Exact match'),
+          '  !text \u2013 ' + (flt.not_contains || 'Does not contain'),
+          '  >n  <n  >=n  <=n \u2013 ' + (flt.numeric || 'Numeric'),
+          '  100...200 \u2013 ' + (flt.date_range || 'Date range'),
+          '  * \u2013 ' + (flt.not_empty || 'Field not empty'),
+          '  = \u2013 ' + (flt.empty || 'Field empty')
         ].join('\n');
         this.api().columns(searchable).every(function() {
           var column = this;
-          var input = $('<input type="text" placeholder="Filter \u2026" title="' + filterTooltip.replace(/"/g, '&quot;') + '" />')
+          var input = $('<input type="text" placeholder="' + (flt.placeholder || 'Filter \u2026') + '" title="' + filterTooltip.replace(/"/g, '&quot;') + '" />')
             .appendTo($(column.footer()).empty())
             .on('keyup change clear', $.fn.dataTable.util.debounce(function() {
               if (column.search() !== this.value) {
@@ -427,28 +431,8 @@ $(function(){
         });
       },
 
-      // German language
-      language: {
-        lengthMenu: 'Zeige _MENU_ Einträge pro Seite',
-        zeroRecords: 'Keine passenden Einträge gefunden',
-        info: 'Einträge _START_ bis _END_ von _TOTAL_',
-        infoEmpty: 'Keine Einträge verfügbar',
-        infoFiltered: '(gefiltert von _MAX_ Einträgen)',
-        search: 'Suchen:',
-        processing: 'Daten werden geladen …',
-        paginate: {
-          first: 'Erste',
-          last: 'Letzte',
-          next: 'Weiter',
-          previous: 'Zurück'
-        },
-        buttons: {
-          colvis: 'Spalten',
-          copy: 'Kopieren',
-          csv: 'CSV',
-          print: 'Drucken'
-        }
-      }
+      // Translated language (from HGV_TRANS)
+      language: T.dt || {}
     });
   }
 

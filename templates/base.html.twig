@@ -20,12 +20,12 @@
     {% endif %}
     <div id="wrapper"><!-- #wrapper -->
       <header><!-- header -->
-        <h1><a href="#">Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens</a></h1>
+        <h1><a href="#">{{ 'site.title'|trans }}</a></h1>
         
         <h2 style="position: relative;">
-        <a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="hgv" src="{{ asset('images/HGV.png') }}" alt="HGV – Heidelberger Gesamtverzeichnis" title="Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens" /></a>  
-            <a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="logo" src="{{ asset('images/Siegel2c.png') }}" alt="Siegel" title="Academia Scientiarum Theod Palatina – Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens" /></a>
-            <a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="logo" src="{{ asset('images/Siegel1.png') }}" alt="Siegel" title="Uni Heidelberg – Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens" /></a>
+        <a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="hgv" src="{{ asset('images/HGV.png') }}" alt="{{ 'header.hgv_alt'|trans }}" title="{{ 'site.title'|trans }}" /></a>  
+            <a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="logo" src="{{ asset('images/Siegel2c.png') }}" alt="{{ 'header.seal_alt'|trans }}" title="{{ 'header.academy_seal_title'|trans }}" /></a>
+            <a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="logo" src="{{ asset('images/Siegel1.png') }}" alt="{{ 'header.seal_alt'|trans }}" title="{{ 'header.uni_seal_title'|trans }}" /></a>
             <!--a onfocus="this.blur();" href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}"><img id="logo" src="{{ asset('images/Siegel.jpg') }}" alt="Siegel" title="Heidelberger Gesamtverzeichnis der griechischen Papyrusurkunden Ägyptens" /></a-->
         </h2>
       </header><!-- end of header -->
@@ -44,8 +44,6 @@
               <a href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}" title="{{ 'nav.info'|trans }}">{{ 'nav.info'|trans }}</a>
               <ul class="sub">
                 <li><a href="{{ path('PapyrillioHgvBundle_DefaultIntroduction') }}" title="{{ 'nav.introduction_title'|trans }}">{{ 'nav.introduction'|trans }}</a></li>
-                <li><a href="{{ path('PapyrillioHgvBundle_DefaultPublication') }}" title="{{ 'nav.publication_list_title'|trans }}">{{ 'nav.publication_list'|trans }}</a></li>
-                <li><a href="{{ path('PapyrillioHgvBundle_DefaultHelp', {'topic': 'search'}) }}" title="{{ 'nav.help_title'|trans }}">{{ 'nav.help'|trans }}</a></li>
                 <li>
                   <a href="#" id="feedback" title="{{ 'nav.feedback_title'|trans }}">{{ 'nav.feedback'|trans }}</a>
                   <div id="feedbackDialogue" style="display: none;" title="{{ 'feedback.dialogue_title'|trans }}">
@@ -74,7 +72,7 @@
                       <br/>
                     </form>
                     <p>
-                      {{ 'feedback.instruction'|trans }} <a id="feedbackEmail" href="mailto:james.cowey@urz.uni-heidelberg.de,carmen.lanz@uni-heidelberg.de?subject=Rückmeldung zum Webauftritt vom HGV&body=Ihre Nachricht an uns …">E-Mail</a>.
+                      {{ 'feedback.instruction'|trans }} <a id="feedbackEmail" href="mailto:james.cowey@urz.uni-heidelberg.de,carmen.lanz@uni-heidelberg.de?subject={{ 'js.feedback.default_subject'|trans|url_encode }}&body={{ 'js.feedback.default_body'|trans|url_encode }}">E-Mail</a>.
                     </p>
                   </div>
                 </li>
@@ -117,22 +115,22 @@
             </aside><!-- end of #first footer segment -->
 
             <aside class="footer-segment">
-                <h4>Awesome Stuff</h4>
+                <h4>{{ 'footer.awesome_stuff'|trans }}</h4>
                   <ul>
-                    <li><a target="_blank" href="http://www.papyri.info/">Papyri.info</a></li>
-                    <li><a target="_blank" href="http://www.trismegistos.org/">Trismegistos</a></li>
-                    <li><a target="_blank" href="http://www.aere-egke.be/BP.htm">Bibliographie Papyrologique</a></li>
+                    <li><a target="_blank" href="https://www.papyri.info/">Papyri.info</a></li>
+                    <li><a target="_blank" href="https://www.trismegistos.org/">Trismegistos</a></li>
+                    <li><a target="_blank" href="https://bibpap.be/">Bibliographie Papyrologique</a></li>
                   </ul>
             </aside><!-- end of #second footer segment -->
 
             <aside class="footer-segment">
                 <h4>{{ 'footer.institute_direction'|trans }}</h4>
                 <ul>
-                  <li><a target="_blank" href="https://www.uni-heidelberg.de/fakultaeten/philosophie/zaw/papy/forschung/joerdens_infos.html">Prof. Dr. Andrea Jördens</a></li>
+                  <li><a target="_blank" href="mailto:%22Holger%20Essler%22%3cholger.essler@uni-heidelberg.de%3e?subject=HGV">Prof. Dr. Holger Essler</a></li>
                 </ul>
                 <h4>{{ 'footer.secretariat'|trans }}</h4>
                 <ul>
-                  <li><a href="mailto:papyrologie@zaw.uni-heidelberg.de">papyrologie@zaw.uni-heidelberg.de</a></li>
+                  <li><a href="mailto:papyrologie@zaw.uni-heidelberg.de?subject=HGV">papyrologie@zaw.uni-heidelberg.de</a></li>
                 </ul>
             </aside><!-- end of #third footer segment -->
 
@@ -149,6 +147,103 @@
     </div><!-- #wrapper -->
         
         {% block javascripts %}
+            <script type="text/javascript">
+              window.HGV_TRANS = {
+                dt: {
+                  lengthMenu: {{ 'js.dt.lengthMenu'|trans|json_encode|raw }},
+                  zeroRecords: {{ 'js.dt.zeroRecords'|trans|json_encode|raw }},
+                  info: {{ 'js.dt.info'|trans|json_encode|raw }},
+                  infoEmpty: {{ 'js.dt.infoEmpty'|trans|json_encode|raw }},
+                  infoFiltered: {{ 'js.dt.infoFiltered'|trans|json_encode|raw }},
+                  search: {{ 'js.dt.search'|trans|json_encode|raw }},
+                  processing: {{ 'js.dt.processing'|trans|json_encode|raw }},
+                  paginate: {
+                    first: {{ 'js.dt.first'|trans|json_encode|raw }},
+                    last: {{ 'js.dt.last'|trans|json_encode|raw }},
+                    next: {{ 'js.dt.next'|trans|json_encode|raw }},
+                    previous: {{ 'js.dt.previous'|trans|json_encode|raw }}
+                  },
+                  buttons: {
+                    colvis: {{ 'js.dt.colvis'|trans|json_encode|raw }},
+                    copy: {{ 'js.dt.copy'|trans|json_encode|raw }},
+                    csv: {{ 'js.dt.csv'|trans|json_encode|raw }},
+                    print: {{ 'js.dt.print'|trans|json_encode|raw }}
+                  }
+                },
+                btn: {
+                  export_label: {{ 'js.btn.export'|trans|json_encode|raw }},
+                  reset: {{ 'js.btn.reset'|trans|json_encode|raw }},
+                  tips: {{ 'js.btn.tips'|trans|json_encode|raw }}
+                },
+                table: {
+                  publication: {{ 'table.publication'|trans|json_encode|raw }},
+                  dating: {{ 'table.dating'|trans|json_encode|raw }},
+                  place: {{ 'table.place'|trans|json_encode|raw }},
+                  title: {{ 'table.title'|trans|json_encode|raw }},
+                  material: {{ 'table.material'|trans|json_encode|raw }},
+                  keywords: {{ 'table.keywords'|trans|json_encode|raw }},
+                  other_publications: {{ 'table.other_publications'|trans|json_encode|raw }},
+                  tm_no: {{ 'table.tm_no'|trans|json_encode|raw }},
+                  ddb: {{ 'table.ddb'|trans|json_encode|raw }},
+                  hgv_id: {{ 'table.hgv_id'|trans|json_encode|raw }},
+                  publication_abbr: {{ 'table.publication_abbr'|trans|json_encode|raw }},
+                  volume: {{ 'table.volume'|trans|json_encode|raw }},
+                  number: {{ 'table.number'|trans|json_encode|raw }},
+                  not_before: {{ 'table.not_before'|trans|json_encode|raw }},
+                  not_after: {{ 'table.not_after'|trans|json_encode|raw }},
+                  exact_date: {{ 'table.exact_date'|trans|json_encode|raw }},
+                  precision: {{ 'table.precision'|trans|json_encode|raw }},
+                  settlement: {{ 'table.settlement'|trans|json_encode|raw }},
+                  collection: {{ 'table.collection'|trans|json_encode|raw }},
+                  inv_no: {{ 'table.inv_no'|trans|json_encode|raw }},
+                  provenance: {{ 'table.provenance'|trans|json_encode|raw }},
+                  provenance_place: {{ 'table.provenance_place'|trans|json_encode|raw }},
+                  provenance_nome: {{ 'table.provenance_nome'|trans|json_encode|raw }},
+                  illustrations: {{ 'table.illustrations'|trans|json_encode|raw }},
+                  figure_urls: {{ 'table.figure_urls'|trans|json_encode|raw }},
+                  translations: {{ 'table.translations'|trans|json_encode|raw }},
+                  commentary: {{ 'table.commentary'|trans|json_encode|raw }},
+                  mentioned_dates: {{ 'table.mentioned_dates'|trans|json_encode|raw }},
+                  bl_online: {{ 'table.bl_online'|trans|json_encode|raw }}
+                },
+                filter: {
+                  heading: {{ 'filter.heading'|trans|json_encode|raw }},
+                  description: {{ 'filter.description'|trans|json_encode|raw }},
+                  input: {{ 'filter.input'|trans|json_encode|raw }},
+                  meaning: {{ 'filter.meaning'|trans|json_encode|raw }},
+                  example: {{ 'filter.example'|trans|json_encode|raw }},
+                  contains: {{ 'filter.contains'|trans|json_encode|raw }},
+                  all_words: {{ 'filter.all_words'|trans|json_encode|raw }},
+                  starts_with: {{ 'filter.starts_with'|trans|json_encode|raw }},
+                  ends_with: {{ 'filter.ends_with'|trans|json_encode|raw }},
+                  exact_match: {{ 'filter.exact_match'|trans|json_encode|raw }},
+                  not_contains: {{ 'filter.not_contains'|trans|json_encode|raw }},
+                  numeric: {{ 'filter.numeric'|trans|json_encode|raw }},
+                  date_range: {{ 'filter.date_range'|trans|json_encode|raw }},
+                  not_empty: {{ 'filter.not_empty'|trans|json_encode|raw }},
+                  empty: {{ 'filter.empty'|trans|json_encode|raw }},
+                  sorting_heading: {{ 'filter.sorting_heading'|trans|json_encode|raw }},
+                  sorting_text: {{ 'filter.sorting_text'|trans|json_encode|raw }},
+                  sorting_shift: {{ 'filter.sorting_shift'|trans|json_encode|raw }},
+                  columns_heading: {{ 'filter.columns_heading'|trans|json_encode|raw }},
+                  columns_text: {{ 'filter.columns_text'|trans|json_encode|raw }},
+                  columns_show_hide: {{ 'filter.columns_show_hide'|trans|json_encode|raw }},
+                  columns_button: {{ 'filter.columns_button'|trans|json_encode|raw }},
+                  columns_toggle: {{ 'filter.columns_toggle'|trans|json_encode|raw }},
+                  close: {{ 'filter.close'|trans|json_encode|raw }},
+                  placeholder: {{ 'js.filter_placeholder'|trans|json_encode|raw }}
+                },
+                feedback: {
+                  close: {{ 'js.feedback.close'|trans|json_encode|raw }},
+                  sending: {{ 'js.feedback.sending'|trans|json_encode|raw }},
+                  thanks: {{ 'js.feedback.thanks'|trans|json_encode|raw }},
+                  error: {{ 'js.feedback.error'|trans|json_encode|raw }},
+                  default_subject: {{ 'js.feedback.default_subject'|trans|json_encode|raw }},
+                  default_body: {{ 'js.feedback.default_body'|trans|json_encode|raw }}
+                },
+                loading: {{ 'js.loading'|trans|json_encode|raw }}
+              };
+            </script>
             <script src="{{ asset('js/jquery/jquery-4.0.0.js') }}" type="text/javascript"></script>
             <script type="text/javascript">jQuery.isFunction = function(obj) { return typeof obj === "function"; };</script>
             <script src="{{ asset('js/jquery/jquery-ui.min.js') }}" type="text/javascript"></script>
