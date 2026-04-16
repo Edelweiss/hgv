@@ -35,14 +35,13 @@
             <li><a href="{{ path('PapyrillioHgvBundle_Home') }}" title="{{ 'nav.table_title'|trans }}">{{ 'nav.table'|trans }}</a></li>
             <li><a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}" title="{{ 'nav.search_title'|trans }}">{{ 'nav.search'|trans }}</a></li>
             <li><a href="{{ path('PapyrillioHgvBundle_PublicationIndex') }}" title="{{ 'nav.publications_title'|trans }}">{{ 'nav.publications'|trans }}</a></li>
-
-            <li><a href="{{ path('PapyrillioHgvBundle_DefaultAbbreviation') }}" title="{{ 'nav.abbreviations_title'|trans }}" target="Biblio">{{ 'nav.abbreviations'|trans }}</a></li>
-            <li><a href="https://papy.zaw.uni-heidelberg.de/gv0" title="{{ 'nav.published_pieces_title'|trans }}">{{ 'nav.published_pieces'|trans }}</a></li>
-            
+            <li><a href="{{ path('PapyrillioHgvBundle_DigitalAssistant') }}" title="{{ 'nav.digital_assistant_title'|trans }}">{{ 'nav.digital_assistant'|trans }}</a></li>
             <li class="inactive">
               <a href="{{ path('PapyrillioHgvBundle_DefaultIndex') }}" title="{{ 'nav.info'|trans }}">{{ 'nav.info'|trans }}</a>
               <ul class="sub">
                 <li><a href="{{ path('PapyrillioHgvBundle_DefaultIntroduction') }}" title="{{ 'nav.introduction_title'|trans }}">{{ 'nav.introduction'|trans }}</a></li>
+                <li><a href="{{ path('PapyrillioHgvBundle_DefaultAbbreviation') }}" title="{{ 'nav.abbreviations_title'|trans }}">{{ 'nav.abbreviations'|trans }}</a></li>
+            <li><a href="https://papy.zaw.uni-heidelberg.de/gv0" title="{{ 'nav.published_pieces_title'|trans }}">{{ 'nav.published_pieces'|trans }}</a></li>
                 <li>
                   <a href="#" id="feedbackLink" title="{{ 'nav.feedback_title'|trans }}">{{ 'nav.feedback'|trans }}</a>
                   <div id="feedbackDialogue" style="display: none;" title="{{ 'feedback.dialogue_title'|trans }}">

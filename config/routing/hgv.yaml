@@ -82,6 +82,11 @@ PapyrillioHgvBundle_ShortcutDdbdp:
     requirements:
         id:  "([^;]+;[^;]*;[^;]*;[^;]+;[^;]*;[^;]*|[^;]+;[^;]*;[^;]*;[^;]*;[^;]*;[^;]+|[^;]+;[^;]*;[^;]+|[^;]+;{5})"
 
+# D I G I T A L  A S S I S T A N T #
+PapyrillioHgvBundle_DigitalAssistant:
+    path:  /dj
+    controller: App\Controller\DigitalAssistantController::index
+
 # S U P P L E M E N T A R Y #
 
 PapyrillioHgvBundle_SupplementaryText:
