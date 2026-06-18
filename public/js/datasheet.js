@@ -27,4 +27,14 @@ $(function(){
     console.log(4);
   });
 
+  // toggle keyword translations (HGV keyword fr/en/es/it variants)
+
+  $(document).on('click', 'tr.keywordsHidden span.show', function(){
+    $(this).closest('tr').removeClass('keywordsHidden').addClass('keywords');
+  });
+
+  $(document).on('click', 'tr.keywords span.hide', function(){
+    $(this).closest('tr').removeClass('keywords').addClass('keywordsHidden');
+  });
+
 });

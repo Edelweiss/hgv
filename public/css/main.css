@@ -740,6 +740,30 @@ table.catalogueShow tr.translationHidden td {
     display: none;
 }
 
+/* Keyword translations toggle (fr/en/es/it variants of HGV keywords) */
+table.catalogueShow tr.keywords ul.keywordsTranslations,
+table.catalogueShow tr.keywordsHidden ul.keywordsTranslations {
+    list-style-type: none;
+    margin: 0.3em 0 0 0;
+    padding: 0;
+}
+table.catalogueShow tr.keywords ul.keywordsTranslations li,
+table.catalogueShow tr.keywordsHidden ul.keywordsTranslations li {
+    margin-left: 1em;
+}
+tr.keywords span.show,
+tr.keywords span.hide,
+tr.keywordsHidden span.show,
+tr.keywordsHidden span.hide {
+    cursor: pointer;
+    font-size: 0.8em;
+}
+tr.keywords span.show,
+tr.keywordsHidden span.hide,
+tr.keywordsHidden ul.keywordsTranslations {
+    display: none;
+}
+
 .pictureLinkWrapper {
     width: 600px;
     height: 390px;

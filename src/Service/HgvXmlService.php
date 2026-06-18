@@ -234,6 +234,11 @@ class HgvXmlService
             $data['ddbText'] = $this->fetchDdbText($data['ddb']);
         }
 
+        // Look up keyword translations for the detail view (toggleable display).
+        if (!empty($data['keywords'])) {
+            $data['keywordTranslations'] = $this->lookupKeywordTranslations($data['keywords']);
+        }
+
         return $this->fullRowToRecord($data);
     }
 
@@ -814,7 +819,11 @@ XQ;
             foreach (preg_split('/\s+/', trim($value)) as $word) {
                 if ($word === '') continue;
                 $safeWord = $this->escXQ($word);
-                $parts[] = "contains(lower-case($expr), lower-case('$safeWord'))";
+                $wordCond = "contains(lower-case($expr), lower-case('$safeWord'))";
+                if ($field === 'keywords') {
+                    $wordCond = $this->augmentKeywordCondition($wordCond, $word, 'cn');
+                }
+                $parts[] = $wordCond;
             }
             if (empty($parts)) return null;
             $inner = '(' . implode(' and ', $parts) . ')';
@@ -873,10 +882,200 @@ XQ;
 
         if ($cond === null) return null;
 
+        // For keyword searches, OR-extend the condition so that hits in any of
+        // the translated languages (fr/en/es/it) also match. We look up German
+        // equivalents from the `keywords` BaseX database and append a
+        // contains() check against $keywords (a '; '-joined German string).
+        // Skipped for 'neq' to preserve its German-only "does not equal" semantics.
+        if ($field === 'keywords' && $op !== 'neq') {
+            $cond = $this->augmentKeywordCondition($cond, $value, $op);
+        }
+
         if ($multiExpr) {
             return "(some $quantVar in $quantColl satisfies $cond)";
         }
         return $cond;
+    }
+
+    // ── Multi-language keyword lookup helpers ────────────────────────────────────
+
+    /** Per-request cache of German-term lookups, keyed by "op|lower(value)". */
+    private array $germanTermCache = [];
+
+    /**
+     * Extend a single keyword-search condition with extra OR clauses that match
+     * German terms whose translation (fr/en/es/it) satisfies the user's input.
+     *
+     * The German equivalents are appended as contains() checks against the
+     * existing $keywords binding so that no extra per-document XQuery cost
+     * is incurred — the lookup runs once per search against the small
+     * `keywords` database.
+     */
+    private function augmentKeywordCondition(string $baseCond, string $value, string $op): string
+    {
+        $germanTerms = $this->findGermanTermsMatching($value, $op);
+        if (empty($germanTerms)) {
+            return $baseCond;
+        }
+
+        $orParts = [$baseCond];
+        foreach ($germanTerms as $de) {
+            $safeDe    = $this->escXQ($de);
+            $orParts[] = "contains(lower-case(\$keywords), lower-case('$safeDe'))";
+        }
+        return '(' . implode(' or ', $orParts) . ')';
+    }
+
+    /**
+     * Look up German keyword terms whose fr/en/es/it translation matches the
+     * user's search value under the given operator. Returns [] if the
+     * `keywords` BaseX database is missing or the query fails (graceful
+     * fallback to German-only search).
+     *
+     * @return string[]
+     */
+    private function findGermanTermsMatching(string $value, string $op): array
+    {
+        $value = trim($value);
+        if ($value === '' || $value === '*' || $value === '=') {
+            return [];
+        }
+
+        $cacheKey = $op . '|' . mb_strtolower($value);
+        if (isset($this->germanTermCache[$cacheKey])) {
+            return $this->germanTermCache[$cacheKey];
+        }
+
+        $safe  = $this->escXQ($value);
+        $preds = [];
+        foreach (['fr', 'en', 'es', 'it'] as $lang) {
+            $attr = "string(\$kw/@$lang)";
+            switch ($op) {
+                case 'bw':
+                    $preds[] = "starts-with(lower-case($attr), lower-case('$safe'))";
+                    break;
+                case 'ew':
+                    $preds[] = "ends-with(lower-case($attr), lower-case('$safe'))";
+                    break;
+                case 'eq':
+                    $preds[] = "lower-case($attr) = lower-case('$safe')";
+                    break;
+                case 'cn':
+                default:
+                    $preds[] = "contains(lower-case($attr), lower-case('$safe'))";
+                    break;
+            }
+        }
+        $pred = implode(' or ', $preds);
+
+        $xquery = <<<XQ
+declare option output:method "json";
+array {
+  if (db:exists('keywords'))
+  then
+    for \$kw in db:get('keywords')//kw
+    where $pred
+    return string(\$kw/@de)
+  else ()
+}
+XQ;
+
+        try {
+            $rows = $this->client->xqueryJson($xquery);
+        } catch (\Throwable $e) {
+            return $this->germanTermCache[$cacheKey] = [];
+        }
+
+        $terms = [];
+        if (is_array($rows)) {
+            foreach ($rows as $row) {
+                $term = is_array($row) ? '' : (string)$row;
+                if ($term !== '') {
+                    $terms[] = $term;
+                }
+            }
+        }
+        return $this->germanTermCache[$cacheKey] = array_values(array_unique($terms));
+    }
+
+    /**
+     * Look up fr/en/es/it translations for the German keyword terms attached
+     * to a single record. Returns a per-language map of '; '-joined strings
+     * (mirroring the format of $record->getKeywords()), with missing
+     * translations falling back to the original German term.
+     *
+     * @return array{fr?: string, en?: string, es?: string, it?: string}
+     */
+    private function lookupKeywordTranslations(string $joinedGerman): array
+    {
+        $terms = array_values(array_filter(
+            array_map('trim', explode(';', $joinedGerman)),
+            static fn(string $t): bool => $t !== ''
+        ));
+        if (empty($terms)) {
+            return [];
+        }
+
+        $seq = implode(', ', array_map(
+            fn(string $t): string => "'" . $this->escXQ($t) . "'",
+            $terms
+        ));
+
+        $xquery = <<<XQ
+declare option output:method "json";
+array {
+  if (db:exists('keywords'))
+  then
+    for \$de in ($seq)
+    let \$kw := (db:get('keywords')//kw[@de = \$de])[1]
+    return map {
+      "de": string(\$de),
+      "fr": string(\$kw/@fr),
+      "en": string(\$kw/@en),
+      "es": string(\$kw/@es),
+      "it": string(\$kw/@it)
+    }
+  else ()
+}
+XQ;
+
+        try {
+            $rows = $this->client->xqueryJson($xquery);
+        } catch (\Throwable $e) {
+            return [];
+        }
+        if (!is_array($rows) || empty($rows)) {
+            return [];
+        }
+        // Single-element JSON arrays may come back as a bare map
+        if (isset($rows['de'])) {
+            $rows = [$rows];
+        }
+
+        $byLang = ['fr' => [], 'en' => [], 'es' => [], 'it' => []];
+        $hasAny = false;
+        foreach ($rows as $row) {
+            if (!is_array($row)) continue;
+            $de = (string)($row['de'] ?? '');
+            foreach (['fr', 'en', 'es', 'it'] as $lang) {
+                $val = (string)($row[$lang] ?? '');
+                if ($val !== '') {
+                    $hasAny = true;
+                } else {
+                    // Fall back to the German term so the joined strings stay aligned
+                    $val = $de;
+                }
+                $byLang[$lang][] = $val;
+            }
+        }
+
+        if (!$hasAny) {
+            return [];
+        }
+        return array_map(
+            static fn(array $parts): string => implode('; ', $parts),
+            $byLang
+        );
     }
 
     /**

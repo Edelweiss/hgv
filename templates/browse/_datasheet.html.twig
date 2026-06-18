@@ -99,9 +99,26 @@
       </tr>
     {% endif %}
     {% if record.keywords %}
-      <tr>
-        <th>{{ 'datasheet.content'|trans }}</th>
-        <td>{{ record.keywords|raw }}</td>
+      {% set kwTrans = record.keywordTranslations %}
+      <tr class="{{ kwTrans|length ? 'keywordsHidden' : '' }}">
+        <th>
+          {{ 'datasheet.content'|trans }}
+          {% if kwTrans|length %}
+            <br/>
+            <span class="show">{{ 'datasheet.content_show_translations'|trans }}</span>
+            <span class="hide">{{ 'datasheet.content_hide_translations'|trans }}</span>
+          {% endif %}
+        </th>
+        <td>
+          {{ record.keywords|raw }}
+          {% if kwTrans|length %}
+            <ul class="keywordsTranslations">
+              {% for lang, joined in kwTrans %}
+                <li><b>{{ lang }}:</b> {{ joined }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </td>
       </tr>
     {% endif %}
     {% if record.provenances|length %}

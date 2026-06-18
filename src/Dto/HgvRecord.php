@@ -50,6 +50,15 @@ class HgvRecord
     public function getMaterial(): ?string           { return $this->data['material']     ?? null; }
     /** Keywords from hgv scheme, joined by '; '. */
     public function getKeywords(): ?string           { return $this->data['keywords']     ?? null; }
+    /**
+     * Per-language joined translations of the record's German keywords.
+     * Keys are language codes ('fr', 'en', 'es', 'it'); values are '; '-joined
+     * strings mirroring the format of getKeywords(). Empty when no
+     * translation could be found in any language.
+     *
+     * @return array<string, string>
+     */
+    public function getKeywordTranslations(): array  { return $this->data['keywordTranslations'] ?? []; }
     public function getCommentary(): ?string         { return $this->data['commentary']   ?? null; }
     /** Illustration references (plain text). */
     public function getIllustrations(): ?string      { return $this->data['illustrations'] ?? null; }
