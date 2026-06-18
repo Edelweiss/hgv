@@ -40,6 +40,10 @@ services:
             $user: '%basex.user%'
             $password: '%basex.password%'
 
+    App\Service\KeywordTranslator:
+        arguments:
+            $csvPath: '%kernel.project_dir%/data/keywords.csv'
+
     App\EventSubscriber\LocaleSubscriber:
         arguments:
             $defaultLocale: '%kernel.default_locale%'
