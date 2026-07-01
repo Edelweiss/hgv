@@ -5,143 +5,669 @@
 {% block body %}
 
 <div class="page digital-assistant">
-    <h2>Digitaler Assistent – HGV AI Chatbot für Forscher</h2>
     
-    <div style="display: flex; gap: 20px; margin: 20px 0;">
-        <!-- Sidebar with Mascot and Logo -->
-        <div style="flex: 0 0 200px; text-align: center;">
-            <img src="{{ asset('images/hgvMascot.png') }}" alt="HGV Mascot" style="max-width: 100%; height: auto; margin-bottom: 15px;" />
-            <img src="{{ asset('images/hgvAquilaLogo.png') }}" alt="HGV Aquila Logo" style="max-width: 100%; height: auto;" />
-        </div>
+    <h5 style="text-align: center; margin-bottom: 0.5em;">
+        <font style="color: #ff0000;">Digitaler Assistent</font> – Ihr HGV AI-Begleiter
+    </h5>
+    
+    <p style="text-align: center; color: #666; font-size: 0.95em; margin-bottom: 2em;">
+        Stellen Sie Fragen zu Papyrusurkunden, Lesungen, Abbildungen und Editionen
+    </p>
+
+    <div class="assistant-container">
         
-        <!-- Main Chat Area -->
-        <div style="flex: 1;">
-            <div style="background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 8px; padding: 15px; min-height: 400px; max-height: 500px; overflow-y: auto;">
+        <!-- Mascot Character with Speech Bubble -->
+        <div class="assistant-mascot">
+            <div class="speech-bubble">
+                <p style="margin: 0; font-size: 0.9em; line-height: 1.4;">
+                    Willkommen! Ich bin der HGV-Assistent. Wie kann ich Ihnen bei Ihrer papyrologischen Forschung helfen?
+                </p>
+            </div>
+            <img src="{{ asset('images/hgvMascot.png') }}" alt="HGV Assistent" />
+            <p style="text-align: center; font-size: 0.75em; color: #666; margin-top: 0.5em;">Ihr digitaler Forschungsbegleiter</p>
+        </div>
+
+        <!-- Chat Interface -->
+        <div class="chat-container">
+            
+            <!-- Chat Messages Area -->
+            <div id="chatMessages" class="chat-messages">
                 
-                <!-- Chat Messages -->
-                <div style="margin-bottom: 15px;">
-                    <!-- User Question -->
-                    <div style="margin-bottom: 12px; text-align: right;">
-                        <span style="background-color: #e3f2fd; color: #1565c0; padding: 10px 15px; border-radius: 15px; display: inline-block; max-width: 70%;">
-                            Ich recherchiere zu den Verwaltungstexten aus dem 3. Jahrhundert n.Chr. Könnte mir der Assistent bei der Recherche helfen?
-                        </span>
+                <!-- Example Conversation -->
+                <div class="message-group">
+                    <!-- User Message -->
+                    <div class="message user-message">
+                        <div class="message-content">
+                            <p>Ich recherchiere zu den Verwaltungstexten aus dem 3. Jahrhundert n.Chr. aus dem Arsinoites. Können Sie mir helfen, relevante Dokumente zu finden?</p>
+                        </div>
                     </div>
                     
-                    <!-- AI Response -->
-                    <div style="margin-bottom: 12px; text-align: left;">
-                        <div style="background-color: #fff; color: #333; padding: 15px; border: 1px solid #ddd; border-radius: 8px; max-width: 100%;">
-                            <p><strong>🦅 HGV Digitaler Assistent:</strong></p>
+                    <!-- Assistant Response -->
+                    <div class="message assistant-message">
+                        <div class="message-content">
+                            <p><strong>🦅 HGV Assistent:</strong></p>
+                            <p>Natürlich! Ich habe einige relevante Dokumente für Ihre Recherche gefunden:</p>
                             
-                            <p>Gerne helfe ich Ihnen bei Ihrer Recherche zu Verwaltungstexten aus dem 3. Jahrhundert n.Chr.! Hier sind einige relevante Ressourcen und Tipps:</p>
+                            <div class="response-section">
+                                <h6>📜 Relevante HGV-Dokumente:</h6>
+                                <ul class="result-list">
+                                    <li><a href="{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': '27'}) }}">HGV 27</a> – Steuerliste, 3. Jh. n.Chr., Arsinoites</li>
+                                    <li><a href="{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': '45'}) }}">HGV 45</a> – Quittung über Getreidelieferung, 245 n.Chr.</li>
+                                    <li><a href="{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': '318'}) }}">HGV 318</a> – Amtliche Korrespondenz, Arsinoites</li>
+                                    <li><a href="{{ path('PapyrillioHgvBundle_ShortcutTm', {'id': '9876'}) }}">TM 9876</a> – Verwaltungsbericht, ca. 280 n.Chr.</li>
+                                </ul>
+                            </div>
                             
-                            <h4 style="margin-top: 12px; margin-bottom: 8px;">📚 Relevant HGV Dokumente:</h4>
-                            <ul style="margin-left: 20px; margin-bottom: 12px;">
-                                <li><a href="{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': '27'}) }}">HGV 27</a> – Verwaltungsurkunde (3. Jh. n.Chr.)</li>
-                                <li><a href="{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': '45'}) }}">HGV 45</a> – Steuerquittung aus Ägypten</li>
-                                <li><a href="{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': '318'}) }}">HGV 318</a> – Administrative Korrespondenz</li>
-                            </ul>
+                            <div class="response-section">
+                                <h6>🔗 Weiterführende Ressourcen:</h6>
+                                <ul class="resource-list">
+                                    <li><a href="https://www.trismegistos.org/" target="_blank" rel="noopener">Trismegistos</a> – Umfassende Datenbank für Dokumente aus dem Arsinoites</li>
+                                    <li><a href="https://papyri.info/" target="_blank" rel="noopener">Papyri.info</a> – Digitale Editionen mit Volltextsuche</li>
+                                    <li><a href="https://www.pappal.info/" target="_blank" rel="noopener">PapPal.info</a> – Paläographische Analysen für das 3. Jahrhundert</li>
+                                </ul>
+                            </div>
                             
-                            <h4 style="margin-top: 12px; margin-bottom: 8px;">🔗 Externe Ressourcen:</h4>
-                            <ul style="margin-left: 20px; margin-bottom: 12px;">
-                                <li><a href="https://www.trismegistos.org/" target="_blank">Trismegistos</a> – Datenbank für antike Texte und Menschen</li>
-                                <li><a href="https://papyri.info/" target="_blank">Papyri.info</a> – Aggregator für Papyrusdaten</li>
-                                <li><a href="https://www.uni-heidelberg.de/papyri" target="_blank">Heidelberg Papyrus Collection</a> – Originalhandschriften</li>
-                            </ul>
+                            <div class="response-section tips-section">
+                                <h6>💡 Recherche-Tipps:</h6>
+                                <ul class="tips-list">
+                                    <li><strong>Erweiterte Suche:</strong> Nutzen Sie die <a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}">erweiterte Suche</a> mit den Filtern "Ort: Arsinoites" und "Datierung: 200-300"</li>
+                                    <li><strong>Bildmaterial:</strong> Viele Dokumente haben hochauflösende Digitalisate – achten Sie auf das Abbildungs-Icon</li>
+                                    <li><strong>Parallelstellen:</strong> Prüfen Sie "Andere Publikation" für alternative Lesungen</li>
+                                    <li><strong>Kontext:</strong> Verwaltungstexte aus dieser Region enthalten oft Ortsnamen – sehr hilfreich für die Prosopographie!</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Second Exchange -->
+                <div class="message-group">
+                    <div class="message user-message">
+                        <div class="message-content">
+                            <p>Gibt es bei HGV 27 auch Abbildungen? Und wo finde ich Übersetzungen?</p>
+                        </div>
+                    </div>
+                    
+                    <div class="message assistant-message">
+                        <div class="message-content">
+                            <p><strong>🦅 HGV Assistent:</strong></p>
+                            <p>Ja, für <a href="{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': '27'}) }}">HGV 27</a> sind mehrere Ressourcen verfügbar:</p>
                             
-                            <h4 style="margin-top: 12px; margin-bottom: 8px;">💡 Tipps für weitere Recherche:</h4>
-                            <ul style="margin-left: 20px;">
-                                <li><strong>PapPal.info</strong> – Detaillierte Paläographie und Material-Informationen zu Papyrustypen</li>
-                                <li><strong>Wortkompositionen:</strong> Nutzen Sie die <a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}">erweiterte Suche</a> mit spezifischen Begriffen</li>
-                                <li><strong>Chronologie:</strong> Filtern Sie nach Zeitraum (245–280 n.Chr.) für präzisere Ergebnisse</li>
-                                <li><strong>Provenienz:</strong> Viele Verwaltungstexte stammen aus bestimmten Fundorten – das kann helfen!</li>
-                            </ul>
+                            <div class="response-section">
+                                <h6>🖼️ Bildquellen:</h6>
+                                <ul class="result-list">
+                                    <li>Im HGV-Eintrag finden Sie unter "Abbildung" direkte Links zu Digitalisaten</li>
+                                    <li>Bei <a href="https://papyri.info/" target="_blank" rel="noopener">Papyri.info</a> können Sie nach IIIF-kompatiblen hochauflösenden Scans suchen</li>
+                                    <li><a href="https://www.trismegistos.org/" target="_blank" rel="noopener">Trismegistos</a> verlinkt oft zu Institutionswebseiten mit Bildarchiven</li>
+                                </ul>
+                            </div>
                             
-                            <p style="margin-top: 12px; font-size: 0.9em; color: #666;">
-                                <em>Hinweis: Dies ist eine prototypische Antwort des KI-Assistenten. Die Verlinkungen sind Beispiele.</em>
-                            </p>
+                            <div class="response-section">
+                                <h6>🌐 Übersetzungen:</h6>
+                                <ul class="result-list">
+                                    <li>Das Feld "Übersetzungen" im HGV-Eintrag listet publizierte Übersetzungen</li>
+                                    <li>Viele Texte haben deutsche und englische Übersetzungen</li>
+                                    <li>Tipp: <a href="https://www.pappal.info/" target="_blank" rel="noopener">PapPal.info</a> bietet oft zusätzliche Kontexte und Erklärungen</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
             </div>
             
-            <!-- Input and Controls -->
-            <div style="margin-top: 15px;">
-                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                    <input type="text" placeholder="Stellen Sie Ihre Frage zum HGV..." style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95em;" />
-                    <button style="padding: 10px 20px; background-color: #1565c0; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Absenden</button>
+            <!-- Input Area -->
+            <div class="chat-input-area">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="userInput" 
+                        class="chat-input" 
+                        placeholder="Stellen Sie Ihre Frage zu HGV-Dokumenten, Lesungen, Editionen..."
+                    />
+                    <button id="sendBtn" class="btn-send">
+                        <span>Senden</span>
+                    </button>
                 </div>
                 
-                <!-- Download Button -->
-                <div style="text-align: right;">
-                    <button id="downloadBtn" style="padding: 8px 16px; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
-                        📥 Als PDF speichern
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button id="downloadResponseBtn" class="btn-action btn-download-response">
+                        <img src="{{ asset('images/hgvAquilaLogo.png') }}" alt="" class="btn-icon" />
+                        <span>Letzte Antwort als PDF</span>
+                    </button>
+                    <button id="downloadHistoryBtn" class="btn-action btn-download-history">
+                        <img src="{{ asset('images/hgvAquilaLogo.png') }}" alt="" class="btn-icon" />
+                        <span>Gesamten Chat als PDF</span>
                     </button>
                 </div>
             </div>
+            
         </div>
+        
     </div>
     
     <!-- Information Section -->
-    <hr style="margin: 30px 0;" />
+    <hr style="margin: 2em 0; border-top: 2px solid #085E9B;" />
     
-    <h3>Über den Digitalen Assistenten</h3>
-    <p>
-        Der HGV Digital Assistant ist ein KI-gestützter Chatbot, der Sie bei Ihren Forschungsfragen zu:
-    </p>
-    <ul style="margin-left: 20px;">
-        <li><strong>Papyrusurkunden und Textlesungen</strong></li>
-        <li><strong>Bildquellen und Fotografien</strong></li>
-        <li><strong>Editionsfragen und Varianten</strong></li>
-        <li><strong>Historischen und chronologischen Kontexten</strong></li>
-    </ul>
-    <p>
-        unterstützt. Der Assistant kann Ihnen relevante HGV-Einträge, externe Datenbanken und weiterführende Ressourcen empfehlen.
-    </p>
+    <div class="info-section">
+        <h6 style="font-size: 1.1em; color: #085E9B; margin-bottom: 1em;">Über den Digitalen Assistenten</h6>
+        <p>
+            Der <strong>HGV Digital Assistant</strong> ist ein KI-gestütztes Recherche-Werkzeug, das Sie bei Ihrer papyrologischen Arbeit unterstützt. 
+            Er bietet direkten Zugang zu HGV-Dokumenten, externen Datenbanken und hilft bei komplexen Forschungsfragen.
+        </p>
+        
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h6>📜 Dokumentensuche</h6>
+                <p>Finden Sie relevante Papyrusurkunden durch natürlichsprachliche Anfragen</p>
+            </div>
+            <div class="feature-box">
+                <h6>🖼️ Bildmaterial</h6>
+                <p>Zugang zu hochauflösenden Digitalisaten und paläographischen Analysen</p>
+            </div>
+            <div class="feature-box">
+                <h6>✏️ Editionshilfe</h6>
+                <p>Vergleich verschiedener Lesarten und Editionen</p>
+            </div>
+            <div class="feature-box">
+                <h6>🔗 Vernetzung</h6>
+                <p>Direktlinks zu Trismegistos, Papyri.info, PapPal.info und weiteren Ressourcen</p>
+            </div>
+        </div>
+        
+        <div class="prototype-notice">
+            <strong>⚠️ Prototyp-Hinweis:</strong> Dies ist eine Vorschau der geplanten Funktionalität. 
+            Die finale Version wird durch eine KI-Engine unterstützt, die Echtzeit-Zugriff auf die HGV-Datenbank hat 
+            und kontextbasierte Antworten generiert.
+        </div>
+    </div>
+
 </div>
 
 <style>
-    .digital-assistant {
-        max-width: 1000px;
+.page.digital-assistant {
+    padding: 1.5em;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.assistant-container {
+    display: flex;
+    gap: 2em;
+    margin: 2em 0;
+    align-items: flex-start;
+}
+
+/* Mascot Area with Speech Bubble */
+.assistant-mascot {
+    flex: 0 0 280px;
+    position: sticky;
+    top: 20px;
+}
+
+.assistant-mascot img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.speech-bubble {
+    background: #fff;
+    border: 2px solid #085E9B;
+    border-radius: 12px;
+    padding: 1em;
+    margin-bottom: 1em;
+    position: relative;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #085E9B;
+}
+
+.speech-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -11px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-top: 13px solid #fff;
+    z-index: 1;
+}
+
+/* Chat Container */
+.chat-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 2px solid #142952;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 3px 3px 7px #777;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 1.5em;
+    max-height: 600px;
+    overflow-y: auto;
+    background-color: #fdf8e5;
+    background-image: url('../images/Papyrus_12b.png');
+}
+
+.message-group {
+    margin-bottom: 1.5em;
+}
+
+.message {
+    margin-bottom: 1em;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.user-message {
+    text-align: right;
+}
+
+.user-message .message-content {
+    display: inline-block;
+    background: #e3f2fd;
+    background-image: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border: 1px solid #085E9B;
+    border-radius: 18px 18px 4px 18px;
+    padding: 0.8em 1.2em;
+    max-width: 75%;
+    text-align: left;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-message .message-content p {
+    margin: 0;
+    color: #142952;
+    line-height: 1.5;
+}
+
+.assistant-message .message-content {
+    background: #fff;
+    border: 2px solid #085E9B;
+    border-radius: 4px 18px 18px 18px;
+    padding: 1em 1.3em;
+    max-width: 95%;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.assistant-message .message-content p {
+    margin: 0 0 0.8em 0;
+    line-height: 1.6;
+}
+
+.assistant-message .message-content p:last-child {
+    margin-bottom: 0;
+}
+
+.response-section {
+    margin: 1em 0;
+    padding: 0.8em;
+    background: #f9f9f9;
+    border-left: 3px solid #085E9B;
+    border-radius: 4px;
+}
+
+.response-section h6 {
+    margin: 0 0 0.6em 0;
+    color: #085E9B;
+    font-size: 0.95em;
+    font-weight: bold;
+}
+
+.response-section ul {
+    margin: 0;
+    padding-left: 1.3em;
+    list-style-type: disc;
+}
+
+.response-section li {
+    margin: 0.4em 0;
+    line-height: 1.5;
+}
+
+.tips-section {
+    background: #fffef0;
+    border-left-color: #ff9800;
+}
+
+.result-list li,
+.resource-list li,
+.tips-list li {
+    padding-left: 0.3em;
+}
+
+/* Chat Input Area */
+.chat-input-area {
+    background: #142952;
+    background-image: url('../images/Papyrus_09b_darkblue.png');
+    padding: 1em 1.5em;
+    border-top: 2px solid #085E9B;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 0.8em;
+    margin-bottom: 0.8em;
+}
+
+.chat-input {
+    flex: 1;
+    padding: 0.7em 1em;
+    border: 2px solid #085E9B;
+    border-radius: 6px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 0.95em;
+    background: #fff;
+    transition: all 0.2s;
+}
+
+.chat-input:focus {
+    outline: none;
+    border-color: #ff9800;
+    box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.2);
+}
+
+.btn-send {
+    padding: 0.7em 2em;
+    background: #085E9B;
+    background-image: linear-gradient(180deg, #0a6db5 0%, #085E9B 100%);
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.btn-send:hover {
+    background: #0a6db5;
+    transform: translateY(-1px);
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+.btn-send:active {
+    transform: translateY(0);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 0.8em;
+    justify-content: flex-end;
+}
+
+.btn-action {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.5em 1em;
+    background: #fff;
+    border: 2px solid #085E9B;
+    border-radius: 6px;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: #085E9B;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-action .btn-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.btn-action:hover {
+    background: #085E9B;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btn-action:hover .btn-icon {
+    filter: brightness(0) invert(1);
+}
+
+.btn-action:active {
+    transform: translateY(0);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.btn-download-response {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    border-color: #4caf50;
+    color: #2e7d32;
+}
+
+.btn-download-response:hover {
+    background: #4caf50;
+    border-color: #4caf50;
+    color: #fff;
+}
+
+.btn-download-history {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    border-color: #ff9800;
+    color: #e65100;
+}
+
+.btn-download-history:hover {
+    background: #ff9800;
+    border-color: #ff9800;
+    color: #fff;
+}
+
+/* Info Section */
+.info-section {
+    margin-top: 2em;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1em;
+    margin: 1.5em 0;
+}
+
+.feature-box {
+    background: #fff;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1em;
+    transition: all 0.2s;
+}
+
+.feature-box:hover {
+    border-color: #085E9B;
+    box-shadow: 2px 2px 8px rgba(8, 94, 155, 0.2);
+    transform: translateY(-2px);
+}
+
+.feature-box h6 {
+    margin: 0 0 0.5em 0;
+    color: #085E9B;
+    font-size: 1em;
+}
+
+.feature-box p {
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.5;
+    color: #666;
+}
+
+.prototype-notice {
+    margin-top: 2em;
+    padding: 1em 1.5em;
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 6px;
+    color: #856404;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .assistant-container {
+        flex-direction: column;
     }
     
-    .digital-assistant h2 {
-        color: #1565c0;
-        border-bottom: 2px solid #1565c0;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
+    .assistant-mascot {
+        position: relative;
+        flex: 0 0 auto;
+        max-width: 250px;
+        margin: 0 auto;
     }
     
-    .digital-assistant h3 {
-        color: #1565c0;
-        margin-top: 20px;
+    .action-buttons {
+        flex-direction: column;
     }
     
-    .digital-assistant h4 {
-        font-size: 1em;
-        color: #333;
+    .btn-action {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .page.digital-assistant {
+        padding: 1em;
     }
     
-    .digital-assistant a {
-        color: #1565c0;
-        text-decoration: none;
+    .input-wrapper {
+        flex-direction: column;
     }
     
-    .digital-assistant a:hover {
-        text-decoration: underline;
+    .user-message .message-content,
+    .assistant-message .message-content {
+        max-width: 90%;
     }
-    
-    button:hover {
-        opacity: 0.9;
-        transition: opacity 0.3s ease;
-    }
+}
 </style>
 
 <script>
-    document.getElementById('downloadBtn').addEventListener('click', function() {
-        // Placeholder for PDF download functionality
-        alert('PDF-Download wird vorbereitet...\n\n(Dies ist ein Prototyp. Die vollständige Implementierung würde die Chat-Historie als PDF exportieren.)');
-    });
+// Send Message
+document.getElementById('sendBtn').addEventListener('click', function() {
+    const input = document.getElementById('userInput');
+    if (input.value.trim()) {
+        // Placeholder for actual send functionality
+        const message = input.value.trim();
+        
+        // Show feedback
+        const originalText = this.querySelector('span').textContent;
+        this.querySelector('span').textContent = 'Wird gesendet...';
+        this.disabled = true;
+        
+        setTimeout(() => {
+            alert('Ihre Frage würde an den HGV-Assistenten gesendet:\n\n"' + message + '"\n\n' +
+                  '(Dies ist ein Prototyp. In der finalen Version wird Ihre Frage von der KI-Engine verarbeitet ' +
+                  'und Sie erhalten eine kontextbasierte Antwort mit relevanten HGV-Dokumenten und externen Ressourcen.)');
+            
+            this.querySelector('span').textContent = originalText;
+            this.disabled = false;
+            input.value = '';
+            input.focus();
+        }, 500);
+    }
+});
+
+// Enter key to send
+document.getElementById('userInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        document.getElementById('sendBtn').click();
+    }
+});
+
+// Download Last Response as PDF
+document.getElementById('downloadResponseBtn').addEventListener('click', function() {
+    const btn = this;
+    const originalHTML = btn.innerHTML;
+    
+    btn.innerHTML = '<img src="{{ asset("images/hgvAquilaLogo.png") }}" alt="" class="btn-icon" /><span>Wird erstellt...</span>';
+    btn.disabled = true;
+    
+    setTimeout(() => {
+        alert('📥 PDF-Export: Letzte Antwort\n\n' +
+              'Die vollständige Implementierung würde die letzte Antwort des Assistenten als ' +
+              'formatiertes PDF exportieren, inklusive:\n\n' +
+              '• Zeitstempel der Anfrage\n' +
+              '• Ihre Frage im Originalwortlaut\n' +
+              '• Vollständige Antwort mit allen Abschnitten\n' +
+              '• Alle verlinkten HGV-Dokumente und externen Ressourcen\n' +
+              '• Formatierung gemäß HGV-Styleguide\n' +
+              '• Metadaten zur besseren Nachvollziehbarkeit\n\n' +
+              '(Dies ist ein Prototyp)');
+        
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+    }, 800);
+});
+
+// Download Entire Chat History as PDF
+document.getElementById('downloadHistoryBtn').addEventListener('click', function() {
+    const btn = this;
+    const originalHTML = btn.innerHTML;
+    
+    btn.innerHTML = '<img src="{{ asset("images/hgvAquilaLogo.png") }}" alt="" class="btn-icon" /><span>Wird zusammengestellt...</span>';
+    btn.disabled = true;
+    
+    setTimeout(() => {
+        alert('📚 PDF-Export: Gesamter Chat-Verlauf\n\n' +
+              'Die vollständige Implementierung würde den kompletten Chat-Verlauf als ' +
+              'strukturiertes PDF exportieren mit:\n\n' +
+              '• Übersicht aller Fragen und Antworten\n' +
+              '• Chronologische Sortierung mit Zeitstempeln\n' +
+              '• Inhaltsverzeichnis mit Sprungmarken\n' +
+              '• Alle verlinkten Ressourcen als Fußnoten\n' +
+              '• Sitzungsmetadaten (Datum, Dauer, Anzahl der Anfragen)\n' +
+              '• Professionelle Formatierung für wissenschaftliche Dokumentation\n' +
+              '• Optional: Anhang mit zusammengefassten Empfehlungen\n\n' +
+              'Ideal für Ihre Forschungsdokumentation!\n\n' +
+              '(Dies ist ein Prototyp)');
+        
+        btn.innerHTML = originalHTML;
+        btn.disabled = false;
+    }, 1000);
+});
+
+// Auto-scroll to bottom of chat
+function scrollToBottom() {
+    const chatMessages = document.getElementById('chatMessages');
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Initial scroll
+scrollToBottom();
 </script>
 
 {% endblock %}
