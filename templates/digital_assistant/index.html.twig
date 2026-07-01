@@ -1,0 +1,147 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'site.title'|trans }} – Digitaler Assistent{% endblock %}
+
+{% block body %}
+
+<div class="page digital-assistant">
+    <h2>Digitaler Assistent – HGV AI Chatbot für Forscher</h2>
+    
+    <div style="display: flex; gap: 20px; margin: 20px 0;">
+        <!-- Sidebar with Mascot and Logo -->
+        <div style="flex: 0 0 200px; text-align: center;">
+            <img src="{{ asset('images/hgvMascot.png') }}" alt="HGV Mascot" style="max-width: 100%; height: auto; margin-bottom: 15px;" />
+            <img src="{{ asset('images/hgvAquilaLogo.png') }}" alt="HGV Aquila Logo" style="max-width: 100%; height: auto;" />
+        </div>
+        
+        <!-- Main Chat Area -->
+        <div style="flex: 1;">
+            <div style="background-color: #f5f5f5; border: 1px solid #ddd; border-radius: 8px; padding: 15px; min-height: 400px; max-height: 500px; overflow-y: auto;">
+                
+                <!-- Chat Messages -->
+                <div style="margin-bottom: 15px;">
+                    <!-- User Question -->
+                    <div style="margin-bottom: 12px; text-align: right;">
+                        <span style="background-color: #e3f2fd; color: #1565c0; padding: 10px 15px; border-radius: 15px; display: inline-block; max-width: 70%;">
+                            Ich recherchiere zu den Verwaltungstexten aus dem 3. Jahrhundert n.Chr. Könnte mir der Assistent bei der Recherche helfen?
+                        </span>
+                    </div>
+                    
+                    <!-- AI Response -->
+                    <div style="margin-bottom: 12px; text-align: left;">
+                        <div style="background-color: #fff; color: #333; padding: 15px; border: 1px solid #ddd; border-radius: 8px; max-width: 100%;">
+                            <p><strong>🦅 HGV Digitaler Assistent:</strong></p>
+                            
+                            <p>Gerne helfe ich Ihnen bei Ihrer Recherche zu Verwaltungstexten aus dem 3. Jahrhundert n.Chr.! Hier sind einige relevante Ressourcen und Tipps:</p>
+                            
+                            <h4 style="margin-top: 12px; margin-bottom: 8px;">📚 Relevant HGV Dokumente:</h4>
+                            <ul style="margin-left: 20px; margin-bottom: 12px;">
+                                <li><a href="{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': '27'}) }}">HGV 27</a> – Verwaltungsurkunde (3. Jh. n.Chr.)</li>
+                                <li><a href="{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': '45'}) }}">HGV 45</a> – Steuerquittung aus Ägypten</li>
+                                <li><a href="{{ path('PapyrillioHgvBundle_ShortcutHgv', {'id': '318'}) }}">HGV 318</a> – Administrative Korrespondenz</li>
+                            </ul>
+                            
+                            <h4 style="margin-top: 12px; margin-bottom: 8px;">🔗 Externe Ressourcen:</h4>
+                            <ul style="margin-left: 20px; margin-bottom: 12px;">
+                                <li><a href="https://www.trismegistos.org/" target="_blank">Trismegistos</a> – Datenbank für antike Texte und Menschen</li>
+                                <li><a href="https://papyri.info/" target="_blank">Papyri.info</a> – Aggregator für Papyrusdaten</li>
+                                <li><a href="https://www.uni-heidelberg.de/papyri" target="_blank">Heidelberg Papyrus Collection</a> – Originalhandschriften</li>
+                            </ul>
+                            
+                            <h4 style="margin-top: 12px; margin-bottom: 8px;">💡 Tipps für weitere Recherche:</h4>
+                            <ul style="margin-left: 20px;">
+                                <li><strong>PapPal.info</strong> – Detaillierte Paläographie und Material-Informationen zu Papyrustypen</li>
+                                <li><strong>Wortkompositionen:</strong> Nutzen Sie die <a href="{{ path('PapyrillioHgvBundle_BrowseSearch') }}">erweiterte Suche</a> mit spezifischen Begriffen</li>
+                                <li><strong>Chronologie:</strong> Filtern Sie nach Zeitraum (245–280 n.Chr.) für präzisere Ergebnisse</li>
+                                <li><strong>Provenienz:</strong> Viele Verwaltungstexte stammen aus bestimmten Fundorten – das kann helfen!</li>
+                            </ul>
+                            
+                            <p style="margin-top: 12px; font-size: 0.9em; color: #666;">
+                                <em>Hinweis: Dies ist eine prototypische Antwort des KI-Assistenten. Die Verlinkungen sind Beispiele.</em>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- Input and Controls -->
+            <div style="margin-top: 15px;">
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <input type="text" placeholder="Stellen Sie Ihre Frage zum HGV..." style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95em;" />
+                    <button style="padding: 10px 20px; background-color: #1565c0; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">Absenden</button>
+                </div>
+                
+                <!-- Download Button -->
+                <div style="text-align: right;">
+                    <button id="downloadBtn" style="padding: 8px 16px; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
+                        📥 Als PDF speichern
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Information Section -->
+    <hr style="margin: 30px 0;" />
+    
+    <h3>Über den Digitalen Assistenten</h3>
+    <p>
+        Der HGV Digital Assistant ist ein KI-gestützter Chatbot, der Sie bei Ihren Forschungsfragen zu:
+    </p>
+    <ul style="margin-left: 20px;">
+        <li><strong>Papyrusurkunden und Textlesungen</strong></li>
+        <li><strong>Bildquellen und Fotografien</strong></li>
+        <li><strong>Editionsfragen und Varianten</strong></li>
+        <li><strong>Historischen und chronologischen Kontexten</strong></li>
+    </ul>
+    <p>
+        unterstützt. Der Assistant kann Ihnen relevante HGV-Einträge, externe Datenbanken und weiterführende Ressourcen empfehlen.
+    </p>
+</div>
+
+<style>
+    .digital-assistant {
+        max-width: 1000px;
+    }
+    
+    .digital-assistant h2 {
+        color: #1565c0;
+        border-bottom: 2px solid #1565c0;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    
+    .digital-assistant h3 {
+        color: #1565c0;
+        margin-top: 20px;
+    }
+    
+    .digital-assistant h4 {
+        font-size: 1em;
+        color: #333;
+    }
+    
+    .digital-assistant a {
+        color: #1565c0;
+        text-decoration: none;
+    }
+    
+    .digital-assistant a:hover {
+        text-decoration: underline;
+    }
+    
+    button:hover {
+        opacity: 0.9;
+        transition: opacity 0.3s ease;
+    }
+</style>
+
+<script>
+    document.getElementById('downloadBtn').addEventListener('click', function() {
+        // Placeholder for PDF download functionality
+        alert('PDF-Download wird vorbereitet...\n\n(Dies ist ein Prototyp. Die vollständige Implementierung würde die Chat-Historie als PDF exportieren.)');
+    });
+</script>
+
+{% endblock %}
