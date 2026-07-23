@@ -1,9 +1,9 @@
 {% if record.ddbSer %}
-  <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
+  <a target="Text" href="http://papyri.info/current/{{ record.hgvId }}">papyri.info</a>
 {% endif %}
 
 {{ record.htmlDdb|raw }}
 
 {% if record.ddbSer %}
-  <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
+  <a target="Text" href="http://papyri.info/current/{{ record.hgvId }}">papyri.info</a>
 {% endif %}
