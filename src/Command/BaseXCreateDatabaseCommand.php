@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Service\KeywordTranslator;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -23,10 +24,12 @@ use Symfony\Component\Process\Process;
  *   bin/console app:basex:create-db --database=ddb       (only rebuild DDB)
  *   bin/console app:basex:create-db --database=keywords  (only rebuild keyword translations)
  */
+#[AsCommand(
+    name: 'app:basex:create-db',
+    description: 'Create BaseX databases from HGV_meta_EpiDoc and DDB_EpiDoc_XML sources'
+)]
 class BaseXCreateDatabaseCommand extends Command
 {
-    protected static $defaultName = 'app:basex:create-db';
-    protected static $defaultDescription = 'Create BaseX databases from HGV_meta_EpiDoc and DDB_EpiDoc_XML sources';
 
     private string $idpDataPath;
     private string $projectDir;

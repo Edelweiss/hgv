@@ -17,10 +17,12 @@ class HgvController extends AbstractController{
       $this->request = $requestStack->getCurrentRequest();
       $this->allParameters = array_merge($this->request->request->all(), $this->request->query->all());
   }
-  protected function getParameter($key){
+  protected function getInputParameter(string $key): mixed {
     if(array_key_exists($key, $this->allParameters)){
       return $this->allParameters[$key];
     }
+
+    return null;
   }
 
   protected function getSessionParameter($key){

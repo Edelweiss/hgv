@@ -8,7 +8,7 @@ the corresponding edition texts from the Duke Databank of Documentary Papyri
 
 ## What it is
 
-- **Frontend:** Symfony 5.4 / Twig server-rendered HTML, jQuery + DataTables on
+- **Frontend:** Symfony 7.4 / Twig server-rendered HTML, jQuery + DataTables on
   the browse view, multilingual UI (de/en).
 - **Data store:** [BaseX](https://basex.org) XML database (REST API) holding
   three databases:

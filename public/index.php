@@ -9,6 +9,23 @@ require dirname(__DIR__).'/vendor/autoload.php';
 
 (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
 
+$projectTmpDir = dirname(__DIR__).'/var/tmp';
+if (!is_dir($projectTmpDir)) {
+    @mkdir($projectTmpDir, 0775, true);
+}
+if (is_dir($projectTmpDir) && is_writable($projectTmpDir)) {
+    putenv('TMPDIR='.$projectTmpDir);
+    putenv('TMP='.$projectTmpDir);
+    putenv('TEMP='.$projectTmpDir);
+    $_ENV['TMPDIR'] = $projectTmpDir;
+    $_ENV['TMP'] = $projectTmpDir;
+    $_ENV['TEMP'] = $projectTmpDir;
+    $_SERVER['TMPDIR'] = $projectTmpDir;
+    $_SERVER['TMP'] = $projectTmpDir;
+    $_SERVER['TEMP'] = $projectTmpDir;
+    @ini_set('sys_temp_dir', $projectTmpDir);
+}
+
 if ($_SERVER['APP_DEBUG']) {
     umask(0000);
 

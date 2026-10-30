@@ -40,10 +40,10 @@ class DefaultController extends HgvController
   {
     $to = 'Dieter Hagedorn <dieter.hagedorn@urz.uni-heidelberg.de>, James Cowey <james.cowey@urz.uni-heidelberg.de>, Carmen Lanz <carmen.lanz@zaw.uni-heidelberg.de>';
     $to = 'James Cowey <james.cowey@urz.uni-heidelberg.de>, Carmen Lanz <carmen.lanz@zaw.uni-heidelberg.de>';
-    $name    = $this->smcf_filter($this->getParameter('name'));
-    $email   = $this->smcf_filter($this->getParameter('email'));
-    $subject = $this->smcf_filter($this->getParameter('subject'));
-    $message = $this->smcf_filter($this->getParameter('message'));
+    $name    = $this->smcf_filter($this->getInputParameter('name'));
+    $email   = $this->smcf_filter($this->getInputParameter('email'));
+    $subject = $this->smcf_filter($this->getInputParameter('subject'));
+    $message = $this->smcf_filter($this->getInputParameter('message'));
 
     $data = array('name' => $name, 'email' => $email, 'subject' => $subject, 'message' => $message);
     

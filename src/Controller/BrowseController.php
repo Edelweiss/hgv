@@ -309,7 +309,7 @@ class BrowseController extends HgvController
 
     protected function getParameterShow(): array
     {
-        if ($show = $this->getParameter('show')) {
+        if ($show = $this->getInputParameter('show')) {
             return $show;
         }
         if ($show = $this->getSessionParameter('show')) {
@@ -320,7 +320,7 @@ class BrowseController extends HgvController
 
     protected function getParameterSearch(): array
     {
-        if ($search = $this->getParameter('search')) {
+        if ($search = $this->getInputParameter('search')) {
             // Remove empty criteria
             if (isset($search['criteria'])) {
                 foreach ($search['criteria'] as $key => $criterion) {
@@ -360,7 +360,7 @@ class BrowseController extends HgvController
 
     protected function getParameterSort(): array
     {
-        if ($sortList = $this->getParameter('sort')) {
+        if ($sortList = $this->getInputParameter('sort')) {
             $final = [];
             $idx   = 1;
             foreach ($sortList as $sort) {
