@@ -35,4 +35,5 @@ Built by Ubuntu
 Zend Engine v4.4.27, Copyright (c) Zend Technologies
     with Zend OPcache v8.4.27, Copyright (c), by Zend Technologies
 
-
+ubuntu@aquila$ php bin/console --version
+Symfony v7.4.22 (env: prod, debug: false)

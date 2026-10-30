@@ -129,7 +129,7 @@ BASEX_URL=http://localhost:8080/rest
 BASEX_USER=admin
 BASEX_PASSWORD=admin
 
-# Where the HGV_meta_EpiDoc and DDB_EpiDoc_XML directories live.
+# Where the HGV_meta_EpiDoc and DDB_EpiDoc_XML/DDbDP directories live.
 # Relative paths are resolved against the project root, so a symlink at
 # /path/to/aquila/idp.data is the conventional setup.
 IDP_DATA_PATH=idp.data
@@ -512,4 +512,5 @@ unaffected (it comes from BaseX live).
 **`HGV_meta_EpiDoc directory not found at: <path>`**
 The `IDP_DATA_PATH` resolves but doesn't contain the expected sub-directories.
 Verify with `ls "$(readlink idp.data)"` — you should see `HGV_meta_EpiDoc/`
-and `DDB_EpiDoc_XML/` at the top level of whatever the symlink points to.
+and either `DDB_EpiDoc_XML/` (legacy) or `DDbDP/` at the top level of
+whatever the symlink points to.

@@ -116,10 +116,17 @@ class PublicationService
             ];
 
             foreach ($roots as $root) {
-                $ddbRoot = $root . '/DDB_EpiDoc_XML';
+                $ddbRoot = '';
+                foreach (['DDB_EpiDoc_XML', 'DDbDP'] as $ddbDirName) {
+                    $candidate = $root . '/' . $ddbDirName;
+                    if (is_dir($candidate)) {
+                        $ddbRoot = $candidate;
+                        break;
+                    }
+                }
                 $hgvRoot = $root . '/HGV_meta_EpiDoc';
                 $rdfFile = $root . '/RDF/collection.rdf';
-                if (is_dir($ddbRoot)) {
+                if ($ddbRoot !== '') {
                     return [
                         'ddbRoot' => $ddbRoot,
                         'hgvRoot' => is_dir($hgvRoot) ? $hgvRoot : '',
