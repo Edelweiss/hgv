@@ -20,7 +20,7 @@ machine) and ordinary developer tooling (git, composer, PHP, …).
 5. [BaseX server lifecycle](#5-basex-server-lifecycle)
 6. [BaseX databases](#6-basex-databases)
    - [6.1 `hgv` — HGV_meta_EpiDoc](#61-hgv--hgv_meta_epidoc)
-   - [6.2 `ddb` — DDB_EpiDoc_XML](#62-ddb--ddb_epidoc_xml)
+   - [6.2 `ddb` — DDbDP](#62-ddb--ddbdp)
    - [6.3 `keywords` — translated HGV keywords](#63-keywords--translated-hgv-keywords)
 7. [Updating the source data](#7-updating-the-source-data)
    - [7.1 `idp.data` (HGV + DDB upstream)](#71-idpdata-hgv--ddb-upstream)
@@ -51,7 +51,7 @@ machine) and ordinary developer tooling (git, composer, PHP, …).
                    ┌──────────────────────────────────────────┐
                    │ idp.data/             (git checkout)     │
                    │   ├── HGV_meta_EpiDoc/   → BaseX `hgv`   │
-                   │   └── DDB_EpiDoc_XML/    → BaseX `ddb`   │
+                   │   └── DDbDP/             → BaseX `ddb`   │
                    │ data/keywords.csv        → BaseX         │
                    │                              `keywords`  │
                    └──────────────────────────────────────────┘
@@ -129,7 +129,7 @@ BASEX_URL=http://localhost:8080/rest
 BASEX_USER=admin
 BASEX_PASSWORD=admin
 
-# Where the HGV_meta_EpiDoc and DDB_EpiDoc_XML/DDbDP directories live.
+# Where the HGV_meta_EpiDoc and DDbDP directories live.
 # Relative paths are resolved against the project root, so a symlink at
 # /path/to/aquila/idp.data is the conventional setup.
 IDP_DATA_PATH=idp.data
@@ -248,11 +248,11 @@ bin/console app:basex:create-db --database=hgv
 
 Indexes built: text, attribute, fulltext.
 
-### 6.2 `ddb` — DDB_EpiDoc_XML
+### 6.2 `ddb` — DDbDP
 
 ```bash
 bin/console app:basex:create-db --database=ddb
-# Same as above but from $IDP_DATA/DDB_EpiDoc_XML.
+# Same as above but from $IDP_DATA/DDbDP.
 ```
 
 ### 6.3 `keywords` — translated HGV keywords
@@ -368,9 +368,12 @@ Re-run `app:basex:create-db --database=keywords` afterwards.
 
 [`App\Service\PublicationService`](../src/Service/PublicationService.php)
 maintains a flat JSON index of all `(series, volume, number) → HGV-id`
-mappings, built by walking `idp.data/DDB_EpiDoc_XML` once and following
-`<relation type="reprint-in">` stubs. It powers the **Publikationen** browse
-view (`/publication`, `/publication/load/numbers`, `/publication/load/records`).
+mappings, built by walking `idp.data/DDbDP` once and augmenting reprint
+aliases from `idp.data/Historical` (`<ref type="reprint-in">` /
+`<ref type="reprint-from">`). It powers the **Publikationen** browse view
+(`/publication`, `/publication/load/numbers`, `/publication/load/records`).
+The DDbDP scan is recursive and therefore compatible with the current
+TM-based 1000-block directory layout.
 
 - **Location:** `var/cache/publication_index.json`
 - **Size:** ~10 MB
@@ -512,5 +515,4 @@ unaffected (it comes from BaseX live).
 **`HGV_meta_EpiDoc directory not found at: <path>`**
 The `IDP_DATA_PATH` resolves but doesn't contain the expected sub-directories.
 Verify with `ls "$(readlink idp.data)"` — you should see `HGV_meta_EpiDoc/`
-and either `DDB_EpiDoc_XML/` (legacy) or `DDbDP/` at the top level of
-whatever the symlink points to.
+and `DDbDP/` at the top level of whatever the symlink points to.

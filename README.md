@@ -13,7 +13,7 @@ the corresponding edition texts from the Duke Databank of Documentary Papyri
 - **Data store:** [BaseX](https://basex.org) XML database (REST API) holding
   three databases:
   - `hgv` — HGV_meta_EpiDoc TEI files (≈ 66 000 documents)
-  - `ddb` — DDB_EpiDoc_XML (legacy) bzw. DDbDP edition files (≈ 70 000 documents)
+  - `ddb` — DDbDP edition files (≈ 70 000 documents)
   - `keywords` — translations of the HGV keyword vocabulary into
     French/English/Spanish/Italian (≈ 4 200 entries; built from
     [`data/keywords.csv`](data/keywords.csv))

@@ -14,7 +14,7 @@ use Symfony\Component\Process\Process;
 
 /**
  * Symfony console command to create/rebuild the BaseX databases
- * from HGV_meta_EpiDoc and DDB_EpiDoc_XML sources, and to build
+ * from HGV_meta_EpiDoc and DDbDP sources, and to build
  * a companion keyword-translations database.
  *
  * Usage:
@@ -26,7 +26,7 @@ use Symfony\Component\Process\Process;
  */
 #[AsCommand(
     name: 'app:basex:create-db',
-    description: 'Create BaseX databases from HGV_meta_EpiDoc and DDB_EpiDoc_XML sources'
+    description: 'Create BaseX databases from HGV_meta_EpiDoc and DDbDP sources'
 )]
 class BaseXCreateDatabaseCommand extends Command
 {
@@ -64,7 +64,7 @@ class BaseXCreateDatabaseCommand extends Command
         // Resolve idp.data path
         $idpDataPath = $input->getArgument('idp-data-path');
         if (!$idpDataPath) {
-            $idpDataPath = $_ENV['IDP_DATA_PATH'] ?? 'ipd.data';
+            $idpDataPath = $_ENV['IDP_DATA_PATH'] ?? 'idp.data';
         }
         if (!str_starts_with($idpDataPath, '/')) {
             $idpDataPath = $this->projectDir . '/' . $idpDataPath;
@@ -113,9 +113,9 @@ class BaseXCreateDatabaseCommand extends Command
 
         // Create DDB database
         if (!$onlyDb || $onlyDb === 'ddb') {
-            $ddbDir = $idpDataPath . '/DDB_EpiDoc_XML';
+            $ddbDir = $idpDataPath . '/DDbDP';
             if (!is_dir($ddbDir)) {
-                $io->error("DDB_EpiDoc_XML directory not found at: $ddbDir");
+                $io->error("DDbDP directory not found at: $ddbDir");
                 return Command::FAILURE;
             }
 

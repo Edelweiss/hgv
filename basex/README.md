@@ -6,7 +6,7 @@ Aquila papyrological database application.
 ## Databases
 
 - **hgv** – HGV_meta_EpiDoc XML files (metadata about papyri)
-- **ddb** – DDB_EpiDoc_XML files (papyri text editions)
+- **ddb** – DDbDP files (papyri text editions)
 
 ## Cross-referencing
 

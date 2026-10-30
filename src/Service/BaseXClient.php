@@ -8,7 +8,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  * Client for BaseX REST API.
  *
  * Provides query execution and document retrieval against BaseX databases
- * holding HGV_meta_EpiDoc and DDB_EpiDoc_XML data.
+ * holding HGV_meta_EpiDoc and DDbDP data.
  */
 class BaseXClient
 {

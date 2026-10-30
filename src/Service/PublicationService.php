@@ -5,7 +5,7 @@ namespace App\Service;
 use App\Dto\Publication;
 
 /**
- * Service that builds publication browse lists from DDB_EpiDoc_XML files.
+ * Service that builds publication browse lists from DDbDP TEI files.
  *
  * It distinguishes stubs (files with reprint-in references) from full files.
  * Stub entries are shown as "SOURCE -> TARGET" and resolve to TARGET records.
@@ -13,6 +13,7 @@ use App\Dto\Publication;
 class PublicationService
 {
     private const TEI_NS = 'http://www.tei-c.org/ns/1.0';
+    private const INDEX_VERSION = 2;
 
     /** @var array<string,mixed>|null */
     private ?array $index = null;
@@ -20,6 +21,7 @@ class PublicationService
     private string $cacheFile;
     private string $ddbRoot;
     private string $hgvRoot;
+    private string $historicalRoot;
     private string $rdfCollectionFile;
 
     public function __construct()
@@ -27,6 +29,7 @@ class PublicationService
         $paths = $this->resolveDataPaths();
         $this->ddbRoot = $paths['ddbRoot'];
         $this->hgvRoot = $paths['hgvRoot'];
+        $this->historicalRoot = $paths['historicalRoot'];
         $this->rdfCollectionFile = $paths['rdfCollectionFile'];
         $this->cacheFile = dirname(__DIR__, 2) . '/var/cache/publication_index.json';
     }
@@ -90,7 +93,7 @@ class PublicationService
         return $index['idsByTriple'][$key] ?? [];
     }
 
-    /** @return array{ddbRoot:string,hgvRoot:string,rdfCollectionFile:string} */
+    /** @return array{ddbRoot:string,hgvRoot:string,historicalRoot:string,rdfCollectionFile:string} */
     private function resolveDataPaths(): array
     {
         $projectDir = dirname(__DIR__, 2);
@@ -116,27 +119,22 @@ class PublicationService
             ];
 
             foreach ($roots as $root) {
-                $ddbRoot = '';
-                foreach (['DDB_EpiDoc_XML', 'DDbDP'] as $ddbDirName) {
-                    $candidate = $root . '/' . $ddbDirName;
-                    if (is_dir($candidate)) {
-                        $ddbRoot = $candidate;
-                        break;
-                    }
-                }
+                $ddbRoot = $root . '/DDbDP';
                 $hgvRoot = $root . '/HGV_meta_EpiDoc';
+                $historicalRoot = $root . '/Historical';
                 $rdfFile = $root . '/RDF/collection.rdf';
-                if ($ddbRoot !== '') {
+                if (is_dir($ddbRoot)) {
                     return [
                         'ddbRoot' => $ddbRoot,
                         'hgvRoot' => is_dir($hgvRoot) ? $hgvRoot : '',
+                        'historicalRoot' => is_dir($historicalRoot) ? $historicalRoot : '',
                         'rdfCollectionFile' => is_file($rdfFile) ? $rdfFile : '',
                     ];
                 }
             }
         }
 
-        return ['ddbRoot' => '', 'hgvRoot' => '', 'rdfCollectionFile' => ''];
+        return ['ddbRoot' => '', 'hgvRoot' => '', 'historicalRoot' => '', 'rdfCollectionFile' => ''];
     }
 
     /** @return array<string,mixed> */
@@ -147,7 +145,7 @@ class PublicationService
         }
 
         if ($this->ddbRoot === '' || !is_dir($this->ddbRoot)) {
-            $this->index = ['volumes' => [], 'numbersByVolume' => [], 'idsByTriple' => []];
+            $this->index = ['version' => self::INDEX_VERSION, 'volumes' => [], 'numbersByVolume' => [], 'idsByTriple' => []];
             return $this->index;
         }
 
@@ -155,7 +153,11 @@ class PublicationService
         if (is_file($this->cacheFile) && (time() - filemtime($this->cacheFile) < $cacheTtlSeconds)) {
             $json = file_get_contents($this->cacheFile);
             $cached = json_decode((string)$json, true);
-            if (is_array($cached) && isset($cached['volumes'], $cached['numbersByVolume'], $cached['idsByTriple'])) {
+            if (
+                is_array($cached)
+                && ($cached['version'] ?? null) === self::INDEX_VERSION
+                && isset($cached['volumes'], $cached['numbersByVolume'], $cached['idsByTriple'])
+            ) {
                 $this->index = $cached;
                 return $this->index;
             }
@@ -216,6 +218,8 @@ class PublicationService
                 'isStub' => $parsed['stubTarget'] !== null,
             ];
         }
+
+        $this->mergeHistoricalReprintEntries($rawEntries, $prettyHints);
 
         $numbersByVolume = [];
         $seenEntry = [];
@@ -300,6 +304,7 @@ class PublicationService
         }
 
         $this->index = [
+            'version' => self::INDEX_VERSION,
             'volumes' => $volumes,
             'numbersByVolume' => $numbersByVolume,
             'idsByTriple' => $idsByTriple,
@@ -310,7 +315,13 @@ class PublicationService
     }
 
     /**
-     * @return array{tuple: array{0:string,1:string,2:string}, hgvId:string, stubTarget: array{0:string,1:string,2:string}|null, prettyHints: array<string,string>}|null
+     * @return array{
+     *   tuple: array{0:string,1:string,2:string},
+     *   hgvId:string,
+     *   stubTarget: array{0:string,1:string,2:string}|null,
+     *   reprintFromTuples: array<int,array{0:string,1:string,2:string}>,
+     *   prettyHints: array<string,string>
+     * }|null
      */
     private function parseDdbFile(string $filePath): ?array
     {
@@ -330,6 +341,7 @@ class PublicationService
 
         $prettyHints = [];
         $stubTarget = null;
+        $reprintFromTuples = [];
 
         $stubRefs = $xml->xpath("//tei:text/tei:body/tei:head//tei:ref[@type='reprint-in']");
         if (is_array($stubRefs) && !empty($stubRefs)) {
@@ -351,10 +363,7 @@ class PublicationService
                 if ($fromTuple === null) {
                     continue;
                 }
-                $label = $this->normalizePrettyLabel((string)$ref);
-                if ($label !== '') {
-                    $prettyHints[$this->tupleKey($fromTuple)] = $label;
-                }
+                $reprintFromTuples[] = $fromTuple;
             }
         }
 
@@ -362,8 +371,65 @@ class PublicationService
             'tuple' => $tuple,
             'hgvId' => $hgvId,
             'stubTarget' => $stubTarget,
+            'reprintFromTuples' => $reprintFromTuples,
             'prettyHints' => $prettyHints,
         ];
+    }
+
+    /**
+     * Add alias entries based on Historical reprint metadata.
+     *
+     * DDbDP no longer contains all legacy reprint links; Historical still does.
+     * For each Historical file, every reprint-from tuple is mapped to the
+     * current canonical target (first reprint-in, otherwise the file's own tuple).
+     *
+     * @param array<int,array{
+     *   series:string,volume:string,number:string,
+     *   targetSeries:string,targetVolume:string,targetNumber:string,
+     *   isStub:bool
+     * }> $rawEntries
+     * @param array<string,string> $prettyHints
+     */
+    private function mergeHistoricalReprintEntries(array &$rawEntries, array &$prettyHints): void
+    {
+        if ($this->historicalRoot === '' || !is_dir($this->historicalRoot)) {
+            return;
+        }
+
+        $it = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator($this->historicalRoot, \FilesystemIterator::SKIP_DOTS)
+        );
+
+        foreach ($it as $file) {
+            if (!$file instanceof \SplFileInfo || !$file->isFile() || strtolower($file->getExtension()) !== 'xml') {
+                continue;
+            }
+
+            $parsed = $this->parseDdbFile($file->getPathname());
+            if ($parsed === null) {
+                continue;
+            }
+
+            foreach ($parsed['prettyHints'] as $tupleKey => $label) {
+                if ($label !== '') {
+                    $prettyHints[$tupleKey] = $label;
+                }
+            }
+
+            $targetTuple = $parsed['stubTarget'] ?? $parsed['tuple'];
+
+            foreach ($parsed['reprintFromTuples'] as $fromTuple) {
+                $rawEntries[] = [
+                    'series' => $fromTuple[0],
+                    'volume' => $fromTuple[1],
+                    'number' => $fromTuple[2],
+                    'targetSeries' => $targetTuple[0],
+                    'targetVolume' => $targetTuple[1],
+                    'targetNumber' => $targetTuple[2],
+                    'isStub' => true,
+                ];
+            }
+        }
     }
 
     /** @return array<string,string> */
@@ -451,7 +517,7 @@ class PublicationService
         }
 
         $seriesKey = strtolower($tuple[0]);
-        $seriesLabel = $seriesPrettyMap[$seriesKey] ?? $tuple[0];
+        $seriesLabel = $seriesPrettyMap[$seriesKey] ?? $this->formatSeriesToken($tuple[0]);
         $volume = $this->prettifyToken($tuple[1]);
         $number = $this->prettifyToken($tuple[2]);
 
@@ -514,6 +580,24 @@ class PublicationService
         $token = preg_replace_callback('/\b([vr])\b/', fn(array $m): string => strtoupper($m[1]), $token) ?? $token;
 
         return trim($token);
+    }
+
+    private function formatSeriesToken(string $series): string
+    {
+        $parts = array_values(array_filter(explode('.', trim($series)), fn(string $part): bool => $part !== ''));
+        if (empty($parts)) {
+            return trim($series);
+        }
+
+        $formatted = array_map(static function (string $part): string {
+            if (preg_match('/^[a-z]{1,4}$/i', $part)) {
+                return strtoupper($part);
+            }
+
+            return ucfirst(strtolower($part));
+        }, $parts);
+
+        return implode('.', $formatted);
     }
 
     private function toRoman(int $n): string

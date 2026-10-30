@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 #
-# setup.sh – Create and index BaseX databases for HGV and DDB EpiDoc XML
+# setup.sh – Create and index BaseX databases for HGV and DDbDP TEI XML
 #
 # Usage:
 #   bash basex/setup.sh [/path/to/idp.data]
 #
 # The script expects the idp.data directory as first argument, or falls back
 # to the IDP_DATA_PATH from the .env / .env.local files, or finally tries
-# the default relative path  ipd.data/  inside the project root.
+# the default relative path  idp.data/  inside the project root.
 
 set -euo pipefail
 
@@ -28,7 +28,7 @@ else
 fi
 
 HGV_DIR="$IDP_DATA/HGV_meta_EpiDoc"
-DDB_DIR="$IDP_DATA/DDB_EpiDoc_XML"
+DDB_DIR="$IDP_DATA/DDbDP"
 
 # ── sanity checks ───────────────────────────────────────────────────
 if [[ ! -d "$HGV_DIR" ]]; then
@@ -36,7 +36,7 @@ if [[ ! -d "$HGV_DIR" ]]; then
     exit 1
 fi
 if [[ ! -d "$DDB_DIR" ]]; then
-    echo "ERROR: DDB_EpiDoc_XML directory not found at $DDB_DIR" >&2
+    echo "ERROR: DDbDP directory not found at $DDB_DIR" >&2
     exit 1
 fi
 
@@ -62,7 +62,7 @@ echo "Database 'hgv' created."
 echo ""
 
 # ── create DDB database ─────────────────────────────────────────────
-echo "Creating database 'ddb' from DDB_EpiDoc_XML ..."
+echo "Creating database 'ddb' from DDbDP ..."
 basex -c "
   SET INTPARSE true
   SET DTD false

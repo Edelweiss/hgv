@@ -264,7 +264,7 @@ Trade-off accepted: BaseX must be running for the app to serve anything.
 | Database | Source | Size | Purpose |
 |---|---|---|---|
 | `hgv` | `idp.data/HGV_meta_EpiDoc/` | ≈ 66 000 docs | Metadata (TEI) — drives search, browse, datasheet |
-| `ddb` | `idp.data/DDB_EpiDoc_XML/` | ≈ 70 000 docs | Edition text (TEI) — rendered in the dashboard zone |
+| `ddb` | `idp.data/DDbDP/` | ≈ 70 000 docs | Edition text (TEI) — rendered in the dashboard zone |
 | `keywords` | `data/keywords.csv` | ≈ 4 200 entries | de → fr/en/es/it translations of the HGV keyword vocabulary |
 
 All three are built by **one command**:
