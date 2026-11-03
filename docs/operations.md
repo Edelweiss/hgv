@@ -379,7 +379,15 @@ TM-based 1000-block directory layout.
 - **Size:** ~10 MB
 - **TTL:** **24 hours** (hard-coded). When older than that, the next incoming
   request rebuilds it; the rebuild scan takes ~30 s on a warm filesystem.
-- **There is no CLI command** to rebuild it. To force a fresh build:
+- For proactive rebuilds (recommended on slower servers), use:
+
+  ```bash
+  bin/console app:publication:warmup-cache
+  # or force a clean rebuild
+  bin/console app:publication:warmup-cache --force
+  ```
+
+- If you still prefer manual invalidation:
 
   ```bash
   rm var/cache/publication_index.json

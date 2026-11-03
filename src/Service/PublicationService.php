@@ -93,6 +93,33 @@ class PublicationService
         return $index['idsByTriple'][$key] ?? [];
     }
 
+    /**
+     * Build (or rebuild) the publication cache in CLI context.
+     *
+     * @return array{durationMs:int,volumes:int,numbersByVolume:int,idsByTriple:int,cacheFile:string,cacheSize:int}
+     */
+    public function warmCache(bool $forceRebuild = false): array
+    {
+        if ($forceRebuild && is_file($this->cacheFile)) {
+            @unlink($this->cacheFile);
+        }
+
+        $this->index = null;
+        $startedAt = microtime(true);
+        $index = $this->loadIndex();
+
+        $cacheSize = is_file($this->cacheFile) ? (int)(filesize($this->cacheFile) ?: 0) : 0;
+
+        return [
+            'durationMs' => (int)round((microtime(true) - $startedAt) * 1000),
+            'volumes' => count($index['volumes'] ?? []),
+            'numbersByVolume' => count($index['numbersByVolume'] ?? []),
+            'idsByTriple' => count($index['idsByTriple'] ?? []),
+            'cacheFile' => $this->cacheFile,
+            'cacheSize' => $cacheSize,
+        ];
+    }
+
     /** @return array{ddbRoot:string,hgvRoot:string,historicalRoot:string,rdfCollectionFile:string} */
     private function resolveDataPaths(): array
     {
