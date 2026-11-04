@@ -39,6 +39,8 @@ class PublicationWarmupCacheCommand extends Command
         $io->text('Building publication index from DDbDP (+ Historical reprint aliases)…');
 
         $stats = $this->publicationService->warmCache((bool)$input->getOption('force'));
+        $durationSeconds = $stats['durationMs'] / 1000;
+        $durationHuman = sprintf('%dm %02ds', (int)floor($durationSeconds / 60), (int)round($durationSeconds % 60));
 
         $io->definitionList(
             ['Cache file' => $stats['cacheFile']],
@@ -46,7 +48,8 @@ class PublicationWarmupCacheCommand extends Command
             ['Volumes' => (string)$stats['volumes']],
             ['numbersByVolume keys' => (string)$stats['numbersByVolume']],
             ['idsByTriple keys' => (string)$stats['idsByTriple']],
-            ['Duration (ms)' => (string)$stats['durationMs']]
+            ['Duration (ms)' => (string)$stats['durationMs']],
+            ['Duration (human)' => $durationHuman]
         );
 
         if ($stats['volumes'] === 0) {
@@ -58,4 +61,3 @@ class PublicationWarmupCacheCommand extends Command
         return Command::SUCCESS;
     }
 }
-
