@@ -1,0 +1,955 @@
+category,origin,de,fr,en,es,it
+,de,Abgabe,Livraison,Delivery,Entrega,Consegna
+,de,Abgaben,Livraisons,Deliveries,Entregas,Consegne
+,de,Ablieferung von Wein,Livraison de vin,Delivery of wine,Entrega de vino,Consegna di vino
+type,de,Abrechnung,Décompte,Settlement,Liquidación,Conteggio
+type,de,Abrechnungen,Décomptes,Settlements,Liquidaciones,Conteggi
+,de,Abrechung,Décompte,Settlement,Liquidación,Conteggio
+,de,Abschrift,Copie,Copy,Copia,Copia
+,de,Abschriften,Copies,Copies,Copias,Copie
+,de,Abschriften von Briefen (amtlich),Copies de lettres (officielles),Copies of letters (official),Copias de cartas (oficiales),Copie di lettere (ufficiali)
+,de,Abtretung,Cession,Assignment,Cesión,Cessione
+,de,Achse,Axe,Axis,Eje,Asse
+,de,Addition,Addition,Addition,Adición,Addizione
+,de,Adresse,Adresse,Address,Dirección,Indirizzo
+,de,Afterpacht,Sous-bail,Sublease,Subarriendo,Subaffitto
+,de,Agriculteur,Agriculteur,Farmer,Agricultor,Agricoltore
+type,de,Akte,Dossier,File,Expediente,Fascicolo
+type,de,Akten,Dossiers,Files,Expedientes,Fascicoli
+,de,Alexandria,Alexandrie,Alexandria,Alejandría,Alessandria
+,de,Alimentation,Alimentation,Alimony,Alimentos,Alimenti
+,de,Alphabet,Alphabet,Alphabet,Alfabeto,Alfabeto
+,de,alphabetisch,alphabétique,alphabetical,alfabético,alfabetico
+,de,Alter,Âge,Age,Edad,Età
+,de,Alypios an Heroninos,Alypios à Héroninos,Alypios to Heroninus,Alypios a Heronino,Alypios a Heroninos
+,de,Amir,Amir,Amir,Amir,Amir
+,de,Amme,Nourrice,Nurse,Nodriza,Nutrice
+,de,Ammon,Ammon,Ammon,Ammón,Ammon
+,de,Amt,Charge,Office,Cargo,Carica
+type,de,amtlich,officiel,official,oficial,ufficiale
+,de,Amtsmißbrauch,Abus de pouvoir,Abuse of office,Abuso de poder,Abuso d'ufficio
+,de,Amulett,Amulette,Amulet,Amuleto,Amuleto
+,de,Amyntas an Zenon,Amyntas à Zénon,Amyntas to Zeno,Amintas a Zenón,Amyntas a Zenone
+,de,Anachoresis,Anachorèse,Anachoresis,Anacoresis,Anacoresi
+,de,Anachoret,Anachorète,Anachoret,Anacoreta,Anacoreta
+,de,Anagraphe,Anagraphè,Anagraphe,Anagraphe,Anagraphe
+,de,andrismos,andrismos,andrismos,andrismos,andrismos
+,de,Anerkenntnis,Reconnaissance,Acknowledgement,Reconocimiento,Riconoscimento
+,de,Anfang,Début,Beginning,Comienzo,Inizio
+,de,Anfrage,Demande,Inquiry,Consulta,Richiesta
+type,de,Angebot,Offre,Offer,Oferta,Offerta
+,de,Angriff,Attaque,Attack,Ataque,Attacco
+,de,Anklage,Accusation,Accusation,Acusación,Accusa
+,de,Ankunft,Arrivée,Arrival,Llegada,Arrivo
+,de,Anmeldung,Inscription,Registration,Inscripción,Iscrizione
+,de,annona,annona,annona,annona,annona
+,de,annona civica,annona civica,annona civica,annona civica,annona civica
+,de,annona militaris,annona militaris,annona militaris,annona militaris,annona militaris
+type,de,Anordnung,Ordre,Order,Orden,Ordinanza
+,de,Antichrese,Antichrèse,Antichrese,Anticresis,Anticresi
+,de,Antigrapheus,Antigrapheus,Antigrapheus,Antigrapheus,Antigrapheus
+type,de,Antrag,Demande,Application,Solicitud,Domanda
+,de,"Antrag (Kauf, Land, Staat)","Demande (achat, terre, État)","Application (purchase, land, state)","Solicitud (compra, tierra, Estado)","Domanda (acquisto, terra, Stato)"
+,de,Antwort,Réponse,Answer,Respuesta,Risposta
+type,de,Anweisung,Instruction,Instruction,Instrucción,Istruzione
+,de,Anweisung (Theon an den Ölmüller Sambas),Instruction (Théon au meunier d'huile Sambas),Instruction (Theon to the oil miller Sambas),Instrucción (Teón al molinero de aceite Sambas),Istruzione (Teone al frantoiano Sambas)
+type,de,Anweisungen,Instructions,Instructions,Instrucciones,Istruzioni
+,de,"Anzahl von Rollen (Garn?, Stoff?)","Nombre de rouleaux (fil?, étoffe?)","Number of rolls (Yarn?, Fabric?)","Número de rollos (hilo?, tejido?)","Numero di rotoli (filo?, tessuto?)"
+,de,Anzahlung,Acompte,Down payment,Pago inicial,Acconto
+type,de,Anzeige,Notification,Advertisement,Notificación,Notifica
+,de,Apa Iohannes,Apa Iohannes,Apa Iohannes,Apa Iohannes,Apa Iohannes
+,de,Aparche,Aparchè,Aparche,Aparche,Aparche
+,de,ape,ape,ape,ape,ape
+,de,Apographe,Apographè,Apographe,Apographe,Apographe
+,de,Apollonios an Zenon,Apollonios à Zénon,Apollonius to Zeno,Apolonio a Zenón,Apollonio a Zenone
+,de,Apomoira,Apomoira,Apomoira,Apomoira,Apomoira
+,de,Araber,Arabes,Arabs,Árabes,Arabi
+,de,Arakos,Arakos,Arakos,Arakos,Arakos
+,de,Arbeit,Travail,Work,Trabajo,Lavoro
+,de,Arbeiten,Travaux,Works,Trabajos,Lavori
+,de,Arbeiter,Ouvrier,Worker,Trabajador,Operaio
+,de,Archephodos,Archéphodos,Archephodos,Archephodos,Archephodos
+,de,Architekt,Architecte,Architect,Arquitecto,Architetto
+,de,Archiv,Archives,Archive,Archivo,Archivio
+,de,Archives de Frangé,Archives de Frangé,Archives de Frangé,Archivos de Frangé,Archivi di Frangé
+,de,Archonten,Archontes,Archontes,Arcontes,Arconti
+,de,Argent,Argent,Argent,Plata,Argento
+,de,Armee,Armée,Army,Ejército,Esercito
+,de,Artaben,Artabes,Artaben,Artabas,Artabe
+,de,Artemidoros an Zenon,Artémidoros à Zénon,Artemidorus to Zeno,Artemidoro a Zenón,Artemidoro a Zenone
+,de,Aruren,Aroures,Arurai,Aruras,Arure
+,de,Arzt,Médecin,Physician,Médico,Medico
+,de,Asyl,Asile,Asylum,Asilo,Asilo
+,de,Aufforderung,Sommation,Request,Requerimiento,Sollecito
+type,de,Aufschrift,Inscription,Inscription,Inscripción,Iscrizione
+,de,Aufschrift auf Gefäßrest,Inscription sur fragment de récipient,Inscription on vessel fragment,Inscripción sobre fragmento de vasija,Iscrizione su frammento di vaso
+,de,Aufschrift auf Gefäßverschluß,Inscription sur bouchon de récipient,Inscription on vessel stopper,Inscripción sobre tapón de vasija,Iscrizione su tappo di vaso
+type,de,Aufstellung,État,Listing,Listado,Elenco
+,de,Aufteilung,Partage,Division,División,Divisione
+,de,Aufteilung des Besitzes,Partage des biens,Division of property,División de los bienes,Divisione dei beni
+type,de,Auftrag,Commission,Commission,Encargo,Incarico
+,de,Aufträge,Commissions,Commissions,Encargos,Incarichi
+,de,Aufwendungen,Dépenses,Expenditures,Gastos,Spese
+,de,Ausbildung,Formation,Education,Formación,Formazione
+,de,Ausfuhr,Exportation,Export,Exportación,Esportazione
+,de,Ausgabe,Délivrance,Issuance,Emisión,Erogazione
+,de,Ausgabe von Beuteln,Délivrance de sacs,Issuance of bags,Entrega de bolsas,Erogazione di sacchetti
+,de,Ausgabe von Wein,Délivrance de vin,Issuance of wine,Entrega de vino,Erogazione di vino
+,de,Ausgabe von Werkzeug,Délivrance d'outil,Issuance of Tool,Entrega de herramienta,Erogazione di utensili
+,de,Ausgaben,Dépenses,Expenditures,Gastos,Spese
+,de,Ausrüstung,Équipement,Equipment,Equipo,Equipaggiamento
+commodity,de,Aussaat,Semailles,Sowing,Siembra,Semina
+,de,Aussage,Déclaration,Statement,Declaración,Dichiarazione
+,de,Auszahlung,Paiement,Payment,Pago,Pagamento
+,de,Auszug,Extrait,Extract,Extracto,Estratto
+,de,Auszüge,Extraits,Extracts,Extractos,Estratti
+,de,Bäcker,Boulanger,Baker,Panadero,Fornaio
+,de,Bäckerei,Boulangerie,Bakery,Panadería,Panificio
+,de,Bad,Bain,Bath,Baño,Bagno
+,de,Bäder,Bains,Baths,Baños,Bagni
+,de,Badesteuer,Impôt sur les bains,Bath tax,Impuesto sobre los baños,Tassa sui bagni
+,de,Bandelettes,Bandelettes,Bandelettes,Vendas,Bende
+,de,Bank,Banque,Bank,Banco,Banca
+,de,Bankier,Banquier,Banker,Banquero,Banchiere
+,de,Bau,Construction,Construction,Construcción,Costruzione
+,de,Bauarbeiten,Travaux de construction,Construction work,Obras de construcción,Lavori di costruzione
+,de,Bauer,Paysan,Farmer,Campesino,Contadino
+,de,Bauern,Paysans,Farmers,Campesinos,Contadini
+,de,Bauland,Terrain à bâtir,Building land,Solar,Terreno edificabile
+,de,Baum,Arbre,Tree,Árbol,Albero
+,de,Baumaterial,Matériau de construction,Building material,Material de construcción,Materiale da costruzione
+,de,Bäume,Arbres,Trees,Árboles,Alberi
+,de,Baumwolle,Coton,Cotton,Algodón,Cotone
+official,de,Beamte,Fonctionnaires,Officials,Funcionarios,Funzionari
+,de,Beamter,Fonctionnaire,Civil servants,Funcionario,Funzionario
+,de,Bearbeitung,Traitement,Processing,Procesamiento,Trattamento
+,de,Bebauung,Mise en culture,Development,Cultivo,Coltivazione
+,de,Bedienstete,Personnel,Employees,Empleados,Personale
+,de,Befehl,Ordre,Order,Orden,Ordine
+,de,Befreiung,Exemption,Exemption,Exención,Esenzione
+,de,Begleitbrief,Lettre d'accompagnement,Accompanying letter,Carta de acompañamiento,Lettera d'accompagnamento
+,de,Begleitschreiben,Lettre d'accompagnement,Cover letter,Carta de presentación,Lettera di accompagnamento
+,de,Beleg,Reçu,Receipt,Recibo,Ricevuta
+,de,Berechnung,Calcul,Calculation,Cálculo,Calcolo
+,de,Berechnungen,Calculs,Calculations,Cálculos,Calcoli
+,de,Bereitstellung,Mise à disposition,Provision,Provisión,Fornitura
+type,de,Bericht,Rapport,Report,Informe,Rapporto
+,de,Beruf,Profession,Profession,Profesión,Professione
+,de,Berufe,Professions,Professions,Profesiones,Professioni
+,de,Berufsgruppen,Catégories professionnelles,Occupational groups,Grupos profesionales,Categorie professionali
+type,de,Bescheinigung,Reçu,Certificate,Certificado,Certificato
+,de,Beschlagnahme,Saisie,Seizure,Confiscación,Sequestro
+,de,Beschreibung,Description,Description,Descripción,Descrizione
+,de,Beschwerde,Plainte,Complaint,Queja,Reclamo
+,de,Besitz,Propriété,Possession,Posesión,Possesso
+,de,Besitzer,Propriétaire,Owner,Propietario,Proprietario
+,de,Bestand,Inventaire,Inventory,Inventario,Inventario
+type,de,Bestätigung,Confirmation,Confirmation,Confirmación,Conferma
+,de,Bestattung,Funérailles,Burial,Entierro,Sepoltura
+,de,Bestellung,Commande,Order,Pedido,Ordine
+,de,Bestimmungsort,Destination,Destination,Destino,Destinazione
+,de,Besuch,Visite,Visit,Visita,Visita
+,de,Besucher,Visiteur,Visitor,Visitante,Visitatore
+,de,Beträge,Montants,Amounts,Importes,Importi
+,de,Betrug,Fraude,Fraud,Fraude,Frode
+,de,Bewachung,Garde,Guarding,Vigilancia,Sorveglianza
+,de,Bewässerung,Irrigation,Irrigation,Irrigación,Irrigazione
+,de,Bezahlung,Paiement,Payment,Pago,Pagamento
+commodity,de,Bier,Bière,Beer,Cerveza,Birra
+,de,Billet,Billet,Bill,Boleto,Biglietto
+,de,Bischof,Évêque,Bishop,Obispo,Vescovo
+,de,Bitte,Demande,Request,Petición,Richiesta
+,de,Bitte um Antwort,Demande de réponse,Request a reply,Solicitud de respuesta,Richiesta di risposta
+,de,Bitte um Hilfe,Demande d'aide,Request for Help,Solicitud de ayuda,Richiesta di aiuto
+type,de,Bittschrift,Pétition,Petition,Petición,Petizione
+commodity,de,Blé,Blé,Blé,Trigo,Grano
+,de,Blei,Plomb,Lead,Plomo,Piombo
+,de,Boden,Sol,Soil,Suelo,Suolo
+,de,Bohnen,Fèves,Beans,Habas,Fave
+,de,Boot,Bateau,Boat,Bote,Barca
+type,de,Brief,Lettre,Letter,Carta,Lettera
+,de,Briefe,Lettres,Letters,Cartas,Lettere
+,de,Briefträger,Facteur,Postman,Cartero,Postino
+commodity,de,Brot,Pain,Bread,Pan,Pane
+,de,Brote,Pains,Loaves of bread,Hogazas,Pagnotte
+,de,Brunnen,Puits,Well,Pozo,Pozzo
+,de,Buch,Livre,Book,Libro,Libro
+,de,Bücher,Livres,Books,Libros,Libri
+,de,Buchstaben,Lettres,Letters,Letras,Lettere
+,de,Bürge,Garant,Guarantee,Garante,Garante
+,de,Bürgen,Garants,Guarantees,Garantes,Garanti
+type,de,Bürgschaft,Caution,Guarantee,Fianza,Garanzia
+,de,Centurie,Centurie,Centurie,Centuria,Centuria
+,de,Chrematisten,Chrématistes,Chrematists,Crematistas,Chrematisti
+,de,christlich,chrétien,Christian,cristiano,cristiano
+,de,Damm,Digue,Dam,Presa,Diga
+type,de,Darlehen,Prêt en argent,Loan,Préstamo,Prestito
+,de,Daten,Données,Data,Datos,Dati
+,de,Datierung,Datation,Dating,Datación,Datazione
+commodity,de,Datteln,Dattes,Dates,Dátiles,Datteri
+,de,Datum,Date,Date,Fecha,Data
+,de,Dauer,Durée,Duration,Duración,Durata
+,de,Deich,Digue,Dike,Dique,Diga
+,de,Deicharbeiten,Travaux de digue,Dike work,Obras de dique,Lavori di diga
+,de,Deichsteuer,Impôt sur les digues,Dike tax,Impuesto sobre los diques,Tassa sulle dighe
+,de,dekania,dékania,Decania,decania,decania
+,de,Dekaproten,Décaprotes,Decaprotes,Decaprotos,Decaproti
+type,de,Deklaration,Déclaration,Declaration,Declaración,Dichiarazione
+,de,Demande d’envoi,Demande d’envoi,Request for delivery,Solicitud de envío,Richiesta di invio
+,de,Demande de rencontre,Demande de rencontre,Request for meeting,Solicitud de reunión,Richiesta di incontro
+,de,Demetrios an Zenon,Démétrios à Zénon,Demetrios to Zeno,Demetrio a Zenón,Demetrio a Zenone
+,de,demotisch,démotique,Demotic,demótico,demotico
+,de,demotische Verträge,contrats démotiques,Demotic contracts,contratos demóticos,contratti demotici
+,de,den Lagerort einer Lieferung festzustellen und zu bestätigen,établir et confirmer le lieu de stockage d'une livraison,to establish and confirm the location of a shipment,establecer y confirmar el lugar de almacenamiento de un envío,accertare e confermare il luogo di deposito di una consegna
+,de,der Eklogistes Zoilos an den Strategen Domittios Diosarapis alias Balbillos,de l'éclogiste Zoïlos au stratège Domittios Diosarapis alias Balbillos,of the eclogist Zoilos to the strategos Domittius Diosarapis alias Balbillus,del eclogista Zoilo al estratega Domicio Diosarapis alias Balbilo,dell'eclogista Zoilo al stratego Domizio Diosarapide detto Balbillo
+,de,des Dioiketen Septimius Arrianus,du dioecète Septimius Arrianus,of the Dioicetes Septimius Arrianus,del dioiketes Septimio Arriano,del dieceto Settimio Arriano
+,de,Diagraphe,Diagraphè,Diagraphe,Diagraphe,Diagraphe
+,de,diagraphon,diagraphon,Diagraphon,diagraphon,diagraphon
+,de,Diakon,Diacre,Deacon,Diácono,Diacono
+,de,Dialysis,Dialysis,Dialysis,Dialysis,Dialysis
+,de,Diebstahl,Vol,Theft,Robo,Furto
+,de,Dienst,Service,Service,Servicio,Servizio
+,de,Dienstweg,Voie hiérarchique,Channel,Vía jerárquica,Via gerarchica
+,de,Dioiket,Dioecète,Dioiket,Dioiketes,Dieceto
+,de,Dioiketes,Dioecète,Dioiketes,Dioiketes,Dieceto
+,de,Document,Document,Document,Documento,Documento
+type,de,Dokument,Document,Document,Documento,Documento
+,de,Dokumente,Documents,Documents,Documentos,Documenti
+,de,Domäne,Domaine,Domain,Dominio,Dominio
+,de,doppelte Ausfertigung,double exemplaire,Duplicate copy,doble ejemplar,doppia copia
+,de,Doppelurkunde,acte double,Duplicate deed,escritura doble,atto doppio
+,de,Dorf,Village,Village,Aldea,Villaggio
+,de,Dörfer,Villages,Villages,Aldeas,Villaggi
+,de,Dorfschreiber,Scribe de village,Village clerk,Escriba del pueblo,Scriba di villaggio
+,de,Dorfschreiber Petaus an den Strategen Apollonios,Scribe de village Pétaus au stratège Apollonios,Village clerk Petaus to the strategos Apollonius,Escriba del pueblo Petaus al estratega Apolonio,Scriba di villaggio Petaus al stratego Apollonio
+,de,Dorfvorsteher,Chef de village,Village leader,Jefe de aldea,Capovillaggio
+,de,Drachmen,Drachmes,Drachmas,Dracmas,Dracme
+,de,Drohung,Menace,Threat,Amenaza,Minaccia
+,de,Edikt,Édit,Edict,Edicto,Editto
+,de,Ehe,Mariage,Marriage,Matrimonio,Matrimonio
+,de,Eid,Serment,Oath,Juramento,Giuramento
+commodity,de,Eier,Œufs,Eggs,Huevos,Uova
+,de,Eigentum,Propriété,Property,Propiedad,Proprietà
+,de,Einbruch,Effraction,Burglary,Robo con allanamiento,Effrazione
+type,de,Eingabe,Requête,Petition,Instancia,Istanza
+,de,Eingabe an den Phrurarchen,Requête au phrourarque,Petition to the phrourarch,Instancia al frurarca,Istanza al frurarca
+,de,Eingabe an den Präfekten,Requête au préfet,Petition to the prefect,Instancia al prefecto,Istanza al prefetto
+type,de,Eingabe an den Strategen,Requête au stratège,Petition to the strategos,Instancia al estratega,Istanza al stratego
+,de,Eingaben,Requêtes,Petitions,Instancias,Istanze
+,de,Einkünfte,Revenus,Income,Ingresos,Entrate
+,de,Einladung,Invitation,Invitation,Invitación,Invito
+,de,Einnahme,Recette,Revenue,Ingreso,Entrata
+,de,Einnahmen,Recettes,Revenues,Ingresos,Entrate
+,de,Einnahmen und Ausgaben,Recettes et dépenses,Income and expenditure,Ingresos y gastos,Entrate e uscite
+,de,Einsatzort,Lieu d'affectation,Place of duty,Lugar de destino,Luogo di servizio
+,de,Eintragung,Inscription,Entry,Registro,Registrazione
+,de,Eintreibung,Recouvrement,Collection,Recaudación,Riscossione
+,de,Einwohner,Habitants,Inhabitants,Habitantes,Abitanti
+,de,Einziehung,Recouvrement,Collection,Recaudación,Riscossione
+,de,Eisen,Fer,Iron,Hierro,Ferro
+,de,Embole,Embolè,Embole,Embole,Embole
+,de,Empfang,Réception,Receipt,Recepción,Ricevimento
+,de,Empfang eines Ersatzteils einer Maschine (Bewässerung),Réception d'une pièce de rechange d'une machine (irrigation),Receipt of a spare part for a machine (irrigation),Recepción de una pieza de repuesto de una máquina (irrigación),Ricevimento di un pezzo di ricambio di una macchina (irrigazione)
+,de,Empfang von Wein,Réception de vin,Receipt of wine,Recepción de vino,Ricevimento di vino
+,de,Empfänger,Destinataire,Recipient,Destinatario,Destinatario
+type,de,Empfehlung,Recommandation,Recommendation,Recomendación,Raccomandazione
+,de,Empfehlungsschreiben,Lettre de recommandation,Letter of recommendation,Carta de recomendación,Lettera di raccomandazione
+,de,Ende,Fin,End,Fin,Fine
+,de,Entagion,Entagion,Entagion,Entagion,Entagion
+,de,Enteuxis,Enteuxis,Enteuxis,Enteuxis,Enteuxis
+,de,Entlassung,Licenciement,Dismissal,Despido,Licenziamento
+type,de,Entwurf,Brouillon,Draft,Borrador,Bozza
+,de,Envoi,Envoi,Shipment,Envío,Invio
+,de,epibole didrachmu,epibole didrachmu,epibole didrachmu,epibole didrachmu,epibole didrachmu
+type,de,Epikrisis,Épicrisis,Epicrisis,Epicrisis,Epicrisi
+,de,Episkepsis,Épiskepsis,Episkepsis,Episkepsis,Episkepsis
+,de,epistates phylakiton,epistates phylakiton,epistates phylakiton,epistates phylakiton,epistates phylakiton
+,de,Epistratege,Épistratège,Epistrategos,Epistratego,Epistratego
+,de,Erbe,Héritier,Heir,Heredero,Erede
+,de,Erben,Héritiers,Heirs,Herederos,Eredi
+,de,Erbschaft,Héritage,Inheritance,Herencia,Eredità
+,de,Erhalt,Réception,Receipt,Recepción,Ricevimento
+,de,Erhebung,Perception,Levy,Recaudación,Riscossione
+type,de,Erklärung,Déclaration,Declaration,Declaración,Dichiarazione
+,de,Erlaß,Édit,Decree,Decreto,Decreto
+,de,Erlaubnis,Permission,Permission,Permiso,Permesso
+,de,Ernennung,Nomination,Appointment,Nombramiento,Nomina
+,de,Ernte,Récolte,Harvest,Cosecha,Raccolto
+,de,Ertrag,Rendement,Yield,Rendimiento,Rendita
+commodity,de,Erven,Vesces,Vetches,Vezas,Vecce
+,de,Esel,Âne,Donkey,Burro,Asino
+,de,Eselin,Ânesse,She-donkey,Burra,Asina
+,de,Eseltreiber,Ânier,Donkey driver,Burrero,Asinaio
+,de,Essen,Repas,Food,Comida,Cibo
+,de,Essig,Vinaigre,Vinegar,Vinagre,Aceto
+,de,Exercice,Exercice,Exercise,Ejercicio,Esercizio
+,de,Exercice épistolaire,Exercice épistolaire,Epistolary exercise,Ejercicio epistolar,Esercizio epistolare
+,de,Familie,Famille,Family,Familia,Famiglia
+,de,Farben,Couleurs,Colours,Colores,Colori
+,de,Färber,Teinturier,Dyer,Tintorero,Tintore
+,de,Fässer,Tonneaux,Barrels,Barriles,Botti
+,de,Feld,Champ,Field,Campo,Campo
+,de,Feldfrüchte,Récoltes,Crops,Cultivos,Raccolti
+,de,Felle,Peaux,Hides,Pieles,Pelli
+,de,Femme,Femme,Woman,Mujer,Donna
+,de,Femmes,Femmes,Women,Mujeres,Donne
+,de,Ferkel,Porcelet,Piglet,Lechón,Maialino
+,de,Fest,Fête,Festival,Fiesta,Festa
+,de,Festnahme,Arrestation,Arrest,Detención,Arresto
+commodity,de,Fisch,Poisson,Fish,Pez,Pesce
+,de,Fische,Poissons,Fish,Peces,Pesci
+,de,Fischer,Pêcheur,Fisherman,Pescador,Pescatore
+,de,Fischerei,Pêche,Fishing,Pesca,Pesca
+,de,Fiskus,Fisc,Treasury,Fisco,Fisco
+commodity,de,Flachs,Lin,Flax,Lino,Lino
+commodity,de,Fleisch,Viande,Meat,Carne,Carne
+,de,Flotte,Flotte,Fleet,Flota,Flotta
+,de,Flucht,Fuite,Flight,Huida,Fuga
+,de,Flüchtlinge,Fugitifs,Fugitives,Fugitivos,Fuggiaschi
+,de,Fohlen,Poulain,Foal,Potro,Puledro
+,de,Forderung,Créance,Claim,Reclamación,Pretesa
+,de,Formeln,Formules,Formulas,Fórmulas,Formule
+,de,Fracht,Fret,Freight,Flete,Nolo
+,de,Frachtkosten,Frais de transport,Freight costs,Costes de transporte,Spese di trasporto
+,de,Frage,Question,Question,Pregunta,Domanda
+type,de,Fragment,Fragment,Fragment,Fragmento,Frammento
+,de,fragmentarisch,fragmentaire,fragmentary,fragmentario,frammentario
+type,de,Fragmente,Fragments,Fragments,Fragmentos,Frammenti
+,de,Frau,Femme,Woman,Mujer,Donna
+,de,Frauen,Femmes,Women,Mujeres,Donne
+,de,Freigelassener,Affranchi,Freedman,Liberto,Liberto
+,de,Freilassung,Affranchissement,Manumission,Manumisión,Manomissione
+,de,Frist,Délai,Deadline,Plazo,Termine
+,de,fünf Tage,cinq jours,five days,cinco días,cinque giorni
+commodity,de,Futter,Fourrage,Fodder,Forraje,Foraggio
+type,de,Garantie,Garantie,Guarantee,Garantía,Garanzia
+,de,Garten,Jardin,Garden,Jardín,Giardino
+,de,Gebäude,Bâtiment,Building,Edificio,Edificio
+,de,Gebet,Prière,Prayer,Oración,Preghiera
+,de,Gebühr,Taxe,Fee,Tasa,Tassa
+,de,Gebühren,Taxes,Fees,Tasas,Tasse
+,de,Geburt,Naissance,Birth,Nacimiento,Nascita
+,de,Geburtsdatum,Date de naissance,Date of birth,Fecha de nacimiento,Data di nascita
+,de,Gefangene,Prisonniers,Prisoners,Prisioneros,Prigionieri
+,de,Gefängnis,Prison,Prison,Prisión,Prigione
+,de,Gefäß,Récipient,Vessel,Recipiente,Recipiente
+,de,Gefäße,Récipients,Vessels,Recipientes,Recipienti
+,de,Geflügel,Volaille,Poultry,Aves de corral,Pollame
+,de,Gegenstände,Objets,Objects,Objetos,Oggetti
+,de,Gehalt,Salaire,Salary,Salario,Stipendio
+commodity,de,Geld,Argent,Money,Dinero,Denaro
+,de,Geldbetrag,Somme d'argent,Amount of money,Suma de dinero,Somma di denaro
+,de,Geldbeträge,Sommes d'argent,Amounts of money,Sumas de dinero,Somme di denaro
+commodity,de,Gemüse,Légumes,Vegetables,Verduras,Verdure
+,de,Gemüsesamen,Graines de légumes,Vegetable seeds,Semillas de verdura,Semi di verdura
+,de,geometria,geometria,geometria,geometria,geometria
+,de,Geräte,Outils,Tools,Herramientas,Attrezzi
+type,de,Gericht,Tribunal,Court,Tribunal,Tribunale
+commodity,de,Gerste,Orge,Barley,Cebada,Orzo
+,de,Geschäft,Affaire,Business,Negocio,Affare
+,de,Geschäfte,Affaires,Businesses,Negocios,Affari
+type,de,geschäftlich,commercial,business,comercial,commerciale
+,de,Geschäftliches,Affaires commerciales,Business matters,Asuntos comerciales,Questioni commerciali
+,de,Geschenke,Cadeaux,Gifts,Regalos,Regali
+,de,Gesetz,Loi,Law,Ley,Legge
+,de,Gestellung,Mise à disposition,Provision,Provisión,Messa a disposizione
+,de,Gesuch,Requête,Petition,Petición,Istanza
+,de,Gesundheit,Santé,Health,Salud,Salute
+commodity,de,Getreide,Céréales,Grain,Grano,Grano
+,de,Gewalt,Violence,Violence,Violencia,Violenza
+,de,Gewerbe,Métier,Trade,Oficio,Mestiere
+,de,Gewicht,Poids,Weight,Peso,Peso
+,de,Gilde,Corporation,Guild,Gremio,Corporazione
+,de,Giro - Überweisung von Weizen,Virement de blé,Transfer of wheat,Transferencia de trigo,Bonifico di grano
+,de,Gold,Or,Gold,Oro,Oro
+,de,Grabinschrift,Inscription funéraire,Tomb inscription,Inscripción funeraria,Iscrizione funeraria
+type,de,Graffito,Graffite,Graffito,Grafito,Graffito
+,de,Graffitto,Graffite,Graffito,Grafito,Graffito
+,de,Grapheion,Grapheion,Grapheion,Grapheion,Grapheion
+,de,Griechische Beischrift zu demotischer Urkunde,Souscription grecque à un document démotique,Greek subscription to demotic document,Suscripción griega a documento demótico,Sottoscrizione greca a documento demotico
+,de,griechische Unterschrift,signature grecque,Greek signature,firma griega,firma greca
+,de,griechisches Protokoll und Unterschrift,protocole et signature en grec,Greek protocol and signature,protocolo y firma en griego,protocollo e firma in greco
+,de,Grundbesitz,Propriété foncière,Landed property,Propiedad inmobiliaria,Proprietà fondiaria
+,de,Grundbuch,Cadastre,Land register,Catastro,Catasto
+,de,Grundbuchamt,Bureau du cadastre,Land registry office,Oficina catastral,Ufficio catastale
+,de,Grundstück,Terrain,Plot of land,Terreno,Terreno
+,de,Grundstücke,Terrains,Plots of land,Terrenos,Terreni
+commodity,de,Grünfutter,Fourrage vert,Green fodder,Forraje verde,Foraggio verde
+,de,Gruß,Salutation,Greeting,Saludo,Saluto
+,de,Grüße,Salutations,Greetings,Saludos,Saluti
+,de,Gut,Domaine,Estate,Finca,Tenuta
+,de,Gutachten,Expertise,Expert opinion,Dictamen,Perizia
+,de,Güter,Biens,Goods,Bienes,Beni
+,de,Gymnasion,Gymnase,Gymnasion,Gimnasio,Ginnasio
+,de,Gymnasium,Gymnase,Gymnasium,Gimnasio,Ginnasio
+,de,Hafen,Port,Harbour,Puerto,Porto
+,de,Haft,Détention,Custody,Detención,Detenzione
+,de,Handel,Commerce,Trade,Comercio,Commercio
+,de,Händler,Marchand,Merchant,Comerciante,Mercante
+,de,Handwerk,Artisanat,Craft,Artesanía,Artigianato
+,de,Handwerker,Artisan,Craftsman,Artesano,Artigiano
+,de,Haus,Maison,House,Casa,Casa
+,de,Häuser,Maisons,Houses,Casas,Case
+,de,Haushalt,Ménage,Household,Hogar,Famiglia
+,de,Haushalte,Ménages,Households,Hogares,Famiglie
+,de,Heer,Armée,Army,Ejército,Esercito
+,de,Heiligtum,Sanctuaire,Sanctuary,Santuario,Santuario
+,de,Heirat,Mariage,Marriage,Matrimonio,Matrimonio
+,de,Herkunft,Origine,Origin,Origen,Origine
+,de,Herstellung,Fabrication,Manufacture,Fabricación,Produzione
+commodity,de,Heu,Foin,Hay,Heno,Fieno
+,de,Hierokles an Zenon,Hiéroklès à Zénon,Hierokles to Zeno,Hierocles a Zenón,Ierocle a Zenone
+,de,Hilfe,Aide,Help,Ayuda,Aiuto
+,de,Hirte,Berger,Shepherd,Pastor,Pastore
+,de,Hirten,Bergers,Shepherds,Pastores,Pastori
+,de,Hochzeit,Mariage,Wedding,Boda,Nozze
+,de,Hof,Cour,Courtyard,Patio,Cortile
+commodity,de,Holz,Bois,Wood,Madera,Legno
+,de,Homologie,Homologie,Homology,Homología,Omologia
+commodity,de,Honig,Miel,Honey,Miel,Miele
+,de,Horion an Heroninos,Horion à Héroninos,Horion to Heroninus,Horion a Heronino,Horion a Heroninos
+,de,Horoskop,Horoscope,Horoscope,Horóscopo,Oroscopo
+,de,Huhn,Poule,Hen,Gallina,Gallina
+animals,de,Hühner,Poules,Hens,Gallinas,Galline
+commodity,de,Huile,Huile,Oil,Aceite,Olio
+,de,Hülsenfrüchte,Légumineuses,Legumes,Legumbres,Legumi
+,de,Hunger,Famine,Hunger,Hambre,Fame
+,de,Hypallagma,Hypallagma,Hypallagma,Hypallagma,Hypallagma
+,de,Hypodektes,Hypodektes,Hypodektes,Hypodektes,Hypodektes
+,de,Hypographe,Hypographè,Hypographe,Hypographe,Hypographe
+,de,Hypomnema,Hypomnema,Hypomnema,Hypomnema,Hypomnema
+,de,Hypothek,Hypothèque,Mortgage,Hipoteca,Ipoteca
+,de,Idioslogos,Idiologue,Idioslogos,Idiólogo,Idiologo
+,de,Immobilien,Biens immobiliers,Real estate,Bienes inmuebles,Beni immobili
+,de,Inhalt,Contenu,Content,Contenido,Contenuto
+,de,Inhalt unbestimmbar,Contenu indéterminable,Content indeterminable,Contenido indeterminable,Contenuto indeterminabile
+,de,Inschrift,Inscription,Inscription,Inscripción,Iscrizione
+,de,Inspektion,Inspection,Inspection,Inspección,Ispezione
+,de,Inventar,Inventaire,Inventory,Inventario,Inventario
+,de,Invocatio,Invocatio,Invocatio,Invocatio,Invocatio
+,de,Invokation,Invocation,Invocation,Invocación,Invocazione
+,de,Ischyras an Parabolos,Ischyras à Parabolos,Ischyras to Parabolos,Ischyras a Parabolos,Ischyras a Parabolos
+,de,Ischyrion an Heroninos,Ischyrion à Héroninos,Ischyrion to Heroninus,Ischyrion a Heronino,Ischyrion a Heroninos
+,de,Juden,Juifs,Jews,Judíos,Ebrei
+,de,Kaiser,Empereur,Emperor,Emperador,Imperatore
+,de,Kaisereid,Serment impérial,Imperial oath,Juramento imperial,Giuramento imperiale
+,de,Kalb,Veau,Calf,Ternero,Vitello
+,de,Kälber,Veaux,Calves,Terneros,Vitelli
+,de,Kalender,Calendrier,Calendar,Calendario,Calendario
+,de,Kamel,Chameau,Camel,Camello,Cammello
+,de,Kamele,Chameaux,Camels,Camellos,Cammelli
+,de,Kameltreiber,Chamelier,Camel driver,Camellero,Cammelliere
+,de,Kanal,Canal,Canal,Canal,Canale
+commodity,de,Käse,Fromage,Cheese,Queso,Formaggio
+,de,Kataster,Cadastre,Cadastre,Catastro,Catasto
+,de,Katöken,Catèques,Catoeci,Catecos,Catechi
+,de,Katökenland,Terre catécique,Catoecic land,Tierra cateca,Terra catechica
+type,de,Kauf,Achat,Purchase,Compra,Acquisto
+,de,Käufe,Achats,Purchases,Compras,Acquisti
+,de,Kaufpreis,Prix d'achat,Purchase price,Precio de compra,Prezzo d'acquisto
+,de,Kerkeosiris,Kerkéosiris,Kerkeosiris,Kerkeosiris,Kerkeosiris
+,de,Kind,Enfant,Child,Niño,Bambino
+,de,Kinder,Enfants,Children,Niños,Bambini
+,de,Kirche,Église,Church,Iglesia,Chiesa
+,de,Klage,Plainte,Complaint,Demanda,Querela
+,de,Klassifizierung,Classification,Classification,Clasificación,Classificazione
+,de,Klauseln,Clauses,Clauses,Cláusulas,Clausole
+,de,Kleider,Vêtements,Clothes,Ropa,Vestiti
+,de,Kleidung,Vêtement,Clothing,Vestimenta,Abbigliamento
+,de,Kleidungsstücke,Vêtements,Garments,Prendas de vestir,Capi di abbigliamento
+,de,Kleinvieh,Petit bétail,Small livestock,Ganado menor,Bestiame minuto
+,de,Kleros,Klèros,Kleros,Kleros,Kleros
+,de,Kleruche,Cléruque,Cleruch,Cleruco,Cleruco
+,de,Kleruchen,Cléruques,Cleruchs,Cleruchos,Cleruchi
+,de,Kloster,Monastère,Monastery,Monasterio,Monastero
+,de,Koch,Cuisinier,Cook,Cocinero,Cuoco
+,de,Kodex,Codex,Codex,Códice,Codice
+,de,Komarch,Comarque,Comarch,Comarca,Comarca
+,de,Komarchen,Comarques,Comarchs,Comarcas,Comarchi
+,de,Komogrammateus,Komogrammateus,Komogrammateus,Komogrammateus,Komogrammateus
+,de,Kompromiß,Compromis,Compromise,Compromiso,Compromesso
+,de,König,Roi,King,Rey,Re
+,de,königlich,royal,royal,real,regio
+,de,königlicher Schreiber,scribe royal,royal scribe,escriba real,scriba regio
+,de,Königsland,Terre royale,Royal land,Tierra real,Terra regia
+,de,Konto,Compte,Account,Cuenta,Conto
+,de,Kopfsteuer,Capitation,Poll tax,Capitación,Capitazione
+,de,Kopie,Copie,Copy,Copia,Copia
+,de,Kopien,Copies,Copies,Copias,Copie
+,de,koptisch,copte,Coptic,copto,copto
+,de,Korb,Panier,Basket,Cesta,Cesto
+commodity,de,Korn,Grain,Grain,Grano,Grano
+,de,Körperverletzung,Coups et blessures,Bodily injury,Lesiones,Lesioni personali
+type,de,Korrespondenz,Correspondance,Correspondence,Correspondencia,Corrispondenza
+,de,Korrespondenz (amtlich) des Dioiketen Septimius Arrianus,Correspondance (officielle) du dioecète Septimius Arrianus,Correspondence (official) of the Dioicetes Septimius Arrianus,Correspondencia (oficial) del dioiketes Septimio Arriano,Corrispondenza (ufficiale) del dieceto Settimio Arriano
+,de,Kosten,Frais,Costs,Costes,Spese
+,de,Kranke,Malades,Sick people,Enfermos,Malati
+,de,Krankheit,Maladie,Illness,Enfermedad,Malattia
+commodity,de,Kraut,Herbe,Herb,Hierba,Erba
+,de,Kredit,Crédit,Credit,Crédito,Credito
+,de,Krüge,Cruches,Jugs,Jarras,Brocche
+,de,Kult,Culte,Cult,Culto,Culto
+,de,Kündigung,Résiliation,Termination,Rescisión,Risoluzione
+,de,Kurrah ben Sharik an den Pagarchen Basileios,Kurrah ben Sharik au pagarque Basileios,Kurrah ben Sharik to the pagarch Basileios,Kurrah ben Sharik al pagarca Basileios,Kurrah ben Sharik al pagarca Basileio
+,de,Kyria - Klausel,Clause kyria,Kyria clause,Cláusula kyria,Clausola kyria
+,de,Ladung,Chargement,Cargo,Carga,Carico
+,de,Lage,Situation,Location,Ubicación,Situazione
+,de,Lagebeschreibung,Description du terrain,Description of location,Descripción del terreno,Descrizione del terreno
+commodity,de,Land,Terre,Land,Tierra,Terra
+,de,Landbesitz,Propriété foncière,Land ownership,Propiedad de la tierra,Proprietà fondiaria
+,de,Ländereien,Terres,Lands,Tierras,Terre
+,de,Landgut,Domaine,Estate,Hacienda,Tenuta
+,de,Landvermessungssteuer,Impôt d'arpentage,Land survey tax,Impuesto de mensura,Tassa di misurazione fondiaria
+,de,Landwirtschaft,Agriculture,Agriculture,Agricultura,Agricoltura
+,de,landwirtschaftliche Arbeiten,travaux agricoles,agricultural work,trabajos agrícolas,lavori agricoli
+,de,laographia,laographia,laographia,laographia,laographia
+,de,Lashane,Lashane,Lashane,Lashane,Lashane
+,de,Lebensmittel,Vivres,Foodstuffs,Víveres,Generi alimentari
+,de,Legion,Légion,Legion,Legión,Legione
+,de,Lehre,Apprentissage,Apprenticeship,Aprendizaje,Apprendistato
+,de,Leinen,Lin,Linen,Lino,Lino
+type,de,Lettre,Lettre,Letter,Carta,Lettera
+,de,Lettre de salutation,Lettre de salutation,Greeting letter,Carta de saludo,Lettera di saluto
+,de,Lettres de l’alphabet et mots épars,Lettres de l’alphabet et mots épars,Alphabet letters and scattered words,Letras del alfabeto y palabras dispersas,Lettere dell'alfabeto e parole sparse
+,de,Libellus,Libellus,Libellus,Libellus,Libellus
+type,de,Lieferung,Livraison,Delivery,Entrega,Consegna
+,de,Lieferung (Wasser?) an Steinbrüche,Livraison (d'eau?) aux carrières,Delivery (of water?) to quarries,Entrega (de agua?) a las canteras,Consegna (d'acqua?) alle cave
+,de,Lieferungen,Livraisons,Deliveries,Entregas,Consegne
+,de,Lieferungskauf,Vente à livrer,Forward sale,Compraventa con entrega futura,Vendita a consegna
+,de,Lin,Lin,Flax,Lino,Lino
+commodity,de,Linsen,Lentilles,Lentils,Lentejas,Lenticchie
+,de,Liquidationsgesuch,Demande de liquidation,Liquidation request,Solicitud de liquidación,Richiesta di liquidazione
+type,de,Liste,Liste,List,Lista,Lista
+,de,Listen,Listes,Lists,Listas,Liste
+,de,Litrai,Litrai,Litrai,Litrai,Litrai
+,de,Liturgen,Liturges,Liturgists,Liturgos,Liturghi
+type,de,Liturgie,Liturgie,Liturgy,Liturgia,Liturgia
+,de,Liturgien,Liturgies,Liturgies,Liturgias,Liturgie
+,de,Livre,Livre,Book,Libro,Libro
+,de,Logistes,Logistès,Logistes,Logista,Logista
+type,de,Lohn,Salaire,Wage,Salario,Salario
+,de,Lohnarbeit,Travail salarié,Wage labour,Trabajo asalariado,Lavoro salariato
+,de,Löhne,Salaires,Wages,Salarios,Salari
+,de,Lohnquittung,Quittance de salaire,Wage receipt,Recibo de salario,Ricevuta di salario
+,de,Magie,Magie,Magic,Magia,Magia
+,de,Mahnung,Rappel,Reminder,Recordatorio,Sollecito
+,de,Maladie,Maladie,Illness,Enfermedad,Malattia
+,de,Manichäisch,manichéen,Manichaean,maniqueo,manicheo
+,de,Mantel,Manteau,Cloak,Manto,Mantello
+,de,Maße,Mesures,Measures,Medidas,Misure
+,de,Material,Matériel,Material,Material,Materiale
+,de,Mathematik,Mathématiques,Mathematics,Matemáticas,Matematica
+,de,Matrosen,Marins,Sailors,Marineros,Marinai
+,de,Medizin,Médecine,Medicine,Medicina,Medicina
+,de,Mehl,Farine,Flour,Harina,Farina
+,de,Meldung,Déclaration,Report,Notificación,Comunicazione
+,de,Memorandum,Mémorandum,Memorandum,Memorándum,Memorandum
+,de,Menches,Menchès,Menches,Menches,Menches
+,de,Mengen,Quantités,Quantities,Cantidades,Quantità
+,de,merismos,merismos,merismos,merismos,merismos
+,de,Messung,Mesure,Measurement,Medición,Misurazione
+,de,Metallurgie,Métallurgie,Metallurgy,Metalurgia,Metallurgia
+type,de,Miete,Loyer,Rent,Alquiler,Affitto
+,de,Mietzins,Loyer,Rent,Alquiler,Canone d'affitto
+,de,Militär,Militaire,Military,Militar,Militare
+,de,Mißhandlung,Mauvais traitements,Ill-treatment,Maltrato,Maltrattamento
+,de,Mitgift,Dot,Dowry,Dote,Dote
+type,de,Mitteilung,Communication,Notification,Comunicación,Comunicazione
+,de,Möbel,Meubles,Furniture,Muebles,Mobili
+,de,Monat,Mois,Month,Mes,Mese
+,de,Monate,Mois,Months,Meses,Mesi
+,de,monatlich,mensuel,monthly,mensual,mensile
+,de,Monatsnamen,Noms de mois,Month names,Nombres de los meses,Nomi dei mesi
+,de,Mönch,Moine,Monk,Monje,Monaco
+,de,Mönche,Moines,Monks,Monjes,Monaci
+,de,Monopol,Monopole,Monopoly,Monopolio,Monopolio
+,de,Mord,Meurtre,Murder,Asesinato,Omicidio
+,de,Mühle,Moulin,Mill,Molino,Mulino
+,de,Müller,Meunier,Miller,Molinero,Mugnaio
+,de,Mumien (Ibis und Falken),Momies (ibis et faucons),Mummies (ibises and falcons),Momias (ibis y halcones),Mummie (ibis e falchi)
+type,de,Mumienetikett,Étiquette de momie,Mummy label,Etiqueta de momia,Etichetta di mummia
+type,de,Mumientäfelchen,Tablette de momie,Mummy tablet,Tablilla de momia,Tavoletta di mummia
+,de,Mumientikett,Étiquette de momie,Mummy label,Etiqueta de momia,Etichetta di mummia
+,de,N.N. an N.N.,N.N. à N.N.,N.N. to N.N.,N.N. a N.N.,N.N. a N.N.
+,de,Nachricht,Message,Message,Mensaje,Messaggio
+,de,Nachtwache,Garde de nuit,Night watch,Guardia nocturna,Guardia notturna
+,de,Nägel,Clous,Nails,Clavos,Chiodi
+,de,Nahrung,Nourriture,Food,Alimento,Cibo
+,de,Nahrungsmittel,Aliments,Foodstuffs,Alimentos,Alimenti
+,de,Name,Nom,Name,Nombre,Nome
+,de,Name und Vatersname,Nom et patronyme,Name and patronymic,Nombre y patronímico,Nome e patronimico
+,de,Namen,Noms,Names,Nombres,Nomi
+,de,Namen der Boten,Noms des messagers,Names of messengers,Nombres de los mensajeros,Nomi dei messaggeri
+,de,Namenliste,Liste de noms,List of names,Lista de nombres,Elenco di nomi
+commodity,de,Naturalien,Produits en nature,Goods in kind,Bienes en especie,Beni in natura
+,de,Naubion,Naubion,Naubion,Naubion,Naubion
+,de,Naukleros,Naukleros,Naukleros,Naukleros,Naukleros
+,de,Nestnephis,Nestnephis,Nestnephis,Nestnephis,Nestnephis
+,de,nicht näher bestimmbar,non précisable,not further determinable,no especificable,non meglio precisabile
+,de,Nikon an Zenon,Nikon à Zénon,Nikon to Zeno,Nikon a Zenón,Nikon a Zenone
+,de,Nil,Nil,Nile,Nilo,Nilo
+,de,NN an Apollonios,NN à Apollonios,NN to Apollonius,NN a Apolonio,NN a Apollonio
+,de,NN an den König,NN au roi,NN to the king,NN al rey,NN al re
+,de,NN an Herakleides,NN à Héraclide,NN to Heraclides,NN a Heráclides,NN a Eraclide
+,de,NN an NN,NN à NN,NN to NN,NN a NN,NN a NN
+,de,NN an Zenon,NN à Zénon,NN to Zeno,NN a Zenón,NN a Zenone
+,de,Nomarch,Nomarque,Nomarch,Nomarca,Nomarca
+,de,Notar,Notaire,Notary,Notario,Notaio
+,de,Notariat,Notariat,Notarial office,Notaría,Notariato
+type,de,Notarsunterschrift,Signature du notaire,Notary's signature,Firma del notario,Firma del notaio
+,de,Notarunterschrift,Signature du notaire,Notary's signature,Firma del notario,Firma del notaio
+type,de,Notiz,Note,Note,Nota,Nota
+,de,Notiz über Zahlung von Geld,Note sur paiement d'argent,Note on payment of money,Nota sobre pago de dinero,Nota su pagamento di denaro
+type,de,Notizen,Notes,Notes,Notas,Note
+commodity,de,Obst,Fruits,Fruit,Fruta,Frutta
+,de,Obstgarten,Verger,Orchard,Huerto,Frutteto
+,de,Oikonomos,Oikonomos,Oikonomos,Oikonomos,Oikonomos
+commodity,de,Öl,Huile,Oil,Aceite,Olio
+,de,Ölhersteller,Producteur d'huile,Oil producer,Productor de aceite,Produttore d'olio
+commodity,de,Oliven,Olives,Olives,Aceitunas,Olive
+,de,Olivenöl,Huile d'olive,Olive oil,Aceite de oliva,Olio d'oliva
+,de,Ölmühle,Moulin à huile,Oil mill,Almazara,Frantoio
+,de,Opfer,Sacrifice,Sacrifice,Sacrificio,Sacrificio
+,de,Orakel,Oracle,Oracle,Oráculo,Oracolo
+,de,Ordre de transport «shiné nsa»,Ordre de transport «shiné nsa»,Transport order «shiné nsa»,Orden de transporte «shiné nsa»,Ordine di trasporto «shiné nsa»
+,de,Orte,Lieux,Places,Lugares,Luoghi
+,de,Ortschaften,Localités,Localities,Localidades,Località
+,de,Ortsname,Toponyme,Place name,Topónimo,Toponimo
+,de,Ortsnamen,Toponymes,Place names,Topónimos,Toponimi
+,de,Pacht,Bail,Lease,Arrendamiento,Affitto
+,de,Pächter,Fermier,Tenant,Arrendatario,Affittuario
+type,de,Pachtzins,Loyer foncier,Rent,Renta de arrendamiento,Canone d'affitto
+,de,Pagarch,Pagarque,Pagarch,Pagarca,Pagarca
+,de,Pain,Pain,Bread,Pan,Pane
+,de,Palmen,Palmiers,Palms,Palmeras,Palme
+,de,Palmenhain,Palmeraie,Palm grove,Palmeral,Palmeto
+,de,Papyrus,Papyrus,Papyrus,Papiro,Papiro
+type,de,Parachoresis,Parachorèse,Parachoresis,Paracoresis,Paracoresi
+,de,Paramone,Paramonè,Paramone,Paramone,Paramone
+,de,Paratheke,Parathèkè,Paratheke,Paratheke,Paratheke
+type,de,Passierschein,Laissez-passer,Pass,Salvoconducto,Lasciapassare
+,de,Pech,Poix,Pitch,Pez,Pece
+type,de,Penthemeros,Penthémèros,Penthemeros,Penthemeros,Penthemeros
+,de,Penthemeros - Quittung,Quittance pentheméros,Penthemeros receipt,Recibo penthemeros,Ricevuta pentheméros
+,de,Personen,Personnes,Persons,Personas,Persone
+,de,Personenbeschreibung,Description de personne,Description of person,Descripción de persona,Descrizione di persona
+type,de,Petition,Pétition,Petition,Petición,Petizione
+,de,Pfand,Gage,Pledge,Prenda,Pegno
+,de,Pfändung,Saisie,Distraint,Embargo,Pignoramento
+,de,Pferd,Cheval,Horse,Caballo,Cavallo
+,de,Pferde,Chevaux,Horses,Caballos,Cavalli
+commodity,de,Pflanzen,Plantes,Plants,Plantas,Piante
+,de,Philinos an Zenon,Philinos à Zénon,Philinus to Zeno,Filino a Zenón,Filino a Zenone
+,de,Philokles an Kapparis,Philoklès à Kapparis,Philokles to Kapparis,Filocles a Kapparis,Filocle a Kapparis
+,de,Plan,Plan,Plan,Plan,Piano
+,de,Polizei,Police,Police,Policía,Polizia
+,de,Post,Poste,Post,Correo,Posta
+,de,praefectus Aegypti,praefectus Aegypti,praefectus Aegypti,praefectus Aegypti,praefectus Aegypti
+,de,Präfekt,Préfet,Prefect,Prefecto,Prefetto
+,de,praktor,praktor,praktor,praktor,praktor
+,de,Praktores,Praktores,Praktores,Praktores,Praktores
+,de,Präskript,Préscript,Prescript,Prescript,Prescript
+,de,Preis,Prix,Price,Precio,Prezzo
+,de,Preise,Prix,Prices,Precios,Prezzi
+,de,Priester,Prêtre,Priest,Sacerdote,Sacerdote
+type,de,privat,privé,private,privado,privato
+,de,Privilegien,Privilèges,Privileges,Privilegios,Privilegi
+,de,Programm,Programme,Programme,Programa,Programma
+,de,Pronoetes,Pronoètes,Pronoetes,Pronoetes,Pronoetes
+,de,Prosangelma,Prosangelma,Prosangelma,Prosangelma,Prosangelma
+,de,Proskynema,Proskynèma,Proskynema,Proskynema,Proskynema
+,de,Prostagma,Prostagma,Prostagma,Prostagma,Prostagma
+type,de,Protokoll,Protocole,Protocol,Protocolo,Protocollo
+,de,Protokoll (griechisch) und Unterschrift,Protocole (grec) et signature,Protocol (Greek) and signature,Protocolo (griego) y firma,Protocollo (greco) e firma
+,de,Prozeß,Procès,Trial,Proceso,Processo
+,de,Prügel,Coups,Beating,Golpes,Percosse
+type,de,Quittung,Quittance,Receipt,Recibo,Ricevuta
+,de,Quittung oder Notiz,Quittance ou note,Receipt or note,Recibo o nota,Ricevuta o nota
+type,de,Quittungen,Quittances,Receipts,Recibos,Ricevute
+,de,Quittungsbogen,Feuille de quittances,Receipt sheet,Hoja de recibos,Foglio di ricevute
+,de,Rat,Conseil,Council,Consejo,Consiglio
+,de,Ration,Ration,Ration,Ración,Razione
+,de,Rationen,Rations,Rations,Raciones,Razioni
+,de,Raub,Vol,Robbery,Robo,Rapina
+type,de,Rechnung,Compte,Account,Cuenta,Conto
+type,de,Rechnungen,Comptes,Accounts,Cuentas,Conti
+,de,Rechte,Droits,Rights,Derechos,Diritti
+,de,Rechtsangelegenheit,Affaire juridique,Legal matter,Asunto jurídico,Questione giuridica
+,de,Rechtsstreit,Litige,Lawsuit,Litigio,Controversia
+,de,Regelung,Règlement,Settlement,Reglamento,Regolamento
+,de,Regelungen,Règlements,Settlements,Reglamentos,Regolamenti
+type,de,Register,Registre,Register,Registro,Registro
+,de,Registrierung,Enregistrement,Registration,Registro,Registrazione
+,de,Reise,Voyage,Journey,Viaje,Viaggio
+,de,Reisen,Voyages,Journeys,Viajes,Viaggi
+,de,Reiter,Cavalier,Horseman,Jinete,Cavaliere
+,de,Religion,Religion,Religion,Religión,Religione
+,de,Rennen,Course,Race,Carrera,Corsa
+,de,Reparatur,Réparation,Repair,Reparación,Riparazione
+,de,Requisitionen,Réquisitions,Requisitions,Requisas,Requisizioni
+,de,Reskript,Rescrit,Rescript,Rescripto,Rescritto
+,de,Rettich,Radis,Radish,Rábano,Ravanello
+,de,Rezept,Recette,Recipe,Receta,Ricetta
+,de,Rezepte,Recettes,Recipes,Recetas,Ricette
+,de,Rinder,Bovins,Cattle,Ganado bovino,Bovini
+,de,Rizinus,Ricin,Castor,Ricino,Ricino
+,de,Rohr,Roseau,Reed,Caña,Canna
+,de,Rolle,Rouleau,Roll,Rollo,Rotolo
+,de,römische Zahlen,chiffres romains,Roman numerals,números romanos,numeri romani
+,de,Rückgabe,Restitution,Return,Devolución,Restituzione
+,de,Rückstand,Arriéré,Arrears,Atraso,Arretrato
+,de,Rückstände,Arriérés,Arrears,Atrasos,Arretrati
+,de,Rückzahlung,Remboursement,Repayment,Reembolso,Rimborso
+,de,Rückzahlung eines Darlehens,Remboursement d'un prêt,Repayment of a loan,Reembolso de un préstamo,Rimborso di un prestito
+commodity,de,Saat,Semence,Seed,Semilla,Semente
+commodity,de,Saatgut,Semence,Seed,Semilla,Sementi
+,de,Säcke,Sacs,Sacks,Sacos,Sacchi
+,de,Salaisons,Salaisons,Salted goods,Salazones,Salumi
+,de,Salbe,Onguent,Ointment,Ungüento,Unguento
+,de,Salz,Sel,Salt,Sal,Sale
+,de,Salzsteuer,Impôt sur le sel,Salt tax,Impuesto sobre la sal,Tassa sul sale
+,de,Samen,Semence,Seed,Semilla,Semente
+type,de,Sammelquittung,Quittance collective,Collective receipt,Recibo colectivo,Ricevuta collettiva
+,de,Sammlung,Collection,Collection,Colección,Collezione
+,de,Schaden,Dommage,Damage,Daño,Danno
+animals,de,Schafe,Moutons,Sheep,Ovejas,Pecore
+,de,Schätzung,Estimation,Estimate,Estimación,Stima
+type,de,Scheidung,Divorce,Divorce,Divorcio,Divorzio
+type,de,Schenkung,Donation,Donation,Donación,Donazione
+,de,Schenkung (Testament) auf den Todesfall,Donation (testament) à cause de mort,Gift (testament) on death,Donación (testamento) por causa de muerte,Donazione (testamento) a causa di morte
+,de,Schenkung eines Kindes an ein Kloster,Donation d'un enfant à un monastère,Donation of a child to a monastery,Donación de un niño a un monasterio,Donazione di un bambino a un monastero
+,de,Schiff,Bateau,Ship,Barco,Nave
+,de,Schiffbau,Construction navale,Shipbuilding,Construcción naval,Costruzione navale
+,de,Schiffe,Bateaux,Ships,Barcos,Navi
+,de,Schiffer,Marinier,Boatman,Barquero,Battelliere
+,de,Schiffsbau,Construction navale,Shipbuilding,Construcción naval,Costruzione navale
+,de,Schlichtung,Conciliation,Arbitration,Conciliación,Conciliazione
+,de,Schluß,Conclusion,Conclusion,Conclusión,Conclusione
+,de,Schmied,Forgeron,Smith,Herrero,Fabbro
+,de,Schmuck,Bijoux,Jewellery,Joyas,Gioielli
+type,de,Schreiben,Lettre,Letter,Carta,Lettera
+,de,Schreiber,Scribe,Scribe,Escriba,Scriba
+,de,Schreibübung,Exercice d'écriture,Writing exercise,Ejercicio de escritura,Esercizio di scrittura
+,de,Schreibübungen,Exercices d'écriture,Writing exercises,Ejercicios de escritura,Esercizi di scrittura
+,de,Schriftverkehr,Correspondance,Correspondence,Correspondencia,Corrispondenza
+,de,Schuld,Dette,Debt,Deuda,Debito
+,de,Schulden,Dettes,Debts,Deudas,Debiti
+,de,Schuldner,Débiteur,Debtor,Deudor,Debitore
+type,de,Schuldschein,Reconnaissance de dette,Promissory note,Pagaré,Pagherò
+,de,Schuldschein oder Quittung,Reconnaissance de dette ou quittance,Promissory note or receipt,Pagaré o recibo,Pagherò o ricevuta
+,de,Schultext,Texte scolaire,School text,Texto escolar,Testo scolastico
+,de,Schutz,Protection,Protection,Protección,Protezione
+,de,Schutzbriefe,Lettres de protection,Letters of protection,Cartas de protección,Lettere di protezione
+,de,Schwein,Porc,Pig,Cerdo,Maiale
+animals,de,Schweine,Porcs,Pigs,Cerdos,Maiali
+,de,Schwierigkeiten,Difficultés,Difficulties,Dificultades,Difficoltà
+,de,Scribe,Scribe,Scribe,Escriba,Scriba
+,de,Seeleute,Marins,Sailors,Marineros,Marinai
+,de,Seil,Corde,Rope,Cuerda,Corda
+,de,Seile,Cordes,Ropes,Cuerdas,Corde
+,de,Sendung,Envoi,Shipment,Envío,Invio
+,de,Sendung von Geld,Envoi d'argent,Sending of money,Envío de dinero,Invio di denaro
+commodity,de,Sesam,Sésame,Sesame,Sésamo,Sesamo
+,de,Sicherheit,Sûreté,Security,Seguridad,Sicurezza
+,de,Siegel,Sceau,Seal,Sello,Sigillo
+,de,Signalement,Signalement,Description,Filiación,Connotati
+,de,Silber,Argent,Silver,Plata,Argento
+official,de,Sitologe,Sitologue,Sitologos,Sitólogo,Sitologo
+official,de,Sitologen,Sitologues,Sitologoi,Sitólogos,Sitologi
+,de,Sklave,Esclave,Slave,Esclavo,Schiavo
+,de,Sklaven,Esclaves,Slaves,Esclavos,Schiavi
+,de,Sklavin,Esclave,Female slave,Esclava,Schiava
+,de,Sohn,Fils,Son,Hijo,Figlio
+,de,Sold,Solde,Pay,Paga,Soldo
+,de,Soldat,Soldat,Soldier,Soldado,Soldato
+,de,Soldat an cibariator,Soldat au cibariator,Soldier to cibariator,Soldado al cibariator,Soldato al cibariator
+,de,Soldaten,Soldats,Soldiers,Soldados,Soldati
+,de,Speicher,Grenier,Granary,Granero,Granaio
+,de,Speicherquittung,Quittance de grenier,Granary receipt,Recibo de granero,Ricevuta di granaio
+,de,Spezialisten,Spécialistes,Specialists,Especialistas,Specialisti
+,de,Sporteln,Sportules,Sportulae,Espórtulas,Sportule
+commodity,de,Spreu,Balle,Chaff,Paja,Pula
+,de,Staat,État,State,Estado,Stato
+,de,Staatsland,Terre d'État,State land,Tierra del Estado,Terra demaniale
+,de,Stall,Étable,Stable,Establo,Stalla
+,de,Steckbrief,Avis de recherche,Wanted notice,Orden de busca,Avviso di ricerca
+,de,Steinbruch,Carrière,Quarry,Cantera,Cava
+,de,Steine,Pierres,Stones,Piedras,Pietre
+,de,Steinmetz,Tailleur de pierre,Stonemason,Cantero,Scalpellino
+,de,Stellung,Position,Position,Posición,Posizione
+,de,Stellvertreter,Représentant,Representative,Representante,Rappresentante
+,de,Stellvertretung,Représentation,Representation,Representación,Rappresentanza
+,de,Steuereinnehmer,Percepteur,Tax collector,Recaudador,Esattore
+,de,Steuern,Impôts,Taxes,Impuestos,Imposte
+,de,Steuerpächter,Fermier des impôts,Tax farmer,Arrendatario de impuestos,Appaltatore di imposte
+,de,Steuerzahler,Contribuable,Taxpayer,Contribuyente,Contribuente
+,de,Stoff,Étoffe,Fabric,Tela,Tessuto
+,de,Strafe,Peine,Penalty,Pena,Pena
+,de,Stratege,Stratège,Strategos,Estratega,Stratego
+official,de,strategos,strategos,strategos,strategos,strategos
+,de,Streit,Querelle,Dispute,Disputa,Lite
+,de,Stroh,Paille,Straw,Paja,Paglia
+,de,Subskription,Souscription,Subscription,Suscripción,Sottoscrizione
+,de,Symmachos,Symmachos,Symmachos,Symmachos,Symmachos
+,de,Syntaximon,Syntaximon,Syntaximon,Syntaximon,Syntaximon
+,de,Syros an Heroninos,Syros à Héroninos,Syros to Heroninus,Syros a Heronino,Syros a Heroninos
+,de,Tabelle,Tableau,Table,Tabla,Tabella
+,de,Tachygraphie,Tachygraphie,Tachygraphy,Taquigrafía,Tachigrafia
+,de,Tag,Jour,Day,Día,Giorno
+,de,Tage,Jours,Days,Días,Giorni
+,de,Tagebuch,Journal,Diary,Diario,Diario
+,de,Tagebuch einer Poststation (Fragment),Journal d'une station postale (fragment),Diary of a postal station (fragment),Diario de una estación postal (fragmento),Diario di una stazione postale (frammento)
+,de,Tagesdaten,Dates journalières,Daily dates,Fechas diarias,Date giornaliere
+,de,Taubenschlag,Pigeonnier,Dovecote,Palomar,Colombaia
+,de,Tausch,Échange,Exchange,Intercambio,Scambio
+,de,Teil,Partie,Part,Parte,Parte
+,de,Teile,Parties,Parts,Partes,Parti
+,de,Teilpacht,Métayage,Sharecropping,Aparcería,Mezzadria
+type,de,Teilung,Partage,Division,División,Divisione
+,de,Tempel,Temple,Temple,Templo,Tempio
+,de,Tenne,Aire de battage,Threshing floor,Era,Aia
+,de,tessera,tessera,tessera,tessera,tessera
+type,de,Testament,Testament,Testament,Testamento,Testamento
+,de,Testamente,Testaments,Testaments,Testamentos,Testamenti
+,de,Textile,Textile,Textile,Textil,Tessile
+,de,Textiles,Textiles,Textiles,Textiles,Tessili
+,de,Textilien,Textiles,Textiles,Textiles,Tessili
+,de,Tier,Animal,Animal,Animal,Animale
+animals,de,Tiere,Animaux,Animals,Animales,Animali
+,de,Tilgung,Amortissement,Repayment,Amortización,Estinzione
+,de,Titulatur,Titulature,Titulature,Titulatura,Titolatura
+,de,Tochter,Fille,Daughter,Hija,Figlia
+,de,Tod,Mort,Death,Muerte,Morte
+,de,Todesfall,Décès,Death,Defunción,Decesso
+,de,tomos synkollesimos,tomos synkollesimos,tomos synkollesimos,tomos synkollesimos,tomos synkollesimos
+,de,Tonkrug,Cruche en terre,Earthenware jug,Cántaro de barro,Brocca di terracotta
+,de,Töpfer,Potier,Potter,Alfarero,Vasaio
+,de,Töpferei,Poterie,Pottery,Alfarería,Ceramica
+type,de,Torzoll,Taxe de passage,Gate toll,Portazgo,Pedaggio
+,de,Transport,Transport,Transport,Transporte,Trasporto
+,de,Transport auf Eseln,Transport à dos d'âne,Transport by donkey,Transporte en burros,Trasporto su asini
+,de,Transport auf Kamelen,Transport à dos de chameau,Transport by camel,Transporte en camellos,Trasporto su cammelli
+commodity,de,Trauben,Raisins,Grapes,Uvas,Uva
+,de,Truppenversorgung,Approvisionnement des troupes,Troop supply,Avituallamiento de tropas,Approvvigionamento delle truppe
+,de,turma,turma,turma,turma,turma
+,de,Übereinkunft,Accord,Agreement,Acuerdo,Accordo
+,de,Überfall,Agression,Assault,Asalto,Aggressione
+,de,Übergabe,Remise,Handover,Entrega,Consegna
+,de,Übernahme,Prise en charge,Takeover,Toma a cargo,Presa in carico
+,de,Überprüfung,Vérification,Verification,Verificación,Verifica
+,de,Übersicht,Aperçu,Overview,Resumen,Quadro
+type,de,Überstellung,Transfert,Transfer,Traslado,Trasferimento
+,de,Übertragung,Transfert,Transfer,Transferencia,Trasferimento
+,de,Überweisung,Virement,Transfer,Transferencia,Bonifico
+,de,Überweisung von Getreidemengen,Virement de quantités de grain,Transfer of quantities of grain,Transferencia de cantidades de grano,Bonifico di quantità di grano
+,de,Übung,Exercice,Exercise,Ejercicio,Esercizio
+,de,Uhrzeit,Heure,Time,Hora,Ora
+,de,Umlage,Répartition,Apportionment,Reparto,Ripartizione
+,de,Umschreibung,Réécriture,Transcription,Transcripción,Trascrizione
+type,de,unbestimmbar,indéterminable,indeterminable,indeterminable,indeterminabile
+,de,unbewässert,non irrigué,unirrigated,sin riego,non irrigato
+,de,unbewässertes Land,terre non irriguée,unirrigated land,tierra sin riego,terra non irrigata
+,de,Unterhalt,Entretien,Maintenance,Manutención,Mantenimento
+,de,Unterschrift,Signature,Signature,Firma,Firma
+,de,Unterschriften,Signatures,Signatures,Firmas,Firme
+,de,Untersuchung,Enquête,Investigation,Investigación,Indagine
+type,de,Urkunde,Acte,Deed,Escritura,Atto
+,de,Urteil,Jugement,Judgement,Sentencia,Sentenza
+,de,Verein,Association,Association,Asociación,Associazione
+,de,Vereinbarung,Convention,Agreement,Acuerdo,Accordo
+,de,Verfügung,Disposition,Disposition,Disposición,Disposizione
+,de,Vergleich,Compromis,Settlement,Acuerdo,Transazione
+,de,Verhaftung,Arrestation,Arrest,Detención,Arresto
+,de,Verhandlung,Audience,Hearing,Audiencia,Udienza
+type,de,Verkauf,Vente,Sale,Venta,Vendita
+,de,Verladung,Chargement,Loading,Carga,Carico
+,de,Verletzung,Blessure,Injury,Herida,Ferita
+,de,Verlust,Perte,Loss,Pérdida,Perdita
+,de,Vermerk,Note,Note,Nota,Annotazione
+,de,Vermessung,Arpentage,Survey,Mensura,Misurazione
+,de,Vermögen,Fortune,Wealth,Patrimonio,Patrimonio
+,de,Verpflegung,Ravitaillement,Provisioning,Avituallamiento,Vettovagliamento
+,de,Verpflichtung,Obligation,Obligation,Obligación,Obbligo
+,de,Verpflichtung zum Transport nach Alexandria,Obligation de transport vers Alexandrie,Obligation to transport to Alexandria,Obligación de transporte a Alejandría,Obbligo di trasporto ad Alessandria
+,de,verrichtete Arbeit,travail effectué,work performed,trabajo realizado,lavoro svolto
+,de,Versorgung,Approvisionnement,Supply,Suministro,Approvvigionamento
+,de,Versprechen,Promesse,Promise,Promesa,Promessa
+,de,Versteigerung,Vente aux enchères,Auction,Subasta,Asta
+,de,Verteilung,Distribution,Distribution,Distribución,Distribuzione
+type,de,Vertrag,Contrat,Contract,Contrato,Contratto
+type,de,Verträge,Contrats,Contracts,Contratos,Contratti
+,de,Verwalter,Administrateur,Administrator,Administrador,Amministratore
+,de,Verwaltung,Administration,Administration,Administración,Amministrazione
+type,de,Verzeichnis,Registre,Register,Registro,Registro
+,de,Verzeichnis über Eingang und Weiterleitung von Briefen,Registre des lettres reçues et transmises,Register of incoming and forwarded letters,Registro de cartas recibidas y transmitidas,Registro delle lettere ricevute e inoltrate
+,de,Verzicht,Renonciation,Renunciation,Renuncia,Rinuncia
+,de,vestis militaris,vestis militaris,vestis militaris,vestis militaris,vestis militaris
+,de,Veteran,Vétéran,Veteran,Veterano,Veterano
+animals,de,Vieh,Bétail,Livestock,Ganado,Bestiame
+,de,Vin,Vin,Wine,Vino,Vino
+,de,Vögel,Oiseaux,Birds,Aves,Uccelli
+,de,Vollmacht,Procuration,Power of attorney,Poder,Procura
+type,de,Vorauszahlung,Avance,Advance payment,Pago anticipado,Acconto
+type,de,Vorladung,Citation,Summons,Citación,Citazione
+,de,Vormund,Tuteur,Guardian,Tutor,Tutore
+,de,Vormundschaft,Tutelle,Guardianship,Tutela,Tutela
+type,de,Vorschlag,Proposition,Proposal,Propuesta,Proposta
+,de,Voyage au nord,Voyage au nord,Voyage to the north,Viaje al norte,Viaggio a nord
+,de,Wache,Garde,Guard,Guardia,Guardia
+,de,Wächter,Gardien,Watchman,Vigilante,Custode
+,de,Wagen,Char,Wagon,Carro,Carro
+,de,Waise,Orphelin,Orphan,Huérfano,Orfano
+,de,Waisen,Orphelins,Orphans,Huérfanos,Orfani
+,de,Waren,Marchandises,Goods,Mercancías,Merci
+,de,Wasser,Eau,Water,Agua,Acqua
+,de,Wasserrad,Roue à eau,Water wheel,Noria,Ruota idraulica
+,de,Weber,Tisserand,Weaver,Tejedor,Tessitore
+,de,Weberei,Tissage,Weaving,Tejido,Tessitura
+,de,Weide,Pâturage,Pasture,Pastizal,Pascolo
+,de,Weihung,Consécration,Dedication,Consagración,Consacrazione
+commodity,de,Wein,Vin,Wine,Vino,Vino
+,de,Weinbau,Viticulture,Viticulture,Viticultura,Viticoltura
+,de,Weinberg,Vignoble,Vineyard,Viñedo,Vigneto
+,de,Weingarten,Vigne,Vineyard,Viña,Vigna
+,de,Weinland,Terre à vigne,Vineyard land,Tierra de viña,Terreno vitato
+,de,Weinlese,Vendange,Wine harvest,Vendimia,Vendemmia
+commodity,de,Weizen,Blé,Wheat,Trigo,Grano
+commodity,de,Werg,Étoupe,Tow,Estopa,Stoppa
+,de,Werkstatt,Atelier,Workshop,Taller,Officina
+,de,Werkvertrag,Contrat d'entreprise,Work contract,Contrato de obra,Contratto d'opera
+,de,Werkzeug,Outil,Tool,Herramienta,Utensile
+,de,Werkzeuge,Outils,Tools,Herramientas,Utensili
+,de,Wirtschaft,Économie,Economy,Economía,Economia
+,de,Witwe,Veuve,Widow,Viuda,Vedova
+,de,Wohnrecht,Droit d'habitation,Right of residence,Derecho de habitación,Diritto di abitazione
+,de,Wohnung,Logement,Dwelling,Vivienda,Abitazione
+commodity,de,Wolle,Laine,Wool,Lana,Lana
+,de,Zahl,Nombre,Number,Número,Numero
+,de,Zahlen,Nombres,Numbers,Números,Numeri
+type,de,Zahlung,Paiement,Payment,Pago,Pagamento
+,de,Zahlung eines Darlehens in Saatgut,Paiement d'un prêt en semence,Payment of a loan in seed,Pago de un préstamo en semilla,Pagamento di un prestito in sementi
+,de,Zahlung von Geld,Paiement d'argent,Payment of money,Pago de dinero,Pagamento di denaro
+type,de,Zahlungen,Paiements,Payments,Pagos,Pagamenti
+type,de,Zahlungsanweisung,Ordre de paiement,Payment order,Orden de pago,Ordine di pagamento
+,de,Zahlungsauftrag,Ordre de paiement,Payment order,Orden de pago,Ordine di pagamento
+,de,Zauber,Sortilège,Spell,Hechizo,Incantesimo
+,de,Zeichnung,Dessin,Drawing,Dibujo,Disegno
+type,de,Zensus,Recensement,Census,Censo,Censimento
+,de,Zeuge,Témoin,Witness,Testigo,Testimone
+,de,Zeugen,Témoins,Witnesses,Testigos,Testimoni
+,de,Zeugenaussage,Témoignage,Witness statement,Testimonio,Testimonianza
+,de,Ziegel,Brique,Brick,Ladrillo,Mattone
+animals,de,Ziegen,Chèvres,Goats,Cabras,Capre
+,de,Zimmer,Chambre,Room,Habitación,Stanza
+,de,Zimmermann,Charpentier,Carpenter,Carpintero,Falegname
+,de,Zins,Intérêt,Interest,Interés,Interesse
+,de,Zinsen,Intérêts,Interests,Intereses,Interessi
+,de,Zoll,Douane,Customs,Aduana,Dogana
+,de,Zubehör,Accessoires,Accessories,Accesorios,Accessori
+,de,Zucht,Élevage,Breeding,Cría,Allevamento
+,de,Zusammenfassung,Résumé,Summary,Resumen,Riassunto
+,de,Zusendung,Envoi,Sending,Envío,Invio
+,de,Zuteilung,Attribution,Allocation,Asignación,Assegnazione
+,de,zwei Exemplare,deux exemplaires,two copies,dos ejemplares,due esemplari
+,de,zwei Kopien,deux copies,two copies,dos copias,due copie
+,de,Zwillinge,Jumeaux,Twins,Gemelos,Gemelli
