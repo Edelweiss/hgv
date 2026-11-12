@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Psr\Log\LoggerInterface;
 
 use App\Service\MatomoReport;
 
@@ -36,45 +38,48 @@ class DefaultController extends HgvController
     return $this->render('default/publication.html.twig');
   }
 
-  public function feedback(): Response
+  public function feedback(LoggerInterface $logger): Response
   {
-    $to = 'Dieter Hagedorn <dieter.hagedorn@urz.uni-heidelberg.de>, James Cowey <james.cowey@urz.uni-heidelberg.de>, Carmen Lanz <carmen.lanz@zaw.uni-heidelberg.de>';
-    $to = 'James Cowey <james.cowey@urz.uni-heidelberg.de>, Carmen Lanz <carmen.lanz@zaw.uni-heidelberg.de>';
-    $name    = $this->smcf_filter($this->getInputParameter('name'));
-    $email   = $this->smcf_filter($this->getInputParameter('email'));
-    $subject = $this->smcf_filter($this->getInputParameter('subject'));
-    $message = $this->smcf_filter($this->getInputParameter('message'));
+    try {
+      $to = 'James Cowey <james.cowey@urz.uni-heidelberg.de>, Carmen Lanz <carmen.lanz@zaw.uni-heidelberg.de>';
+      $name    = $this->smcf_filter($this->getInputParameter('name') ?? '');
+      $email   = $this->smcf_filter($this->getInputParameter('email') ?? '');
+      $subject = $this->smcf_filter($this->getInputParameter('subject') ?? '');
+      $message = $this->smcf_filter($this->getInputParameter('message') ?? '');
 
-    $data = array('name' => $name, 'email' => $email, 'subject' => $subject, 'message' => $message);
-    
-    //return new Response(json_encode(array('success' => false, 'error' => 'Leider konnte Ihre Nachricht nicht gesendet werden. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt per <a href="mailto:dieter.hagedorn@urz.uni-heidelberg.de,james.cowey@urz.uni-heidelberg.de,carmen.lanz@zaw.uni-heidelberg.de?subject=' . $subject . '&body=' . $message . '">E-Mail</a>.', 'data' => $data)));
+      $data = array('name' => $name, 'email' => $email, 'subject' => $subject, 'message' => $message);
+      
+      if($this->smcf_validate_email($email)){
+        // Set and wordwrap message body
+        $body = wordwrap($message, 70);
 
-    if($this->smcf_validate_email($email)){
-      // Set and wordwrap message body
-      $body = wordwrap($message, 70);
+        // Build header
+        $fromName = strlen($name) ? $name . ' <' . $email . '>' : $email;
+        $headers = 'From: ' . $fromName . "\n" . "X-Mailer: PHP/SimpleModalContactForm";
 
-      // Build header
-      $headers = 'From: ' . (count($name) ? $name . '<' . $email . '>' : $email) . "\n" . "X-Mailer: PHP/SimpleModalContactForm";
+        // UTF-8
+        if (function_exists('mb_encode_mimeheader')) {
+          $subject = mb_encode_mimeheader($subject, "UTF-8", "B", "\n");
+        }
+        $headers .= "MIME-Version: 1.0\n";
+        $headers .= "Content-type: text/plain; charset=utf-8\n";
+        $headers .= "Content-Transfer-Encoding: quoted-printable\n";
 
-      // UTF-8
-      if (function_exists('mb_encode_mimeheader')) {
-        $subject = mb_encode_mimeheader($subject, "UTF-8", "B", "\n");
+        // Send email
+        if(mail($to, $subject, $body, $headers)){
+          return new JsonResponse(array('success' => true, 'data' => $data));
+        }
+        
+        $logger->error('Feedback email could not be sent', ['to' => $to, 'from' => $email, 'subject' => $subject]);
+      } else {
+        $logger->warning('Feedback email validation failed', ['email' => $email]);
       }
-      else {
-        // you need to enable mb_encode_mimeheader or risk 
-        // getting emails that are not UTF-8 encoded
-      }
-      $headers .= "MIME-Version: 1.0\n";
-      $headers .= "Content-type: text/plain; charset=utf-8\n";
-      $headers .= "Content-Transfer-Encoding: quoted-printable\n";
 
-      // Send email
-      if(@mail($to, $subject, $body, $headers)){
-        return new Response(json_encode(array('success' => true, 'data' => $data)));
-      }
+      return new JsonResponse(array('success' => false, 'error' => 'Leider konnte Ihre Nachricht nicht gesendet werden. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt per <a href="mailto:dieter.hagedorn@urz.uni-heidelberg.de,james.cowey@urz.uni-heidelberg.de,carmen.lanz@zaw.uni-heidelberg.de?subject=' . urlencode($this->smcf_filter($this->getInputParameter('subject') ?? '')) . '&body=' . urlencode($this->smcf_filter($this->getInputParameter('message') ?? '')) . '">E-Mail</a>.', 'data' => $data), 200);
+    } catch (\Exception $e) {
+      $logger->error('Feedback form error: ' . $e->getMessage(), ['exception' => $e]);
+      return new JsonResponse(array('success' => false, 'error' => 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.'), 500);
     }
-
-    return new Response(json_encode(array('success' => false, 'error' => 'Leider konnte Ihre Nachricht nicht gesendet werden. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns direkt per <a href="mailto:dieter.hagedorn@urz.uni-heidelberg.de,james.cowey@urz.uni-heidelberg.de,carmen.lanz@zaw.uni-heidelberg.de?subject=' . $subject . '&body=' . $message . '">E-Mail</a>.', 'data' => $data)));
   }
 
   private function smcf_filter($value) {

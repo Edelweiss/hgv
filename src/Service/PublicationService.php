@@ -176,7 +176,7 @@ class PublicationService
             return $this->index;
         }
 
-        $cacheTtlSeconds = 86400;
+        $cacheTtlSeconds = 604800; // 7 days
         if (is_file($this->cacheFile) && (time() - filemtime($this->cacheFile) < $cacheTtlSeconds)) {
             $json = file_get_contents($this->cacheFile);
             $cached = json_decode((string)$json, true);
