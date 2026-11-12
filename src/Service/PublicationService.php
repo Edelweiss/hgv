@@ -31,7 +31,7 @@ class PublicationService
         $this->hgvRoot = $paths['hgvRoot'];
         $this->historicalRoot = $paths['historicalRoot'];
         $this->rdfCollectionFile = $paths['rdfCollectionFile'];
-        $this->cacheFile = dirname(__DIR__, 2) . '/var/cache/publication_index.json';
+        $this->cacheFile = dirname(__DIR__, 2) . '/data/publication_index.json';
     }
 
     /**
