@@ -71,6 +71,14 @@
         </td>
       </tr>
     {% endif %}
+    {% if record.DdbSer == 'o.berenike' %}
+      <tr>
+        <th>Berenike.project</span></th>
+        <td>
+          <a target="Neu" href="https://berenike.zaw.uni-heidelberg.de/tm/{{ record.tm }}">{{ 'datasheet.bl_online'|trans }}</a>
+        </td>
+      </tr>
+    {% endif %}
     {% if record.commentary %}
       <tr>
         <th>{{ 'datasheet.commentary'|trans }}</th>
@@ -184,18 +192,14 @@
     {% if record.hasHtmlDdb %}
       <h6>
         {{ 'datasheet.ddb_texts'|trans }}
-        {% if record.ddbSer %}
-          <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
-        {% endif %}
+        <a target="Text" href="http://papyri.info/current/{{ record.hgvId }}">papyri.info</a>
         <span class="show">{{ 'datasheet.ddb_show_info'|trans }}</span>
         <button class="clipboard" data-clipboard-target="#ddbText" title="Firefox 41+, Safari 10+, Chrome42+, Opera 29+, IE 9+, Edge12+">{{ 'datasheet.ddb_copy'|trans }}</button>
       </h6>    
       <div id="ddbText">
         {{ record.htmlDdb|raw }}
       </div>
-      {% if record.ddbSer %}
-        <a target="Text" href="http://papyri.info/ddbdp/{{ record.ddbSer }};{{ record.ddbVol }};{{ record.ddbDoc }}">papyri.info</a>
-      {% endif %}
+      <a target="Text" href="http://papyri.info/current/{{ record.hgvId }}">papyri.info</a>
     {% else %}
       {{ 'datasheet.no_ddb_text'|trans }}
     {% endif %}

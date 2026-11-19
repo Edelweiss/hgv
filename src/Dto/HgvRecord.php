@@ -93,6 +93,7 @@ class HgvRecord
     public function getDdbSer(): ?string { return $this->data['ddbSer'] ?? null; }
     public function getDdbVol(): ?string { return $this->data['ddbVol'] ?? null; }
     public function getDdbDoc(): ?string { return $this->data['ddbDoc'] ?? null; }
+    public function getDdbHybrid(): ?string { return $this->data['ddbDoc'] . ';' . ($this->data['ddbVol'] ?? '') . ';' . ($this->data['ddbSer'] ?? ''); }
 
     /** True when DDB text was found and extracted from the BaseX ddb database. */
     public function hasHtmlDdb(): bool   { return !empty($this->data['ddbText']); }
