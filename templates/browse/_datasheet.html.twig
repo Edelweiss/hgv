@@ -71,11 +71,11 @@
         </td>
       </tr>
     {% endif %}
-    {% if record.DdbSer == 'o.berenike' or 'Berenike' in record.otherPublications %}
+    {% if record.DdbSer == 'o.berenike' or   'Berenike' in record.otherPublications %}
       <tr>
-        <th>Berenike.project</span></th>
+        <th>Berenike online</span></th>
         <td>
-          <a target="Neu" href="https://berenike.zaw.uni-heidelberg.de/tm/{{ record.tm }}">{{ 'datasheet.bl_online'|trans }}</a>
+          <a target="Neu" href="https://berenike.zaw.uni-heidelberg.de/tm/{{ record.tm }}">Berenike.project</a>
         </td>
       </tr>
     {% endif %}
